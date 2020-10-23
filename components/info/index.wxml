@@ -1,0 +1,9 @@
+<!--components/info/index.wxml-->
+<view class="cu-form-group margin-top">
+		<view class="title">普通选择</view>
+		<picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+			<view class="picker">
+				{{index?picker[index]:'禁止换行，超出容器部分会以 ... 方式截断'}}
+			</view>
+		</picker>
+	</view>

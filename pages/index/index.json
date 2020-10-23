@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "l-info":"/components/info/index"
+  }
+}
