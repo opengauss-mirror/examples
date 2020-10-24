@@ -1,13 +1,15 @@
 /*
  * @Author: Lamdaer
  * @Date: 2020-10-24 01:58:20
- * @LastEditTime: 2020-10-24 02:53:00
+ * @LastEditTime: 2020-10-24 03:28:07
  * @Description:
  * @FilePath: /opengauss/pages/index/index.js
  */
 // pages/index/index.js
 import { JobModel } from '../../model/job'
+import { HobbyParentModel } from '../../model/hobby-parent'
 const jobModel = new JobModel()
+const hobbyParentModel = new HobbyParentModel()
 Page({
   getJobList() {
     jobModel.getJobList().then((response) => {
@@ -17,11 +19,17 @@ Page({
       console.log(response)
     })
   },
+  getHobbyList() {
+    hobbyParentModel.getHobbyList().then((res) => {
+      console.log(res)
+    })
+  },
   /**
    * 页面的初始数据
    */
   data: {
     jobList: [],
+    hobbyParentList: [],
   },
 
   /**
@@ -29,6 +37,7 @@ Page({
    */
   onLoad: function (options) {
     this.getJobList()
+    this.getHobbyList()
   },
 
   /**
