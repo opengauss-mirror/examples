@@ -1,0 +1,13 @@
+<!-- components/info/index.wxml -->
+<view class="cu-form-group margin-top">
+		<view class="title">岗位</view>
+		<picker bindchange="jobChange" value="{{index}}" range="{{jobList}}" range-key="name">
+				<view class="picker">{{index?jobList[index].name:"请选择岗位"}}</view>
+		</picker>
+</view>
+<view class="cu-form-group">
+		<view class="title">多列选择</view>
+		<picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+				<view class="picker">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}</view>
+		</picker>
+</view>

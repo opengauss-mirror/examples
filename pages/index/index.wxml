@@ -1,0 +1,2 @@
+<!-- pages/index/index.wxml -->
+<l-info jobList="{{jobList}}"></l-info>
