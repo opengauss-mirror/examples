@@ -1,5 +1,5 @@
 # examples
 
-#### Description
+### Description
 
-This repository is an application open source project of OpenGauss
+This repository contains some applications and demos to illustrate possible use cases of openGauss.

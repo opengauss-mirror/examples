@@ -2,4 +2,4 @@
 
 ### 介绍
 
-本仓库是OpenGauss的一个应用开源项目
+本仓库包含一些基于openGauss的应用案例和Demo。
