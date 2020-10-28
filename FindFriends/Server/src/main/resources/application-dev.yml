@@ -1,0 +1,23 @@
+server:
+  port: 8001
+#生产环境设为 false
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+spring:
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: 
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: opengauss
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted
