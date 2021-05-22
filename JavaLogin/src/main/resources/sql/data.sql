@@ -1,0 +1,1 @@
+INSERT INTO public.user_info VALUES ('test', 'test', 'test', true, now());

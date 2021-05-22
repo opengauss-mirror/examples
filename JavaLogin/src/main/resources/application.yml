@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:postgresql://192.168.2.118:5432/test
+    username: test
+    password: 'Test1234'
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    schema: classpath:sql/schema.sql
+    data: classpath:sql/data.sql
+    initialization-mode: always
+    continue-on-error: true
+    hikari:
+      read-only: false
+      minimum-idle: 5
+      maximum-pool-size: 20
+
+mybatis:
+  config-location: classpath:mybatis/config.xml
+  mapper-locations: classpath*:mybatis/mapper/**/*Mapper.xml
