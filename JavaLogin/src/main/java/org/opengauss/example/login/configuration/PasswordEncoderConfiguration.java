@@ -8,8 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class PasswordEncoderConfiguration {
+
   @Bean
   public PasswordEncoder passwordEncoder() {
+    //默认测试使用不加密方式
     return NoOpPasswordEncoder.getInstance();
   }
 }

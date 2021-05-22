@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,11 +27,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncoder);
   }
 
-  //静态资源配置
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("**/*.js", "**/*.css");
-  }
+//  //静态资源配置
+//  @Override
+//  public void configure(WebSecurity web) throws Exception {
+//    web.ignoring().antMatchers("**/*.js", "**/*.css");
+//  }
 
   //HTTP请求配置
   @Override
