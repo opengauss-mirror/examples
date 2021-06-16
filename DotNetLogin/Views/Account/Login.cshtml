@@ -1,0 +1,61 @@
+﻿@model DotNetLogin.ViewModels.LoginViewModel
+@{
+  Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.83.1">
+  <title>OpenGauss Examples - DotNetLogin</title>
+
+  <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @@media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="~/css/signin.css" />
+</head>
+<body class="text-center">
+
+  <main class="form-signin">
+    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@Model.ReturnUrl" method="post">
+      <img class="mb-4" src="../img/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="@Model.Username" />
+        <label for="username">User</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="@Model.Password" />
+        <label for="password">Password</label>
+      </div>
+      @if (Model.IsError)
+      {
+        <div class="alert alert-danger" role="alert">
+          用户名或密码错误
+        </div>
+      }
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+    </form>
+  </main>
+
+</body>
+</html>
