@@ -1,0 +1,6 @@
+metrics_host=127.0.0.1
+metrics_port=3306
+metrics_username=root
+metrics_password=password
+metrics_database=metricsdb
+metrics_dbtype=mysql

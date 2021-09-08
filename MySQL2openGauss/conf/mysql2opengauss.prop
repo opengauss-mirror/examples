@@ -1,0 +1,11 @@
+mysql_host=127.0.0.1
+mysql_port=3306
+mysql_username=username
+mysql_password=password
+mysql_database=database
+opengauss_host=127.0.0.1
+opengauss_port=5432
+opengauss_username=opengauss
+opengauss_password=password
+opengauss_database=database
+loglevel=4

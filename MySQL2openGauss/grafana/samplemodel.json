@@ -1,0 +1,1293 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1000000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 19,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\nUNIX_TIMESTAMP(proctime) AS time_sec,\r\n  '数据库数量' AS metric,\r\n  count(*) AS '数据库数量' \r\nFROM db_info_metrics\r\n WHERE\r\n $__timeFilter(proctime) group by metric;\r\n ",
+          "refId": "A1",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\nUNIX_TIMESTAMP(proctime) AS time_sec,\r\n  '表数量' AS metric,\r\n  sum(tablecount) AS '表数量' \r\nFROM db_info_metrics\r\n WHERE\r\n $__timeFilter(proctime) group by metric;\r\n ",
+          "refId": "A2",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\nUNIX_TIMESTAMP(proctime) AS time_sec,\r\n  '视图数量' AS metric,\r\n  sum(viewcount) AS '视图数量' \r\nFROM db_info_metrics\r\n WHERE\r\n $__timeFilter(proctime) group by metric;\r\n ",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\nUNIX_TIMESTAMP(proctime) AS time_sec,\r\n  '存储过程数量' AS metric,\r\n  sum(procedurecount) AS '存储过程数量' \r\nFROM db_info_metrics WHERE\r\n $__timeFilter(proctime) group by metric;\r\n ",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\nUNIX_TIMESTAMP(proctime) AS time_sec,\r\n  '函数数量' AS metric,\r\n  sum(functioncount) AS '函数数量' \r\nFROM db_info_metrics WHERE\r\n $__timeFilter(proctime) group by metric;\r\n ",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "迁移数量",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 12,
+        "y": 0
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  '执行正确语句数量' AS metric,\r\n  sum(rightcount) AS '执行正确语句数量' \r\nFROM db_info_metrics\r\n WHERE\r\n $__timeFilter(proctime);\r\n ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  '执行错误语句数量' AS metric,\r\n  sum(errorcount) AS '执行错误语句数量' \r\nFROM db_info_metrics\r\n WHERE\r\n $__timeFilter(proctime);\r\n ",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "执行语句情况",
+      "type": "piechart"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 17,
+        "y": 0
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  proctime AS time,\r\n  concat(concat(srcaddr, srcdb), tablename) as series,\r\n  insertrightcount AS value \r\nFROM table_info_metrics\r\n WHERE\r\n $__timeFilter(proctime)\r\norder by value desc;\r\n ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "插入数据量",
+      "type": "piechart"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  proctime AS time,\r\n  concat(concat(srcaddr, srcdb), tablename) as series,\r\n  consumetime AS value \r\nFROM table_info_metrics\r\n WHERE\r\n $__timeFilter(proctime)\r\norder by value desc;\r\n ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "耗时情况(毫秒)",
+      "type": "piechart"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "panels": [],
+      "title": "基本信息",
+      "type": "row"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 16,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  $__timeGroupAlias(A.updatetime, $__interval),\r\n  concat(A.srcdb, '表') AS metric,\r\n  A.tablecount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(A.updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "表数量",
+          "select": [
+            [
+              {
+                "params": [
+                  "tablecount"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "time_db_info_metrics",
+          "timeColumn": "updatetime",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  $__timeGroupAlias(A.updatetime, $__interval),\r\n  concat(A.srcdb, '视图') AS metric,\r\n  A.viewcount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(A.updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "视图数量",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  $__timeGroupAlias(A.updatetime, $__interval),\r\n  concat(A.srcdb, '过程') AS metric,\r\n  A.procedurecount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(A.updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "过程数量",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  $__timeGroupAlias(A.updatetime, $__interval),\r\n  concat(A.srcdb, '函数') AS metric,\r\n  A.functioncount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(A.updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "函数数量",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "最近两个数据库的迁移数量",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 17,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(A.updatetime) AS time_sec,\r\n  concat(A.srcdb, '总数') AS metric,\r\n  A.totalcount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "总数",
+          "select": [
+            [
+              {
+                "params": [
+                  "tablecount"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "time_db_info_metrics",
+          "timeColumn": "updatetime",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(A.updatetime) AS time_sec,\r\n  concat(A.srcdb, '错误数') AS metric,\r\n  A.errorcount AS value \r\nFROM time_db_info_metrics A, (select srcdb from time_db_info_metrics group by proctime, srcdb order by updatetime desc limit 2) B\r\n WHERE\r\n $__timeFilter(updatetime) and \r\n A.srcdb = B.srcdb\r\n ORDER BY A.updatetime;\r\n ",
+          "refId": "错误数量",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "最近两个数据库的迁移语句执行数量",
+      "type": "state-timeline"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 12,
+      "panels": [],
+      "title": "详细信息",
+      "type": "row"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "源数据库"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "迁移时间"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "错误语句总数"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_sub(proctime, interval 8 hour) AS \"迁移时间\",\n  srcdb AS \"源数据库\",\n  dstdb AS \"目的数据库\",\n  errorcount AS \"错误语句总数\",\n  totalcount AS \"执行语句总数\",\n  rightcount AS \"正确语句总数\",\n  insertrightcount AS \"正确插入数据总量\",\n  inserterrorcount AS \"错误插入数据总量\",\n  consumetime AS \"迁移耗时（毫秒）\",\n  srcaddr AS \"源数据库地址\",\n  dstaddr AS \"目的数据库地址\",\n  date_sub(starttime, interval 8 hour) AS \"开始时间\",\n  date_sub(endtime, interval 8 hour) AS \"结束时间\"\nFROM db_info_metrics\nWHERE\n  $__timeFilter(starttime)\nORDER BY errorcount desc,srcdb asc limit 10",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "错误最多的数据库",
+      "type": "table"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 4,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_sub(proctime, interval 8 hour) AS \"迁移时间\",\n  srcdb AS \"源数据库\",\n  dstdb AS \"目的数据库\",\n  consumetime AS \"迁移耗时（毫秒）\",\n  totalcount AS \"执行语句总数\",\n  rightcount AS \"正确语句总数\",\n  errorcount AS \"错误语句总数\",\n  insertrightcount AS \"正确插入数据总量\",\n  inserterrorcount AS \"错误插入数据总量\",\n  srcaddr AS \"源数据库地址\",\n  dstaddr AS \"目的数据库地址\",\n  date_sub(starttime, interval 8 hour) AS \"开始时间\",\n  date_sub(endtime, interval 8 hour) AS \"结束时间\"\nFROM db_info_metrics\nWHERE\n  $__timeFilter(starttime)\nORDER BY consumetime desc,srcdb asc limit 10",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "srcdb"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "源数据库"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "dstdb"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "目标数据库"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "consumetime"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "迁移耗时"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "starttime",
+          "timeColumnType": "datetime",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "迁移耗时最长的数据库",
+      "type": "table"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "表名"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 8,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_sub(proctime, interval 8 hour) AS \"迁移时间\",\n  tablename AS \"表名\",\n  errorcount AS \"错误语句总数\",\n  totalcount AS \"执行语句总数\",\n  rightcount AS \"正确语句总数\",\n  insertrightcount AS \"正确插入数据总量\",\n  inserterrorcount AS \"错误插入数据总量\",\n  srcdb AS \"源数据库\",\n  dstdb AS \"目的数据库\",\n  consumetime AS \"迁移耗时（毫秒）\",\n  srcaddr AS \"源数据库地址\",\n  dstaddr AS \"目的数据库地址\",\n  date_sub(starttime, interval 8 hour) AS \"开始时间\",\n  date_sub(endtime, interval 8 hour) AS \"结束时间\"\nFROM table_info_metrics\nWHERE\n  $__timeFilter(starttime)\nORDER BY errorcount desc,tablename asc limit 10",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "错误最多的表",
+      "type": "table"
+    },
+    {
+      "datasource": "MySQL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 172
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tablename"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_sub(proctime, interval 8 hour) AS \"迁移时间\",\n  tablename AS \"表名\",\n  consumetime AS \"迁移耗时（毫秒）\",\n  srcdb AS \"源数据库\",\n  dstdb AS \"目的数据库\",\n  totalcount AS \"执行语句总数\",\n  rightcount AS \"正确语句总数\",\n  errorcount AS \"错误语句总数\",\n  insertrightcount AS \"正确插入数据总量\",\n  inserterrorcount AS \"错误插入数据总量\",\n  srcaddr AS \"源数据库地址\",\n  dstaddr AS \"目的数据库地址\",\n  date_sub(starttime, interval 8 hour) AS \"开始时间\",\n  date_sub(endtime, interval 8 hour) AS \"结束时间\"\nFROM table_info_metrics\nWHERE\n  $__timeFilter(starttime)\nORDER BY consumetime desc, tablename asc limit 10",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "consumetime"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "table_info_metrics",
+          "timeColumn": "starttime",
+          "timeColumnType": "datetime",
+          "where": []
+        }
+      ],
+      "title": "迁移耗时最长的表",
+      "type": "table"
+    },
+    {
+      "datasource": "MySQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 10,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "8.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_sub(proctime, interval 8 hour) AS \"迁移时间\",\n  name AS \"名称\",\n  type AS \"类型\",\n  errorinfo AS \"错误信息\",\n  sqldata AS \"sql语句\",\n  srcaddr AS \"源数据库地址\",\n  dstaddr AS \"目的数据库地址\",\n  srcdb AS \"源数据库\",\n  dstdb AS \"目的数据库\",\n  date_sub(starttime, interval 8 hour) AS \"开始时间\",\n  date_sub(endtime, interval 8 hour) AS \"结束时间\",\n  consumetime AS \"执行耗时（毫秒）\"\nFROM sql_info_metrics\nWHERE\n  $__timeFilter(starttime)\nORDER BY starttime desc, name asc limit 20",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "procpid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "db_info_metrics",
+          "timeColumn": "proctime",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "最近的sql错误",
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "mysql2opengauss",
+  "uid": "JK9lbinnz",
+  "version": 6
+}
