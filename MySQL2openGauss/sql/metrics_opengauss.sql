@@ -1,0 +1,100 @@
+CREATE TABLE "db_info_metrics" (
+  "procpid" integer(11) NOT NULL,
+  "proctime" timestamp without time zone NOT NULL,
+  "srcaddr" varchar(255),
+  "dstaddr" varchar(255),
+  "srcdb" varchar(255),
+  "dstdb" varchar(255),
+  "starttime" timestamp without time zone,
+  "endtime" timestamp without time zone,
+  "consumetime" integer(15),
+  "tablecount" integer(11),
+  "viewcount" integer(11),
+  "procedurecount" integer(11),
+  "functioncount" integer(11),
+  "totalcount" integer(15),
+  "rightcount" integer(15),
+  "errorcount" integer(15),
+  "insertrightcount" integer(15),
+  "inserterrorcount" integer(15),
+  PRIMARY KEY ("procpid", "proctime")
+);
+
+CREATE TABLE "time_db_info_metrics" (
+  "updatetime" timestamp without time zone NOT NULL,
+  "procpid" integer(11) NOT NULL,
+  "proctime" timestamp without time zone NOT NULL,
+  "srcaddr" varchar(255),
+  "dstaddr" varchar(255),
+  "srcdb" varchar(255),
+  "dstdb" varchar(255),
+  "starttime" timestamp without time zone,
+  "endtime" timestamp without time zone,
+  "consumetime" integer(15),
+  "tablecount" integer(11),
+  "viewcount" integer(11),
+  "procedurecount" integer(11),
+  "functioncount" integer(11),
+  "totalcount" integer(15),
+  "rightcount" integer(15),
+  "errorcount" integer(15),
+  "insertrightcount" integer(15),
+  "inserterrorcount" integer(15),
+  PRIMARY KEY ("updatetime", "procpid", "proctime", "endtime")
+);
+
+CREATE TABLE "table_info_metrics" (
+  "procpid" integer(11) NOT NULL,
+  "proctime" timestamp without time zone NOT NULL,
+  "tablename" varchar(255) NOT NULL,
+  "srcaddr" varchar(255),
+  "dstaddr" varchar(255),
+  "srcdb" varchar(255),
+  "dstdb" varchar(255),
+  "starttime" timestamp without time zone,
+  "endtime" timestamp without time zone,
+  "consumetime" integer(15),
+  "totalcount" integer(15),
+  "rightcount" integer(15),
+  "errorcount" integer(15),
+  "insertrightcount" integer(15),
+  "inserterrorcount" integer(15),
+  PRIMARY KEY ("procpid", "proctime", "tablename", "starttime")
+);
+
+CREATE TABLE "time_table_info_metrics" (
+  "updatetime" timestamp without time zone NOT NULL,
+  "procpid" integer(11) NOT NULL,
+  "proctime" timestamp without time zone NOT NULL,
+  "tablename" varchar(255) NOT NULL,
+  "srcaddr" varchar(255),
+  "dstaddr" varchar(255),
+  "srcdb" varchar(255),
+  "dstdb" varchar(255),
+  "starttime" timestamp without time zone NOT NULL,
+  "endtime" timestamp without time zone,
+  "consumetime" integer(15),
+  "totalcount" integer(15),
+  "rightcount" integer(15),
+  "errorcount" integer(15),
+  "insertrightcount" integer(15),
+  "inserterrorcount" integer(15),
+  PRIMARY KEY ("updatetime", "procpid", "proctime", "tablename", "starttime", "endtime")
+);
+
+CREATE TABLE "sql_info_metrics" (
+  "procpid" integer(11) NOT NULL,
+  "proctime" timestamp without time zone NOT NULL,
+  "name" varchar(255) NOT NULL,
+  "type" varchar(255) NOT NULL,
+  "srcaddr" varchar(255),
+  "dstaddr" varchar(255),
+  "srcdb" varchar(255),
+  "dstdb" varchar(255),
+  "starttime" timestamp without time zone,
+  "endtime" timestamp without time zone,
+  "consumetime" integer(15),
+  "iserror" integer(1),
+  "errorinfo" varchar(255),
+  "sqldata" text
+);

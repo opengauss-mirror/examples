@@ -1,0 +1,100 @@
+CREATE TABLE `db_info_metrics` (
+  `procpid` int(11) NOT NULL,
+  `proctime` datetime(3) NOT NULL,
+  `srcaddr` varchar(255),
+  `dstaddr` varchar(255),
+  `srcdb` varchar(255),
+  `dstdb` varchar(255),
+  `starttime` datetime(3),
+  `endtime` datetime(3),
+  `consumetime` int(15),
+  `tablecount` int(11),
+  `viewcount` int(11),
+  `procedurecount` int(11),
+  `functioncount` int(11),
+  `totalcount` int(15),
+  `rightcount` int(15),
+  `errorcount` int(15),
+  `insertrightcount` int(15),
+  `inserterrorcount` int(15),
+  PRIMARY KEY (`procpid`, `proctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `time_db_info_metrics` (
+  `updatetime` datetime(3) NOT NULL,
+  `procpid` int(11) NOT NULL,
+  `proctime` datetime(3) NOT NULL,
+  `srcaddr` varchar(255),
+  `dstaddr` varchar(255),
+  `srcdb` varchar(255),
+  `dstdb` varchar(255),
+  `starttime` datetime(3),
+  `endtime` datetime(3),
+  `consumetime` int(15),
+  `tablecount` int(11),
+  `viewcount` int(11),
+  `procedurecount` int(11),
+  `functioncount` int(11),
+  `totalcount` int(15),
+  `rightcount` int(15),
+  `errorcount` int(15),
+  `insertrightcount` int(15),
+  `inserterrorcount` int(15),
+  PRIMARY KEY (`updatetime`, `procpid`, `proctime`, `endtime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `table_info_metrics` (
+  `procpid` int(11) NOT NULL,
+  `proctime` datetime(3) NOT NULL,
+  `tablename` varchar(255) NOT NULL,
+  `srcaddr` varchar(255),
+  `dstaddr` varchar(255),
+  `srcdb` varchar(255),
+  `dstdb` varchar(255),
+  `starttime` datetime(3),
+  `endtime` datetime(3),
+  `consumetime` int(15),
+  `totalcount` int(15),
+  `rightcount` int(15),
+  `errorcount` int(15),
+  `insertrightcount` int(15),
+  `inserterrorcount` int(15),
+  PRIMARY KEY (`procpid`, `proctime`, `tablename`, `starttime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `time_table_info_metrics` (
+  `updatetime` datetime(3) NOT NULL,
+  `procpid` int(11) NOT NULL,
+  `proctime` datetime(3) NOT NULL,
+  `tablename` varchar(255) NOT NULL,
+  `srcaddr` varchar(255),
+  `dstaddr` varchar(255),
+  `srcdb` varchar(255),
+  `dstdb` varchar(255),
+  `starttime` datetime(3) NOT NULL,
+  `endtime` datetime(3),
+  `consumetime` int(15),
+  `totalcount` int(15),
+  `rightcount` int(15),
+  `errorcount` int(15),
+  `insertrightcount` int(15),
+  `inserterrorcount` int(15),
+  PRIMARY KEY (`updatetime`, `procpid`, `proctime`, `tablename`, `starttime`, `endtime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sql_info_metrics` (
+  `procpid` int(11) NOT NULL,
+  `proctime` datetime(3) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `srcaddr` varchar(255),
+  `dstaddr` varchar(255),
+  `srcdb` varchar(255),
+  `dstdb` varchar(255),
+  `starttime` datetime(3),
+  `endtime` datetime(3),
+  `consumetime` int(15),
+  `iserror` int(1),
+  `errorinfo` varchar(255),
+  `sqldata` mediumtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

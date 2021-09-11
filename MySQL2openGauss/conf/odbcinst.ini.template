@@ -1,0 +1,7 @@
+[opengauss]
+Driver64=BASEDIR/lib/psqlodbcw.so
+setup=BASEDIR/lib/psqlodbcw.so
+
+[mysql]
+Driver64=BASEDIR/lib/libmyodbc5w.so
+setup=BASEDIR/lib/libmyodbc5S.so
