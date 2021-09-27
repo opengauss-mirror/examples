@@ -10,6 +10,7 @@ import org.scalatest.Matchers.convertToAnyShouldWrapper
 class OpenGaussExample extends FlatSpec {
 
   val testTableName = "course"
+  val dburl = "jdbc:postgresql://x.x.x.x:port/school"
 
   "Simple data source" should "read" in{
     val sparkSession = SparkSession.builder
@@ -18,7 +19,7 @@ class OpenGaussExample extends FlatSpec {
       .getOrCreate()
 
     val simpleDf = sparkSession.read
-      .format("cn.ecnu.spark.sources.datasourcev2.simple")
+      .format("org.opengauss.spark.sources.datasourcev2.simple")
       .load()
 
     simpleDf.show()
@@ -37,9 +38,9 @@ class OpenGaussExample extends FlatSpec {
     val simpleRead = spark
       .read
       .format("org.opengauss.spark.sources.opengauss")
-      .option("url", "jdbc:postgresql://x.x.x.x:port/school")
+      .option("url", dburl)
       .option("user", "sparkuser")
-      .option("password", "Enmo@123")
+      .option("password", "pwdofsparkuser")
       .option("tableName", testTableName)
       .option("partitionSize", 10)
 //      .option("partitionColumn", "name")
@@ -63,9 +64,9 @@ class OpenGaussExample extends FlatSpec {
     df
       .write
       .format("org.opengauss.spark.sources.opengauss")
-      .option("url", "jdbc:postgresql://x.x.x.x:port/postgres")
+      .option("url", dburl)
       .option("user", "sparkuser")
-      .option("password", "Enmo@123")
+      .option("password", "pwdofsparkuser")
       .option("tableName", testTableName)
       .option("partitionSize", 10)
       .option("partitionColumn", "product_no")
@@ -76,14 +77,6 @@ class OpenGaussExample extends FlatSpec {
   }
 
 
-
-//  def connection(c: PostgreSQLContainer) = {
-//    Class.forName(c.driverClassName)
-//    val properties = new Properties()
-//    properties.put("user", c.username)
-//    properties.put("password", c.password)
-//    DriverManager.getConnection(c.jdbcUrl, properties)
-//  }
 
   object Queries {
     lazy val createTableQuery = s"CREATE TABLE $testTableName (user_id BIGINT PRIMARY KEY);"

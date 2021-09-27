@@ -11,7 +11,7 @@ object DataSourceV2StreamAndBatchExample {
           .getOrCreate()
 
 
-    val dataSource = "cn.ecnu.spark.sources.datasourcev2.streamandbatch.simple"
+    val dataSource = "org.opengauss.spark.sources.datasourcev2.streamandbatch"
 
     val batchDf = sparkSession
       .read

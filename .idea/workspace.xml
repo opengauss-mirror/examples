@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="66fc4f6b-64dc-4070-be20-4baa614dcd2b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/SparkOpOGForTest.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/SparkOpOpenGauss.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/postgres.edMnLQ/schema/sparkuser.KCgh4Q.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/school.dFvhyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/school.dFvhyQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/dataSources/f5515d82-d7ba-4fc5-9425-f44775711cf3/storage_v2/_src_/database/school.dFvhyQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/google-java-format.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/libraries/opengauss_jdbc_2_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/libs/opengauss-jdbc-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/adult.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/customers.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/metrics.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/multicharacterseperator.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/nested/a.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/nested/folder1/b.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/resources/sales.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/SQLDataSourceExample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/SQLDataSourceExample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/multi/SimpleMultiDataSource.scala" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/multi/SimpleMultiDataSource.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/streamandbatch/DataSourceV2StreamAndBatchExample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/streamandbatch/DataSourceV2StreamAndBatchExample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/streaming/DataSourceV2StreamingExample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/src/main/scala/org/opengauss/spark/sources/datasourcev2/streaming/DataSourceV2StreamingExample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/src/test/scala/org/opengauss/spark/OpenGaussExample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/SparkOpOpenGauss/src/test/scala/org/opengauss/spark/OpenGaussExample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/adult.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/customers.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/metrics.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/multicharacterseperator.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/nested/a.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/nested/folder1/b.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample$$typecreator16$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample$$typecreator6$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample$Person$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample$Person.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/apache/spark/examples/sql/SQLDataSourceExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/DefaultSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimpleBatchTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimplePartition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimplePartitionReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimplePartitionReaderFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimpleScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/multi/SimpleScanBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/DefaultSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimpleBatchTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimplePartition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimplePartitionReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimplePartitionReaderFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimpleScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/simple/SimpleScanBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/DataSourceV2StreamAndBatchExample$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/DataSourceV2StreamAndBatchExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/DefaultSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleBatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleMicroBatchStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleOffset.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimplePartition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimplePartitionReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimplePartitionReaderFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleScanBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streamandbatch/SimpleStreamingTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/DataSourceV2StreamingExample$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/DataSourceV2StreamingExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/DefaultSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimpleMicroBatchStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimpleOffset.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimplePartition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimplePartitionReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimplePartitionReaderFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimpleScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimpleScanBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/datasourcev2/streaming/SimpleStreamingTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/ConnectionProperties$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/ConnectionProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/DefaultSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussBatchWrite.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussDataWriterFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussPartition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussPartitionReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussPartitionReaderFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussScanBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussTable$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussWriteBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/OpenGaussWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/WriteSucceeded$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/org/opengauss/spark/sources/opengauss/WriteSucceeded.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/classes/sales.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/test-classes/org/opengauss/spark/OpenGaussExample$Queries$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkOpOpenGauss/target/test-classes/org/opengauss/spark/OpenGaussExample.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\Cerdore\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1yijxYGvIfqqhpfuIDCkg0dPCLD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="66fc4f6b-64dc-4070-be20-4baa614dcd2b" name="Default Changelist" comment="" />
+      <created>1632741549572</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632741549572</updated>
+      <workItem from="1632741550670" duration="2986000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

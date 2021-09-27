@@ -15,10 +15,10 @@ import scala.collection.JavaConverters._
 /*
   * Default source should some kind of relation provider
   */
-class DefaultSource extends TableProvider{
+class DefaultSource extends TableProvider {
 
-    override def inferSchema(caseInsensitiveStringMap: CaseInsensitiveStringMap): StructType =
-    getTable(null,Array.empty[Transform],caseInsensitiveStringMap.asCaseSensitiveMap()).schema()
+  override def inferSchema(caseInsensitiveStringMap: CaseInsensitiveStringMap): StructType =
+    getTable(null, Array.empty[Transform], caseInsensitiveStringMap.asCaseSensitiveMap()).schema()
 
   override def getTable(structType: StructType, transforms: Array[Transform], map: util.Map[String, String]): Table =
     new SimpleBatchTable()
@@ -54,20 +54,21 @@ class SimpleScanBuilder extends ScanBuilder {
     The schema is repeated here as it can change after column pruning etc
  */
 
-class SimpleScan extends Scan with Batch{
-  override def readSchema(): StructType =  StructType(Array(StructField("value", StringType)))
+class SimpleScan extends Scan with Batch {
+  override def readSchema(): StructType = StructType(Array(StructField("value", StringType)))
 
   override def toBatch: Batch = this
 
   override def planInputPartitions(): Array[InputPartition] = {
-    Array(new SimplePartition(0,4),
-      new SimplePartition(5,9))
+    Array(new SimplePartition(0, 4),
+      new SimplePartition(5, 9))
   }
+
   override def createReaderFactory(): PartitionReaderFactory = new SimplePartitionReaderFactory()
 }
 
 // simple class to organise the partition
-class SimplePartition(val start:Int, val end:Int) extends InputPartition
+class SimplePartition(val start: Int, val end: Int) extends InputPartition
 
 // reader factory
 class SimplePartitionReaderFactory extends PartitionReaderFactory {
@@ -79,7 +80,7 @@ class SimplePartitionReaderFactory extends PartitionReaderFactory {
 // parathion reader
 class SimplePartitionReader(inputPartition: SimplePartition) extends PartitionReader[InternalRow] {
 
-  val values = Array("1", "2", "3", "4", "5","6","7","8","9","10")
+  val values = Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 
   var index = inputPartition.start
 

@@ -12,7 +12,7 @@ object DataSourceV2StreamingExample {
 
     val streamingDf = sparkSession.
       readStream.
-      format("cn.ecnu.spark.sources.datasourcev2.streaming.simple")
+      format("org.opengauss.spark.sources.datasourcev2.streaming")
       .load()
 
 
