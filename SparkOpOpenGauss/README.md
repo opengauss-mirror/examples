@@ -6,7 +6,7 @@
 1. Java 1.8
 2. Scala 2.12
 3. postgresql.jar 或 opengauss-jdbc--${version}.jar(自己打包或官方提供的jar包)
- 
+
 运行说明：
 1. 请确保服务器上的数据库正常运行，且你的机器可正常连接数据库。
 2. 以sparkuser用户身份执行./resources/school.sql文件。
@@ -14,6 +14,7 @@
 4. 关于代码的构建
     + 首先需要获取 openGauss JDBC 的 jar 包，放入本项目的根目录下的libs目录下,在IDEA中添加jar包为依赖。
     + 其次本项目为 maven 项目，IDEA 会通过 maven自动下载其余依赖。
+    + 如要使用从中央仓库中获取 openGauss JDBC  的 jar 包，可取消掉pom中 openGuass JDBC 的依赖。并将JDBC url 由 `jdbc:postgresql://x.x.x.x:port/dbname` 改为 `jdbc:opengauss://x.x.x.x:port/dbname` ，其中x.x.x.x是IP，port是端口号，dbname是数据库的名字。
 5. 可以在IDEA中进入以下示例文件中的方法，单击右键可直接运行本示例。
    + 可运行`./src/test/scala/org/opengauss/spark/OpenGaussExample`。
    + 另一个直接使用Spark JDBC的例子是 `./src/main/scala/SQLDataSourceExample`。
