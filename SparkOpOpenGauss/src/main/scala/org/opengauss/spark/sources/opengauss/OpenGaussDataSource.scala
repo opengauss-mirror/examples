@@ -127,18 +127,17 @@ class OpenGaussWriter(connectionProperties: ConnectionProperties) extends DataWr
     connectionProperties.password
   )
 
-  // TODO：待修改
-  val statement = "insert into ${connectionProperties.tableName} (cor_name, cor_type, credit) values (?,?,?)"
+  val statement = "insert into ${connectionProperties.tableName} (cla_id, cla_name, cla_teacher) values (?,?,?)"
   val preparedStatement = connection.prepareStatement(statement)
 
   override def write(record: InternalRow): Unit = {
-    val cor_name = record.getString(0)
-    val cor_type = record.getString(1)
-    val credit = record.getDouble(2)
+    val cla_id = record.getInt(0)
+    val cla_name = record.getString(1)
+    val cla_teacher = record.getInt(2)
 
-    preparedStatement.setString(0, cor_name)
-    preparedStatement.setString(1, cor_type)
-    preparedStatement.setDouble(2, credit)
+    preparedStatement.setInt(0, cla_id)
+    preparedStatement.setString(1, cla_name)
+    preparedStatement.setInt(2, cla_teacher)
     preparedStatement.executeUpdate()
   }
 

@@ -26,7 +26,7 @@ object SQLDataSourceExample {
     // $example on:jdbc_dataset$
     // Note: JDBC loading and saving can be achieved via either the load/save or jdbc methods
     // Loading data from a JDBC source
-    val dburl = "jdbc:postgresql://x.x.x.x:port/school"
+    val dburl = "jdbc:postgresql://x.x.x.x:port/school" //注意修改此处的ip与端口地址
     val jdbcDF = spark.read
       .format("jdbc")
       .option("url", dburl)
@@ -65,6 +65,5 @@ object SQLDataSourceExample {
     jdbcDF3.write
       .option("createTableColumnTypes", "cla_id INT, cla_name VARCHAR(20)")
       .jdbc(dburl, "customtable3", connectionProperties)
-    // $example off:jdbc_dataset$
   }
 }

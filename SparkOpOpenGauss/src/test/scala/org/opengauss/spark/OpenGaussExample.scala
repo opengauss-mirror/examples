@@ -10,7 +10,7 @@ import org.scalatest.Matchers.convertToAnyShouldWrapper
 class OpenGaussExample extends FlatSpec {
 
   val testTableName = "course"
-  val dburl = "jdbc:postgresql://x.x.x.x:port/school"
+  val dburl = "jdbc:postgresql://x.x.x.x:port/school" //注意将此处修改成你的机器对应的的ip与端口
 
   "Simple data source" should "read" in{
     val sparkSession = SparkSession.builder
@@ -43,7 +43,6 @@ class OpenGaussExample extends FlatSpec {
       .option("password", "pwdofsparkuser")
       .option("tableName", testTableName)
       .option("partitionSize", 10)
-//      .option("partitionColumn", "name")
       .load()
       .show()
 
@@ -59,7 +58,7 @@ class OpenGaussExample extends FlatSpec {
 
     import spark.implicits._
 
-    val df = (60 to 70).map(_.toLong).toDF("product_no")
+    val df = (60 to 70).map(_.toLong).toDF("cla_id")
 
     df
       .write
@@ -69,21 +68,11 @@ class OpenGaussExample extends FlatSpec {
       .option("password", "pwdofsparkuser")
       .option("tableName", testTableName)
       .option("partitionSize", 10)
-      .option("partitionColumn", "product_no")
+      .option("partitionColumn", "cla_id")
       .mode(SaveMode.Append)
       .save()
 
     spark.stop()
-  }
-
-
-
-  object Queries {
-    lazy val createTableQuery = s"CREATE TABLE $testTableName (user_id BIGINT PRIMARY KEY);"
-
-    lazy val testValues: String = (1 to 50).map(i => s"($i)").mkString(", ")
-
-    lazy val insertDataQuery = s"INSERT INTO $testTableName VALUES $testValues;"
   }
 
 }
