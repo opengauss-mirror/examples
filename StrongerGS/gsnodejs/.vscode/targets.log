@@ -1,0 +1,363 @@
+mingw32-make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.82.90
+# Built for i686-pc-mingw32
+# Copyright (C) 1988-2012 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+# Make data base, printed on Thu Aug 18 05:09:45 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# makefile
+MAKEFLAGS = Rrqp
+# automatic
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# environment
+PLATFORMIO_IDE = 2.5.2
+# automatic
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# environment
+HOMEDRIVE = C:
+# automatic
+@F = $(notdir $@)
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# makefile
+CURDIR := d:/gauss/seq
+# default
+SHELL := sh.exe
+# environment
+WINDIR = C:\Windows
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"cc0490d1397af23dc5bf44a96fe15dbb.zh-cn","_translationsConfigFile":"C:\\Users\\ShiroganeTsumugi\\AppData\\Roaming\\Code\\clp\\cc0490d1397af23dc5bf44a96fe15dbb.zh-cn\\tcf.json","_cacheRoot":"C:\\Users\\ShiroganeTsumugi\\AppData\\Roaming\\Code\\clp\\cc0490d1397af23dc5bf44a96fe15dbb.zh-cn","_resolvedLanguagePackCoreLocation":"C:\\Users\\ShiroganeTsumugi\\AppData\\Roaming\\Code\\clp\\cc0490d1397af23dc5bf44a96fe15dbb.zh-cn\\6d9b74a70ca9c7733b29f0456fd8195364076dda","_corruptedFile":"C:\\Users\\ShiroganeTsumugi\\AppData\\Roaming\\Code\\clp\\cc0490d1397af23dc5bf44a96fe15dbb.zh-cn\\corrupted.info","_languagePackSupport":true}
+# environment
+VBOX_MSI_INSTALL_PATH = C:\Program Files\Oracle\VirtualBox\
+# environment
+ONEDRIVE = C:\Users\ShiroganeTsumugi\OneDrive - stu.ahu.edu.cn
+# environment
+QSYS_ROOTDIR = D:\intelFPGA_lite\20.1\quartus\sopc_builder\bin
+# environment
+PUBLIC = C:\Users\Public
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+# makefile
+MAKEFILE_LIST := 
+# environment
+TMP = C:\Users\SHIROG~1\AppData\Local\Temp
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+PROGRAMDATA = C:\ProgramData
+# environment
+VSCODE_CWD = D:\gauss\seq
+# environment
+NO_PROXY = 127.0.0.1
+# environment
+CUDA_PATH_V11_1 = C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+PROCESSOR_ARCHITECTURE = x86
+# environment
+VXIPNPPATH64 = C:\Program Files\IVI Foundation\VISA\
+# environment
+USERPROFILE = C:\Users\ShiroganeTsumugi
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+SOPC_KIT_NIOS2 = D:\intelFPGA_lite\20.1\nios2eds
+# environment
+NUMBER_OF_PROCESSORS = 8
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver
+# environment
+NVTOOLSEXT_PATH = C:\Program Files\NVIDIA Corporation\NvToolsExt\
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = 127.0.0.1:0.0
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_5160_NVZGUMHXFNXCAXWM
+# environment
+COMPUTERNAME = SHIROGANE
+# environment
+PROGRAMFILES = C:\Program Files (x86)
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+NVCUDASAMPLES_ROOT = C:\ProgramData\NVIDIA Corporation\CUDA Samples\v11.1
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+ANSYSEMSV_ROOT212 = D:\Program Files\Dedicate\AnsysEM\Ansys Student\v212\Win64
+# environment
+USERNAME = ShiroganeTsumugi
+# environment
+KMP_DUPLICATE_LIB_OK = TRUE
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\ShiroganeTsumugi\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+# environment
+LOGONSERVER = \\SHIROGANE
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+USERDOMAIN = SHIROGANE
+# environment
+MIC_LD_LIBRARY_PATH = C:\Program Files (x86)\Common Files\Intel\Shared Libraries\compiler\lib\mic
+# environment
+MAKELEVEL := 0
+# environment
+PLATFORMIO_PATH = C:\Users\ShiroganeTsumugi\.platformio\python3;C:\Program Files\BellSoft\LibericaJDK-17\bin\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Eclipse Foundation\jdk-16.0.2.7-hotspot\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\libnvvp;C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-openj9\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Program Files\Portable\cudnn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files\qemu;C:\TDM-GCC-64\bin;D:\Program Files\Dedicate\MATLAB\runtime\win64;D:\Program Files\Dedicate\MATLAB\bin;D:\Program Files\Dedicate\MATLAB\polyspace\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2020.2.1\;C:\Program Files (x86)\Tencent\΢��web�����߹���\dll;C:\Program Files\AntiMicroX\bin;C:\Program Files\nodejs\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\;C:\Users\ShiroganeTsumugi\AppData\Local\Microsoft\WindowsApps;C:\Infineon\LauncherService;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Microsoft VS Code\bin;D:\Program Files\Applet;D:\Program Files\Applet\platform-tools;D:\Program Files\Wrapper;C:\Program Files\OpenSSL-Win64\bin;D:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Espressif\tools\idf-git\2.34.2\mingw64\bin;C:\Program Files (x86)\Nmap;C:\Program Files\SDCC\bin;D:\texlive\2022\bin\win32;C:\Users\ShiroganeTsumugi\AppData\Roaming\npm;C:\Program Files\BellSoft\LibericaJDK-17\bin\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Eclipse Foundation\jdk-16.0.2.7-hotspot\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\libnvvp;C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-openj9\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Program Files\Portable\cudnn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files\qemu;C:\TDM-GCC-64\bin;D:\Program Files\Dedicate\MATLAB\runtime\win64;D:\Program Files\Dedicate\MATLAB\bin;D:\Program Files\Dedicate\MATLAB\polyspace\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2020.2.1\;C:\Program Files (x86)\Tencent\΢��web�����߹���\dll;C:\Program Files\AntiMicroX\bin;C:\Program Files\nodejs\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\;C:\Users\ShiroganeTsumugi\AppData\Local\Microsoft\WindowsApps;C:\Infineon\LauncherService;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Microsoft VS Code\bin;D:\Program Files\Applet;D:\Program Files\Applet\platform-tools;D:\Program Files\Wrapper;C:\Program Files\OpenSSL-Win64\bin;D:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Espressif\tools\idf-git\2.34.2\mingw64\bin;C:\Program Files (x86)\Nmap;C:\Program Files\SDCC\bin;D:\texlive\2022\bin\win32;C:\Users\ShiroganeTsumugi\AppData\Roaming\npm
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+PATH = C:\Program Files\BellSoft\LibericaJDK-17\bin\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Eclipse Foundation\jdk-16.0.2.7-hotspot\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\libnvvp;C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-openj9\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Program Files\Portable\cudnn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files\qemu;C:\TDM-GCC-64\bin;D:\Program Files\Dedicate\MATLAB\runtime\win64;D:\Program Files\Dedicate\MATLAB\bin;D:\Program Files\Dedicate\MATLAB\polyspace\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2020.2.1\;C:\Program Files (x86)\Tencent\΢��web�����߹���\dll;C:\Program Files\AntiMicroX\bin;C:\Program Files\nodejs\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\;C:\Users\ShiroganeTsumugi\AppData\Local\Microsoft\WindowsApps;C:\Infineon\LauncherService;C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Microsoft VS Code\bin;D:\Program Files\Applet;D:\Program Files\Applet\platform-tools;D:\Program Files\Wrapper;C:\Program Files\OpenSSL-Win64\bin;D:\intelFPGA_lite\20.1\modelsim_ase\win32aloem;C:\Espressif\tools\idf-git\2.34.2\mingw64\bin;C:\Program Files (x86)\Nmap;C:\Program Files\SDCC\bin;D:\texlive\2022\bin\win32;C:\Users\ShiroganeTsumugi\AppData\Roaming\npm
+# environment
+JAVA_HOME = C:\Program Files\BellSoft\LibericaJDK-17\
+# environment
+ONEDRIVECOMMERCIAL = C:\Users\ShiroganeTsumugi\OneDrive - stu.ahu.edu.cn
+# default
+MAKE_VERSION := 3.82.90
+# makefile
+.DEFAULT_GOAL := 
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# automatic
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# environment
+LOCALAPPDATA = C:\Users\ShiroganeTsumugi\AppData\Local
+# environment
+PSMODULEPATH = %ProgramFiles%\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := mingw32-make.exe
+# environment
+PROCESSOR_ARCHITEW6432 = AMD64
+# default
+.VARIABLES := 
+# environment
+TMPDIR = C:\Windows\TEMP
+# automatic
+*F = $(notdir $*)
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+# environment
+OS = Windows_NT
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\7979ada260181937c4a70870597bed65-1.70.1-main-sock
+# environment
+PYTHONPATH = D:\guandanagain;C:\Espressif\frameworks\esp-idf-v4.4\components\partition_table;
+# environment
+HOMEPATH = \Users\ShiroganeTsumugi
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+PROMPT = $P$G
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+IDF_PATH = C:\Espressif\frameworks\esp-idf-v4.4
+# environment
+INTEL_DEV_REDIST = C:\Program Files (x86)\Common Files\Intel\Shared Libraries\
+# environment
+SYSTEMROOT = C:\Windows
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# automatic
++F = $(notdir $+)
+# environment
+APPDATA = C:\Users\ShiroganeTsumugi\AppData\Roaming
+# environment
+VXIPNPPATH = C:\Program Files (x86)\IVI Foundation\VISA\
+# environment
+TEMP = C:\Users\SHIROG~1\AppData\Local\Temp
+# environment
+COMSPEC = C:\Windows\system32\cmd.exe
+# default
+MAKEFILES := 
+# environment
+IDF_TOOLS_PATH = C:\Espressif
+# environment
+QUARTUS_ROOTDIR = D:\intelFPGA_lite\20.1\quartus
+# automatic
+<F = $(notdir $<)
+# environment
+PLATFORMIO_CALLER = vscode
+# environment
+MKL_SERIAL = YES
+# environment
+LC_ALL = C
+# environment
+DAS_HOME = C:\Program Files\DAS64
+# automatic
+^F = $(notdir $^)
+# environment
+CUDA_PATH = C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+# environment
+NVCUDASAMPLES11_1_ROOT = C:\ProgramData\NVIDIA Corporation\CUDA Samples\v11.1
+# default
+SUFFIXES := 
+# environment
+SYSTEMDRIVE = C:
+# environment
+PROCESSOR_REVISION = 8e0c
+# environment
+FR_CUSTOMDATA_PATH = D:\game\SteamLibrary\steamapps\common\FaceRig\Mod\VP\PC_CustomData\
+# environment
+IFX_TOOLBOX_UUID = cc77827d-b8af-3d9c-87a7-2ce3b21c4830
+# environment
+SIMPLORER_HOME = D:\Program Files\Dedicate\AnsysEM\Ansys Student\v212\Win64
+# default
+.RECIPEPREFIX := 
+# environment
+SIWAVE_INSTALL_DIR = D:\Program Files\Dedicate\AnsysEM\Ansys Student\v212\Win64
+# environment
+LANG = C
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+VSCODE_PID = 5160
+# environment
+USERDOMAIN_ROAMINGPROFILE = SHIROGANE
+# variable set hash-table stats:
+# Load=115/1024=11%, Rehash=0, Collisions=16/130=12%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# D:\Program Files\Dedicate\MATLAB\bin (key D:/Program Files/Dedicate/MATLAB/bin, mtime 1639642957): 20 files, no impossibilities.
+# C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/ShiroganeTsumugi/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1660191428): 4 files, no impossibilities.
+# C:\Program Files\NVIDIA Corporation\Nsight Compute 2020.2.1\ (key C:/Program Files/NVIDIA Corporation/Nsight Compute 2020.2.1/, mtime 1632054607): 12 files, no impossibilities.
+# C:\Infineon\LauncherService (key C:/Infineon/LauncherService, mtime 1622686967): 6 files, no impossibilities.
+# C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR (key C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR, mtime 1622736778): 5 files, no impossibilities.
+# C:\Espressif\tools\idf-git\2.34.2\mingw64\bin (key C:/Espressif/tools/idf-git/2.34.2/mingw64/bin, mtime 1644675169): 57 files, no impossibilities.
+# D:\intelFPGA_lite\20.1\modelsim_ase\win32aloem (key D:/intelFPGA_lite/20.1/modelsim_ase/win32aloem, mtime 1631172457): 110 files, no impossibilities.
+# C:\Windows\System32\WindowsPowerShell\v1.0\ (key C:/Windows/System32/WindowsPowerShell/v1.0/, mtime 1617976470): 31 files, no impossibilities.
+# C:\Windows\System32\Wbem (key C:/Windows/System32/Wbem, mtime 1657733921): 154 files, no impossibilities.
+# . (key d:/gauss/seq, mtime 1660124019): 8 files, no impossibilities.
+# C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\libnvvp (key C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/libnvvp, mtime 1632054727): 14 files, no impossibilities.
+# D:\Program Files\Portable\cudnn\bin (key D:/Program Files/Portable/cudnn/bin, mtime 1617449169): 9 files, no impossibilities.
+# C:\Program Files\OpenSSL-Win64\bin (key C:/Program Files/OpenSSL-Win64/bin, mtime 1625134702): 13 files, no impossibilities.
+# D:\texlive\2022\bin\win32 (key D:/texlive/2022/bin/win32, mtime 1656330022): 554 files, no impossibilities.
+# C:\TDM-GCC-64\bin (key C:/TDM-GCC-64/bin, mtime 1631007561): 61 files, no impossibilities.
+# C:\Windows\System32\OpenSSH\: could not be stat'd.
+# D:\Program Files\Applet (key D:/Program Files/Applet, mtime 1648808825): 18 files, no impossibilities.
+# C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common (key C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common, mtime 1648838877): 11 files, no impossibilities.
+# D:\Program Files\Dedicate\MATLAB\runtime\win64 (key D:/Program Files/Dedicate/MATLAB/runtime/win64, mtime 1631454709): 10 files, no impossibilities.
+# C:\Program Files\IVI Foundation\VISA\Win64\Bin\ (key C:/Program Files/IVI Foundation/VISA/Win64/Bin/, mtime 1622892475): 2 files, no impossibilities.
+# C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\ (key C:/Users/ShiroganeTsumugi/AppData/Local/Programs/Python/Python38/, mtime 1623155169): 20 files, no impossibilities.
+# C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\bin (key C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin, mtime 1632054739): 43 files, no impossibilities.
+# C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler (key C:/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler, mtime 1645458986): 17 files, no impossibilities.
+# C:\Users\ShiroganeTsumugi\AppData\Local\Programs\Python\Python38\Scripts\ (key C:/Users/ShiroganeTsumugi/AppData/Local/Programs/Python/Python38/Scripts/, mtime 1652771708): 145 files, no impossibilities.
+# C:\Windows (key C:/Windows, mtime 1660750797): 122 files, no impossibilities.
+# C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-openj9\bin (key C:/Program Files/AdoptOpenJDK/jdk-13.0.2.8-openj9/bin, mtime 1631007759): 125 files, no impossibilities.
+# D:\Program Files\Applet\platform-tools (key D:/Program Files/Applet/platform-tools, mtime 1579664927): 19 files, no impossibilities.
+# C:\Program Files\Eclipse Foundation\jdk-16.0.2.7-hotspot\bin (key C:/Program Files/Eclipse Foundation/jdk-16.0.2.7-hotspot/bin, mtime 1632230788): 123 files, no impossibilities.
+# C:\Program Files\qemu (key C:/Program Files/qemu, mtime 1648568886): 3 files, no impossibilities.
+# C:\Program Files\BellSoft\LibericaJDK-17\bin\ (key C:/Program Files/BellSoft/LibericaJDK-17/bin/, mtime 1655028387): 82 files, no impossibilities.
+# C:\Program Files (x86)\Tencent\΢��web�����߹���\dll: could not be stat'd.
+# C:\Users\ShiroganeTsumugi\AppData\Roaming\npm (key C:/Users/ShiroganeTsumugi/AppData/Roaming/npm, mtime 1648535327): 9 files, no impossibilities.
+# D:\Program Files\Wrapper (key D:/Program Files/Wrapper, mtime 1621698687): 6 files, no impossibilities.
+# C:\Program Files\nodejs\ (key C:/Program Files/nodejs/, mtime 1660123953): 13 files, no impossibilities.
+# C:\Program Files (x86)\Nmap (key C:/Program Files (x86)/Nmap, mtime 1650028468): 37 files, no impossibilities.
+# C:\Windows\system32 (key C:/Windows/system32, mtime 1660767598): 3111 files, no impossibilities.
+# C:\Program Files\SDCC\bin (key C:/Program Files/SDCC/bin, mtime 1652802712): 41 files, no impossibilities.
+# C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\ (key C:/Program Files (x86)/IVI Foundation/VISA/WinNT/Bin/, mtime 1622892475): 2 files, no impossibilities.
+# D:\Program Files\Dedicate\MATLAB\polyspace\bin (key D:/Program Files/Dedicate/MATLAB/polyspace/bin, mtime 1631454741): 83 files, no impossibilities.
+# C:\Users\ShiroganeTsumugi\AppData\Local\Microsoft\WindowsApps (key C:/Users/ShiroganeTsumugi/AppData/Local/Microsoft/WindowsApps, mtime 1659682319): 25 files, no impossibilities.
+# C:\Program Files\AntiMicroX\bin (key C:/Program Files/AntiMicroX/bin, mtime 1647186020): 16 files, no impossibilities.
+
+# 5141 files, no impossibilities in 41 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 9 (8) / strings = 4773 / storage = 71348 B / avg = 14 B
+# current buf: size = 8174 B / used = 6017 B / count = 465 / avg = 12 B
+# other used: total = 63174 B / count = 4308 / avg = 14 B
+# other free: total = 61 B / max = 13 B / min = 3 B / avg = 7 B
+
+# strcache performance: lookups = 5189 / hit rate = 8%
+# hash-table stats:
+# Load=4773/8192=58%, Rehash=0, Collisions=2661/5189=51%
+# Finished Make data base on Thu Aug 18 05:09:45 2022
+
+ 
+mingw32-make.exe: *** No rule to make target 'all'.  Stop.
+

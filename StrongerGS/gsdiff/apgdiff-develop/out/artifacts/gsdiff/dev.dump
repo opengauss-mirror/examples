@@ -1,0 +1,195 @@
+--
+-- openGauss database dump
+--
+
+SET statement_timeout = 0;
+SET xmloption = content;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public;
+
+--
+-- Name: tri_insert_func(); Type: FUNCTION; Schema: public; Owner: omm
+--
+
+CREATE FUNCTION tri_insert_func() RETURNS trigger
+    LANGUAGE plpgsql NOT SHIPPABLE
+ AS $$
+           DECLARE
+           BEGIN
+                   INSERT INTO test_trigger  VALUES(NEW.account_id, NEW.first_name, NEW.last_name);
+                   RETURN NEW;
+           END
+           $$;
+
+
+ALTER FUNCTION public.tri_insert_func() OWNER TO omm;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: customer; Type: TABLE; Schema: public; Owner: omm; Tablespace: 
+--
+
+CREATE TABLE customer (
+    customer_id integer,
+    account_id integer,
+    first_name character(10),
+    last_name character varying(20) DEFAULT ' '::character varying
+)
+WITH (orientation=row, compression=no);
+ALTER TABLE customer ALTER COLUMN first_name SET STORAGE MAIN;
+
+
+ALTER TABLE public.customer OWNER TO omm;
+
+--
+-- Name: myview; Type: VIEW; Schema: public; Owner: omm
+--
+
+CREATE VIEW myview(account_id,first_name) AS
+    SELECT customer.account_id, customer.first_name FROM customer;
+
+
+ALTER VIEW public.myview OWNER TO omm;
+
+--
+-- Name: test; Type: TABLE; Schema: public; Owner: yy; Tablespace: 
+--
+
+CREATE TABLE test (
+    t integer
+)
+WITH (orientation=row, compression=no);
+
+
+ALTER TABLE public.test OWNER TO yy;
+
+--
+-- Name: test_trigger; Type: TABLE; Schema: public; Owner: omm; Tablespace: 
+--
+
+CREATE TABLE test_trigger (
+    customer_id integer,
+    account_id integer,
+    first_name character(10),
+    last_name character varying(20)
+)
+WITH (orientation=row, compression=no);
+
+
+ALTER TABLE public.test_trigger OWNER TO omm;
+
+--
+-- Name: serial1; Type: SEQUENCE; Schema: public; Owner: omm
+--
+
+CREATE  SEQUENCE serial1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 20;
+
+
+
+--
+-- Name: serial1; Type: LARGE SEQUENCE OWNED BY; Schema: public; Owner: omm
+--
+
+ALTER  SEQUENCE serial1 OWNED BY customer.customer_id;
+
+
+--
+-- Name: customer_id; Type: DEFAULT; Schema: public; Owner: omm
+--
+
+ALTER TABLE customer ALTER COLUMN customer_id SET DEFAULT nextval('serial1'::regclass);
+
+
+--
+-- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: omm
+--
+
+COPY customer (customer_id, account_id, first_name, last_name) FROM stdin;
+1	1	Job       	Lee
+\.
+;
+
+--
+-- Name: serial1; Type: SEQUENCE SET; Schema: public; Owner: omm
+--
+
+SELECT pg_catalog.setval('serial1', 20, true);
+
+
+--
+-- Data for Name: test; Type: TABLE DATA; Schema: public; Owner: yy
+--
+
+COPY test (t) FROM stdin;
+\.
+;
+
+--
+-- Data for Name: test_trigger; Type: TABLE DATA; Schema: public; Owner: omm
+--
+
+COPY test_trigger (customer_id, account_id, first_name, last_name) FROM stdin;
+\.
+;
+
+--
+-- Name: first_name_index; Type: INDEX; Schema: public; Owner: omm; Tablespace: 
+--
+
+CREATE INDEX first_name_index ON customer USING btree (first_name) TABLESPACE pg_default;
+
+ALTER TABLE customer CLUSTER ON first_name_index;
+
+
+--
+-- Name: _RETURN; Type: RULE; Schema: public; Owner: omm
+--
+
+SET enable_cluster_resize = on;
+CREATE RULE "_RETURN" AS ON SELECT TO test_trigger DO INSTEAD SELECT customer.customer_id, customer.account_id, customer.first_name, customer.last_name FROM customer;
+
+
+--
+-- Name: _RETURN; Type: RULE; Schema: public; Owner: omm
+--
+
+SET enable_cluster_resize = on;
+CREATE RULE "_RETURN" AS ON SELECT TO customer DO INSTEAD SELECT test_trigger.customer_id, test_trigger.account_id, test_trigger.first_name, test_trigger.last_name FROM test_trigger;
+ALTER TABLE customer DISABLE RULE "_RETURN";
+
+
+--
+-- Name: insert_trigger; Type: TRIGGER; Schema: public; Owner: omm
+--
+
+CREATE TRIGGER insert_trigger BEFORE INSERT ON customer FOR EACH ROW EXECUTE PROCEDURE tri_insert_func();
+
+ALTER TABLE customer DISABLE TRIGGER insert_trigger;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: omm
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM omm;
+GRANT CREATE,USAGE ON SCHEMA public TO omm;
+GRANT USAGE ON SCHEMA public TO PUBLIC;
+
+
+--
+-- openGauss database dump complete
+--
+

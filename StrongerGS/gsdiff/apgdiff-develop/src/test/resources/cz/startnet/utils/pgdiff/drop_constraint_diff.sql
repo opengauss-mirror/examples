@@ -1,0 +1,3 @@
+
+ALTER TABLE IF EXISTS testtable
+	DROP CONSTRAINT IF EXISTS field4check;
