@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="digital_text_size">36dp</dimen>
+    <dimen name="digital_text_size_round">41dp</dimen>
+    <dimen name="digital_x_offset">10dp</dimen>
+    <dimen name="digital_x_offset_round">20dp</dimen>
+    <dimen name="digital_y_offset">90dp</dimen>
+    <dimen name="acc_text_size">8dp</dimen>
+    <dimen name="date_text_size">23dp</dimen>
+</resources>
