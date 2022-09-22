@@ -1,0 +1,13 @@
+{
+    "mongo_connection": {
+        "url": "mongodb://localhost:27017",
+        "database": "db_book_test"
+    },
+    "opengauss_connection": {
+        "user": "",
+        "host": "",
+        "database": "db_books",
+        "password": "",
+        "port": ""
+    }
+}
