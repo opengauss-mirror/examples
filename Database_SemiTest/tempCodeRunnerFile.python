@@ -1,0 +1,30 @@
+
+def solveNQueens(n: int):
+    one=[0]*10
+    two=[0]*10
+    three=[0]*10
+    four=[0]*10
+    res=[]
+    path=[]
+    def backtarce(one,two,three,four,n,startindex,path):#startindex是第几列的数
+        print(path)
+        if startindex==n:
+            res.append(path)
+            return
+        for i in range(n):
+            if one[startindex]==0 and two[i]==0 and three[i-startindex]==0 and four[i+startindex]==0:
+                one[startindex]==1
+                two[i]==1
+                three[i-startindex]==1
+                four[i+startindex]==1
+                path.append(startindex)
+            backtarce(one,two,three,four,n,startindex+1,path)
+            path.pop()
+            one[startindex]==0
+            two[i]==0
+            three[i-startindex]==0
+            four[i+startindex]==0
+    backtarce(one,two,three,four,n,0,path)
+    return res
+n=4
+print(solveNQueens(n))

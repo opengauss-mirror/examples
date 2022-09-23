@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\commons-codec-1.3.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\commons-codec-1.15.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\commons-collections-3.2.2.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\commons-collections4-4.2.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\javaGeom-0.11.1.jar",
+        "c:\\Users\\admin\\Desktop\\jar包\\java-sizeof-0.0.5.jar",
+        "d:\\download\\java-sizeof-0.0.5.jar"
+    ]
+}
