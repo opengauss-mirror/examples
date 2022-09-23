@@ -1,0 +1,30 @@
+spring:
+  datasource:
+      url: jdbc:postgresql://xxxx:15400/mydb
+      username: xxxx
+      password: xxx
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: org.postgresql.Driver
+      datasource-name:
+  #Mybatis 日志
+  logging:
+      level: info
+
+
+screen:
+  baseurl: http://xxx:9090
+
+jwt:
+  secret: xxx
+  expire: 1000
+  header: opengauss
+
+shell:
+  hostname: xxxx
+  username: xxxx
+  password: xxxx
+
+minio:
+  url: http://xxxx:9000
+  accessKey: xxxx
+  secretKey: xxxxx
