@@ -1,0 +1,4 @@
+#Wed May 30 11:46:24 CDT 2018
+base.0=/Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/build/intermediates/transforms/dexMerger/debug/6
+path.0=classes.dex
+renamed.0=classes.dex

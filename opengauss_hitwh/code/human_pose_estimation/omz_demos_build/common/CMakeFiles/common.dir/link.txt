@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../armv7l/Release/lib/libcommon.a  CMakeFiles/common.dir/src/args_helper.cpp.o CMakeFiles/common.dir/src/images_capture.cpp.o CMakeFiles/common.dir/src/performance_metrics.cpp.o
+/usr/bin/ranlib ../armv7l/Release/lib/libcommon.a

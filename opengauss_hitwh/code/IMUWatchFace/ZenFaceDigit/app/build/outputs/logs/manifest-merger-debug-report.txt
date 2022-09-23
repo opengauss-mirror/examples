@@ -1,0 +1,256 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+MERGED from [com.android.support:support-v13:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/554746378542e29293abbac66c9440b3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-wearable:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-wearable-11.0.4.aar/10dc60cb961f7956c92ecd1a08df3c86/AndroidManifest.xml:16:1-19:12
+MERGED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:2:1-23:12
+MERGED from [com.android.support:recyclerview-v7:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.2.0.aar/d7d567e25723f56f3d3438b67192fc7a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.android.gms:play-services-tasks:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.4.aar/1222ecaf586e2cd9ede94ddcb12e128a/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:animated-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-23.3.0.aar/aae97799d5a6c7821d9d1f4bf869b955/AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.support:support-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-23.3.0.aar/66dc4613de50139b9165b8b72e265c19/AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.support:support-v4:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/673240068ee7599e32c2cd068fa45084/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/bea3fa761565b424d1ead86a1882408e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/bfb84abf7ef86d6efc2d16d538d7db59/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/07ef6d34d9c42c15a7bdc581f12871c3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:percent:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/percent-25.2.0.aar/d27e483f7d88adb12bae668b3c27e509/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/5da5a5bbc8e069310892aac963a7d7bd/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/f26dbdb1b71f03daa30750181eab996a/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/2eb3d85b5f6ad4677676ff2b4e537232/AndroidManifest.xml:17:1-24:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+	package
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:3:5-50
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:1-65:12
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:2:11-69
+uses-feature#android.hardware.type.watch
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:5:5-64
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:5:19-61
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:8:5-68
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:8:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:9:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:10:22-77
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:11:5-95
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:11:22-92
+uses-permission#android.permission.INTERNET
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:12:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:13:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:14:5-76
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:14:22-73
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:15:5-79
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:15:22-76
+uses-permission#android.permission.UPDATE_DEVICE_STATS
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:16:5-78
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:16:22-75
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:17:5-76
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:17:22-73
+application
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:19:5-63:19
+MERGED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:6:3-8:17
+MERGED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:6:3-8:17
+MERGED from [com.google.android.gms:play-services-wearable:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-wearable-11.0.4.aar/10dc60cb961f7956c92ecd1a08df3c86/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-wearable:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-wearable-11.0.4.aar/10dc60cb961f7956c92ecd1a08df3c86/AndroidManifest.xml:18:5-19
+MERGED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:11:5-21:19
+MERGED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:11:5-21:19
+MERGED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-tasks:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.4.aar/1222ecaf586e2cd9ede94ddcb12e128a/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.4.aar/1222ecaf586e2cd9ede94ddcb12e128a/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-23.3.0.aar/aae97799d5a6c7821d9d1f4bf869b955/AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-23.3.0.aar/aae97799d5a6c7821d9d1f4bf869b955/AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-23.3.0.aar/66dc4613de50139b9165b8b72e265c19/AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-23.3.0.aar/66dc4613de50139b9165b8b72e265c19/AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:percent:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/percent-25.2.0.aar/d27e483f7d88adb12bae668b3c27e509/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:percent:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/percent-25.2.0.aar/d27e483f7d88adb12bae668b3c27e509/AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:23:9-35
+	android:label
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:22:9-41
+	android:icon
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:21:9-43
+	android:allowBackup
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:20:9-35
+	android:theme
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:24:9-59
+service#com.example.ruixuandai.zenfacedigit.MyWatchFace
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:25:9-44:19
+	android:label
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:27:13-52
+	android:permission
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:28:13-67
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:26:13-40
+meta-data#android.service.wallpaper
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:29:13-31:54
+	android:resource
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:31:17-51
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:30:17-57
+meta-data#com.google.android.wearable.watchface.preview
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:32:13-34:64
+	android:resource
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:34:17-61
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:33:17-77
+meta-data#com.google.android.wearable.watchface.preview_circular
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:35:13-37:73
+	android:resource
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:37:17-70
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:36:17-86
+intent-filter#action:name:android.service.wallpaper.WallpaperService+category:name:com.google.android.wearable.watchface.category.WATCH_FACE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:39:13-43:29
+action#android.service.wallpaper.WallpaperService
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:40:17-85
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:40:25-82
+category#com.google.android.wearable.watchface.category.WATCH_FACE
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:42:17-102
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:42:27-99
+service#com.example.ruixuandai.zenfacedigit.LogService
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:45:9-49:19
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:45:18-44
+intent-filter#action:name:.LogService
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:46:13-48:29
+action#com.example.ruixuandai.zenfacedigit.LogService
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:47:17-54
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:47:25-51
+service#com.amazonaws.mobileconnectors.s3.transferutility.TransferService
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:50:9-52:38
+	android:enabled
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:52:13-35
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:51:13-93
+meta-data#com.google.android.gms.version
+ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:60:9-62:69
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:20:9-121
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:62:13-66
+	android:name
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml:61:13-58
+uses-sdk
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:support-v13:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/554746378542e29293abbac66c9440b3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/554746378542e29293abbac66c9440b3/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:4:3-70
+MERGED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:4:3-70
+MERGED from [com.google.android.gms:play-services-wearable:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-wearable-11.0.4.aar/10dc60cb961f7956c92ecd1a08df3c86/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-wearable:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-wearable-11.0.4.aar/10dc60cb961f7956c92ecd1a08df3c86/AndroidManifest.xml:17:5-43
+MERGED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:recyclerview-v7:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.2.0.aar/d7d567e25723f56f3d3438b67192fc7a/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.2.0.aar/d7d567e25723f56f3d3438b67192fc7a/AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-tasks:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.4.aar/1222ecaf586e2cd9ede94ddcb12e128a/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-tasks:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.4.aar/1222ecaf586e2cd9ede94ddcb12e128a/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-basement:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.4.aar/5322a5fe4ba99db7361a98f56cc798af/AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-23.3.0.aar/aae97799d5a6c7821d9d1f4bf869b955/AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:animated-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-23.3.0.aar/aae97799d5a6c7821d9d1f4bf869b955/AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:support-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-23.3.0.aar/66dc4613de50139b9165b8b72e265c19/AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-vector-drawable:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-23.3.0.aar/66dc4613de50139b9165b8b72e265c19/AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/673240068ee7599e32c2cd068fa45084/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/673240068ee7599e32c2cd068fa45084/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/bea3fa761565b424d1ead86a1882408e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/bea3fa761565b424d1ead86a1882408e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/bfb84abf7ef86d6efc2d16d538d7db59/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/bfb84abf7ef86d6efc2d16d538d7db59/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/07ef6d34d9c42c15a7bdc581f12871c3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/07ef6d34d9c42c15a7bdc581f12871c3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:percent:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/percent-25.2.0.aar/d27e483f7d88adb12bae668b3c27e509/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:percent:25.2.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/percent-25.2.0.aar/d27e483f7d88adb12bae668b3c27e509/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/5da5a5bbc8e069310892aac963a7d7bd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/5da5a5bbc8e069310892aac963a7d7bd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/f26dbdb1b71f03daa30750181eab996a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/f26dbdb1b71f03daa30750181eab996a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/2eb3d85b5f6ad4677676ff2b4e537232/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/2eb3d85b5f6ad4677676ff2b4e537232/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:23.3.0] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.3.0.aar/a674b5b355e5485183923221e509f730/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ruixuandai/OneDrive-Wustl/OneDrive - Washington University in St. Louis/2017/Research/Gait/zenWatch/ZenFaceDigit/app/src/main/AndroidManifest.xml
+uses-library#com.google.android.wearable
+ADDED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:7:5-88
+	android:required
+		ADDED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:7:62-86
+	android:name
+		ADDED from [com.google.android.support:wearable:2.0.3] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/wearable-2.0.3.aar/d6049d3f5e60c5f854782bf8dd0d3b85/AndroidManifest.xml:7:19-61
+activity#com.permissioneverywhere.PermissionActivity
+ADDED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:15:9-20:20
+	android:launchMode
+		ADDED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:18:13-44
+	android:alwaysRetainTaskState
+		ADDED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:17:13-50
+	android:theme
+		ADDED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:19:13-53
+	android:name
+		ADDED from [com.github.kaknazaveshtakipishi:PermissionEverywhere:1.0.2] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/PermissionEverywhere-1.0.2.aar/7a989c9a7284439b90f8c867d1a79441/AndroidManifest.xml:16:13-71
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:11.0.4] /Users/ruixuandai/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.4.aar/aee2a0f86efa1c2bda1b928e55b8643c/AndroidManifest.xml:19:19-85
