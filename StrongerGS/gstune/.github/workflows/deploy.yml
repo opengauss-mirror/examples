@@ -1,0 +1,55 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Node.JS
+        uses: actions/setup-node@v3
+        with:
+          check-latest: true
+          cache: 'yarn'
+
+      - name: Install Javascript dependencies
+        run: yarn install --immutable
+
+      - name: FE build cache cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            tmp/cache
+          key: ${{ runner.os }}-builder-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-builder-cache-
+
+      - name: Check lints
+        run: yarn run lint
+
+      - name: Check tests
+        run: yarn run test
+
+      - name: Build website
+        run: bundle exec middleman build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.

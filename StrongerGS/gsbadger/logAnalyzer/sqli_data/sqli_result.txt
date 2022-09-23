@@ -1,0 +1,5 @@
+select user from list where id = dong or 1=1	0.998
+select * from data where uname='a' and 1=1 and 'a'='a'	0.953
+select * from user_name where id = 'admin' and password='1234';drop table user;--	0.908
+select * from user where id='1111' and password='1234' and convert(char, no) --	0.863
+select * from user where id='1111' union select * from member where id='admin'--' and password='1234'	0.818
