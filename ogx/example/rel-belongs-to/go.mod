@@ -10,7 +10,7 @@ replace gitee.com/chentanyang/ogx/dialect/ogdialect => ../../dialect/ogdialect
 
 require (
 	gitee.com/chentanyang/ogx v1.1.8
-	gitee.com/chentanyang/ogx/dialect/ogdialect v0.0.0-20220915042425-85b0183464bc
+	gitee.com/chentanyang/ogx/dialect/ogdialect v0.0.0-20220915060802-59ab6779ee15
 	gitee.com/chentanyang/ogx/extra/ogxdebug v1.1.7
 	gitee.com/opengauss/openGauss-connector-go-pq v1.0.4
 )
@@ -24,8 +24,8 @@ require (
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
-	golang.org/x/sys v0.0.0-20220913175220-63ea55921009 // indirect
+	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
+	golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 )

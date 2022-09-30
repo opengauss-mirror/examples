@@ -55,7 +55,7 @@ func New() *Dialect {
 func (d *Dialect) Init(*sql.DB) {}
 
 func (d *Dialect) Name() dialect.Name {
-	return dialect.PG
+	return dialect.OPENGAUSS
 }
 
 func (d *Dialect) Features() feature.Feature {
@@ -78,11 +78,11 @@ func (d *Dialect) onField(field *schema.Field) {
 	if field.AutoIncrement && !field.Identity {
 		switch field.DiscoveredSQLType {
 		case sqltype.SmallInt:
-			field.CreateTableSQLType = pgTypeSmallSerial
+			field.CreateTableSQLType = ogTypeSmallSerial
 		case sqltype.Integer:
-			field.CreateTableSQLType = pgTypeSerial
+			field.CreateTableSQLType = ogTypeSerial
 		case sqltype.BigInt:
-			field.CreateTableSQLType = pgTypeBigSerial
+			field.CreateTableSQLType = ogTypeBigSerial
 		}
 	}
 

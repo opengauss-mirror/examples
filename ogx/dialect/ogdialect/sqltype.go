@@ -11,32 +11,32 @@ import (
 
 const (
 	// Date / Time
-	pgTypeTimestampTz = "TIMESTAMPTZ"         // Timestamp with a time zone
-	pgTypeDate        = "DATE"                // Date
-	pgTypeTime        = "TIME"                // Time without a time zone
-	pgTypeTimeTz      = "TIME WITH TIME ZONE" // Time with a time zone
-	pgTypeInterval    = "INTERVAL"            // Time Interval
+	ogTypeTimestampTz = "TIMESTAMPTZ"         // Timestamp with a time zone
+	ogTypeDate        = "DATE"                // Date
+	ogTypeTime        = "TIME"                // Time without a time zone
+	ogTypeTimeTz      = "TIME WITH TIME ZONE" // Time with a time zone
+	ogTypeInterval    = "INTERVAL"            // Time Interval
 
 	// Network Addresses
-	pgTypeInet    = "INET"    // IPv4 or IPv6 hosts and networks
-	pgTypeCidr    = "CIDR"    // IPv4 or IPv6 networks
-	pgTypeMacaddr = "MACADDR" // MAC addresses
+	ogTypeInet    = "INET"    // IPv4 or IPv6 hosts and networks
+	ogTypeCidr    = "CIDR"    // IPv4 or IPv6 networks
+	ogTypeMacaddr = "MACADDR" // MAC addresses
 
 	// Serial Types
-	pgTypeSmallSerial = "SMALLSERIAL" // 2 byte autoincrementing integer
-	pgTypeSerial      = "SERIAL"      // 4 byte autoincrementing integer
-	pgTypeBigSerial   = "BIGSERIAL"   // 8 byte autoincrementing integer
+	ogTypeSmallSerial = "SMALLSERIAL" // 2 byte autoincrementing integer
+	ogTypeSerial      = "SERIAL"      // 4 byte autoincrementing integer
+	ogTypeBigSerial   = "BIGSERIAL"   // 8 byte autoincrementing integer
 
 	// Character Types
-	pgTypeChar = "CHAR" // fixed length string (blank padded)
-	pgTypeText = "TEXT" // variable length string without limit
+	ogTypeChar = "CHAR" // fixed length string (blank padded)
+	ogTypeText = "TEXT" // variable length string without limit
 
 	// JSON Types
-	pgTypeJSON  = "JSON"  // text representation of json data
-	pgTypeJSONB = "JSONB" // binary representation of json data
+	ogTypeJSON  = "JSON"  // text representation of json data
+	ogTypeJSONB = "JSONB" // binary representation of json data
 
 	// Binary Data Types
-	pgTypeBytea = "BYTEA" // binary string
+	ogTypeBytea = "BYTEA" // binary string
 )
 
 var (
@@ -66,7 +66,7 @@ func fieldSQLType(field *schema.Field) string {
 	}
 
 	if field.DiscoveredSQLType == sqltype.Blob {
-		return pgTypeBytea
+		return ogTypeBytea
 	}
 
 	return sqlType(field.IndirectType)
@@ -75,30 +75,30 @@ func fieldSQLType(field *schema.Field) string {
 func sqlType(typ reflect.Type) string {
 	switch typ {
 	case ipType:
-		return pgTypeInet
+		return ogTypeInet
 	case ipNetType:
-		return pgTypeCidr
+		return ogTypeCidr
 	case jsonRawMessageType:
-		return pgTypeJSONB
+		return ogTypeJSONB
 	}
 
 	sqlType := schema.DiscoverSQLType(typ)
 	switch sqlType {
 	case sqltype.Timestamp:
-		sqlType = pgTypeTimestampTz
+		sqlType = ogTypeTimestampTz
 	}
 
 	switch typ.Kind() {
 	case reflect.Map, reflect.Struct:
 		if sqlType == sqltype.VarChar {
-			return pgTypeJSONB
+			return ogTypeJSONB
 		}
 		return sqlType
 	case reflect.Array, reflect.Slice:
 		if typ.Elem().Kind() == reflect.Uint8 {
-			return pgTypeBytea
+			return ogTypeBytea
 		}
-		return pgTypeJSONB
+		return ogTypeJSONB
 	}
 
 	return sqlType

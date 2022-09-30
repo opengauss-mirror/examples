@@ -1,20 +1,18 @@
 package ogx
 
 import (
-	"bytes"
-	"context"
-	"database/sql"
-	"errors"
-	"fmt"
-	"strconv"
-	"strings"
-	"sync"
+  "bytes"
+  "context"
+  "database/sql"
+  "errors"
+  "fmt"
+  "strconv"
+  "strings"
+  "sync"
 
-	"gitee.com/chentanyang/ogx/dialect"
-
-	"gitee.com/chentanyang/ogx/dialect/feature"
-	"gitee.com/chentanyang/ogx/internal"
-	"gitee.com/chentanyang/ogx/schema"
+  "gitee.com/chentanyang/ogx/dialect/feature"
+  "gitee.com/chentanyang/ogx/internal"
+  "gitee.com/chentanyang/ogx/schema"
 )
 
 type union struct {
@@ -163,86 +161,50 @@ func (q *SelectQuery) WhereAllWithDeleted() *SelectQuery {
 //------------------------------------------------------------------------------
 
 func (q *SelectQuery) UseIndex(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addUseIndex(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) UseIndexForJoin(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addUseIndexForJoin(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) UseIndexForOrderBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addUseIndexForOrderBy(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) UseIndexForGroupBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addUseIndexForGroupBy(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) IgnoreIndex(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addIgnoreIndex(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) IgnoreIndexForJoin(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addIgnoreIndexForJoin(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) IgnoreIndexForOrderBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addIgnoreIndexForOrderBy(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) IgnoreIndexForGroupBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addIgnoreIndexForGroupBy(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) ForceIndex(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addForceIndex(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) ForceIndexForJoin(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addForceIndexForJoin(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) ForceIndexForOrderBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addForceIndexForOrderBy(indexes...)
-	}
 	return q
 }
 
 func (q *SelectQuery) ForceIndexForGroupBy(indexes ...string) *SelectQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addForceIndexForGroupBy(indexes...)
-	}
 	return q
 }
 
