@@ -6,8 +6,6 @@ import (
 	"errors"
 	"fmt"
 
-	"gitee.com/chentanyang/ogx/dialect"
-
 	"gitee.com/chentanyang/ogx/dialect/feature"
 	"gitee.com/chentanyang/ogx/internal"
 	"gitee.com/chentanyang/ogx/schema"
@@ -564,22 +562,13 @@ func (q *updateQueryBuilder) Unwrap() interface{} {
 //------------------------------------------------------------------------------
 
 func (q *UpdateQuery) UseIndex(indexes ...string) *UpdateQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addUseIndex(indexes...)
-	}
 	return q
 }
 
 func (q *UpdateQuery) IgnoreIndex(indexes ...string) *UpdateQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addIgnoreIndex(indexes...)
-	}
 	return q
 }
 
 func (q *UpdateQuery) ForceIndex(indexes ...string) *UpdateQuery {
-	if q.db.dialect.Name() == dialect.MySQL {
-		q.addForceIndex(indexes...)
-	}
 	return q
 }
