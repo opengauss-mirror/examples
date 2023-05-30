@@ -317,6 +317,8 @@ int db_bulk_insert_done(db_conn_t *);
 void db_report_intermediate(sb_stat_t *);
 void db_report_cumulative(sb_stat_t *);
 
+int db_counter_inc(db_stmt_t *, int);
+
 /* DB drivers registrars */
 
 #ifdef USE_MYSQL

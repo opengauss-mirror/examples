@@ -178,7 +178,8 @@ static int sb_lua_db_execute(lua_State *);
 static int sb_lua_db_close(lua_State *);
 static int sb_lua_db_store_results(lua_State *);
 static int sb_lua_db_free_results(lua_State *);
-
+static int sb_lua_db_counter_inc(lua_State *);
+ 
 static unsigned int sb_lua_table_size(lua_State *, int);
 
 static int read_cmdline_options(lua_State *L);
@@ -731,7 +732,8 @@ static lua_State *sb_lua_new_state(void)
   sb_lua_var_func(L, "close", sb_lua_db_close);
   sb_lua_var_func(L, "store_results", sb_lua_db_store_results);
   sb_lua_var_func(L, "free_results", sb_lua_db_free_results);
-
+  sb_lua_var_func(L, "counter_inc", sb_lua_db_counter_inc);
+   
   sb_lua_var_number(L, "DB_ERROR_NONE", DB_ERROR_NONE);
   sb_lua_var_number(L, "DB_ERROR_RESTART_TRANSACTION", DB_ERROR_IGNORABLE);
   sb_lua_var_number(L, "DB_ERROR_FAILED", DB_ERROR_FATAL);
@@ -1353,6 +1355,20 @@ unsigned int sb_lua_table_size(lua_State *L, int index)
   }
 
   return i;
+}
+
+int sb_lua_db_counter_inc(lua_State *L)
+{
+    int cnt;
+    size_t len = 0;
+
+    check_connection(L, &tls_lua_ctxt);
+    db_conn_t* const con = tls_lua_ctxt.con;
+    cnt = luaL_checkinteger(L, 1 &len);
+
+    sb_counter_inc(con->thread_id, cnt);
+    luaL_error(L, "counter inc cnt=%d", cnt);
+    return 0;
 }
 
 /* Check if a specified hook exists */

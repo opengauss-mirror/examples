@@ -146,7 +146,7 @@ int db_bind_param(sql_statement *stmt, sql_bind *params, size_t len);
 int db_bind_result(sql_statement *stmt, sql_bind *results, size_t len);
 sql_result *db_execute(sql_statement *stmt);
 int db_close(sql_statement *stmt);
-
+int db_counter_inc(sql_statement *stmt, int inc);
 int db_free_results(sql_result *);
 ]]
 
@@ -433,6 +433,10 @@ end
 
 function statement_methods.close(self)
    return ffi.C.db_close(self)
+end
+
+function statement_methods.counter_inc(self, inc)
+   return ffi.C.db_counter_inc(self, inc)
 end
 
 -- sql_statement metatable

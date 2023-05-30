@@ -477,6 +477,20 @@ int db_bind_result(db_stmt_t *stmt, db_bind_t *results, size_t len)
   return con->driver->ops.bind_result(stmt, results, len);
 }
 
+/* ADD for redis, for point_select, when get data from redis, we should increment READ counter */
+ int db_counter_inc(db_stmt_t *stmt, int inc)
+ {
+   db_conn_t *con = stmt->connection;
+ 
+   if (con->state == DB_CONN_INVALID)
+   {
+     log_text(LOG_ALERT, "attempt to use an already closed connection");
+     return 1;
+   }
+ 
+   sb_counter_inc(con->thread_id, inc);
+   return 0;
+ }
 
 /* Execute prepared statement */
 

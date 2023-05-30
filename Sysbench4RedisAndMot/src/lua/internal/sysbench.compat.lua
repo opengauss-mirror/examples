@@ -67,6 +67,8 @@ db_free_results = sysbench.db.free_results
 
 db_close = sysbench.db.close
 
+db_counter_inc = sysbench.db.counter_inc
+   
 DB_ERROR_NONE = sysbench.db.DB_ERROR_NONE
 DB_ERROR_RESTART_TRANSACTION = sysbench.db.DB_ERROR_RESTART_TRANSACTION
 DB_ERROR_FAILED = sysbench.db.DB_ERROR_FAILED
