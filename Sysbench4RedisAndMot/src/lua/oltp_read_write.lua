@@ -19,7 +19,7 @@
 -- Read/Write OLTP benchmark
 -- ----------------------------------------------------------------------
 
-require("oltp_common")
+require("oltp_common_redis")
 
 function prepare_statements()
    if not sysbench.opt.skip_trx then
@@ -28,13 +28,6 @@ function prepare_statements()
    end
 
    prepare_point_selects()
-
-   if sysbench.opt.range_selects then
-      prepare_simple_ranges()
-      prepare_sum_ranges()
-      prepare_order_ranges()
-      prepare_distinct_ranges()
-   end
 
    prepare_index_updates()
    prepare_non_index_updates()
@@ -48,18 +41,12 @@ function event()
 
    execute_point_selects()
 
-   if sysbench.opt.range_selects then
-      execute_simple_ranges()
-      execute_sum_ranges()
-      execute_order_ranges()
-      execute_distinct_ranges()
-   end
-
    execute_index_updates()
    execute_non_index_updates()
    execute_delete_inserts()
 
+      
    if not sysbench.opt.skip_trx then
-      commit()
+       commit()
    end
 end
