@@ -5,7 +5,7 @@
 
 在openGauss中提供了完善的日志系统，其中的审计日志中就记录了用户每次的操作，日志中每一条记录表示: 时间t用户A对客体B进行了操作C。首先对原始的审计日志进行筛选过滤去除噪声记录，然后使用特征工程设计了基于统计学上的特征。最后让AI模型使用前面的特征自动学习数据更深层的特征。最后模型具有识别不同类型用户的能力。
 
-![用户操作模型](https://cdn.nlark.com/yuque/0/2023/png/21528568/1689931339917-568c1737-b9d2-4e40-b013-776b846ec967.png#averageHue=%23f9f7f4&clientId=u862145d8-5212-4&from=paste&id=uc944a0f2&originHeight=302&originWidth=1217&originalType=url&ratio=1&rotation=0&showTitle=true&size=44504&status=done&style=none&taskId=u1ea3bcff-0c69-4d9d-91db-57306164042&title=%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%A8%A1%E5%9E%8B "用户操作模型")
+![用户操作模型](./doc/p_用户操作模型.png)
 
 
 
