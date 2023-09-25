@@ -25,11 +25,10 @@
 
 ### 2.1 工程布局
 
+![](https://cdn.jsdelivr.net/gh/52chen/imagebed2023@main/image-20230925200022010.png)
+
 ```sh
-F:\项目\gaussTest>tree /F
-卷 work 的文件夹 PATH 列表
-卷序列号为 D4FA-828F
-F:.
+OpenGaussPrivilegeScan
 │  .gitignore
 │  pom.xml
 │  README.md
@@ -113,18 +112,18 @@ F:.
 
 ### 2.2 项目配置文件
 
-pom.xml文件如下
+pom.xml 依赖文件如下
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>gaussTest</artifactId>
+    <groupId>com.mcx</groupId>
+    <artifactId>GaussPrivilegeScan</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gaussTest</name>
-    <description>gaussTest</description>
+    <name>GaussPrivilegeScan</name>
+    <description>GaussPrivilegeScan</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -159,8 +158,6 @@ pom.xml文件如下
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -191,7 +188,7 @@ pom.xml文件如下
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.mcx.gaussprivilege.GaussTestApplicationcom.mcx.gaussprivilege.GaussTestApplication</mainClass>
+                    <mainClass>com.mcx.gaussprivilege.GaussTestApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
@@ -208,11 +205,14 @@ pom.xml文件如下
 
 </project>
 
+
 ```
 
 手动导入postgresql和opengauss的jar包。
 
-![image-20230918171808500](https://cdn.jsdelivr.net/gh/52chen/imagebed2023@main/image-20230918171808500.png)
+![image-20230925200022010](https://cdn.jsdelivr.net/gh/52chen/imagebed2023@main/image-20230925200022010.png)
+
+
 
 application.properties
 
