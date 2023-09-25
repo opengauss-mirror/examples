@@ -438,11 +438,204 @@ hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
 
 
 
+# 二、权限规划测试案例
+
+本示例以项目维度进行权限管理示例。
+
+- DBA拥有open Gauss实例的高权限账号，名称是`dbsuperuser`。
+- 举例业务项目名称是`oaauth`，OA系统，新建schema名称是oaauth、oaauth_1。
+
+项目中新增的资源owner账号和角色Role规划如下：
+
+| user/Role                                      | schema中表权限                                               | schema中存储过程权限                                         |
+| :--------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| oaauth_owner (user)，是唯一的项目资源owner账号 | DDL：CREATE、DROP、ALTERDQL：SELECTDML：UPDATE、INSERT、DELETE | DDL：CREATE、DROP、ALTERDQL：SELECT，调用存储过程            |
+| oaauth_role_readwrite (role)                   | DQL：SELECTDML：UPDATE、INSERT、DELETE                       | DQL（SELECT，调用存储过程） ，若存储过程有DDL操作，会抛出权限相关错误。 |
+| oaauth_role_readonly (role)                    | DQL(SELECT)                                                  | DQL（SELECT，调用存储过程），若存储过程有DDL或者DML操作，会抛出权限相关错误。 |
+
+新增业务账号时，根据不同需求，采用如下管理模式创建：
+
+- oaauth_readwrite = oaauth_role_readwrite + login权限 
+- oaauth_readonly = oaauth_role_readonly + login权限
+
+就是通过角色加登录权限设计为需要的新的账号。
+
+### 配置步骤
+
+1. 创建项目资源owner账号oaauth_owner和项目Role。
+
+   DBA使用dbsuperuser高权限账号执行如下操作。
+
+   ```pgsql
+   --- oaauth_owner 是项目管理账号,此处密码仅为示例，请注意修改。
+   CREATE USER oaauth_owner WITH LOGIN PASSWORD 'gauss@123';
+   
+   CREATE ROLE oaauth_role_readwrite WITH PASSWORD 'gauss@123';
+   CREATE ROLE oaauth_role_readonly WITH PASSWORD 'gauss@123';
+   
+   --- 设置: 对于oaauth_owner 创建的表，oaauth_role_readwrite 有 DQL（SELECT）、DML（UPDATE、INSERT、DELETE）权限。
+   ALTER DEFAULT PRIVILEGES FOR ROLE oaauth_owner GRANT ALL ON TABLES TO oaauth_role_readwrite;
+   
+   --- 设置: 对于oaauth_owner 创建的SEQUENCES，oaauth_role_readwrite 有 DQL（SELECT）、DML（UPDATE、INSERT、DELETE）权限。
+   ALTER DEFAULT PRIVILEGES FOR ROLE oaauth_owner GRANT ALL ON SEQUENCES TO oaauth_role_readwrite;
+   
+   --- 设置: 对于 oaauth_owner 创建的表， oaauth_role_readonly 只有 DQL（SELECT）权限。
+   ALTER DEFAULT PRIVILEGES FOR ROLE oaauth_owner GRANT SELECT ON TABLES TO oaauth_role_readonly;
+   ```
+
+2. 创建oaauth_readwrite、oaauth_readonly业务账号。
+
+   DBA使用dbsuperuser高权限账号执行如下操作。
+
+   ```pgsql
+   --- oaauth_readwrite只有 DQL（SELECT）、DML（UPDATE、INSERT、DELETE）权限。
+   CREATE USER oaauth_readwrite WITH LOGIN PASSWORD 'gauss@123';
+   GRANT oaauth_role_readwrite TO oaauth_readwrite;
+   
+   --- oaauth_readonly只有 DQL（SELECT）权限。
+   CREATE USER oaauth_readonly WITH LOGIN PASSWORD 'gauss@123';
+   GRANT oaauth_role_readonly TO oaauth_readonly;
+   ```
+
+3. 创建schema oaauth，并授权给项目Role。
+
+   DBA使用dbsuperuser高权限账号执行如下操作。
+
+   ```pgsql
+   --- schema oaauth的owner是 oaauth_owner账号
+   CREATE SCHEMA oaauth AUTHORIZATION oaauth_owner;
+   
+   --- 授权ROLE相关SCHEMA访问权限。
+   GRANT USAGE ON SCHEMA oaauth TO oaauth_role_readwrite;
+   GRANT USAGE ON SCHEMA oaauth TO oaauth_role_readonly;
+   ```
+
+   **说明**
+
+   oaauth_readwrite和oaauth_readonly自动继承了相关Role的权限变更，不需要再额外操作。
+
+![image-20230917145135120](https://cdn.jsdelivr.net/gh/52chen/imagebed2023@main/image-20230917145135120.png)
+
+
+
+### 应用场景示例
+
+**场景1：使用oaauth_owner账号：对schema oaauth中的表进行DDL（CREATE、DROP、ALTER）操作**
+
+```pgsql
+CREATE TABLE oaauth.test(id bigserial primary key, name text);
+CREATE INDEX idx_test_name on oaauth.test(name);
+```
+
+**场景2：使用 oaauth_readwrite/oaauth_readonly 账号进行业务开发**
+
+业务开发遵循最小权限原则，尽量使用oaauth_readonly账号，需要DML操作的地方才使用oaauth_readwrite账号。这样也方便在业务层做读写分离。
+
+**说明**
+
+- 业务层做读写分离，避免了自动读写分离中间件proxy带来的额外成本和性能损耗。
+
+- 即使目前还没有使用只读实例，也建议区分 readonly客户端、readwrite客户端，为使用只读实例做准备。readonly客户端建议使用readonly账号，最小权限原则，规避权限误用。
+
+  - readonly客户端，使用readonly账号，设置JDBC URL：`只读实例1地址,只读实例2地址,读写实例地址`。
+  - readwrite客户端，使用readwrite账号，设置JDBC URL：`读写实例地址`。
+
+- 使用oaauth_readwrite账号，对schema oaauth中的表进行DQL（SELECT）、DML（UPDATE、INSERT、DELETE）操作：
+
+  ```subunit
+  INSERT INTO oaauth.test (name) VALUES('name0'),('name1');
+  SELECT id,name FROM oaauth.test LIMIT 1;
+  
+  --- oaauth_readwrite没有 DDL（CREATE、DROP、ALTER）权限
+  CREATE TABLE oaauth.test2(id int);
+  ERROR:  permission denied for schema oaauth
+  LINE 1: create table oaauth.test2(id int);
+  
+  DROP TABLE oaauth.test;
+  ERROR:  must be owner of table test
+  
+  ALTER TABLE oaauth.test ADD id2 int;
+  ERROR:  must be owner of table test
+  
+  CREATE INDEX idx_test_name on oaauth.test(name);
+  ERROR:  must be owner of table test
+  ```
+
+- 使用oaauth_readonly账号，对schema oaauth中的表进行DQL（SELECT）操作：
+
+  ```pgsql
+  INSERT INTO oaauth.test (name) VALUES('name0'),('name1');
+  ERROR:  permission denied for table test
+  
+  SELECT id,name FROM oaauth.test LIMIT 1;
+   id | name
+  ----+-------
+    1 | name0
+  (1 row)
+  ```
+
+**场景3：不同项目交叉授权**
+
+如果有另外1个项目employee，需求为账号employee_readwrite增加oaauth项目的表只读权限。DBA使用dbsuperuser高权限账号做如下操作：
+
+```pgsql
+--- 给账号 employee_readwrite 加上 oaauth_role_readonly 权限集合。
+GRANT oaauth_role_readonly TO employee_readwrite;
+```
+
+**场景4：项目新增 schema oaauth_2，并授权给项目Role**
+
+oaauth_readwrite、oaauth_readonly、employee_readwrite账号自动继承了相关Role的权限变更，不需要再额外操作。DBA使用dbsuperuser 高权限账号做如下操作：
+
+```pgsql
+CREATE SCHEMA oaauth_1 AUTHORIZATION oaauth_owner;
+
+--- 授权ROLE相关SCHEMA访问权限。
+--- CREATE 使得 oaauth_role_admin 对schema oaauth_1中的表有 DDL（CREATE、DROP、ALTER）权限。
+GRANT USAGE ON SCHEMA oaauth_1 TO oaauth_role_readwrite;
+GRANT USAGE ON SCHEMA oaauth_1 TO oaauth_role_readonly;
+```
+
+### 账号权限查询
+
+通过本文介绍的账号权限管理模型创建的账号，可以通过如下方式查询具体权限信息。
+
+- 使用PostgreSQL客户端命令行终端连接RDS PostgreSQL数据库，具体请参见
+
+  连接PostgreSQL实例
+
+  。然后使用
+
+  ```
+  \du
+  ```
+
+  ![](https://cdn.jsdelivr.net/gh/52chen/imagebed2023@main/image-20230917145135120.png)
+
+  从上述查询结果示例中可以看出：employee_readwrite账号的**Member of**列中，内容为`oaauth_role_readonly,employee_role_readwrite`，因此，此账号对employee项目表具有DQL和DML权限，对oaauth项目表具有DQL权限。
+
+- 使用SQL查询：
+
+  ```pgsql
+  SELECT r.rolname, r.rolsuper, r.rolinherit,
+    r.rolcreaterole, r.rolcreatedb, r.rolcanlogin,
+    r.rolconnlimit, r.rolvaliduntil,
+    ARRAY(SELECT b.rolname
+          FROM pg_catalog.pg_auth_members m
+          JOIN pg_catalog.pg_roles b ON (m.roleid = b.oid)
+          WHERE m.member = r.oid) as memberof
+  , r.rolreplication
+  , r.rolbypassrls
+  FROM pg_catalog.pg_roles r
+  WHERE r.rolname !~ '^pg_'
+  ORDER BY 1;
+  ```
 
 
 
 
-# 二、SpringBoot项目
+
+# 三、SpringBoot项目
 
 基于Springboot的gauss数据库权限扫描
 
@@ -994,7 +1187,7 @@ openGauss 使用的 SHA256 不兼容 PostgreSQL 的驱动
 
 
 
-# 三、JDBC连接数据库
+# 四、JDBC连接数据库进行测试
 
 导入驱动：
 
