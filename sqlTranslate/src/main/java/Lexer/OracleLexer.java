@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 
 public class OracleLexer {
-    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE", "now()"};
+    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE",
+            "now()"};
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(now\\(\\))|" +                    // now() function
             "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers

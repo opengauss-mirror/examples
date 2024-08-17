@@ -5,7 +5,7 @@ public class Token {
         KEYWORD, IDENTIFIER, NUMBER, OPERATOR, STRING, SYMBOL, EOF
     }
 
-    private final TokenType type;
+    private TokenType type;
     private final String value;
 
     public Token(TokenType type, String value) {
@@ -19,6 +19,10 @@ public class Token {
 
     public String getValue() {
         return value;
+    }
+
+    public boolean hasType(TokenType type) {
+        return this.type == type;
     }
 
     @Override
