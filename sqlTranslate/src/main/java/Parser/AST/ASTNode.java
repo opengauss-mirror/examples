@@ -1,12 +1,11 @@
-package Parser;
+package Parser.AST;
 
 import Lexer.Token;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ASTNode {
+public abstract class ASTNode {
     private Token token;
     private ASTNode parent;
     private List<ASTNode> children = new ArrayList<>();
@@ -96,50 +95,14 @@ public class ASTNode {
 
     public String toQueryString() {
         StringBuilder queryString = new StringBuilder();
-        visit(this, queryString, false);
+        visit(this, queryString);
         return queryString.toString();
     }
 
-    private void visit(ASTNode node, StringBuilder queryString, boolean hasPrespace) {
-        if (node == null) {
-            return;
-        }
-        if (node.getToken().hasType(Token.TokenType.KEYWORD)) {
-            String value = node.getToken().getValue();
-            if (value == null || value.trim().isEmpty()) {
-                return;
-            }
-            boolean preSpace = true;
-            if (queryString.length() == 0) {
-                preSpace = false;
-            } else if (queryString.charAt(queryString.length() - 1) == '(') {
-                preSpace = false;
-            } else if (Arrays.asList(",", ";", ")").contains(value)) {
-                preSpace = false;
-            } else if (!hasPrespace) {
-                // If the token does not have pre space, we should not add, either.
-                preSpace = false;
-            }
-            if (preSpace) {
-                queryString.append(" ");
-            }
-            queryString.append(value);
-        } else {
-            for (int i = 0; i < node.getChildren().size(); i++) {
-                ASTNode childNode = node.getChildren().get(i);
-                if (i == 0) {
-                    visit(childNode, queryString, hasPrespace || childNode.getToken().hasPreSpace());
-                } else {
-                    visit(childNode, queryString, childNode.getToken().hasPreSpace());
-                }
-            }
-        }
-    }
+    public abstract void visit(ASTNode node, StringBuilder queryString);
 
     @Override
     public String toString() {
         return token.getValue();
     }
-
-
 }
