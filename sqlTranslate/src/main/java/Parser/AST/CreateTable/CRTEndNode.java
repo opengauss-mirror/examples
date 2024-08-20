@@ -1,18 +1,21 @@
-package Parser.AST;
+package Parser.AST.CreateTable;
 import Lexer.Token;
 import Parser.AST.ASTNode;
-public class EndNode extends ASTNode{
-    public EndNode(ASTNode node)
+
+import java.util.List;
+
+public class CRTEndNode extends ASTNode {
+    public CRTEndNode(ASTNode node)
     {
         super(node);
     }
-    public EndNode(Token token)
+    public CRTEndNode(List<Token> tokens)
     {
-        super(token);
+        super(tokens);
     }
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append(")" + getToken().getValue());
+        queryString.append(")" + toString());
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class OracleLexer {
     public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE",
             // keywords of creating table
-            "CREATE", "TABLE", "TEMPORARY",
+            "CREATE", "TABLE", "TEMPORARY", "GLOBAL",
             "NUMBER", "INTEGER", "SMALLIN", "BINARY_INTEGER", "DECIMAL", "REAL", "FLOAT", "DOUBLE PRECISION", "CHAR", "VARCHAR2",
             "NCHAR", "NVARCHAR2", "CLOB", "NCLOB", "DATE", "TIMESTAMP", "TIMESTAMP WITH TIME ZONE", "TIMESTAMP WITH LOCAL TIME ZONE", "BLOB", "RAW",
             "LONG RAW", "BOOLEAN", "INTERVAL YEAR TO MONTH", "INTERVAL DAY TO SECOND", "ROWID", "UROWID", "REF CURSOR",
@@ -137,5 +137,9 @@ public class OracleLexer {
         for (Token token : tokens) {
             System.out.println(token);
         }
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
     }
 }

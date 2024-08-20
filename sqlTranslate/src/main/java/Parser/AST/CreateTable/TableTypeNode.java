@@ -3,19 +3,21 @@ package Parser.AST.CreateTable;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
+import java.util.List;
+
 public class TableTypeNode extends ASTNode {
     public TableTypeNode(ASTNode node)
     {
         super(node);
     }
-    public TableTypeNode(Token token)
+    public TableTypeNode(List<Token> tokens)
     {
-        super(token);
+        super(tokens);
     }
 
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append(getToken() + " ");
+        queryString.append(toString() + " ");
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);

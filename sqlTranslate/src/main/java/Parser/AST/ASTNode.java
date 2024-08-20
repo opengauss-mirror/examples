@@ -6,26 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ASTNode {
-    private Token token;
+    private List<Token> tokens;
     private ASTNode parent;
     private List<ASTNode> children = new ArrayList<>();
 
-    public ASTNode(Token token) {
-        this.token = token;
+    public ASTNode(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
     public ASTNode(ASTNode node) {
-        this.token = node.token;
+        this.tokens = node.tokens;
         this.parent = node.parent;
         this.children = new ArrayList<>(node.children);
     }
 
-    public Token getToken() {
-        return token;
+    public List<Token> getTokens() {
+        return tokens;
     }
 
-    public void setToken(Token token) {
-        this.token = token;
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
     public ASTNode getParent() {
@@ -66,7 +66,7 @@ public abstract class ASTNode {
      */
     public void setChildrenByName(String childName, ASTNode child) {
         for (int i = 0; i < this.children.size(); i++) {
-            if (this.children.get(i).getToken().getValue().contains(childName)) {
+            if (this.children.get(i).toString().contains(childName)) {
                 this.children.set(i, child);
                 break;
             }
@@ -103,6 +103,13 @@ public abstract class ASTNode {
 
     @Override
     public String toString() {
-        return token.getValue();
+        String str = "";
+        for (int i = 0; i < tokens.size(); i++) {
+            if (i < tokens.size() - 1)
+                str += tokens.get(i).getValue() + " ";
+            else
+                str += tokens.get(i).getValue();
+        }
+        return str;
     }
 }
