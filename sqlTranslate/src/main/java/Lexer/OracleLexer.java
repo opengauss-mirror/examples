@@ -10,18 +10,35 @@ import java.util.regex.Pattern;
 public class OracleLexer {
     public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE",
             // keywords of creating table
-            "CREATE", "TABLE", "TEMPORARY", "",
+            "CREATE", "TABLE", "TEMPORARY",
+            "NUMBER", "INTEGER", "SMALLIN", "BINARY_INTEGER", "DECIMAL", "REAL", "FLOAT", "DOUBLE PRECISION", "CHAR", "VARCHAR2",
+            "NCHAR", "NVARCHAR2", "CLOB", "NCLOB", "DATE", "TIMESTAMP", "TIMESTAMP WITH TIME ZONE", "TIMESTAMP WITH LOCAL TIME ZONE", "BLOB", "RAW",
+            "LONG RAW", "BOOLEAN", "INTERVAL YEAR TO MONTH", "INTERVAL DAY TO SECOND", "ROWID", "UROWID", "REF CURSOR",
+            "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT",
+            "CONSTRAINT", "FOREIGN KEY"
 
-            "now()"};
+    };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
-            "(now\\(\\))|" +                    // now() function
-            "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
+            "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
+                    "(DECIMAL\\(.*?\\))|" +                   // DECIMAL() function
+                    "(FLOAT\\(.*?\\))|" +                    // FLOAT() function
+                    "(CHAR\\(.*?\\))|" +                     // CHAR() function
+                    "(VARCHAR2\\(.*?\\))|" +                     // VARCHAR2() function
+                    "(NCHAR\\(.*?\\))|" +                     // NCHAR() function
+                    "(NVARCHAR2\\(.*?\\))|" +                     // NVARCHAR2() function
+                    "(RAW\\(.*?\\))|" +                     // RAW() function
+                    "(NOT NULL)|" +
+                    "(PRIMARY KEY)|" +
+                    "(FOREIGN KEY)|" +
+
+                    "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
                     "(\\d+\\.?\\d*)|" +                 // Numbers (integer or decimal)
                     "(\"[^\"]*\")|" +                   // Double-quoted strings
                     "('([^']|\\\\')*)'|" +              // Single-quoted strings
                     "([;,()])|" +                     // Symbols: ;, (, ), ,
                     "([=<>+\\-*/<<>>])|" +              // Operators, including shift operators
-                    "(\\s+)"                            // Whitespace
+                    "(\\s+)",                            // Whitespace
+            Pattern.CASE_INSENSITIVE
     );
 
     private final List<Token> tokens = new ArrayList<>();
@@ -29,7 +46,8 @@ public class OracleLexer {
     private int position = 0;
 
     public OracleLexer(String input) {
-        this.input = input;
+        this.input = dataProcess(input);
+        tokenize();
     }
 
     public List<Token> tokenize() {
@@ -61,10 +79,36 @@ public class OracleLexer {
             return new Token(Token.TokenType.SYMBOL, tokenValue);
         } else if (tokenValue.matches("[=<>+\\-*/<<>>]")) {
             return new Token(Token.TokenType.OPERATOR, tokenValue);
-        } else if (tokenValue.matches("now\\(\\)")) {
-            // Handle the now() function as a single token
+        }
+
+        else if (tokenValue.matches("(?i)NUMBER\\(.*?\\)")) {
+            // NUMBER() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        } else if (isKeyword(tokenValue)) {
+        }else if (tokenValue.matches("(?i)DECIMAL\\(.*?\\)")) {
+            // DECIMAL() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)FLOAT\\(.*?\\)")) {
+            // FLOAT() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)CHAR\\(.*?\\)")) {
+            // CHAR() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)VARCHAR2\\(.*?\\)")) {
+            // VARCHAR2() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)NCHAR\\(.*?\\)")) {
+            // NCHAR() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)NVARCHAR2\\(.*?\\)")) {
+            // NVARCHAR2() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)RAW\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }
+
+
+        else if (isKeyword(tokenValue)) {
             return new Token(Token.TokenType.KEYWORD, tokenValue);
         } else if (tokenValue.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
             return new Token(Token.TokenType.IDENTIFIER, tokenValue);
@@ -79,5 +123,19 @@ public class OracleLexer {
             }
         }
         return false;
+    }
+
+    private static String dataProcess(String input){
+        while (input.contains("  ")) {
+            input = input.replace("  ", " ");
+        }
+        input = input.replace(" (", "(");
+        return input;
+    }
+
+    public void printTokens() {
+        for (Token token : tokens) {
+            System.out.println(token);
+        }
     }
 }

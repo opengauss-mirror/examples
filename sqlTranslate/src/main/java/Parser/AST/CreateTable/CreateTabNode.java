@@ -1,8 +1,9 @@
-package Parser.AST;
+package Parser.AST.CreateTable;
 
 import Lexer.Token;
+import Parser.AST.ASTNode;
 
-public class CreateTabNode extends ASTNode{
+public class CreateTabNode extends ASTNode {
     public CreateTabNode(ASTNode node) {
         super(node);
     }
