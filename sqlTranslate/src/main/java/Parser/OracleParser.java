@@ -76,6 +76,16 @@ public class OracleParser {
                 currentNode.addChild(child);
                 currentNode = child;
             }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                tokens.clear();
+                tokens.add(lexer.getTokens().get(i));
+                for (int j = i + 1; j < lexer.getTokens().size(); j++) {
+                    // TODO: Token.TokenType.IDENTIFIER ... , -> column node
+                }
+            }
+            else {
+                throw new ParseFailedException("Parse failed!");
+            }
         }
         return root;
     }

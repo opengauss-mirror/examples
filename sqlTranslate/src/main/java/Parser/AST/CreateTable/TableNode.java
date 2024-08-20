@@ -17,7 +17,7 @@ public class TableNode extends ASTNode{
 
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append(toString() + " ");
+        queryString.append(toString() + " ( ");
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);
