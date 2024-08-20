@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add functions">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Exception/ParseFailedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/ColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/ColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/CreateTabNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/CreateTabNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableConstraintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableConstraintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/TableTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/EndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/CRTEndNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/SelectStatementNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/SelectStatementNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
-    </list>
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,14 +35,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/oracle2opengauss/examples/sqlTranslate&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "F:/oracle2opengauss/examples/sqlTranslate",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="应用程序.Main">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.App" />
@@ -147,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724145125754</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="revise">
+      <created>1724164698153</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724164698153</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +160,7 @@
     <MESSAGE value="AST node" />
     <MESSAGE value="add AST node" />
     <MESSAGE value="add functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add functions" />
+    <MESSAGE value="revise" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise" />
   </component>
 </project>
