@@ -4,6 +4,7 @@ import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
+import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Parser.AST.CreateTable.TableNode;
 import Parser.AST.CreateTable.TableTypeNode;
@@ -77,11 +78,31 @@ public class OracleParser {
                 currentNode = child;
             }
             else if (lexer.getTokens().get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                // Token.TokenType.IDENTIFIER ... , -> column node
+                tokens.clear();
+                ColumnNode child = new ColumnNode();
+                child.setName();
+                tokens.add();
+                for (int j = i + 1; j < lexer.getTokens().size(); j++) {
+                    if (j == i + 1) {
+
+                    }
+                    tokens.add(lexer.getTokens().get(j));
+                    if ((lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(",")) ||
+                            (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(")")) ) {
+                        i = j;
+                        break;
+                    }
+                }
+                child.setTokens(tokens);
+                currentNode.addChild(child);
+                currentNode = child;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i).getValue().equalsIgnoreCase("CONSTRAINT")) {
+                // Table constraint
                 tokens.clear();
                 tokens.add(lexer.getTokens().get(i));
-                for (int j = i + 1; j < lexer.getTokens().size(); j++) {
-                    // TODO: Token.TokenType.IDENTIFIER ... , -> column node
-                }
+
             }
             else {
                 throw new ParseFailedException("Parse failed!");

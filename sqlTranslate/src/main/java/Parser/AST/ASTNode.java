@@ -10,6 +10,9 @@ public abstract class ASTNode {
     private ASTNode parent;
     private List<ASTNode> children = new ArrayList<>();
 
+    public ASTNode() {
+    }
+
     public ASTNode(List<Token> tokens) {
         this.tokens = tokens;
     }
