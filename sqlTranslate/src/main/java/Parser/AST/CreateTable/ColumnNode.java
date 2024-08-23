@@ -8,7 +8,7 @@ import java.util.List;
 public class ColumnNode extends ASTNode {
     private Token name;
     private Token type;
-    private Token constraint;
+    private List<Token> constraint;
     public ColumnNode() {
         super();
     }
@@ -46,11 +46,11 @@ public class ColumnNode extends ASTNode {
         this.type = type;
     }
 
-    public Token getConstraint() {
+    public List<Token> getConstraint() {
         return constraint;
     }
 
-    public void setConstraint(Token constraint) {
+    public void setConstraint(List<Token> constraint) {
         this.constraint = constraint;
     }
 

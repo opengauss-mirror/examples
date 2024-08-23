@@ -8,6 +8,7 @@ import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Parser.AST.CreateTable.TableNode;
 import Parser.AST.CreateTable.TableTypeNode;
+import java.util.Stack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,16 +82,49 @@ public class OracleParser {
                 // Token.TokenType.IDENTIFIER ... , -> column node
                 tokens.clear();
                 ColumnNode child = new ColumnNode();
-                child.setName();
-                tokens.add();
+                child.setName(lexer.getTokens().get(i));
+                tokens.add(lexer.getTokens().get(i));
+                List <Token> constraint = new ArrayList<>();
                 for (int j = i + 1; j < lexer.getTokens().size(); j++) {
                     if (j == i + 1) {
-
+                        child.setType(lexer.getTokens().get(j));
+                    }
+                    else {
+                        constraint.add(lexer.getTokens().get(j));
                     }
                     tokens.add(lexer.getTokens().get(j));
+                    // Check () or REFERENCES other_table(other_column)
+                    if (lexer.getTokens().get(j).hasType(Token.TokenType.KEYWORD) &&
+                            (lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES") || lexer.getTokens().get(j).getValue().equalsIgnoreCase("CHECK"))) {
+                        Stack<String> stack = new Stack<>();
+                        for (int k = j + 1; k < lexer.getTokens().size(); k++) {
+                            tokens.add(lexer.getTokens().get(k));
+                            constraint.add(lexer.getTokens().get(k));
+                            if (lexer.getTokens().get(k).getValue().equals("(")) {
+                                stack.push("(");
+                                for (int t = k + 1; t < lexer.getTokens().size(); t++) {
+                                    tokens.add(lexer.getTokens().get(t));
+                                    constraint.add(lexer.getTokens().get(t));
+                                    if (lexer.getTokens().get(t).getValue().equals("(")) {
+                                        stack.push("(");
+                                    }
+                                    else if (lexer.getTokens().get(t).getValue().equals(")")) {
+                                        stack.pop();
+                                        if (stack.empty()) {
+                                            i = t;
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
                     if ((lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(",")) ||
                             (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(")")) ) {
                         i = j;
+                        child.setConstraint(constraint);
                         break;
                     }
                 }
