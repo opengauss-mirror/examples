@@ -1,11 +1,11 @@
-import Lexer.OracleLexer;
-import Lexer.Token;
 
-import java.util.List;
+import Lexer.OracleLexer;
+import Parser.AST.ASTNode;
+import Parser.OracleParser;
+
 
 public class Main {
     public static void main(String[] args) {
-//        String sql = "SELECT NuMBER(1,3) Not NULL FROM table WHERE name = 'John Doe';";
         String sql = "CREATE TABLE employees (\n" +
                 "    employee_id NUMBER(6) PRIMARY KEY,\n" +
                 "    first_name VARCHAR2(20),\n" +
@@ -15,10 +15,8 @@ public class Main {
                 ");";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
-//        List<Token> tokens = lexer.tokenize();
-//
-//        for (Token token : tokens) {
-//            System.out.println(token);
-//        }
+        OracleParser parser = new OracleParser(lexer);
+        ASTNode root = parser.parse();
+        System.out.println(root.toQueryString());
     }
 }

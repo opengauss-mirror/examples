@@ -95,7 +95,8 @@ public class OracleParser {
                     tokens.add(lexer.getTokens().get(j));
                     // Check () or REFERENCES other_table(other_column)
                     if (lexer.getTokens().get(j).hasType(Token.TokenType.KEYWORD) &&
-                            (lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES") || lexer.getTokens().get(j).getValue().equalsIgnoreCase("CHECK"))) {
+                            (lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES")
+                                    || lexer.getTokens().get(j).getValue().equalsIgnoreCase("CHECK"))) {
                         Stack<String> stack = new Stack<>();
                         for (int k = j + 1; k < lexer.getTokens().size(); k++) {
                             tokens.add(lexer.getTokens().get(k));
@@ -124,18 +125,63 @@ public class OracleParser {
                     if ((lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(",")) ||
                             (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(")")) ) {
                         i = j;
-                        child.setConstraint(constraint);
                         break;
                     }
                 }
                 child.setTokens(tokens);
+                child.setConstraint(constraint);
                 currentNode.addChild(child);
                 currentNode = child;
             }
-            else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i).getValue().equalsIgnoreCase("CONSTRAINT")) {
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD)
+                    && lexer.getTokens().get(i).getValue().equalsIgnoreCase("CONSTRAINT")) {
                 // Table constraint
                 tokens.clear();
                 tokens.add(lexer.getTokens().get(i));
+                for (int j = i + 1; j < lexer.getTokens().size(); j++) {
+                    tokens.add(lexer.getTokens().get(j));
+                    /**
+                     * CONSTRAINT pk_example PRIMARY KEY (column1, column2)
+                     * CONSTRAINT uk_example UNIQUE (column1)
+                     * CONSTRAINT fk_example FOREIGN KEY (column1) REFERENCES other_table(column2)
+                     * CONSTRAINT chk_example CHECK (column1 > 0)
+                     */
+                    if (lexer.getTokens().get(j).hasType(Token.TokenType.KEYWORD) &&
+                            (lexer.getTokens().get(j).getValue().equalsIgnoreCase("UNIQUE")
+                                    || lexer.getTokens().get(j).getValue().equalsIgnoreCase("CHECK")
+                                    || lexer.getTokens().get(j).getValue().equalsIgnoreCase("PRIMARY KEY")
+                                    || lexer.getTokens().get(j).getValue().equalsIgnoreCase("FOREIGN KEY")
+                                    || lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES"))) {
+                        Stack<String> stack = new Stack<>();
+                        for (int k = j + 1; k < lexer.getTokens().size(); k++) {
+                            tokens.add(lexer.getTokens().get(k));
+                            if (lexer.getTokens().get(k).getValue().equals("(")) {
+                                stack.push("(");
+                                for (int t = k + 1; t < lexer.getTokens().size(); t++) {
+                                    tokens.add(lexer.getTokens().get(t));
+                                    if (lexer.getTokens().get(t).getValue().equals("(")) {
+                                        stack.push("(");
+                                    }
+                                    else if (lexer.getTokens().get(t).getValue().equals(")")) {
+                                        stack.pop();
+                                        if (stack.empty()) {
+                                            i = t;
+                                            j = t;
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        continue;
+                    }
+                    if ((lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(",")) ||
+                            (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(")")) ) {
+                        i = j;
+                        break;
+                    }
+                }
 
             }
             else {
