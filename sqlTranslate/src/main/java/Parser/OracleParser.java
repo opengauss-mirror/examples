@@ -36,10 +36,12 @@ public class OracleParser {
         List <Token> tokens = new ArrayList<>();
         tokens.add(lexer.getTokens().get(0));
         ASTNode root = new CreateTabNode(tokens);
-        ASTNode currentNode = root;
+        ASTNode currentNode = null;
         for (int i = 1; i < lexer.getTokens().size(); i++) {
+//            System.out.println("Parsing the token: " + lexer.getTokens().get(i).getValue());
             if (i == 1 && lexer.getTokens().get(i).getValue().equalsIgnoreCase("TABLE")) {
-                tokens.clear();
+                tokens = new ArrayList<>();
+
                 tokens.add(lexer.getTokens().get(i));
                 try {
                     tokens.add(lexer.getTokens().get(i + 1));
@@ -53,14 +55,14 @@ public class OracleParser {
                 currentNode = child;
             }
             else if (i == 1 && !lexer.getTokens().get(i).getValue().equalsIgnoreCase("TABLE")){
-                tokens.clear();
+                tokens = new ArrayList<>();
                 tokens.add(lexer.getTokens().get(i));
                 for (int j = i + 1; j < lexer.getTokens().size(); j++) {
                     if (lexer.getTokens().get(j).getValue().equalsIgnoreCase("TABLE")) {
                         ASTNode child = new TableTypeNode(tokens);
                         root.addChild(child);
                         currentNode = child;
-                        tokens.clear();
+                        tokens = new ArrayList<>();
                         tokens.add(lexer.getTokens().get(j));
                         try {
                             tokens.add(lexer.getTokens().get(j + 1));
@@ -80,7 +82,7 @@ public class OracleParser {
             }
             else if (lexer.getTokens().get(i).hasType(Token.TokenType.IDENTIFIER)) {
                 // Token.TokenType.IDENTIFIER ... , -> column node
-                tokens.clear();
+                tokens = new ArrayList<>();
                 ColumnNode child = new ColumnNode();
                 child.setName(lexer.getTokens().get(i));
                 tokens.add(lexer.getTokens().get(i));
@@ -136,7 +138,7 @@ public class OracleParser {
             else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD)
                     && lexer.getTokens().get(i).getValue().equalsIgnoreCase("CONSTRAINT")) {
                 // Table constraint
-                tokens.clear();
+                tokens = new ArrayList<>();
                 tokens.add(lexer.getTokens().get(i));
                 for (int j = i + 1; j < lexer.getTokens().size(); j++) {
                     tokens.add(lexer.getTokens().get(j));
@@ -185,7 +187,7 @@ public class OracleParser {
 
             }
             else {
-                throw new ParseFailedException("Parse failed!");
+//                throw new ParseFailedException("Parse failed!");
             }
         }
         return root;

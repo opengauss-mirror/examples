@@ -115,4 +115,10 @@ public abstract class ASTNode {
         }
         return str;
     }
+
+    public String getASTString() {
+        String str = "";
+        // TODO: implement
+        return str;
+    }
 }
