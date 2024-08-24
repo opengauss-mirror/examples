@@ -23,7 +23,10 @@ public class ColumnNode extends ASTNode {
 
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append(toString() + " ");
+        if (node.hasChild() && !(node.getChildren().get(0) instanceof CRTEndNode) )
+            queryString.append(toString() + ", ");
+        else if (node.hasChild() && (node.getChildren().get(0) instanceof CRTEndNode))
+            queryString.append(toString() + " ");
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);

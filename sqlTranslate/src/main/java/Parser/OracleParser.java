@@ -4,10 +4,8 @@ import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
-import Parser.AST.CreateTable.ColumnNode;
-import Parser.AST.CreateTable.CreateTabNode;
-import Parser.AST.CreateTable.TableNode;
-import Parser.AST.CreateTable.TableTypeNode;
+import Parser.AST.CreateTable.*;
+
 import java.util.Stack;
 
 import java.util.ArrayList;
@@ -50,6 +48,7 @@ public class OracleParser {
                     throw new ParseFailedException("Parse failed!");
                 }
                 i++;
+                i++; // pass the "("
                 ASTNode child = new TableNode(tokens);
                 root.addChild(child);
                 currentNode = child;
@@ -70,7 +69,7 @@ public class OracleParser {
                         catch (ParseFailedException e) {
                             throw new ParseFailedException("Parse failed!");
                         }
-                        i = j + 1;
+                        i = j + 2; // pass the "("
                         break;
                     }
                     tokens.add(lexer.getTokens().get(j));
@@ -94,11 +93,11 @@ public class OracleParser {
                     else {
                         constraint.add(lexer.getTokens().get(j));
                     }
-                    tokens.add(lexer.getTokens().get(j));
                     // Check () or REFERENCES other_table(other_column)
                     if (lexer.getTokens().get(j).hasType(Token.TokenType.KEYWORD) &&
                             (lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES")
                                     || lexer.getTokens().get(j).getValue().equalsIgnoreCase("CHECK"))) {
+                        tokens.add(lexer.getTokens().get(j));
                         Stack<String> stack = new Stack<>();
                         for (int k = j + 1; k < lexer.getTokens().size(); k++) {
                             tokens.add(lexer.getTokens().get(k));
@@ -129,6 +128,7 @@ public class OracleParser {
                         i = j;
                         break;
                     }
+                    tokens.add(lexer.getTokens().get(j));
                 }
                 child.setTokens(tokens);
                 child.setConstraint(constraint);
@@ -141,7 +141,6 @@ public class OracleParser {
                 tokens = new ArrayList<>();
                 tokens.add(lexer.getTokens().get(i));
                 for (int j = i + 1; j < lexer.getTokens().size(); j++) {
-                    tokens.add(lexer.getTokens().get(j));
                     /**
                      * CONSTRAINT pk_example PRIMARY KEY (column1, column2)
                      * CONSTRAINT uk_example UNIQUE (column1)
@@ -154,6 +153,7 @@ public class OracleParser {
                                     || lexer.getTokens().get(j).getValue().equalsIgnoreCase("PRIMARY KEY")
                                     || lexer.getTokens().get(j).getValue().equalsIgnoreCase("FOREIGN KEY")
                                     || lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES"))) {
+                        tokens.add(lexer.getTokens().get(j));
                         Stack<String> stack = new Stack<>();
                         for (int k = j + 1; k < lexer.getTokens().size(); k++) {
                             tokens.add(lexer.getTokens().get(k));
@@ -183,11 +183,23 @@ public class OracleParser {
                         i = j;
                         break;
                     }
+                    tokens.add(lexer.getTokens().get(j));
                 }
 
             }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                ASTNode EndNode = new CRTEndNode(tokens);
+                currentNode.addChild(EndNode);
+                currentNode = EndNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
             else {
-//                throw new ParseFailedException("Parse failed!");
+//                System.out.println("Fail to parse:" + lexer.getTokens().get(i).getValue());
+                throw new ParseFailedException("Parse failed!");
             }
         }
         return root;

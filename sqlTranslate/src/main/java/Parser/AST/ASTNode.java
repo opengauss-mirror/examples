@@ -43,6 +43,10 @@ public abstract class ASTNode {
         return children;
     }
 
+    public boolean hasChild() {
+        return !children.isEmpty();
+    }
+
     public ASTNode getChildByName(String childName) {
         for (ASTNode child : children) {
             if (child.toString().equals(childName)) {
