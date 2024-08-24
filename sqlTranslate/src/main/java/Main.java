@@ -18,5 +18,6 @@ public class Main {
         OracleParser parser = new OracleParser(lexer);
         ASTNode root = parser.parse();
         System.out.println(root.toQueryString());
+        System.out.println(root.getASTString());
     }
 }

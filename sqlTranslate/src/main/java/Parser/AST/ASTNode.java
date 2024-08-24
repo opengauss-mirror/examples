@@ -121,8 +121,25 @@ public abstract class ASTNode {
     }
 
     public String getASTString() {
-        String str = "";
-        // TODO: implement
-        return str;
+        StringBuilder ASTString = new StringBuilder();
+        VisitAST(this, ASTString, 0);
+        return ASTString.toString();
+    }
+
+    private void VisitAST(ASTNode node, StringBuilder ASTString, int depth) {
+        addASTStructure(depth, ASTString);
+        ASTString.append(node.getClass() + ":" + node.toString() + "\n");
+        for (ASTNode child : node.getChildren()) {
+            if (child.getClass() == node.getClass())
+                VisitAST(child, ASTString, depth);
+            else
+                VisitAST(child, ASTString, depth + 1);
+        }
+    }
+
+    private void addASTStructure(int depth, StringBuilder ASTString) {
+        for (int i = 1; i <= depth; i++) {
+            ASTString.append("--");
+        }
     }
 }
