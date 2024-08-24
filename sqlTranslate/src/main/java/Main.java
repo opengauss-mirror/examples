@@ -1,4 +1,5 @@
 
+import Generator.OpenGaussGenerator;
 import Lexer.OracleLexer;
 import Parser.AST.ASTNode;
 import Parser.OracleParser;
@@ -19,5 +20,7 @@ public class Main {
         ASTNode root = parser.parse();
         System.out.println(root.toQueryString());
         System.out.println(root.getASTString());
+        OpenGaussGenerator generator = new OpenGaussGenerator(root);
+        System.out.println(generator.generate());
     }
 }

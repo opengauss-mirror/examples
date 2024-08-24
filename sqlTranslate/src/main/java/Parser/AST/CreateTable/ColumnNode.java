@@ -3,6 +3,7 @@ package Parser.AST.CreateTable;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ColumnNode extends ASTNode {
@@ -55,6 +56,16 @@ public class ColumnNode extends ASTNode {
 
     public void setConstraint(List<Token> constraint) {
         this.constraint = constraint;
+    }
+
+    public void ResetTokensbyNameTypeConstraint() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(name);
+        tokens.add(type);
+        for (Token token : constraint) {
+            tokens.add(token);
+        }
+        setTokens(tokens);
     }
 
 }
