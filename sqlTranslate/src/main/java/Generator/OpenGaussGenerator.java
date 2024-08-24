@@ -1,5 +1,6 @@
 package Generator;
 
+import Lexer.Token;
 import Parser.AST.ASTNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
@@ -35,8 +36,9 @@ public class OpenGaussGenerator {
     }
 
     private void ColumnTypeConvert(ColumnNode node) {
-        if (node.getType().getValue().equalsIgnoreCase("")) {
-
+        if (node.getType().getValue().equalsIgnoreCase("NUMBER")) {
+            node.setType(new Token(Token.TokenType.KEYWORD, "NUMERIC"));
+            node.ResetTokensbyNameTypeConstraint();
         }
     }
 }

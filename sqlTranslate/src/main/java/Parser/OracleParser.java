@@ -90,9 +90,6 @@ public class OracleParser {
                     if (j == i + 1) {
                         child.setType(lexer.getTokens().get(j));
                     }
-                    else {
-                        constraint.add(lexer.getTokens().get(j));
-                    }
                     // Check () or REFERENCES other_table(other_column)
                     if (lexer.getTokens().get(j).hasType(Token.TokenType.KEYWORD) &&
                             (lexer.getTokens().get(j).getValue().equalsIgnoreCase("REFERENCES")
@@ -129,6 +126,9 @@ public class OracleParser {
                         break;
                     }
                     tokens.add(lexer.getTokens().get(j));
+                    if (j != i + 1) {
+                        constraint.add(lexer.getTokens().get(j));
+                    }
                 }
                 child.setTokens(tokens);
                 child.setConstraint(constraint);
