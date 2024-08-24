@@ -1,0 +1,14 @@
+PRIMARY KEY
+    用于定义表的主键，主键列必须唯一且不能为空。
+    可以定义单个列或多个列作为复合主键。
+    示例：CONSTRAINT pk_example PRIMARY KEY (column1, column2)
+UNIQUE
+    用于定义列的唯一性约束，允许为空。
+    可以定义在单个列或多列上。
+    示例：CONSTRAINT uk_example UNIQUE (column1)
+FOREIGN KEY
+    用于定义外键约束，外键引用另一个表的主键或唯一键。
+    示例：CONSTRAINT fk_example FOREIGN KEY (column1) REFERENCES other_table(column2)
+CHECK
+    用于定义整个表的一个或多个列上的约束条件。
+    示例：CONSTRAINT chk_example CHECK (column1 > 0)
