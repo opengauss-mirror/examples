@@ -8,7 +8,6 @@ public class CreateTabNode extends ASTNode {
     public CreateTabNode(ASTNode node) {
         super(node);
     }
-
     public CreateTabNode(List<Token> tokens) {
         super(tokens);
     }
