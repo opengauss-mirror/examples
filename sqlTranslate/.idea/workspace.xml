@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add insert sql">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Select statement in Oracle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertDataNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertDataNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertEndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertEndNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertObjNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Insert/InsertObjNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725117071687</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="add insert sql">
+      <created>1725885115923</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1725885115924</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

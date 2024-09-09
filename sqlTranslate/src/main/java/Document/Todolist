@@ -1,0 +1,27 @@
+Operation
+ select.. from.. where
+ join
+ group by
+ order by
+ union
+ insert into 1
+ update... set
+ delete
+ if... elsif... else... end if
+ case... when... then
+ loop... end loop
+ while... loop... end loop
+ for ... in () loop end loop
+ continue、exit
+ return
+ exception
+ commit、rollback、execute
+ alter table
+ create table 1
+ drop table
+Object
+ table
+ view
+ function
+ procedure
+ trigger
