@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 
 public class OracleLexer {
-    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE",
+    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE", "VALUES",
             // keywords of creating table
             "CREATE", "TABLE", "TEMPORARY", "GLOBAL",
             "NUMBER", "INTEGER", "SMALLIN", "BINARY_INTEGER", "DECIMAL", "REAL", "FLOAT", "DOUBLE PRECISION", "CHAR", "VARCHAR2",

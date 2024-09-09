@@ -7,13 +7,14 @@ import Parser.OracleParser;
 
 public class Main {
     public static void main(String[] args) {
-        String sql = "CREATE TABLE employees (\n" +
-                "    employee_id NUMBER PRIMARY KEY,\n" +
-                "    first_name VARCHAR2(20),\n" +
-                "    last_name VARCHAR2(25),\n" +
-                "    email VARCHAR2(25),\n" +
-                "    hire_date DATE\n" +
-                ");";
+//        String sql = "CREATE TABLE employees (\n" +
+//                "    employee_id NUMBER PRIMARY KEY,\n" +
+//                "    first_name VARCHAR2(20),\n" +
+//                "    last_name VARCHAR2(25),\n" +
+//                "    email VARCHAR2(25),\n" +
+//                "    hire_date DATE\n" +
+//                ");";
+        String sql = "INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

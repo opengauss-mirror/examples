@@ -15,9 +15,14 @@ public class InsertNode extends ASTNode {
         super(node);
     }
 
+    @Override
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append("INSERT INTO ");
+        queryString.append(toString() + " ");
+        for (ASTNode child : getChildren())
+        {
+            child.visit(child, queryString);
+        }
 
     }
 }

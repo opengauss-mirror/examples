@@ -5,6 +5,7 @@ import Parser.AST.ASTNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Exception.GenerateFailedException;
+import Parser.AST.Insert.InsertNode;
 
 public class OpenGaussGenerator {
     private ASTNode node;
@@ -15,6 +16,9 @@ public class OpenGaussGenerator {
         if (node instanceof CreateTabNode) {
             return GenCreatTableSQL(node);
         }
+        else if (node instanceof InsertNode) {
+            return GenInsertSQL(node);
+        }
         else {
             throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
         }
@@ -22,16 +26,21 @@ public class OpenGaussGenerator {
 
     private String GenCreatTableSQL(ASTNode node) {
         // type convert
-        visit(node);
+        visitCrt(node);
         return node.toQueryString();
     }
 
-    private void visit(ASTNode node) {
+    private String GenInsertSQL(ASTNode node) {
+        // Insert statements do not need to be converted for the time being
+        return node.toQueryString();
+    }
+
+    private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
             ColumnTypeConvert((ColumnNode) node);
         }
         for (ASTNode child : node.getChildren()) {
-            visit(child);
+            visitCrt(child);
         }
     }
 

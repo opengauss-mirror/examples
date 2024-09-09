@@ -5,6 +5,10 @@ import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
 import Parser.AST.CreateTable.*;
+import Parser.AST.Insert.InsertDataNode;
+import Parser.AST.Insert.InsertEndNode;
+import Parser.AST.Insert.InsertNode;
+import Parser.AST.Insert.InsertObjNode;
 
 import java.util.Stack;
 
@@ -24,6 +28,9 @@ public class OracleParser {
         if ((tokens.get(0).getValue().equalsIgnoreCase("CREATE") && tokens.get(1).getValue().equalsIgnoreCase("TABLE")) ||
                 (tokens.get(0).getValue().equalsIgnoreCase("CREATE") && tokens.get(2).getValue().equalsIgnoreCase("TEMPORARY") && tokens.get(3).getValue().equalsIgnoreCase("TABLE")) ) {
             return parseCreateTab();
+        }
+        else if (tokens.get(0).getValue().equalsIgnoreCase("INSERT")) {
+            return parseInsert();
         }
         else {
             throw new ParseFailedException("Parse failed!");
@@ -202,6 +209,68 @@ public class OracleParser {
                 throw new ParseFailedException("Parse failed!");
             }
         }
+        return root;
+    }
+
+    private ASTNode parseInsert() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(lexer.getTokens().get(0));
+        try {
+            tokens.add(lexer.getTokens().get(1));
+        }
+        catch (ParseFailedException e) {
+            throw new ParseFailedException("Parse failed!");
+        }
+        ASTNode root = new InsertNode(tokens);
+        ASTNode currentNode = root;
+
+        for (int i = 2; i < lexer.getTokens().size(); i++) {
+            if (lexer.getTokens().get(i).hasType(Token.TokenType.IDENTIFIER)) { // table name
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                if (i + 1 < lexer.getTokens().size() && ! (lexer.getTokens().get(i + 1).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i + 1).getValue().equalsIgnoreCase("VALUES"))) {
+                    for (int j = i + 1; j < lexer.getTokens().size(); j++) {
+                        tokens.add(lexer.getTokens().get(j));
+                        if (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(")")) {
+                            i = j;
+                            break;
+                        }
+                    }
+                }
+                ASTNode childNode = new InsertObjNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i).getValue().equalsIgnoreCase("VALUES")) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                for (int j = i + 1; j < lexer.getTokens().size(); j++) {
+                    if (lexer.getTokens().get(j).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(j).getValue().equals(";")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(lexer.getTokens().get(j));
+                }
+                ASTNode childNode = new InsertDataNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                ASTNode childNode = new InsertEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                throw new ParseFailedException("Parse failed!");
+            }
+
+        }
+
         return root;
     }
 
