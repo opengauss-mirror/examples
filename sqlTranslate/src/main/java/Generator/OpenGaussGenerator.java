@@ -5,7 +5,12 @@ import Parser.AST.ASTNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Exception.GenerateFailedException;
+import Parser.AST.DropTable.DropTableNode;
+import Parser.AST.DropTable.DropTableOptionNode;
 import Parser.AST.Insert.InsertNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OpenGaussGenerator {
     private ASTNode node;
@@ -19,8 +24,17 @@ public class OpenGaussGenerator {
         else if (node instanceof InsertNode) {
             return GenInsertSQL(node);
         }
+        else if (node instanceof DropTableNode) {
+            return GenDropTableSQL(node);
+        }
         else {
-            throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
+            try {
+                throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "";
         }
     }
 
@@ -35,12 +49,36 @@ public class OpenGaussGenerator {
         return node.toQueryString();
     }
 
+    private String GenDropTableSQL(ASTNode node) {
+        visitDrop(node);
+        return node.toQueryString();
+    }
+
     private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
             ColumnTypeConvert((ColumnNode) node);
         }
         for (ASTNode child : node.getChildren()) {
             visitCrt(child);
+        }
+    }
+
+    private void visitDrop(ASTNode node) {
+        try {
+            if (node instanceof DropTableOptionNode) {
+                List<Token> tokens = new ArrayList<>();
+                tokens.add(new Token(Token.TokenType.KEYWORD, "CASCADE"));
+                tokens.add(new Token(Token.TokenType.KEYWORD, "CONSTRAINTS"));
+                if (node.tokensEqual(tokens)) {
+                    throw new GenerateFailedException("Unsupported type:" + node.toString() + "(OpenGauss doesn't support the keyword -- " + node.toString() + " or have any expression that keeps the same semantic!)");
+                }
+            }
+        }
+        catch (GenerateFailedException e) {
+            e.printStackTrace();
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitDrop(child);
         }
     }
 
@@ -119,7 +157,12 @@ public class OpenGaussGenerator {
                         node.getType().getValue().equalsIgnoreCase("UROWID") ||
                         node.getType().getValue().equalsIgnoreCase("REF CURSOR")
         ) {
-            throw new GenerateFailedException("Unsupported type:" + node.getType().getValue() + "(OpenGauss doesn't support the keyword -- " + node.getType().getValue() + " or have any expression that keeps the same semantic!)");
+            try {
+                throw new GenerateFailedException("Unsupported type:" + node.getType().getValue() + "(OpenGauss doesn't support the keyword -- " + node.getType().getValue() + " or have any expression that keeps the same semantic!)");
+            }
+            catch (GenerateFailedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -16,7 +16,8 @@ public class OracleLexer {
             "LONG RAW", "BOOLEAN", "INTERVAL YEAR TO MONTH", "INTERVAL DAY TO SECOND", "ROWID", "UROWID", "REF CURSOR",
             "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT",
             "CONSTRAINT", "FOREIGN KEY"
-
+            // keywords of drop table
+            ,"DROP", "CASCADE", "CONSTRAINTS"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function

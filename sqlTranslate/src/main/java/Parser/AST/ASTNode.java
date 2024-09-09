@@ -31,6 +31,18 @@ public abstract class ASTNode {
         this.tokens = tokens;
     }
 
+    public boolean tokensEqual(List<Token> tokens) {
+        if (this.tokens.size() != tokens.size())
+            return false;
+
+        for (int i = 0; i < tokens.size(); i++) {
+            if (!this.tokens.get(i).getValue().equals(tokens.get(i).getValue()))
+                return false;
+        }
+
+        return true;
+    }
+
     public ASTNode getParent() {
         return parent;
     }

@@ -18,7 +18,7 @@ Operation
  commit、rollback、execute
  alter table
  create table 1
- drop table
+ drop table 1
 Object
  table
  view

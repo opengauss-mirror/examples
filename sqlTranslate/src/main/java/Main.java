@@ -14,7 +14,8 @@ public class Main {
 //                "    email VARCHAR2(25),\n" +
 //                "    hire_date DATE\n" +
 //                ");";
-        String sql = "INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');";
+//        String sql = "INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');";
+        String sql = "DROP TABLE employees CASCADE CONSTRAINTS;";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

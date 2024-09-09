@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add insert sql">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add todolist">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/DropTable/DropTableEndNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/DropTable/DropTableNameNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/DropTable/DropTableNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/DropTable/DropTableOptionNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725885115924</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add todolist">
+      <created>1725890826442</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1725890826442</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -284,7 +300,8 @@
     <MESSAGE value="coding" />
     <MESSAGE value="finish the framework of sqltranslate (createTab sql is now being supported!)" />
     <MESSAGE value="add insert sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="add insert sql" />
+    <MESSAGE value="add todolist" />
+    <option name="LAST_COMMIT_MESSAGE" value="add todolist" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

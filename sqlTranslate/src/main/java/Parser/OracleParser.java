@@ -5,6 +5,10 @@ import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
 import Parser.AST.CreateTable.*;
+import Parser.AST.DropTable.DropTableEndNode;
+import Parser.AST.DropTable.DropTableNameNode;
+import Parser.AST.DropTable.DropTableNode;
+import Parser.AST.DropTable.DropTableOptionNode;
 import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
@@ -32,8 +36,17 @@ public class OracleParser {
         else if (tokens.get(0).getValue().equalsIgnoreCase("INSERT")) {
             return parseInsert();
         }
+        else if (tokens.get(0).getValue().equalsIgnoreCase("DROP")) {
+            return parseDrop();
+        }
         else {
-            throw new ParseFailedException("Parse failed!");
+            try {
+                throw new ParseFailedException("Parse failed!");
+            }
+            catch (ParseFailedException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
@@ -52,7 +65,7 @@ public class OracleParser {
                     tokens.add(lexer.getTokens().get(i + 1));
                 }
                 catch (ParseFailedException e) {
-                    throw new ParseFailedException("Parse failed!");
+                    e.printStackTrace();
                 }
                 i++;
                 i++; // pass the "("
@@ -74,7 +87,7 @@ public class OracleParser {
                             tokens.add(lexer.getTokens().get(j + 1));
                         }
                         catch (ParseFailedException e) {
-                            throw new ParseFailedException("Parse failed!");
+                            e.printStackTrace();
                         }
                         i = j + 2; // pass the "("
                         break;
@@ -206,7 +219,12 @@ public class OracleParser {
             }
             else {
 //                System.out.println("Fail to parse:" + lexer.getTokens().get(i).getValue());
-                throw new ParseFailedException("Parse failed!");
+                try {
+                    throw new ParseFailedException("Parse failed!");
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return root;
@@ -219,7 +237,7 @@ public class OracleParser {
             tokens.add(lexer.getTokens().get(1));
         }
         catch (ParseFailedException e) {
-            throw new ParseFailedException("Parse failed!");
+            e.printStackTrace();
         }
         ASTNode root = new InsertNode(tokens);
         ASTNode currentNode = root;
@@ -266,9 +284,69 @@ public class OracleParser {
                 break;
             }
             else {
-                throw new ParseFailedException("Parse failed!");
+                try {
+                    throw new ParseFailedException("Parse failed!");
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
             }
 
+        }
+
+        return root;
+    }
+
+    // Drop table
+    private ASTNode parseDrop() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(lexer.getTokens().get(0));
+        try {
+            tokens.add(lexer.getTokens().get(1));
+        }
+        catch (ParseFailedException e) {
+            e.printStackTrace();
+        }
+        ASTNode root = new DropTableNode(tokens);
+        ASTNode currentNode = root;
+
+        for (int i = 2; i < lexer.getTokens().size(); i++) {
+            if (lexer.getTokens().get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                ASTNode childNode = new DropTableNameNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i).getValue().equalsIgnoreCase("CASCADE")) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                if (i + 1 < lexer.getTokens().size() && (lexer.getTokens().get(i + 1).hasType(Token.TokenType.KEYWORD) && lexer.getTokens().get(i + 1).getValue().equals("CONSTRAINTS"))) {
+                    tokens.add(lexer.getTokens().get(i + 1));
+                    i++;
+                }
+                ASTNode childNode = new DropTableOptionNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.SYMBOL) && lexer.getTokens().get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(lexer.getTokens().get(i));
+                ASTNode childNode = new DropTableEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (lexer.getTokens().get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed!");
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return root;
