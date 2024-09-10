@@ -14,8 +14,7 @@ public class OracleLexer {
             "NUMBER", "INTEGER", "SMALLIN", "BINARY_INTEGER", "DECIMAL", "REAL", "FLOAT", "DOUBLE PRECISION", "CHAR", "VARCHAR2",
             "NCHAR", "NVARCHAR2", "CLOB", "NCLOB", "DATE", "TIMESTAMP", "TIMESTAMP WITH TIME ZONE", "TIMESTAMP WITH LOCAL TIME ZONE", "BLOB", "RAW",
             "LONG RAW", "BOOLEAN", "INTERVAL YEAR TO MONTH", "INTERVAL DAY TO SECOND", "ROWID", "UROWID", "REF CURSOR",
-            "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT",
-            "CONSTRAINT", "FOREIGN KEY"
+            "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT", "CONSTRAINT", "FOREIGN KEY"
             // keywords of drop table
             , "DROP", "CASCADE", "CONSTRAINTS"
             // keywords of select
