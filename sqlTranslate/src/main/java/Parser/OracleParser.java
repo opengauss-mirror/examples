@@ -18,6 +18,7 @@ import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Select.SelectNode;
+import Parser.AST.Select.SelectObjNode;
 
 import java.util.Stack;
 
@@ -377,6 +378,13 @@ public class OracleParser {
         ASTNode currentNode = root;
         for(int i = 1; i < parseTokens.size(); i++) {
             // match select_obj
+            if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DISTINCT")) {
+                SelectObjNode childNode = new SelectObjNode();
+                childNode.setIsDistinct(parseTokens.get(i).getValue());
+                for (int j = i + 1; j < parseTokens.size(); j++) {
+                    //TODO: match select_obj and reindex i
+                }
+            }
         }
 
         return root;

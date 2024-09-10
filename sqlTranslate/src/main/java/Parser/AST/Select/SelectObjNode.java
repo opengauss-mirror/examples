@@ -20,6 +20,10 @@ public class SelectObjNode extends ASTNode {
 
     private String isDistinct;
 
+    public SelectObjNode() {
+        super();
+    }
+
     public String getIsDistinct()
     {
         return isDistinct;
