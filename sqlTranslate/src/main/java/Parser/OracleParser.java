@@ -13,6 +13,7 @@ import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
+import Parser.AST.Select.SelectNode;
 
 import java.util.Stack;
 
@@ -38,6 +39,9 @@ public class OracleParser {
         }
         else if (tokens.get(0).getValue().equalsIgnoreCase("DROP")) {
             return parseDrop();
+        }
+        else if (tokens.get(0).getValue().equalsIgnoreCase("SELECT")) {
+            return parseSelect();
         }
         else {
             try {
@@ -348,6 +352,24 @@ public class OracleParser {
                 }
             }
         }
+
+        return root;
+    }
+
+    private ASTNode parseSelect() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(lexer.getTokens().get(0));
+        ASTNode root = new SelectNode(tokens);
+        ASTNode currentNode = root;
+
+        return root;
+    }
+
+    private ASTNode parseCaseWhen() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(lexer.getTokens().get(0));
+        ASTNode root = new SelectNode(tokens);
+        ASTNode currentNode = root;
 
         return root;
     }
