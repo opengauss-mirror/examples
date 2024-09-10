@@ -29,9 +29,24 @@ public class OracleLexer {
                     "(NCHAR\\(.*?\\))|" +                     // NCHAR() function
                     "(NVARCHAR2\\(.*?\\))|" +                     // NVARCHAR2() function
                     "(RAW\\(.*?\\))|" +                     // RAW() function
+
+                    "(COUNT\\(.*?\\))|" +                     // COUNT() function
+                    "(SUM\\(.*?\\))|" +                     // SUM() function
+                    "(AVG\\(.*?\\))|" +                     // AVG() function
+                    "(MAX\\(.*?\\))|" +                     // MAX() function
+                    "(MIN\\(.*?\\))|" +                     // MIN() function
+
                     "(NOT NULL)|" +
                     "(PRIMARY KEY)|" +
                     "(FOREIGN KEY)|" +
+                    "(DOUBLE PRECISION)|" +
+                    "(TIMESTAMP WITH TIME ZONE)|" +
+                    "(TIMESTAMP WITH LOCAL TIME ZONE)|" +
+                    "(LONG RAW)|" +
+                    "(INTERVAL YEAR TO MONTH)|" +
+                    "(INTERVAL DAY TO SECOND)|" +
+                    "(REF CURSOR)|" +
+
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
                     "(\\d+\\.?\\d*)|" +                 // Numbers (integer or decimal)
@@ -107,8 +122,22 @@ public class OracleLexer {
         }else if (tokenValue.matches("(?i)RAW\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)COUNT\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)SUM\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)AVG\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)MAX\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        }else if (tokenValue.matches("(?i)MIN\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
         }
-
 
         else if (isKeyword(tokenValue)) {
             return new Token(Token.TokenType.KEYWORD, tokenValue);
