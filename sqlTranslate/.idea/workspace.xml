@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add select">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CaseWhen/CaseConditionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CaseWhen/CaseElseNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CaseWhen/CaseEndNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CaseWhen/CaseThenNode.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add case when">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725955766774</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add case when">
+      <created>1725956415475</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1725956415475</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,7 +322,8 @@
     <MESSAGE value="add insert sql" />
     <MESSAGE value="add todolist" />
     <MESSAGE value="add select" />
-    <option name="LAST_COMMIT_MESSAGE" value="add select" />
+    <MESSAGE value="add case when" />
+    <option name="LAST_COMMIT_MESSAGE" value="add case when" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
