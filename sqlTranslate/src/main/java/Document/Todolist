@@ -8,7 +8,7 @@ Operation
  update... set
  delete
  if... elsif... else... end if
- case... when... then
+ case... when... then 1
  loop... end loop
  while... loop... end loop
  for ... in () loop end loop

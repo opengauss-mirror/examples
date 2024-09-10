@@ -17,7 +17,9 @@ public class OracleLexer {
             "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT",
             "CONSTRAINT", "FOREIGN KEY"
             // keywords of drop table
-            ,"DROP", "CASCADE", "CONSTRAINTS"
+            , "DROP", "CASCADE", "CONSTRAINTS"
+            // keywords of select
+            , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function

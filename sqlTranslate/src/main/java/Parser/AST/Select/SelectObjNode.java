@@ -9,11 +9,24 @@ public class SelectObjNode extends ASTNode {
     public SelectObjNode(List<Token> tokens)
     {
         super(tokens);
+        this.isDistinct = "";
     }
 
     public SelectObjNode(ASTNode node)
     {
         super(node);
+        this.isDistinct = "";
+    }
+
+    private String isDistinct;
+
+    public String getIsDistinct()
+    {
+        return isDistinct;
+    }
+
+    public void setIsDistinct(String isDistinct) {
+        this.isDistinct = isDistinct + " ";
     }
 
     @Override
@@ -33,7 +46,7 @@ public class SelectObjNode extends ASTNode {
     @Override
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        queryString.append(toString() + " FROM ");
+        queryString.append(isDistinct + toString() + " FROM ");
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);
