@@ -57,6 +57,9 @@ public class OracleParser {
         }
     }
 
+    /**
+     * CREATE TEMPORARY? TABLE _table ( _column _type [, _column _type]... ) [CONSTRAINT _constraint] [, _column _type [, _column _type]...]
+     */
     private ASTNode parseCreateTab(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
         tokens.add(parseTokens.get(0));
@@ -237,6 +240,9 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * INSERT INTO table_name VALUES (value1, value2, ...)
+     */
     private ASTNode parseInsert(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
         tokens.add(parseTokens.get(0));
@@ -304,7 +310,9 @@ public class OracleParser {
         return root;
     }
 
-    // Drop table
+    /**
+     * DROP TABLE _table (CASCADE CONSTRAINTS)?
+     */
     private ASTNode parseDrop(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
         tokens.add(parseTokens.get(0));
@@ -359,11 +367,17 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * SELECT DISTINCT? select_obj FROM select_tab where_clause? select_option? union_clause?
+     */
     private ASTNode parseSelect(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
         tokens.add(parseTokens.get(0));
         ASTNode root = new SelectNode(tokens);
         ASTNode currentNode = root;
+        for(int i = 1; i < parseTokens.size(); i++) {
+            // match select_obj
+        }
 
         return root;
     }
