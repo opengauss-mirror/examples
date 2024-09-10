@@ -1,9 +1,9 @@
 Operation
- select.. from.. where
- join
- group by
- order by
- union
+ select.. from.. where 1
+ join 1
+ group by 1
+ order by 1
+ union 1
  insert into 1
  update... set
  delete
@@ -20,7 +20,7 @@ Operation
  create table 1
  drop table 1
 Object
- table
+ table 1
  view
  function
  procedure
