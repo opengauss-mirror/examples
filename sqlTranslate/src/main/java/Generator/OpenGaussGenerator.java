@@ -8,6 +8,7 @@ import Exception.GenerateFailedException;
 import Parser.AST.DropTable.DropTableNode;
 import Parser.AST.DropTable.DropTableOptionNode;
 import Parser.AST.Insert.InsertNode;
+import Parser.AST.Select.SelectNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof DropTableNode) {
             return GenDropTableSQL(node);
+        }
+        else if (node instanceof SelectNode) {
+            return GenSelectSQL(node);
         }
         else {
             try {
@@ -51,6 +55,11 @@ public class OpenGaussGenerator {
 
     private String GenDropTableSQL(ASTNode node) {
         visitDrop(node);
+        return node.toQueryString();
+    }
+
+    private String GenSelectSQL(ASTNode node) {
+        // Select statements do not need to be converted for the time being
         return node.toQueryString();
     }
 

@@ -19,6 +19,8 @@ public class OracleLexer {
             , "DROP", "CASCADE", "CONSTRAINTS"
             // keywords of select
             , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
+            // keywords of join
+
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -48,6 +50,7 @@ public class OracleLexer {
                     "(REF CURSOR)|" +
 
 
+                    "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
                     "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
                     "(\\d+\\.?\\d*)|" +                 // Numbers (integer or decimal)
                     "(\"[^\"]*\")|" +                   // Double-quoted strings
@@ -141,6 +144,8 @@ public class OracleLexer {
 
         else if (isKeyword(tokenValue)) {
             return new Token(Token.TokenType.KEYWORD, tokenValue);
+        } else if (tokenValue.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*")) {
+            return new Token(Token.TokenType.IDENTIFIER, tokenValue);
         } else if (tokenValue.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
             return new Token(Token.TokenType.IDENTIFIER, tokenValue);
         }
