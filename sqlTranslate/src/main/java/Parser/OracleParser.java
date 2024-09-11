@@ -405,14 +405,14 @@ public class OracleParser {
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
-            // match select_tab (possible last token: ; | GROUP | ORDER | HAVING | WHERE | UNION)
+            // match select_tab (possible last token: ; | GROUP BY | ORDER BY | HAVING | WHERE | UNION)
             else if (currentNode instanceof SelectObjNode) {
                 tokens = new ArrayList<>();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (
                             (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("WHERE"))
-                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP"))
-                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP BY"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER BY"))
                             || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("HAVING"))
                             || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
                             || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
@@ -431,8 +431,8 @@ public class OracleParser {
                 tokens = new ArrayList<>();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (
-                            (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP"))
-                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER"))
+                            (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP BY"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER BY"))
                             || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("HAVING"))
                             || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
                             || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
@@ -448,15 +448,20 @@ public class OracleParser {
             }
             // match select_option
             else if (
-                    (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("GROUP"))
-                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ORDER"))
+                    (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("GROUP BY"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ORDER BY"))
                     || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("HAVING"))
             ) {
                 tokens = new ArrayList<>();
+                String optionName = parseTokens.get(i).getValue();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (
-                          (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
+                            j != i && !parseTokens.get(j).getValue().equalsIgnoreCase(optionName) &&
+                            ((parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
                           || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
+                          || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP BY"))
+                          || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER BY"))
+                          || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("HAVING")))
                     ) {
                         i = j - 1;
                         break;
@@ -493,7 +498,7 @@ public class OracleParser {
             }
             else {
                 try {
-                    throw new ParseFailedException("Parse failed!");
+                    throw new ParseFailedException("Parse failed!--" + parseTokens.get(i).getValue());
                 }
                 catch (ParseFailedException e) {
                     e.printStackTrace();

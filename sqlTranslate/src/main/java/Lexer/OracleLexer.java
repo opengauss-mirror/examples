@@ -48,6 +48,8 @@ public class OracleLexer {
                     "(INTERVAL YEAR TO MONTH)|" +
                     "(INTERVAL DAY TO SECOND)|" +
                     "(REF CURSOR)|" +
+                    "(GROUP BY)|" +
+                    "(ORDER BY)|" +
 
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
