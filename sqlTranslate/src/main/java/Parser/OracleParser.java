@@ -17,8 +17,7 @@ import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
-import Parser.AST.Select.SelectNode;
-import Parser.AST.Select.SelectObjNode;
+import Parser.AST.Select.*;
 
 import java.util.Stack;
 
@@ -381,8 +380,123 @@ public class OracleParser {
             if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DISTINCT")) {
                 SelectObjNode childNode = new SelectObjNode();
                 childNode.setIsDistinct(parseTokens.get(i).getValue());
+                tokens = new ArrayList<>();
                 for (int j = i + 1; j < parseTokens.size(); j++) {
-                    //TODO: match select_obj and reindex i
+                    tokens.add(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("FROM")) {
+                        i = j;
+                        break;
+                    }
+                }
+                childNode.setTokens(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(i).getValue().equalsIgnoreCase("DISTINCT")) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    tokens.add(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("FROM")) {
+                        i = j;
+                        break;
+                    }
+                }
+                ASTNode childNode = new SelectObjNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match select_tab (possible last token: ; | GROUP | ORDER | HAVING | WHERE | UNION)
+            else if (currentNode instanceof SelectObjNode) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    tokens.add(parseTokens.get(j));
+                    if (
+                            (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("WHERE"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("HAVING"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
+                    ) {
+                        i = j - 1;
+                        break;
+                    }
+                }
+                ASTNode childNode = new SelectTableNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match where_clause (possible last token: ; | GROUP | ORDER | HAVING | UNION)
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHERE")) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    tokens.add(parseTokens.get(j));
+                    if (
+                            (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("GROUP"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ORDER"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("HAVING"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
+                    ) {
+                        i = j - 1;
+                        break;
+                    }
+                    ASTNode childNode = new SelectWhereClauseNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+            }
+            // match select_option
+            else if (
+                    (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("GROUP"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ORDER"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("HAVING"))
+            ) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    tokens.add(parseTokens.get(j));
+                    if (
+                          (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("UNION"))
+                          || (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))
+                    ) {
+                        i = j - 1;
+                        break;
+                    }
+                    ASTNode childNode = new SelectOptionNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+            }
+            // match union_clause
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("UNION")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new SelectUnionNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                List <Token> unionTokens = parseTokens.subList(i + 1, parseTokens.size());
+                ASTNode unionChildNode = parseSelect(unionTokens);
+                currentNode.addChild(unionChildNode);
+                currentNode = unionChildNode;
+                break;
+            }
+            // match ;
+            else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new SelectEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed!");
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -393,7 +507,7 @@ public class OracleParser {
     /**
      * CASE WHEN expr THEN expr [ELSE expr] END
      */
-    private ASTNode parseCaseWhen(List<Token> parseTokens) {
+    public static ASTNode parseCaseWhen(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
         tokens.add(parseTokens.get(0));
 

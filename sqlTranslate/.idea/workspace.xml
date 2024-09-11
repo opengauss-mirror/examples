@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add parseSelect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +307,28 @@
       <option name="project" value="LOCAL" />
       <updated>1725978582486</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add pattern of functions in select">
+      <created>1725981063195</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1725981063195</updated>
+    </task>
+    <task id="LOCAL-00031" summary="add some comments">
+      <created>1725981511612</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1725981511612</updated>
+    </task>
+    <task id="LOCAL-00032" summary="add parseSelect">
+      <created>1725981975960</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1725981975960</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -336,7 +357,10 @@
     <MESSAGE value="add select" />
     <MESSAGE value="add case when" />
     <MESSAGE value="revise" />
-    <option name="LAST_COMMIT_MESSAGE" value="revise" />
+    <MESSAGE value="add pattern of functions in select" />
+    <MESSAGE value="add some comments" />
+    <MESSAGE value="add parseSelect" />
+    <option name="LAST_COMMIT_MESSAGE" value="add parseSelect" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
