@@ -20,7 +20,7 @@ public class OracleLexer {
             // keywords of select
             , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
             // keywords of join
-
+            , "INNER JOIN", "LEFT JOIN", "LEFT OUTER JOIN", "RIGHT JOIN", "RIGHT OUTER JOIN", "FULL JOIN", "FULL OUTER JOIN", "CROSS JOIN"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -50,6 +50,14 @@ public class OracleLexer {
                     "(REF CURSOR)|" +
                     "(GROUP BY)|" +
                     "(ORDER BY)|" +
+                    "(INNER JOIN)|" +
+                    "(LEFT JOIN)|" +
+                    "(LEFT OUTER JOIN)|" +
+                    "(RIGHT JOIN)|" +
+                    "(RIGHT OUTER JOIN)|" +
+                    "(FULL JOIN)|" +
+                    "(FULL OUTER JOIN)|" +
+                    "(CROSS JOIN)|" +
 
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
