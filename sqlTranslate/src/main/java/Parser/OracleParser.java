@@ -392,7 +392,7 @@ public class OracleParser {
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
-            else if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+            else if (i == 1 && (!parseTokens.get(i).hasType(Token.TokenType.KEYWORD) || !parseTokens.get(i).getValue().equalsIgnoreCase("DISTINCT"))) {
                 tokens = new ArrayList<>();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("FROM")) {
