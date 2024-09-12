@@ -5,12 +5,11 @@ import Parser.AST.ASTNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Exception.GenerateFailedException;
-import Parser.AST.DropTable.DropTableNode;
-import Parser.AST.DropTable.DropTableOptionNode;
+import Parser.AST.Drop.DropNode;
+import Parser.AST.Drop.DropOptionNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
-import Parser.AST.Join.JoinTypeNode;
 import Parser.AST.Select.SelectNode;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class OpenGaussGenerator {
         else if (node instanceof InsertNode) {
             return GenInsertSQL(node);
         }
-        else if (node instanceof DropTableNode) {
+        else if (node instanceof DropNode) {
             return GenDropTableSQL(node);
         }
         else if (node instanceof SelectNode) {
@@ -90,7 +89,7 @@ public class OpenGaussGenerator {
 
     private void visitDrop(ASTNode node) {
         try {
-            if (node instanceof DropTableOptionNode) {
+            if (node instanceof DropOptionNode) {
                 List<Token> tokens = new ArrayList<>();
                 tokens.add(new Token(Token.TokenType.KEYWORD, "CASCADE"));
                 tokens.add(new Token(Token.TokenType.KEYWORD, "CONSTRAINTS"));

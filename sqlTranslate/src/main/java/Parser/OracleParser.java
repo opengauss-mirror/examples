@@ -9,10 +9,10 @@ import Parser.AST.CaseWhen.CaseElseNode;
 import Parser.AST.CaseWhen.CaseEndNode;
 import Parser.AST.CaseWhen.CaseThenNode;
 import Parser.AST.CreateTable.*;
-import Parser.AST.DropTable.DropTableEndNode;
-import Parser.AST.DropTable.DropTableNameNode;
-import Parser.AST.DropTable.DropTableNode;
-import Parser.AST.DropTable.DropTableOptionNode;
+import Parser.AST.Drop.DropEndNode;
+import Parser.AST.Drop.DropObjNameNode;
+import Parser.AST.Drop.DropNode;
+import Parser.AST.Drop.DropOptionNode;
 import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
@@ -322,14 +322,14 @@ public class OracleParser {
         catch (ParseFailedException e) {
             e.printStackTrace();
         }
-        ASTNode root = new DropTableNode(tokens);
+        ASTNode root = new DropNode(tokens);
         ASTNode currentNode = root;
 
         for (int i = 2; i < parseTokens.size(); i++) {
             if (parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
                 tokens = new ArrayList<>();
                 tokens.add(parseTokens.get(i));
-                ASTNode childNode = new DropTableNameNode(tokens);
+                ASTNode childNode = new DropObjNameNode(tokens);
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
@@ -340,14 +340,14 @@ public class OracleParser {
                     tokens.add(parseTokens.get(i + 1));
                     i++;
                 }
-                ASTNode childNode = new DropTableOptionNode(tokens);
+                ASTNode childNode = new DropOptionNode(tokens);
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(";")) {
                 tokens = new ArrayList<>();
                 tokens.add(parseTokens.get(i));
-                ASTNode childNode = new DropTableEndNode(tokens);
+                ASTNode childNode = new DropEndNode(tokens);
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }

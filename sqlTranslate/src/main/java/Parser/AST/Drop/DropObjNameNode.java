@@ -1,15 +1,15 @@
-package Parser.AST.DropTable;
+package Parser.AST.Drop;
 
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import java.util.List;
 
-public class DropTableNameNode extends ASTNode {
-    public DropTableNameNode(ASTNode node) {
+public class DropObjNameNode extends ASTNode {
+    public DropObjNameNode(ASTNode node) {
         super(node);
     }
 
-    public DropTableNameNode(List<Token> tokens) {
+    public DropObjNameNode(List<Token> tokens) {
         super(tokens);
     }
 
