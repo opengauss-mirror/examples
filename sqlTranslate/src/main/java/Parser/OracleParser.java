@@ -378,7 +378,7 @@ public class OracleParser {
         for(int i = 1; i < parseTokens.size(); i++) {
             // match select_obj
             if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DISTINCT")) {
-                SelectObjNode childNode = new SelectObjNode();
+                SelectContentNode childNode = new SelectContentNode();
                 childNode.setIsDistinct(parseTokens.get(i).getValue());
                 tokens = new ArrayList<>();
                 for (int j = i + 1; j < parseTokens.size(); j++) {
@@ -401,12 +401,12 @@ public class OracleParser {
                     }
                     tokens.add(parseTokens.get(j));
                 }
-                ASTNode childNode = new SelectObjNode(tokens);
+                ASTNode childNode = new SelectContentNode(tokens);
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
             // match select_tab (possible last token: ; | GROUP BY | ORDER BY | HAVING | WHERE | UNION)
-            else if (currentNode instanceof SelectObjNode) {
+            else if (currentNode instanceof SelectContentNode) {
                 tokens = new ArrayList<>();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (
@@ -422,7 +422,7 @@ public class OracleParser {
                     }
                     tokens.add(parseTokens.get(j));
                 }
-                ASTNode childNode = new SelectTableNode(tokens);
+                ASTNode childNode = new SelectObjNode(tokens);
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
