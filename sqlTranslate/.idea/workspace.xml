@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add Delete ast class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Delete statement in Oracle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add alter table grammar document">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -429,7 +425,21 @@
       <option name="project" value="LOCAL" />
       <updated>1726152030692</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="add Delete">
+      <created>1726153009186</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1726153009186</updated>
+    </task>
+    <task id="LOCAL-00048" summary="add alter table grammar document">
+      <created>1726153173228</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1726153173228</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -444,8 +454,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="lexer" />
-    <MESSAGE value="AST node" />
     <MESSAGE value="add AST node" />
     <MESSAGE value="add functions" />
     <MESSAGE value="add parser function" />
@@ -469,7 +477,9 @@
     <MESSAGE value="add update ast class" />
     <MESSAGE value="add update convert rules" />
     <MESSAGE value="add Delete ast class" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Delete ast class" />
+    <MESSAGE value="add Delete" />
+    <MESSAGE value="add alter table grammar document" />
+    <option name="LAST_COMMIT_MESSAGE" value="add alter table grammar document" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
