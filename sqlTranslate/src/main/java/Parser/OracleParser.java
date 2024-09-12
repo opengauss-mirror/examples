@@ -4,6 +4,7 @@ import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
+import Parser.AST.AlterTable.AlterNode;
 import Parser.AST.CaseWhen.CaseConditionNode;
 import Parser.AST.CaseWhen.CaseElseNode;
 import Parser.AST.CaseWhen.CaseEndNode;
@@ -56,6 +57,9 @@ public class OracleParser {
         }
         else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DELETE")) {
             return parseDelete(lexer.getTokens());
+        }
+        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("ALTER")) {
+            return parseAlterTable(lexer.getTokens());
         }
         else {
             try {
@@ -898,6 +902,30 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * Alter table
+     * Grammar: ALTER TABLE table_name action;
+     * action = ADD column_name data_type [constraint]
+     * | DROP COLUMN column_name
+     * | MODIFY column_name data_type
+     * | RENAME COLUMN old_column_name TO new_column_name
+     * | ADD CONSTRAINT constraint_name constraint_definition
+     * | DROP CONSTRAINT constraint_name
+     * | RENAME old_table_name TO new_table_name
+     */
+    private ASTNode parseAlterTable(List<Token> parseTokens) {
+        List<Token> tokens = new ArrayList<>();
+        tokens.add(parseTokens.get(0));
+        try{
+            tokens.add(parseTokens.get(1));
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        ASTNode root = new AlterNode(tokens);
+        ASTNode currentNode = root;
+        // TODO: implement
+        return root;
+    }
 
 
 }
