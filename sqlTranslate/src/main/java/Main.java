@@ -18,6 +18,11 @@ public class Main {
 //        String sql = "DROP TABLE employees CASCADE CONSTRAINTS;";
         String sql = "SELECT e.first_name, d.department_name FROM employees e JOIN departments d Using e.department_id = d.department_id;";
 //        String sql = "employees e JOIN departments d ON e.department_id = d.department_id;";
+//        String sql = "UPDATE employees e\n" +
+//                "JOIN departments d using e.department_id = d.department_id\n" +
+//                "SET e.salary = e.salary * 1.10,\n" +
+//                "    d.budget = d.budget * 1.10\n" +
+//                "WHERE d.department_name = 'Sales';";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

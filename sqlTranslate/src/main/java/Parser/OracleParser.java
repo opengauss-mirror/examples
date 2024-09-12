@@ -19,6 +19,7 @@ import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
 import Parser.AST.Select.*;
+import Parser.AST.Update.*;
 
 import java.util.Stack;
 
@@ -45,6 +46,9 @@ public class OracleParser {
         }
         else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("SELECT")) {
             return parseSelect(lexer.getTokens());
+        }
+        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("UPDATE")) {
+            return parseUpdate(lexer.getTokens());
         }
         else {
             try {
@@ -735,6 +739,81 @@ public class OracleParser {
             ASTNode childNode = new JoinEndNode();
             currentNode.addChild(childNode);
             currentNode = childNode;
+        }
+
+        return root;
+    }
+
+    /**
+     * Update
+     * For example: UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+     */
+    private ASTNode parseUpdate(List<Token> parseTokens) {
+        List<Token> tokens = new ArrayList<>();
+        tokens.add(parseTokens.get(0));
+        ASTNode root = new UpdateNode(tokens);
+        ASTNode currentNode = root;
+        for (int i = 1; i < parseTokens.size(); i++) {
+            if (i == 1 && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                // match update object
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("SET")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new UpdateObjNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("SET")) {
+                // match SET
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("WHERE")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new UpdateSetNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHERE")) {
+                // match WHERE
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new UpdateWhereNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equalsIgnoreCase(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new UpdateEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return root;

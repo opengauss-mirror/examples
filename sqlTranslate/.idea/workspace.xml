@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add select convert rules">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Update statement in Oracle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Update/UpdateEndNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Update/UpdateNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Update/UpdateObjNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Update/UpdateSetNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Update/UpdateWhereNode.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add update ast class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,7 +408,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726148093221</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="add update ast class">
+      <created>1726149015586</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1726149015586</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -448,7 +453,8 @@
     <MESSAGE value="add join convert rule" />
     <MESSAGE value="refractor" />
     <MESSAGE value="add select convert rules" />
-    <option name="LAST_COMMIT_MESSAGE" value="add select convert rules" />
+    <MESSAGE value="add update ast class" />
+    <option name="LAST_COMMIT_MESSAGE" value="add update ast class" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

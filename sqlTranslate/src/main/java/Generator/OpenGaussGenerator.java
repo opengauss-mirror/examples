@@ -12,6 +12,8 @@ import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
 import Parser.AST.Select.SelectNode;
 import Parser.AST.Select.SelectObjNode;
+import Parser.AST.Update.UpdateNode;
+import Parser.AST.Update.UpdateObjNode;
 import Parser.OracleParser;
 
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ public class OpenGaussGenerator {
         else if (node instanceof JoinSourceTabNode) {
             return GenJoinSQL(node);
         }
+        else if (node instanceof UpdateNode) {
+            return GenUpdateSQL(node);
+        }
         else {
             try {
                 throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
@@ -72,12 +77,18 @@ public class OpenGaussGenerator {
 
     private String GenSelectSQL(ASTNode node) {
         visitSelect(node, null);
-        System.out.println(node.getASTString());
+//        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
     private String GenJoinSQL(ASTNode node) {
         visitJoin(node);
+        return node.toQueryString();
+    }
+
+    private String GenUpdateSQL(ASTNode node) {
+        visitUpdate(node, null);
+//        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
@@ -135,6 +146,24 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitSelect(child, node);
+        }
+    }
+
+    private void visitUpdate(ASTNode node, ASTNode parentNode) {
+        if (node instanceof UpdateObjNode) {
+            // check whether there exists a join statement in the select sql
+            if (node.getTokens().contains(new Token(Token.TokenType.KEYWORD, "JOIN"))) {
+                ASTNode joinRootNode = OracleParser.parseJoin(node.getTokens());
+                visitJoin(joinRootNode);
+                parentNode.replaceChild(node, joinRootNode);
+                ASTNode smallestChild = joinRootNode.getDeepestChild();
+                for (ASTNode child : node.getChildren()) {
+                    smallestChild.addChild(child);
+                }
+            }
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitUpdate(child, node);
         }
     }
 
