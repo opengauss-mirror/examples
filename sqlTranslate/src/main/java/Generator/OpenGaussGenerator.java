@@ -5,6 +5,7 @@ import Parser.AST.ASTNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Exception.GenerateFailedException;
+import Parser.AST.Delete.DeleteNode;
 import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
 import Parser.AST.Insert.InsertNode;
@@ -48,6 +49,9 @@ public class OpenGaussGenerator {
         else if (node instanceof UpdateNode) {
             return GenUpdateSQL(node);
         }
+        else if (node instanceof DeleteNode) {
+            return GenDeleteSQL(node);
+        }
         else {
             try {
                 throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
@@ -89,6 +93,10 @@ public class OpenGaussGenerator {
     private String GenUpdateSQL(ASTNode node) {
         visitUpdate(node, null);
 //        System.out.println(node.getASTString());
+        return node.toQueryString();
+    }
+
+    private String GenDeleteSQL(ASTNode node) {
         return node.toQueryString();
     }
 

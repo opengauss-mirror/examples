@@ -23,6 +23,12 @@ public class Main {
 //                "SET e.salary = e.salary * 1.10,\n" +
 //                "    d.budget = d.budget * 1.10\n" +
 //                "WHERE d.department_name = 'Sales';";
+//        String sql = "DELETE FROM employees e\n" +
+//                "WHERE e.department_id IN (\n" +
+//                "    SELECT d.department_id\n" +
+//                "    FROM departments d\n" +
+//                "    WHERE d.department_name = 'Sales'\n" +
+//                ");";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

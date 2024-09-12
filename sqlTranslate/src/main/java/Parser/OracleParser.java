@@ -9,6 +9,10 @@ import Parser.AST.CaseWhen.CaseElseNode;
 import Parser.AST.CaseWhen.CaseEndNode;
 import Parser.AST.CaseWhen.CaseThenNode;
 import Parser.AST.CreateTable.*;
+import Parser.AST.Delete.DeleteConditionNode;
+import Parser.AST.Delete.DeleteEndNode;
+import Parser.AST.Delete.DeleteNode;
+import Parser.AST.Delete.DeleteObjNode;
 import Parser.AST.Drop.DropEndNode;
 import Parser.AST.Drop.DropObjNameNode;
 import Parser.AST.Drop.DropNode;
@@ -49,6 +53,9 @@ public class OracleParser {
         }
         else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("UPDATE")) {
             return parseUpdate(lexer.getTokens());
+        }
+        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DELETE")) {
+            return parseDelete(lexer.getTokens());
         }
         else {
             try {
@@ -818,4 +825,79 @@ public class OracleParser {
 
         return root;
     }
+
+    /**
+     * Delete
+     * For example:
+     *      DELETE FROM employees e
+     *      WHERE e.department_id IN (
+     *          SELECT d.department_id
+     *          FROM departments d
+     *          WHERE d.department_name = 'Sales'
+     *      );
+     */
+    private ASTNode parseDelete(List<Token> parseTokens) {
+        List<Token> tokens = new ArrayList<>();
+        tokens.add(parseTokens.get(0));
+        try{
+            tokens.add(parseTokens.get(1));
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        ASTNode root = new DeleteNode(tokens);
+        ASTNode currentNode = root;
+        for (int i = 2; i < parseTokens.size(); i++) {
+            // match delete object
+            if (i == 2 && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("WHERE")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new DeleteObjNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match WHERE condition
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHERE")) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new DeleteConditionNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new DeleteEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return root;
+    }
+
+
+
 }
