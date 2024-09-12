@@ -16,13 +16,15 @@ public class OracleLexer {
             "LONG RAW", "BOOLEAN", "INTERVAL YEAR TO MONTH", "INTERVAL DAY TO SECOND", "ROWID", "UROWID", "REF CURSOR",
             "NOT NULL", "PRIMARY KEY", "UNIQUE", "CHECK", "REFERENCES", "DEFAULT", "CONSTRAINT", "FOREIGN KEY"
             // keywords of drop table
-            , "DROP", "CASCADE", "CONSTRAINTS"
+            , "DROP", "CASCADE"
             // keywords of select
             , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
             // keywords of join
             , "INNER JOIN", "LEFT JOIN", "LEFT OUTER JOIN", "RIGHT JOIN", "RIGHT OUTER JOIN", "FULL JOIN", "FULL OUTER JOIN", "CROSS JOIN", "JOIN", "ON", "USING"
             // keywords of update
             , "SET"
+            // keywords of alter table
+            , "ALTER", "ADD", "DROP", "MODIFY", "RENAME", "TO"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
