@@ -1,5 +1,7 @@
 package Lexer;
 
+import java.util.Objects;
+
 public class Token {
     public enum TokenType {
         KEYWORD, IDENTIFIER, NUMBER, OPERATOR, STRING, SYMBOL, EOF
@@ -31,6 +33,14 @@ public class Token {
                 "type=" + type +
                 ", value='" + value + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Token token = (Token) obj;
+        return type == token.type && Objects.equals(value, token.value);
     }
 
 }

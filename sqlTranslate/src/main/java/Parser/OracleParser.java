@@ -663,12 +663,9 @@ public class OracleParser {
             currentNode = childNode;
         }
         else {
-            try {
-                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
-            }
-            catch (ParseFailedException e) {
-                e.printStackTrace();
-            }
+            ASTNode childNode = new JoinTargetTabNode(tokens);
+            currentNode.addChild(childNode);
+            currentNode = childNode;
         }
 
         // match join condition
@@ -725,22 +722,19 @@ public class OracleParser {
                     }
                 }
                 else {
-                    try {
-                        throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
-                    }
-                    catch (ParseFailedException e) {
-                        e.printStackTrace();
-                    }
+                    joinConditionNode.setTokens(tokens);
+                    currentNode.addChild(joinConditionNode);
+                    currentNode = joinConditionNode;
+                    ASTNode childNode = new JoinEndNode();
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
                 }
             }
         }
         else {
-            try {
-                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
-            }
-            catch (ParseFailedException e) {
-                e.printStackTrace();
-            }
+            ASTNode childNode = new JoinEndNode();
+            currentNode.addChild(childNode);
+            currentNode = childNode;
         }
 
         return root;

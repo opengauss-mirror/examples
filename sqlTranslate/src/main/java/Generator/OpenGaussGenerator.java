@@ -11,6 +11,8 @@ import Parser.AST.Insert.InsertNode;
 import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
 import Parser.AST.Select.SelectNode;
+import Parser.AST.Select.SelectObjNode;
+import Parser.OracleParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +71,8 @@ public class OpenGaussGenerator {
     }
 
     private String GenSelectSQL(ASTNode node) {
-        // Select statements do not need to be converted for the time being
+        visitSelect(node, null);
+        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
@@ -114,6 +117,24 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitJoin(child);
+        }
+    }
+
+    private void visitSelect(ASTNode node, ASTNode parentNode) {
+        if (node instanceof SelectObjNode) {
+            // check whether there exists a join statement in the select sql
+            if (node.getTokens().contains(new Token(Token.TokenType.KEYWORD, "JOIN"))) {
+                ASTNode joinRootNode = OracleParser.parseJoin(node.getTokens());
+                visitJoin(joinRootNode);
+                parentNode.replaceChild(node, joinRootNode);
+                ASTNode smallestChild = joinRootNode.getDeepestChild();
+                for (ASTNode child : node.getChildren()) {
+                    smallestChild.addChild(child);
+                }
+            }
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitSelect(child, node);
         }
     }
 

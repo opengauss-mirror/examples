@@ -80,6 +80,20 @@ public abstract class ASTNode {
         return nodes;
     }
 
+    public ASTNode getDeepestChild() {
+        if (hasChild()) {
+            ASTNode child = getChildren().get(0);
+            while (child.hasChild()) {
+                child = child.getChildren().get(0);
+            }
+            return child;
+        }
+        else {
+            return this;
+        }
+
+    }
+
     /**
      * 将对应名称的node更新为新的child
      */
