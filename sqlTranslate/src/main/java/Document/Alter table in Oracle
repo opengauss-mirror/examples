@@ -1,0 +1,8 @@
+ALTER TABLE table_name action;
+action = ADD column_name data_type [constraint]
+| DROP COLUMN column_name
+| MODIFY column_name data_type
+| RENAME COLUMN old_column_name TO new_column_name
+| ADD CONSTRAINT constraint_name constraint_definition
+| DROP CONSTRAINT constraint_name
+| RENAME old_table_name TO new_table_name
