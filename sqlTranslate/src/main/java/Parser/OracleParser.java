@@ -17,12 +17,12 @@ import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
+import Parser.AST.Join.*;
 import Parser.AST.Select.*;
 
 import java.util.Stack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class OracleParser {
@@ -581,5 +581,168 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * JOIN clause
+     * For example: table1 t1 JOIN table2 t2 ON|USING t1.id = t2.id (parseTokens should start with table)
+     */
+    public static ASTNode parseJoin(List<Token> parseTokens) {
+        List <Token> tokens = new ArrayList<>();
+        int index = 0;
+        boolean parseState = false;
+        ASTNode currentNode = null;
+        ASTNode root = null;
+        // match table 1
+        for (int i = index; i < parseTokens.size(); i++) {
+            if (
+                    (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("INNER JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("LEFT JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RIGHT JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("FULL JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("LEFT OUTER JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RIGHT OUTER JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("FULL OUTER JOIN"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("CROSS JOIN"))
+            ) {
+                index = i;
+                parseState = true;
+                break;
+            }
+            tokens.add(parseTokens.get(i));
+        }
+        if (parseState) {
+            root = new JoinSourceTabNode(tokens);
+            currentNode = root;
+        }
+        else {
+            try {
+                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
+            }
+            catch (ParseFailedException e) {
+                e.printStackTrace();
+            }
+        }
 
+        // match join type
+        if (parseState) {
+            tokens = new ArrayList<>();
+            tokens.add(parseTokens.get(index));
+            index++;
+            ASTNode childNode = new JoinTypeNode(tokens);
+            currentNode.addChild(childNode);
+            currentNode = childNode;
+        }
+        else {
+            try {
+                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
+            }
+            catch (ParseFailedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // match table 2
+        tokens = new ArrayList<>();
+        parseState = false;
+        for (int i = index; i < parseTokens.size(); i++) {
+            if (
+                    (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ON"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("USING"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equalsIgnoreCase(";"))
+                    || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD))
+            ) {
+                index = i;
+                parseState = true;
+                break;
+            }
+            tokens.add(parseTokens.get(i));
+        }
+        if (parseState) {
+            ASTNode childNode = new JoinTargetTabNode(tokens);
+            currentNode.addChild(childNode);
+            currentNode = childNode;
+        }
+        else {
+            try {
+                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
+            }
+            catch (ParseFailedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // match join condition
+        if (parseState) {
+            // match end
+            if (parseTokens.get(index).hasType(Token.TokenType.SYMBOL) && parseTokens.get(index).getValue().equalsIgnoreCase(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(index));
+                ASTNode childNode = new JoinEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match end with keyword
+            else if (parseTokens.get(index).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(index).getValue().equalsIgnoreCase("ON") && !parseTokens.get(index).getValue().equalsIgnoreCase("USING")) {
+                ASTNode childNode = new JoinEndNode();
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else {
+                parseState = false;
+                JoinConditionNode joinConditionNode = new JoinConditionNode();
+                joinConditionNode.setKeyword(parseTokens.get(index).getValue());
+                index++;
+                tokens = new ArrayList<>();
+                for (int i = index; i < parseTokens.size(); i++) {
+                    if (
+                            parseTokens.get(i).hasType(Token.TokenType.KEYWORD)
+                            || (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equalsIgnoreCase(";"))
+                    )
+                    {
+                        index = i;
+                        parseState = true;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(i));
+                }
+                if (parseState) {
+                    joinConditionNode.setTokens(tokens);
+                    currentNode.addChild(joinConditionNode);
+                    currentNode = joinConditionNode;
+                    // match end
+                    if (parseTokens.get(index).hasType(Token.TokenType.SYMBOL) && parseTokens.get(index).getValue().equalsIgnoreCase(";")) {
+                        tokens = new ArrayList<>();
+                        tokens.add(parseTokens.get(index));
+                        ASTNode childNode = new JoinEndNode(tokens);
+                        currentNode.addChild(childNode);
+                        currentNode = childNode;
+                    }
+                    // match end with keyword
+                    else if (parseTokens.get(index).hasType(Token.TokenType.KEYWORD)) {
+                        ASTNode childNode = new JoinEndNode();
+                        currentNode.addChild(childNode);
+                        currentNode = childNode;
+                    }
+                }
+                else {
+                    try {
+                        throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
+                    }
+                    catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        else {
+            try {
+                throw new ParseFailedException("Fail to parse:" + parseTokens.get(index));
+            }
+            catch (ParseFailedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return root;
+    }
 }

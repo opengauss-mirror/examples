@@ -4,18 +4,22 @@ import Lexer.Token;
 import Parser.AST.ASTNode;
 import java.util.List;
 
-public class JoinColumnNode extends ASTNode {
+public class JoinConditionNode extends ASTNode {
     private String keyword;
-    public JoinColumnNode(List<Token> tokens)
+    public JoinConditionNode(List<Token> tokens)
     {
         super(tokens);
         this.keyword = "";
     }
 
-    public JoinColumnNode(ASTNode node)
+    public JoinConditionNode(ASTNode node)
     {
         super(node);
         this.keyword = "";
+    }
+
+    public JoinConditionNode() {
+        super();
     }
 
     public void setKeyword(String keyword) {
