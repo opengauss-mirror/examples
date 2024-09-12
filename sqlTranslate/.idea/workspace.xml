@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add join pattern">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinColumnNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinSourceTabNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinTargetTabNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinTypeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726066806993</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="add join pattern">
+      <created>1726068883795</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1726068883795</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,7 +398,8 @@
     <MESSAGE value="add some comments" />
     <MESSAGE value="add parseSelect" />
     <MESSAGE value="revise" />
-    <option name="LAST_COMMIT_MESSAGE" value="revise" />
+    <MESSAGE value="add join pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="add join pattern" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
