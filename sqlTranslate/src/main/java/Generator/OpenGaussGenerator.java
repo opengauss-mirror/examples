@@ -8,6 +8,9 @@ import Exception.GenerateFailedException;
 import Parser.AST.DropTable.DropTableNode;
 import Parser.AST.DropTable.DropTableOptionNode;
 import Parser.AST.Insert.InsertNode;
+import Parser.AST.Join.JoinConditionNode;
+import Parser.AST.Join.JoinSourceTabNode;
+import Parser.AST.Join.JoinTypeNode;
 import Parser.AST.Select.SelectNode;
 
 import java.util.ArrayList;
@@ -18,6 +21,11 @@ public class OpenGaussGenerator {
     public OpenGaussGenerator(ASTNode node) {
         this.node = node;
     }
+
+    public void setNode(ASTNode node) {
+        this.node = node;
+    }
+
     public String generate() {
         if (node instanceof CreateTabNode) {
             return GenCreatTableSQL(node);
@@ -30,6 +38,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof SelectNode) {
             return GenSelectSQL(node);
+        }
+        else if (node instanceof JoinSourceTabNode) {
+            return GenJoinSQL(node);
         }
         else {
             try {
@@ -63,6 +74,11 @@ public class OpenGaussGenerator {
         return node.toQueryString();
     }
 
+    private String GenJoinSQL(ASTNode node) {
+        visitJoin(node);
+        return node.toQueryString();
+    }
+
     private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
             ColumnTypeConvert((ColumnNode) node);
@@ -88,6 +104,17 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitDrop(child);
+        }
+    }
+
+    private void visitJoin(ASTNode node) {
+        if (node instanceof JoinConditionNode) {
+           if (((JoinConditionNode) node).getKeyword().equalsIgnoreCase("USING")) {
+               ((JoinConditionNode) node).setKeyword("ON");
+           }
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitJoin(child);
         }
     }
 

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add join class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinEndNode.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add join">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinConditionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinConditionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Join/JoinConditionNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -374,7 +372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726112198384</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="add join">
+      <created>1726127728384</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1726127728384</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -408,7 +413,8 @@
     <MESSAGE value="revise" />
     <MESSAGE value="add join pattern" />
     <MESSAGE value="add join class" />
-    <option name="LAST_COMMIT_MESSAGE" value="add join class" />
+    <MESSAGE value="add join" />
+    <option name="LAST_COMMIT_MESSAGE" value="add join" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

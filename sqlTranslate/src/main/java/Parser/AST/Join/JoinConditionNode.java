@@ -22,6 +22,10 @@ public class JoinConditionNode extends ASTNode {
         super();
     }
 
+    public String getKeyword() {
+        return keyword.replace(" ", "");
+    }
+
     public void setKeyword(String keyword) {
         this.keyword = keyword + " ";
     }

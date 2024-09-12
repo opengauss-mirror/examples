@@ -16,14 +16,14 @@ public class Main {
 //                ");";
 //        String sql = "INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');";
 //        String sql = "DROP TABLE employees CASCADE CONSTRAINTS;";
-        String sql = "SELECT e.first_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;";
-//        String sql = "Customers\n" +
-//                "LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID where";
+//        String sql = "SELECT e.first_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;";
+        String sql = "Customers\n" +
+                "LEFT JOIN Orders USING Customers.CustomerID = Orders.CustomerID where";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);
-        ASTNode root = parser.parse();
-//        ASTNode root = OracleParser.parseJoin(lexer.getTokens());
+//        ASTNode root = parser.parse();
+        ASTNode root = OracleParser.parseJoin(lexer.getTokens());
         System.out.println(root.toQueryString());
         System.out.println(root.getASTString());
         OpenGaussGenerator generator = new OpenGaussGenerator(root);
