@@ -5,7 +5,7 @@ Operation
  order by 1
  union 1
  insert into 1
- update... set
+ update... set 1
  delete
  if... elsif... else... end if
  case... when... then 1
