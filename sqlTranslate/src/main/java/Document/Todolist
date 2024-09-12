@@ -6,7 +6,7 @@ Operation
  union 1
  insert into 1
  update... set 1
- delete
+ delete 1
  if... elsif... else... end if
  case... when... then 1
  loop... end loop
