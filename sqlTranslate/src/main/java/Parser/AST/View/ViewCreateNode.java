@@ -5,12 +5,17 @@ import Parser.AST.ASTNode;
 
 import java.util.List;
 
-public class ViewNode extends ASTNode {
-    public ViewNode(ASTNode node) {
+public class ViewCreateNode extends ASTNode {
+
+    public ViewCreateNode() {
+        super();
+    }
+
+    public ViewCreateNode(ASTNode node) {
         super(node);
     }
 
-    public ViewNode(List<Token> tokens) {
+    public ViewCreateNode(List<Token> tokens) {
         super(tokens);
     }
 

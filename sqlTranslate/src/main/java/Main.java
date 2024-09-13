@@ -30,8 +30,9 @@ public class Main {
 //                "    FROM departments d\n" +
 //                "    WHERE d.department_name = 'Sales'\n" +
 //                ");";
-        String sql = "ALTER TABLE employees ADD email VARCHAR2(100) Check (email != '12813@163.com');";
+//        String sql = "ALTER TABLE employees ADD email VARCHAR2(100) Check (email != '12813@163.com');";
 //        String sql = "CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END";
+        String sql = "CREATE OR REPLACE VIEW emp_dept_info AS SELECT e.first_name, e.last_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class ViewEndNode extends ASTNode {
+    public ViewEndNode() {
+        super();
+    }
+
     public ViewEndNode(ASTNode node) {
         super(node);
     }

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add view document" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add ast class of view">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/View/ViewEndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/View/ViewEndNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/View/ViewNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/View/ViewCreateNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -100,20 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00010" summary="add parser function">
-      <created>1724166047929</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1724166047929</updated>
-    </task>
-    <task id="LOCAL-00011" summary="add function">
-      <created>1724338301831</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1724338301831</updated>
     </task>
     <task id="LOCAL-00012" summary="add function">
       <created>1724419179050</created>
@@ -444,7 +437,21 @@
       <option name="project" value="LOCAL" />
       <updated>1726214965146</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="add keywords of view">
+      <created>1726215246855</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1726215246856</updated>
+    </task>
+    <task id="LOCAL-00060" summary="add ast class of view">
+      <created>1726215657277</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1726215657277</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,8 +466,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add insert sql" />
-    <MESSAGE value="add todolist" />
     <MESSAGE value="add select" />
     <MESSAGE value="add case when" />
     <MESSAGE value="add pattern of functions in select" />
@@ -484,7 +489,9 @@
     <MESSAGE value="add alter" />
     <MESSAGE value="fix some bugs" />
     <MESSAGE value="add view document" />
-    <option name="LAST_COMMIT_MESSAGE" value="add view document" />
+    <MESSAGE value="add keywords of view" />
+    <MESSAGE value="add ast class of view" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ast class of view" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -18,7 +18,7 @@ public class OracleLexer {
             // keywords of drop table
             , "DROP", "CASCADE"
             // keywords of select
-            , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
+            , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS", "||"
             // keywords of join
             , "INNER JOIN", "LEFT JOIN", "LEFT OUTER JOIN", "RIGHT JOIN", "RIGHT OUTER JOIN", "FULL JOIN", "FULL OUTER JOIN", "CROSS JOIN", "JOIN", "ON", "USING"
             // keywords of case when
@@ -45,6 +45,7 @@ public class OracleLexer {
                     "(AVG\\(.*?\\))|" +                     // AVG() function
                     "(MAX\\(.*?\\))|" +                     // MAX() function
                     "(MIN\\(.*?\\))|" +                     // MIN() function
+                    "(\\|\\|\\s*'.*?'\\s*\\|\\|)|" +        // || '*' ||
 
                     "(NOT NULL)|" +
                     "(PRIMARY KEY)|" +
@@ -66,6 +67,7 @@ public class OracleLexer {
                     "(FULL JOIN)|" +
                     "(FULL OUTER JOIN)|" +
                     "(CROSS JOIN)|" +
+                    "(\\|\\|)|" +
 
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
@@ -122,40 +124,43 @@ public class OracleLexer {
         else if (tokenValue.matches("(?i)NUMBER\\(.*?\\)")) {
             // NUMBER() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)DECIMAL\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)DECIMAL\\(.*?\\)")) {
             // DECIMAL() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)FLOAT\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)FLOAT\\(.*?\\)")) {
             // FLOAT() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)CHAR\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)CHAR\\(.*?\\)")) {
             // CHAR() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)VARCHAR2\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)VARCHAR2\\(.*?\\)")) {
             // VARCHAR2() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)NCHAR\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)NCHAR\\(.*?\\)")) {
             // NCHAR() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)NVARCHAR2\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)NVARCHAR2\\(.*?\\)")) {
             // NVARCHAR2() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)RAW\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)RAW\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)COUNT\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)COUNT\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)SUM\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)SUM\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)AVG\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)AVG\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)MAX\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)MAX\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        }else if (tokenValue.matches("(?i)MIN\\(.*?\\)")) {
+        } else if (tokenValue.matches("(?i)MIN\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        } else if (tokenValue.matches("\\|\\|\\s*'.*?'\\s*\\|\\|")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
         }

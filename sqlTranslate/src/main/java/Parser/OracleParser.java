@@ -25,6 +25,10 @@ import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
 import Parser.AST.Select.*;
 import Parser.AST.Update.*;
+import Parser.AST.View.ViewCreateNode;
+import Parser.AST.View.ViewEndNode;
+import Parser.AST.View.ViewNameNode;
+import Parser.AST.View.ViewTargetNode;
 
 import java.util.Stack;
 
@@ -38,38 +42,41 @@ public class OracleParser {
     }
     public ASTNode parse()
     {
-        // check if the input is a create table statement
-        if ((lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("TABLE")) ||
-                (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(2).getValue().equalsIgnoreCase("TEMPORARY") && lexer.getTokens().get(3).getValue().equalsIgnoreCase("TABLE")) ) {
-            return parseCreateTab(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("INSERT")) {
-            return parseInsert(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DROP")) {
-            return parseDrop(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("SELECT")) {
-            return parseSelect(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("UPDATE")) {
-            return parseUpdate(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DELETE")) {
-            return parseDelete(lexer.getTokens());
-        }
-        else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("ALTER")) {
-            return parseAlterTable(lexer.getTokens());
-        }
-        else {
-            try {
-                throw new ParseFailedException("Parse failed!--Unsupport SQL:" + lexer.getTokens().get(0).getValue());
+        try {
+            // check if the input is a create table statement
+            if ((lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("TABLE")) ||
+                    (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(2).getValue().equalsIgnoreCase("TEMPORARY") && lexer.getTokens().get(3).getValue().equalsIgnoreCase("TABLE"))) {
+                return parseCreateTab(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("INSERT")) {
+                return parseInsert(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DROP")) {
+                return parseDrop(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("SELECT")) {
+                return parseSelect(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("UPDATE")) {
+                return parseUpdate(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DELETE")) {
+                return parseDelete(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("ALTER")) {
+                return parseAlterTable(lexer.getTokens());
+            } else if (
+                    (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("OR") && lexer.getTokens().get(2).getValue().equalsIgnoreCase("REPLACE") && lexer.getTokens().get(3).getValue().equalsIgnoreCase("VIEW"))
+                            || (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("VIEW"))
+            ) {
+                return parseCreateView(lexer.getTokens());
+            } else {
+                try {
+                    throw new ParseFailedException("Parse failed!--Unsupport SQL:" + lexer.getTokens().get(0).getValue());
+                } catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-            catch (ParseFailedException e) {
-                e.printStackTrace();
-            }
-            return null;
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -1210,5 +1217,68 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * Create view
+     * Grammar: CREATE [OR REPLACE] VIEW view_name [(column_name [, column_name]...)] AS SELECT_statement;
+     * Example: CREATE OR REPLACE VIEW employee_details (full_name, pay)
+     *          AS SELECT first_name, last_name, salary FROM employees;
+     */
+    private ASTNode parseCreateView(List<Token> parseTokens) {
+        List<Token> tokens = new ArrayList<>();
+        ASTNode root = new ViewCreateNode();
+        ASTNode currentNode = root;
+        for (int i = 0; i < parseTokens.size(); i++) {
+            if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("CREATE")) {
+                tokens.add(parseTokens.get(i));
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("OR")) {
+                tokens.add(parseTokens.get(i));
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("REPLACE")) {
+                tokens.add(parseTokens.get(i));
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("VIEW")) {
+                tokens.add(parseTokens.get(i));
+                root.setTokens(tokens);
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER) && currentNode instanceof ViewCreateNode) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("AS")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new ViewNameNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("AS")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new ViewTargetNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                tokens = parseTokens.subList(i + 1, parseTokens.size());
+                ASTNode selectRootNode = parseSelect(tokens);
+                currentNode.addChild(selectRootNode);
+                currentNode = selectRootNode.getDeepestChild();
+                ASTNode viewEndNode = new ViewEndNode();
+                currentNode.addChild(viewEndNode);
+                currentNode = viewEndNode;
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Failed to parse:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
+        return root;
+    }
 }
