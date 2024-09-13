@@ -73,7 +73,7 @@ public class OracleParser {
     }
 
     /**
-     * CREATE TEMPORARY? TABLE _table ( _column _type [, _column _type]... ) [CONSTRAINT _constraint] [, _column _type [, _column _type]...]
+     * CREATE TEMPORARY? TABLE _table ( (_column _type column_constraint), (_column _type column_constraint)* table_constraint?)
      */
     private ASTNode parseCreateTab(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
