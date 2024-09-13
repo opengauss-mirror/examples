@@ -4,10 +4,7 @@ import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
-import Parser.AST.AlterTable.AlterAddColumnNode;
-import Parser.AST.AlterTable.AlterEndNode;
-import Parser.AST.AlterTable.AlterNode;
-import Parser.AST.AlterTable.AlterObjNode;
+import Parser.AST.AlterTable.*;
 import Parser.AST.CaseWhen.CaseConditionNode;
 import Parser.AST.CaseWhen.CaseElseNode;
 import Parser.AST.CaseWhen.CaseEndNode;
@@ -955,8 +952,9 @@ public class OracleParser {
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ADD")) {
                 // add column
                 if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.IDENTIFIER)) {
-                    i++;
                     tokens = new ArrayList<>();
+                    tokens.add(parseTokens.get(i));
+                    i++;
                     boolean state = false;
                     AlterAddColumnNode child = new AlterAddColumnNode();
                     child.setName(parseTokens.get(i));
@@ -1014,8 +1012,9 @@ public class OracleParser {
                 }
                 // add constraint
                 else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("CONSTRAINT")) {
-                    i++;
                     tokens = new ArrayList<>();
+                    tokens.add(parseTokens.get(i));
+                    i++;
                     tokens.add(parseTokens.get(i));
                     for (int j = i + 1; j < parseTokens.size(); j++) {
                         /**
@@ -1055,13 +1054,15 @@ public class OracleParser {
                             }
                             continue;
                         }
-                        if ((parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(",")) ||
-                                (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(")")) ) {
-                            i = j;
+                        if ((parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";"))) {
+                            i = j - 1;
                             break;
                         }
                         tokens.add(parseTokens.get(j));
                     }
+                    ASTNode childNode = new AlterAddConstraintNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
                 }
                 // error sql
                 else {

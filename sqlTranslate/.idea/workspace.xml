@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise create table document">
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterAddColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterAddColumnNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,13 +104,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00003" summary="AST node">
-      <created>1723871742424</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1723871742424</updated>
     </task>
     <task id="LOCAL-00004" summary="add AST node">
       <created>1723992163694</created>
@@ -450,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726154479052</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="revise">
+      <created>1726197698087</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1726197698087</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +473,6 @@
     <MESSAGE value="add pattern of functions in select" />
     <MESSAGE value="add some comments" />
     <MESSAGE value="add parseSelect" />
-    <MESSAGE value="revise" />
     <MESSAGE value="add join pattern" />
     <MESSAGE value="add join class" />
     <MESSAGE value="add join" />
@@ -490,7 +487,8 @@
     <MESSAGE value="add alter table ast class" />
     <MESSAGE value="add alter table keywords" />
     <MESSAGE value="add alter table parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="add alter table parser" />
+    <MESSAGE value="revise" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

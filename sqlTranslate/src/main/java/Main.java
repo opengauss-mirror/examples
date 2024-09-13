@@ -31,6 +31,7 @@ public class Main {
 //                "    WHERE d.department_name = 'Sales'\n" +
 //                ");";
         String sql = "ALTER TABLE employees ADD email VARCHAR2(100) Check (email != '12813@163.com');";
+//        String sql = "ALTER TABLE employees ADD CONSTRAINT emp_pk PRIMARY KEY (employee_id);";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);
