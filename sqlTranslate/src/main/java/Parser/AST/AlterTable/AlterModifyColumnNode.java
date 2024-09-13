@@ -3,6 +3,7 @@ package Parser.AST.AlterTable;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlterModifyColumnNode extends ASTNode {
@@ -43,5 +44,14 @@ public class AlterModifyColumnNode extends ASTNode {
         for (ASTNode child : getChildren()) {
             child.visit(child, queryString);
         }
+    }
+
+    public void ResetTokensbyNameTypeConstraint() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(new Token(Token.TokenType.KEYWORD, "MODIFY"));
+        tokens.add(columnName);
+        tokens.add(columnType);
+        tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+        setTokens(tokens);
     }
 }
