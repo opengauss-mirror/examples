@@ -801,9 +801,17 @@ public class OracleParser {
                     }
                     tokens.add(parseTokens.get(j));
                 }
-                ASTNode childNode = new UpdateObjNode(tokens);
-                currentNode.addChild(childNode);
-                currentNode = childNode;
+                if (tokens.contains(new Token(Token.TokenType.KEYWORD, "JOIN"))) {
+                    ASTNode joinRootNode = parseJoin(tokens);
+                    currentNode.addChild(joinRootNode);
+                    currentNode = joinRootNode.getDeepestChild();
+                }
+                else {
+                    ASTNode childNode = new UpdateObjNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("SET")) {
                 // match SET

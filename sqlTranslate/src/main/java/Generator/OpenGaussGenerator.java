@@ -103,7 +103,7 @@ public class OpenGaussGenerator {
     }
 
     private String GenUpdateSQL(ASTNode node) {
-        visitUpdate(node, null);
+        visitUpdate(node);
 //        System.out.println(node.getASTString());
         return node.toQueryString();
     }
@@ -171,21 +171,12 @@ public class OpenGaussGenerator {
         }
     }
 
-    private void visitUpdate(ASTNode node, ASTNode parentNode) {
-        if (node instanceof UpdateObjNode) {
-            // check whether there exists a join statement in the select sql
-            if (node.getTokens().contains(new Token(Token.TokenType.KEYWORD, "JOIN"))) {
-                ASTNode joinRootNode = OracleParser.parseJoin(node.getTokens());
-                visitJoin(joinRootNode);
-                parentNode.replaceChild(node, joinRootNode);
-                ASTNode smallestChild = joinRootNode.getDeepestChild();
-                for (ASTNode child : node.getChildren()) {
-                    smallestChild.addChild(child);
-                }
-            }
+    private void visitUpdate(ASTNode node) {
+        if (node instanceof JoinSourceTabNode) {
+            visitJoin(node);
         }
         for (ASTNode child : node.getChildren()) {
-            visitUpdate(child, node);
+            visitUpdate(child);
         }
     }
 

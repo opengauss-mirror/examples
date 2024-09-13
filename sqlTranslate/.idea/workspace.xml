@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add view">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Update statement in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Update statement in Oracle" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add view generate method">
       <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
@@ -106,13 +104,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add function">
-      <created>1724423798948</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1724423798948</updated>
     </task>
     <task id="LOCAL-00014" summary="add function">
       <created>1724425628008</created>
@@ -450,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726234244501</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="add view generate method">
+      <created>1726235338624</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1726235338624</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -465,7 +463,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add case when" />
     <MESSAGE value="add pattern of functions in select" />
     <MESSAGE value="add some comments" />
     <MESSAGE value="add parseSelect" />
@@ -490,7 +487,8 @@
     <MESSAGE value="add keywords of view" />
     <MESSAGE value="add ast class of view" />
     <MESSAGE value="add view" />
-    <option name="LAST_COMMIT_MESSAGE" value="add view" />
+    <MESSAGE value="add view generate method" />
+    <option name="LAST_COMMIT_MESSAGE" value="add view generate method" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
