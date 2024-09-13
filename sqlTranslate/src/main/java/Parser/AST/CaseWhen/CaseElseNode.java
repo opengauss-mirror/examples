@@ -16,7 +16,7 @@ public class CaseElseNode extends ASTNode {
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append("ELSE " + toString() + " ");
+        queryString.append(toString() + " ");
         for (ASTNode child : getChildren()) {
             child.visit(child, queryString);
         }

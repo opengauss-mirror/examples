@@ -63,7 +63,7 @@ public class OracleParser {
         }
         else {
             try {
-                throw new ParseFailedException("Parse failed!");
+                throw new ParseFailedException("Parse failed!--Unsupport SQL:" + lexer.getTokens().get(0).getValue());
             }
             catch (ParseFailedException e) {
                 e.printStackTrace();
@@ -332,7 +332,7 @@ public class OracleParser {
     }
 
     /**
-     * DROP TABLE _table (CASCADE CONSTRAINTS)?
+     * DROP TABLE _table (CASCADE CONSTRAINTS)? | DROP VIEW _view
      */
     private ASTNode parseDrop(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
@@ -532,6 +532,7 @@ public class OracleParser {
 
     /**
      * CASE WHEN expr THEN expr [ELSE expr] END
+     * @param parseTokens should start with CASE
      */
     public static ASTNode parseCaseWhen(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
@@ -545,23 +546,23 @@ public class OracleParser {
         }
         int currentIndex = 2;
         for (int i = currentIndex; i < parseTokens.size(); i++) {
-            tokens.add(parseTokens.get(i));
             if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("THEN")) {
                 currentIndex = i;
                 break;
             }
+            tokens.add(parseTokens.get(i));
         }
         ASTNode root = new CaseConditionNode(tokens);
         ASTNode currentNode = root;
 
         tokens = new ArrayList<>();
         for (int i = currentIndex; i < parseTokens.size(); i++) {
-            tokens.add(parseTokens.get(i));
             if ( (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ELSE"))
             || (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) ) {
                 currentIndex = i;
                 break;
             }
+            tokens.add(parseTokens.get(i));
         }
         ASTNode childNode = new CaseThenNode(tokens);
         currentNode.addChild(childNode);
@@ -575,7 +576,7 @@ public class OracleParser {
                         childNode = new CaseElseNode(tokens);
                         currentNode.addChild(childNode);
                         currentNode = childNode;
-                        i = j;
+                        i = j - 1;
                         break;
                     }
                     tokens.add(parseTokens.get(j));
@@ -589,9 +590,12 @@ public class OracleParser {
                 currentNode = childNode;
                 break;
             }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
             else {
                 try {
-                    throw new ParseFailedException("Parse failed!");
+                    throw new ParseFailedException("Parse failed!--" + parseTokens.get(i));
                 }
                 catch (ParseFailedException e) {
                     e.printStackTrace();
@@ -604,7 +608,8 @@ public class OracleParser {
 
     /**
      * JOIN clause
-     * For example: table1 t1 JOIN table2 t2 ON|USING t1.id = t2.id (parseTokens should start with table)
+     * For example: table1 t1 JOIN table2 t2 ON|USING t1.id = t2.id
+     * @param parseTokens should start with _table
      */
     public static ASTNode parseJoin(List<Token> parseTokens) {
         List <Token> tokens = new ArrayList<>();
@@ -764,6 +769,7 @@ public class OracleParser {
     /**
      * Update
      * For example: UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+     *              | UPDATE view_name SET column1 = value1, column2 = value2, ... WHERE condition;
      */
     private ASTNode parseUpdate(List<Token> parseTokens) {
         List<Token> tokens = new ArrayList<>();

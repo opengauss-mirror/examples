@@ -21,6 +21,8 @@ public class OracleLexer {
             , "DISTINCT", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "UNION", "CASE", "WHEN", "END", "AS"
             // keywords of join
             , "INNER JOIN", "LEFT JOIN", "LEFT OUTER JOIN", "RIGHT JOIN", "RIGHT OUTER JOIN", "FULL JOIN", "FULL OUTER JOIN", "CROSS JOIN", "JOIN", "ON", "USING"
+            // keywords of case when
+            , "THEN", "ELSE"
             // keywords of update
             , "SET"
             // keywords of alter table
