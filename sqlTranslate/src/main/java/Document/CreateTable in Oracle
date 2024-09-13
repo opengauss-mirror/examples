@@ -1,0 +1,21 @@
+CREATE TEMPORARY? TABLE _table ( (_column _type column_constraint), (_column _type column_constraint)* table_constraint?)
+table_constraint: PRIMARY KEY
+                      # Example：CONSTRAINT pk_example PRIMARY KEY (column1, column2)
+                  | UNIQUE
+                      # Example：CONSTRAINT uk_example UNIQUE (column1)
+                  | FOREIGN KEY
+                      # Example：CONSTRAINT fk_example FOREIGN KEY (column1) REFERENCES other_table(column2)
+                  | CHECK
+                      # Example：CONSTRAINT chk_example CHECK (column1 > 0)
+column_constraint: NOT NULL
+                      # Example：column_name VARCHAR2(50) NOT NULL
+                   | PRIMARY KEY
+                      # Example：column_name NUMBER(10) PRIMARY KEY
+                   | UNIQUE
+                      # Example：column_name VARCHAR2(50) UNIQUE
+                   | CHECK
+                      # Example：column_name NUMBER CHECK (column_name > 0)
+                   | FOREIGN KEY
+                      # Example：column_name NUMBER(10) REFERENCES other_table(other_column)
+                   | DEFAULT
+                      # Example：column_name VARCHAR2(50) DEFAULT 'default_value'
