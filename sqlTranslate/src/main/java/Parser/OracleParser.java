@@ -545,6 +545,19 @@ public class OracleParser {
     }
 
     /**
+     * IF condition1 THEN ...
+     * (ELSIF condition2 THEN ...)*
+     * [ELSE...]
+     * END IF;
+     * @param parseTokens should start with IF
+     */
+    public static ASTNode parseIFELSE(List<Token> parseTokens) {
+        //TODO: implement
+        return null;
+    }
+
+
+    /**
      * CASE WHEN expr THEN expr [ELSE expr] END
      * @param parseTokens should start with CASE
      */
