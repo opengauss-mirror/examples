@@ -1,7 +1,11 @@
 package Generator;
 
+import Interface.ColumnType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
+import Parser.AST.AlterTable.AlterAddColumnNode;
+import Parser.AST.AlterTable.AlterModifyColumnNode;
+import Parser.AST.AlterTable.AlterNode;
 import Parser.AST.CreateTable.ColumnNode;
 import Parser.AST.CreateTable.CreateTabNode;
 import Exception.GenerateFailedException;
@@ -52,6 +56,9 @@ public class OpenGaussGenerator {
         else if (node instanceof DeleteNode) {
             return GenDeleteSQL(node);
         }
+        else if (node instanceof AlterNode) {
+            return GenAlterSQL(node);
+        }
         else {
             try {
                 throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
@@ -98,6 +105,12 @@ public class OpenGaussGenerator {
     }
 
     private String GenDeleteSQL(ASTNode node) {
+        return node.toQueryString();
+    }
+
+    private String GenAlterSQL(ASTNode node) {
+        visitAlter(node);
+//        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
@@ -176,7 +189,19 @@ public class OpenGaussGenerator {
         }
     }
 
-    private void ColumnTypeConvert(ColumnNode node) {
+    private void visitAlter(ASTNode node) {
+        if (node instanceof AlterAddColumnNode) {
+            ColumnTypeConvert((AlterAddColumnNode) node);
+        }
+        else if (node instanceof AlterModifyColumnNode) {
+            ColumnTypeConvert((AlterModifyColumnNode) node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitAlter(child);
+        }
+    }
+
+    private void ColumnTypeConvert(ColumnType node) {
         // type convert
         if (node.getType().getValue().equalsIgnoreCase("NUMBER")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "NUMERIC"));

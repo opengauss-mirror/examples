@@ -1,14 +1,15 @@
 package Parser.AST.AlterTable;
 
+import Interface.ColumnType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlterModifyColumnNode extends ASTNode {
-    private Token columnName;
-    private Token columnType;
+public class AlterModifyColumnNode extends ASTNode implements ColumnType {
+    private Token name;
+    private Token type;
 
     public AlterModifyColumnNode() {
         super();
@@ -22,20 +23,22 @@ public class AlterModifyColumnNode extends ASTNode {
         super(tokens);
     }
 
-    public void setColumnType(Token columnType) {
-        this.columnType = columnType;
+    @Override
+    public void setType(Token columnType) {
+        this.type = columnType;
     }
 
-    public Token getColumnType() {
-        return columnType;
+    @Override
+    public Token getType() {
+        return type;
     }
 
-    public void setColumnName(Token columnName) {
-        this.columnName = columnName;
+    public void setName(Token columnName) {
+        this.name = columnName;
     }
 
-    public Token getColumnName() {
-        return columnName;
+    public Token getName() {
+        return name;
     }
 
     @Override
@@ -46,12 +49,12 @@ public class AlterModifyColumnNode extends ASTNode {
         }
     }
 
+    @Override
     public void ResetTokensbyNameTypeConstraint() {
         List <Token> tokens = new ArrayList<>();
         tokens.add(new Token(Token.TokenType.KEYWORD, "MODIFY"));
-        tokens.add(columnName);
-        tokens.add(columnType);
-        tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+        tokens.add(name);
+        tokens.add(type);
         setTokens(tokens);
     }
 }

@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add alter">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Interface/ColumnType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Alter table in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Alter table in Oracle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterAddColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterAddColumnNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterModifyColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/AlterTable/AlterModifyColumnNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/ColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/CreateTable/ColumnNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -104,13 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00006" summary="revise">
-      <created>1724164698153</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1724164698153</updated>
     </task>
     <task id="LOCAL-00007" summary="revise">
       <created>1724165008682</created>
@@ -448,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726209430619</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="add alter">
+      <created>1726210280295</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1726210280296</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -463,7 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add function" />
     <MESSAGE value="coding" />
     <MESSAGE value="finish the framework of sqltranslate (createTab sql is now being supported!)" />
     <MESSAGE value="add insert sql" />
@@ -488,7 +494,8 @@
     <MESSAGE value="add alter table keywords" />
     <MESSAGE value="add alter table parser" />
     <MESSAGE value="revise" />
-    <option name="LAST_COMMIT_MESSAGE" value="revise" />
+    <MESSAGE value="add alter" />
+    <option name="LAST_COMMIT_MESSAGE" value="add alter" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

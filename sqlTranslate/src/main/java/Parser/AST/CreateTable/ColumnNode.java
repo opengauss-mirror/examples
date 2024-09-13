@@ -1,12 +1,13 @@
 package Parser.AST.CreateTable;
 
+import Interface.ColumnType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnNode extends ASTNode {
+public class ColumnNode extends ASTNode implements ColumnType {
     private Token name;
     private Token type;
     private List<Token> constraint;
@@ -42,10 +43,12 @@ public class ColumnNode extends ASTNode {
         this.name = name;
     }
 
+    @Override
     public Token getType() {
         return type;
     }
 
+    @Override
     public void setType(Token type) {
         this.type = type;
     }
@@ -58,6 +61,7 @@ public class ColumnNode extends ASTNode {
         this.constraint = constraint;
     }
 
+    @Override
     public void ResetTokensbyNameTypeConstraint() {
         List <Token> tokens = new ArrayList<>();
         tokens.add(name);

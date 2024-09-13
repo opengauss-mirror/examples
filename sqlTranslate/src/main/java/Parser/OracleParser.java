@@ -970,6 +970,7 @@ public class OracleParser {
                                 (parseTokens.get(j).getValue().equalsIgnoreCase("REFERENCES")
                                         || parseTokens.get(j).getValue().equalsIgnoreCase("CHECK"))) {
                             tokens.add(parseTokens.get(j));
+                            constraint.add(parseTokens.get(j));
                             Stack<String> stack = new Stack<>();
                             for (int k = j + 1; k < parseTokens.size(); k++) {
                                 tokens.add(parseTokens.get(k));
@@ -1001,7 +1002,7 @@ public class OracleParser {
                         }
                         if (!state)
                             tokens.add(parseTokens.get(j));
-                        if (j != i + 1) {
+                        if (!state && j != i + 1) {
                             constraint.add(parseTokens.get(j));
                         }
                     }
@@ -1119,10 +1120,10 @@ public class OracleParser {
                 AlterModifyColumnNode childNode = new AlterModifyColumnNode();
                 for (int j = i + 1; j < parseTokens.size(); j++) {
                     if (j == i + 1) {
-                        childNode.setColumnName(parseTokens.get(j));
+                        childNode.setName(parseTokens.get(j));
                     }
                     if (j == i + 2) {
-                        childNode.setColumnType(parseTokens.get(j));
+                        childNode.setType(parseTokens.get(j));
                     }
                     if (j > i + 3) {
                         try {
@@ -1158,7 +1159,7 @@ public class OracleParser {
                     currentNode.addChild(childNode);
                     currentNode = childNode;
                 }
-                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.IDENTIFIER)) {
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("TO")) {
                     tokens = new ArrayList<>();
                     tokens.add(parseTokens.get(i));
                     for (int j = i + 1; j < parseTokens.size(); j++) {

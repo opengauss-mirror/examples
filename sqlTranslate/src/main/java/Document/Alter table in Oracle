@@ -6,3 +6,14 @@ action = ADD column_name data_type [constraint]
 | ADD CONSTRAINT constraint_name constraint_definition
 | DROP CONSTRAINT constraint_name
 | RENAME old_table_name TO new_table_name
+
+Example:
+ALTER TABLE employees ADD email VARCHAR2(100);
+| ALTER TABLE employees ADD email LONG RAW;
+| ALTER TABLE employees DROP COLUMN middle_name;
+| ALTER TABLE employees MODIFY salary NUMBER(10,2);
+| ALTER TABLE employees MODIFY salary ROWID;
+| ALTER TABLE employees RENAME COLUMN first_name TO given_name;
+| ALTER TABLE employees ADD CONSTRAINT emp_pk PRIMARY KEY (employee_id);
+| ALTER TABLE employees DROP CONSTRAINT emp_pk;
+| ALTER TABLE employees RENAME TO staff;
