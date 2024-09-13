@@ -1076,10 +1076,56 @@ public class OracleParser {
 
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DROP")) {
-
+                if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("COLUMN")) {
+                    tokens = new ArrayList<>();
+                    tokens.add(parseTokens.get(i));
+                    for (int j = i + 1; j < parseTokens.size(); j++) {
+                        if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                            i = j - 1;
+                            break;
+                        }
+                        tokens.add(parseTokens.get(j));
+                    }
+                    ASTNode childNode = new AlterDropColumnNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("CONSTRAINT")) {
+                    tokens = new ArrayList<>();
+                    tokens.add(parseTokens.get(i));
+                    for (int j = i + 1; j < parseTokens.size(); j++) {
+                        if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                            i = j - 1;
+                            break;
+                        }
+                        tokens.add(parseTokens.get(j));
+                    }
+                    ASTNode childNode = new AlterDropConstraintNode(tokens);
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else {
+                    try {
+                        throw new ParseFailedException("Parse failed:There exists syntex error in the input sql!");
+                    }
+                    catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("MODIFY")) {
-
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                for (int j = i + 1; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new AlterModifyColumnNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RENAME")) {
 
