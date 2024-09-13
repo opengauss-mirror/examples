@@ -4,7 +4,10 @@ import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Exception.ParseFailedException;
+import Parser.AST.AlterTable.AlterAddColumnNode;
+import Parser.AST.AlterTable.AlterEndNode;
 import Parser.AST.AlterTable.AlterNode;
+import Parser.AST.AlterTable.AlterObjNode;
 import Parser.AST.CaseWhen.CaseConditionNode;
 import Parser.AST.CaseWhen.CaseElseNode;
 import Parser.AST.CaseWhen.CaseEndNode;
@@ -140,6 +143,7 @@ public class OracleParser {
                             (parseTokens.get(j).getValue().equalsIgnoreCase("REFERENCES")
                                     || parseTokens.get(j).getValue().equalsIgnoreCase("CHECK"))) {
                         tokens.add(parseTokens.get(j));
+                        constraint.add(parseTokens.get(j));
                         Stack<String> stack = new Stack<>();
                         for (int k = j + 1; k < parseTokens.size(); k++) {
                             tokens.add(parseTokens.get(k));
@@ -230,7 +234,9 @@ public class OracleParser {
                     }
                     tokens.add(parseTokens.get(j));
                 }
-
+                ASTNode childNode = new TableConstraintNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(";")) {
                 tokens = new ArrayList<>();
@@ -239,13 +245,16 @@ public class OracleParser {
                 currentNode.addChild(EndNode);
                 currentNode = EndNode;
             }
+            else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(",")) {
+                continue;
+            }
             else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
                 break;
             }
             else {
 //                System.out.println("Fail to parse:" + parseTokens.get(i).getValue());
                 try {
-                    throw new ParseFailedException("Parse failed!");
+                    throw new ParseFailedException("Parse failed!--" + parseTokens.get(i));
                 }
                 catch (ParseFailedException e) {
                     e.printStackTrace();
@@ -923,7 +932,176 @@ public class OracleParser {
         }
         ASTNode root = new AlterNode(tokens);
         ASTNode currentNode = root;
-        // TODO: implement
+        for (int i = 2; i < parseTokens.size(); i++) {
+            // match table
+            if (i == 2 && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                tokens = new ArrayList<>();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (
+                            (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("ADD"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("DROP"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("MODIFY"))
+                            || (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("RENAME"))
+                    ) {
+                        i = j - 1;
+                        break;
+                    }
+                    tokens.add(parseTokens.get(j));
+                }
+                ASTNode childNode = new AlterObjNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ADD")) {
+                // add column
+                if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.IDENTIFIER)) {
+                    i++;
+                    tokens = new ArrayList<>();
+                    boolean state = false;
+                    AlterAddColumnNode child = new AlterAddColumnNode();
+                    child.setName(parseTokens.get(i));
+                    tokens.add(parseTokens.get(i));
+                    List <Token> constraint = new ArrayList<>();
+                    for (int j = i + 1; j < parseTokens.size(); j++) {
+                        state = false;
+                        if (j == i + 1) {
+                            child.setType(parseTokens.get(j));
+                        }
+                        // Check () or REFERENCES other_table(other_column)
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) &&
+                                (parseTokens.get(j).getValue().equalsIgnoreCase("REFERENCES")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("CHECK"))) {
+                            tokens.add(parseTokens.get(j));
+                            Stack<String> stack = new Stack<>();
+                            for (int k = j + 1; k < parseTokens.size(); k++) {
+                                tokens.add(parseTokens.get(k));
+                                constraint.add(parseTokens.get(k));
+                                if (parseTokens.get(k).getValue().equals("(")) {
+                                    stack.push("(");
+                                    for (int t = k + 1; t < parseTokens.size(); t++) {
+                                        tokens.add(parseTokens.get(t));
+                                        constraint.add(parseTokens.get(t));
+                                        if (parseTokens.get(t).getValue().equals("(")) {
+                                            stack.push("(");
+                                        }
+                                        else if (parseTokens.get(t).getValue().equals(")")) {
+                                            stack.pop();
+                                            if (stack.empty()) {
+                                                j = t;
+                                                state = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if ((parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) ) {
+                            i = j - 1;
+                            break;
+                        }
+                        if (!state)
+                            tokens.add(parseTokens.get(j));
+                        if (j != i + 1) {
+                            constraint.add(parseTokens.get(j));
+                        }
+                    }
+                    child.setTokens(tokens);
+                    child.setConstraint(constraint);
+                    currentNode.addChild(child);
+                    currentNode = child;
+                }
+                // add constraint
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("CONSTRAINT")) {
+                    i++;
+                    tokens = new ArrayList<>();
+                    tokens.add(parseTokens.get(i));
+                    for (int j = i + 1; j < parseTokens.size(); j++) {
+                        /**
+                         * CONSTRAINT pk_example PRIMARY KEY (column1, column2)
+                         * CONSTRAINT uk_example UNIQUE (column1)
+                         * CONSTRAINT fk_example FOREIGN KEY (column1) REFERENCES other_table(column2)
+                         * CONSTRAINT chk_example CHECK (column1 > 0)
+                         */
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) &&
+                                (parseTokens.get(j).getValue().equalsIgnoreCase("UNIQUE")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("CHECK")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("PRIMARY KEY")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("FOREIGN KEY")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("REFERENCES"))) {
+                            tokens.add(parseTokens.get(j));
+                            Stack<String> stack = new Stack<>();
+                            for (int k = j + 1; k < parseTokens.size(); k++) {
+                                tokens.add(parseTokens.get(k));
+                                if (parseTokens.get(k).getValue().equals("(")) {
+                                    stack.push("(");
+                                    for (int t = k + 1; t < parseTokens.size(); t++) {
+                                        tokens.add(parseTokens.get(t));
+                                        if (parseTokens.get(t).getValue().equals("(")) {
+                                            stack.push("(");
+                                        }
+                                        else if (parseTokens.get(t).getValue().equals(")")) {
+                                            stack.pop();
+                                            if (stack.empty()) {
+                                                i = t;
+                                                j = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            continue;
+                        }
+                        if ((parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(",")) ||
+                                (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(")")) ) {
+                            i = j;
+                            break;
+                        }
+                        tokens.add(parseTokens.get(j));
+                    }
+                }
+                // error sql
+                else {
+                    try {
+                        throw new ParseFailedException("Parse failed:There exists syntex error in the input sql!");
+                    }
+                    catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DROP")) {
+
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("MODIFY")) {
+
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RENAME")) {
+
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(";")) {
+                tokens = new ArrayList<>();
+                tokens.add(parseTokens.get(i));
+                ASTNode childNode = new AlterEndNode(tokens);
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return root;
     }
 

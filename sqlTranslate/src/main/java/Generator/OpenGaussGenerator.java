@@ -66,6 +66,7 @@ public class OpenGaussGenerator {
     private String GenCreatTableSQL(ASTNode node) {
         // type convert
         visitCrt(node);
+//        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
