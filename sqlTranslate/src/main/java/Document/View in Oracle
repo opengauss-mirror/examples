@@ -1,0 +1,7 @@
+CREATE [OR REPLACE] VIEW view_name [(column_name [, column_name]...)] AS SELECT_statement;
+
+Example:
+    CREATE OR REPLACE VIEW employee_details AS SELECT first_name, last_name, salary FROM employees;
+    | CREATE OR REPLACE VIEW emp_info (full_name, pay) AS SELECT first_name || ' ' || last_name AS full_name, salary AS pay FROM employees;
+    | CREATE OR REPLACE VIEW emp_dept_info AS SELECT e.first_name, e.last_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;
+    | CREATE OR REPLACE VIEW high_salary_employees AS SELECT first_name, last_name, salary FROM employees WHERE salary > 50000;
