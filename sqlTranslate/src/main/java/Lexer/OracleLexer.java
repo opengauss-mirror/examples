@@ -27,6 +27,8 @@ public class OracleLexer {
             , "SET"
             // keywords of alter table
             , "ALTER", "ADD", "DROP", "MODIFY", "RENAME", "TO", "COLUMN"
+            // keywords of view
+            , "REPLACE", "VIEW"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function

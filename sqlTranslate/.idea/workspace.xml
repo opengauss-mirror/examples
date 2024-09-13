@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="fix some bugs" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add view document" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,13 +100,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00009" summary="revise">
-      <created>1724165047441</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1724165047441</updated>
     </task>
     <task id="LOCAL-00010" summary="add parser function">
       <created>1724166047929</created>
@@ -444,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726214700141</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="add view document">
+      <created>1726214965146</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1726214965146</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,7 +459,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finish the framework of sqltranslate (createTab sql is now being supported!)" />
     <MESSAGE value="add insert sql" />
     <MESSAGE value="add todolist" />
     <MESSAGE value="add select" />
@@ -484,7 +483,8 @@
     <MESSAGE value="revise" />
     <MESSAGE value="add alter" />
     <MESSAGE value="fix some bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix some bugs" />
+    <MESSAGE value="add view document" />
+    <option name="LAST_COMMIT_MESSAGE" value="add view document" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
