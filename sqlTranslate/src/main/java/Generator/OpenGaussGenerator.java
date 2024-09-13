@@ -19,6 +19,7 @@ import Parser.AST.Select.SelectNode;
 import Parser.AST.Select.SelectObjNode;
 import Parser.AST.Update.UpdateNode;
 import Parser.AST.Update.UpdateObjNode;
+import Parser.AST.View.ViewCreateNode;
 import Parser.OracleParser;
 
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class OpenGaussGenerator {
         else if (node instanceof AlterNode) {
             return GenAlterSQL(node);
         }
+        else if (node instanceof ViewCreateNode) {
+            return GenCreateViewSQL(node);
+        }
         else {
             try {
                 throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
@@ -88,7 +92,7 @@ public class OpenGaussGenerator {
     }
 
     private String GenSelectSQL(ASTNode node) {
-        visitSelect(node, null);
+        visitSelect(node);
 //        System.out.println(node.getASTString());
         return node.toQueryString();
     }
@@ -111,6 +115,11 @@ public class OpenGaussGenerator {
     private String GenAlterSQL(ASTNode node) {
         visitAlter(node);
 //        System.out.println(node.getASTString());
+        return node.toQueryString();
+    }
+
+    private String GenCreateViewSQL(ASTNode node) {
+        visitCreateView(node);
         return node.toQueryString();
     }
 
@@ -153,21 +162,12 @@ public class OpenGaussGenerator {
         }
     }
 
-    private void visitSelect(ASTNode node, ASTNode parentNode) {
-        if (node instanceof SelectObjNode) {
-            // check whether there exists a join statement in the select sql
-            if (node.getTokens().contains(new Token(Token.TokenType.KEYWORD, "JOIN"))) {
-                ASTNode joinRootNode = OracleParser.parseJoin(node.getTokens());
-                visitJoin(joinRootNode);
-                parentNode.replaceChild(node, joinRootNode);
-                ASTNode smallestChild = joinRootNode.getDeepestChild();
-                for (ASTNode child : node.getChildren()) {
-                    smallestChild.addChild(child);
-                }
-            }
+    private void visitSelect(ASTNode node) {
+        if (node instanceof JoinSourceTabNode) {
+            visitJoin(node);
         }
         for (ASTNode child : node.getChildren()) {
-            visitSelect(child, node);
+            visitSelect(child);
         }
     }
 
@@ -198,6 +198,15 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitAlter(child);
+        }
+    }
+
+    private void visitCreateView(ASTNode node) {
+        if (node instanceof SelectNode) {
+            visitSelect(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitCreateView(child);
         }
     }
 
