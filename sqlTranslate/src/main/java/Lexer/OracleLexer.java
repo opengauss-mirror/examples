@@ -29,6 +29,8 @@ public class OracleLexer {
             , "ALTER", "ADD", "DROP", "MODIFY", "RENAME", "TO", "COLUMN"
             // keywords of view
             , "REPLACE", "VIEW"
+            // PL/SQL
+            , ":="
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -68,6 +70,7 @@ public class OracleLexer {
                     "(FULL OUTER JOIN)|" +
                     "(CROSS JOIN)|" +
                     "(\\|\\|)|" +
+                    "(:=)|" +
 
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers

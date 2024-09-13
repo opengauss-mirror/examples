@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add view generate method">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Document/IF ELSEIF ELSE in Oracle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,13 +105,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00014" summary="add function">
-      <created>1724425628008</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1724425628008</updated>
     </task>
     <task id="LOCAL-00015" summary="add function">
       <created>1724472081080</created>
@@ -448,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726235338624</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="revise">
+      <created>1726235703488</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1726235703488</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -480,7 +481,6 @@
     <MESSAGE value="add alter table ast class" />
     <MESSAGE value="add alter table keywords" />
     <MESSAGE value="add alter table parser" />
-    <MESSAGE value="revise" />
     <MESSAGE value="add alter" />
     <MESSAGE value="fix some bugs" />
     <MESSAGE value="add view document" />
@@ -488,7 +488,8 @@
     <MESSAGE value="add ast class of view" />
     <MESSAGE value="add view" />
     <MESSAGE value="add view generate method" />
-    <option name="LAST_COMMIT_MESSAGE" value="add view generate method" />
+    <MESSAGE value="revise" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

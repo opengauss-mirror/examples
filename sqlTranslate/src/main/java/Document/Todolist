@@ -21,7 +21,7 @@ Operation
  drop table 1
 Object
  table 1
- view
+ view 1
  function
  procedure
  trigger
