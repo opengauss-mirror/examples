@@ -65,7 +65,14 @@ public class OracleParser {
                             || (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("VIEW"))
             ) {
                 return parseCreateView(lexer.getTokens());
-            } else {
+            } else if (
+                    lexer.getTokens().get(0).getValue().equalsIgnoreCase("FOR")
+                    || lexer.getTokens().get(0).getValue().equalsIgnoreCase("LOOP")
+                    || lexer.getTokens().get(0).getValue().equalsIgnoreCase("WHILE")
+            ) {
+                return parseLoop(lexer.getTokens());
+            }
+            else {
                 try {
                     throw new ParseFailedException("Parse failed!--Unsupport SQL:" + lexer.getTokens().get(0).getValue());
                 } catch (ParseFailedException e) {
@@ -722,6 +729,27 @@ public class OracleParser {
         }
 
         return root;
+    }
+
+    /**
+     * Loop_clauses
+     * 1:LOOP
+     *     --
+     *     EXIT WHEN condition;
+     * END LOOP;
+     *
+     * 2:WHILE condition LOOP
+     *     --
+     * END LOOP;
+     *
+     * 3:FOR counter IN start..stop LOOP
+     *     --
+     * END LOOP;
+     *
+     * @param parseTokens should start with LOOP | WHILE | FOR
+     */
+    public static ASTNode parseLoop(List<Token> parseTokens) {
+        return null;
     }
 
     /**
