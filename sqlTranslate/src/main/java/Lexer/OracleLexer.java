@@ -30,7 +30,9 @@ public class OracleLexer {
             // keywords of view
             , "REPLACE", "VIEW"
             // PL/SQL
-            , ":=", "IF", "ELSIF"
+            , ":=", "IF", "ELSIF", "BEGIN"
+            // Loop
+            , "LOOP", "EXIT", "WHILE", "FOR", "IN"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
