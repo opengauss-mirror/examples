@@ -15,15 +15,18 @@ import Parser.AST.Drop.DropOptionNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
+import Parser.AST.Loop.ForNode;
+import Parser.AST.Loop.LoopBodyNode;
+import Parser.AST.Loop.LoopNode;
+import Parser.AST.Loop.WhileNode;
 import Parser.AST.Select.SelectNode;
-import Parser.AST.Select.SelectObjNode;
 import Parser.AST.Update.UpdateNode;
-import Parser.AST.Update.UpdateObjNode;
 import Parser.AST.View.ViewCreateNode;
-import Parser.OracleParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OpenGaussGenerator {
     private ASTNode node;
@@ -62,6 +65,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof ViewCreateNode) {
             return GenCreateViewSQL(node);
+        }
+        else if (node instanceof LoopNode || node instanceof WhileNode || node instanceof ForNode) {
+            return GenLoopSQL(node);
         }
         else {
             try {
@@ -123,6 +129,11 @@ public class OpenGaussGenerator {
         return node.toQueryString();
     }
 
+    private String GenLoopSQL(ASTNode node) {
+        visitLoop(node);
+        return node.toQueryString();
+    }
+
     private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
             ColumnTypeConvert((ColumnNode) node);
@@ -159,6 +170,15 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitJoin(child);
+        }
+    }
+
+    private void visitLoop(ASTNode node) {
+        if (node instanceof LoopBodyNode) {
+            PLConvert(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitLoop(child);
         }
     }
 
@@ -200,6 +220,30 @@ public class OpenGaussGenerator {
             visitCreateView(child);
         }
     }
+    private void PLConvert(ASTNode node) {
+        if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
+            String printObj = "";
+            for (Token token: node.getTokens()) {
+                if (token.getValue().matches("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
+                    Pattern pattern = Pattern.compile("\\(([^()]*)\\)");
+                    Matcher matcher = pattern.matcher(token.getValue());
+                    while (matcher.find()) {
+                        printObj = matcher.group(1);
+                    }
+                    break;
+                }
+            }
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
+            tokens.add(new Token(Token.TokenType.STRING, "'%'"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ","));
+            tokens.add(new Token(Token.TokenType.IDENTIFIER, printObj));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            node.setTokens(tokens);
+        }
+    }
+
 
     private void ColumnTypeConvert(ColumnType node) {
         // type convert

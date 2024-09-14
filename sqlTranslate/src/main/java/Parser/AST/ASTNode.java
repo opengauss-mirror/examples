@@ -31,6 +31,10 @@ public abstract class ASTNode {
         this.tokens = tokens;
     }
 
+    public boolean checkExistsByRegex (String regex) {
+        return tokens.stream().anyMatch(token -> token.getValue().matches(regex));
+    }
+
     public void addToken(Token token) {
         tokens.add(token);
     }

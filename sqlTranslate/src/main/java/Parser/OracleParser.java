@@ -24,6 +24,7 @@ import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
+import Parser.AST.Loop.*;
 import Parser.AST.Select.*;
 import Parser.AST.Update.*;
 import Parser.AST.View.ViewCreateNode;
@@ -749,7 +750,103 @@ public class OracleParser {
      * @param parseTokens should start with LOOP | WHILE | FOR
      */
     public static ASTNode parseLoop(List<Token> parseTokens) {
-        return null;
+        ASTNode root = null;
+        ASTNode currentNode = null;
+        for (int i = 0; i < parseTokens.size(); i++) {
+            //match LOOP
+            if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("LOOP")) {
+                root = new LoopNode();
+                root.addToken(parseTokens.get(i));
+                currentNode = root;
+            }
+            // match WHILE condition LOOP
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHILE")) {
+                root = new WhileNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    root.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equals("LOOP")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode = root;
+
+            }
+            // match FOR counter IN start..stop LOOP
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("FOR")) {
+                root = new ForNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    root.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equals("LOOP")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode = root;
+            }
+            // match END LOOP;
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new LoopEndNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match EXIT WHEN condition;
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("EXIT")) {
+                ASTNode childNode = new LoopExitNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            //match LOOP BODY
+            else if (
+                    (currentNode == root && root instanceof LoopNode)
+                    || (currentNode == root && root instanceof WhileNode)
+                    || (currentNode == root && root instanceof ForNode)
+            ) {
+                ASTNode childNode = new LoopBodyNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (
+                            parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equals("EXIT")
+                                    || parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equals("END")
+                    ) {
+                        i = j - 1;
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        currentNode.addChild(childNode);
+                        currentNode = childNode;
+                        childNode = new LoopBodyNode();
+                    }
+                }
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed!--" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return root;
     }
 
     /**

@@ -30,7 +30,7 @@ public class OracleLexer {
             // keywords of view
             , "REPLACE", "VIEW"
             // PL/SQL
-            , ":=", "IF", "ELSIF", "BEGIN"
+            , ":=", "IF", "ELSIF", "BEGIN", ".."
             // Loop
             , "LOOP", "EXIT", "WHILE", "FOR", "IN"
     };
@@ -50,6 +50,7 @@ public class OracleLexer {
                     "(MAX\\(.*?\\))|" +                     // MAX() function
                     "(MIN\\(.*?\\))|" +                     // MIN() function
                     "(\\|\\|\\s*'.*?'\\s*\\|\\|)|" +        // || '*' ||
+                    "(DBMS_OUTPUT.PUT_LINE\\(.*?\\))|" +                     // DBMS_OUTPUT.PUT_LINE() function
 
                     "(NOT NULL)|" +
                     "(PRIMARY KEY)|" +
@@ -73,7 +74,7 @@ public class OracleLexer {
                     "(CROSS JOIN)|" +
                     "(\\|\\|)|" +
                     "(:=)|" +
-
+                    "(\\.\\.)|" +
 
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
                     "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
@@ -168,6 +169,9 @@ public class OracleLexer {
         } else if (tokenValue.matches("\\|\\|\\s*'.*?'\\s*\\|\\|")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
+        } else if (tokenValue.matches("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
         }
 
         else if (isKeyword(tokenValue)) {
@@ -194,6 +198,7 @@ public class OracleLexer {
             input = input.replace("  ", " ");
         }
         input = input.replace(" (", "(");
+        input = input.replace("..", " .. ");
         return input;
     }
 

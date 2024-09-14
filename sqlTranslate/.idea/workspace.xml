@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add Loop keywords">
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add Loop ast classes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/ASTNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parser/OracleParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -102,13 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00022" summary="add insert sql">
-      <created>1725885115923</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1725885115924</updated>
     </task>
     <task id="LOCAL-00023" summary="add todolist">
       <created>1725890826442</created>
@@ -446,7 +444,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726315219011</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="add Loop ast classes">
+      <created>1726316179151</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1726316179152</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -461,7 +466,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add join" />
     <MESSAGE value="add join convert rule" />
     <MESSAGE value="refractor" />
     <MESSAGE value="add select convert rules" />
@@ -486,7 +490,8 @@
     <MESSAGE value="add IF ELSIF" />
     <MESSAGE value="add Loop document" />
     <MESSAGE value="add Loop keywords" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Loop keywords" />
+    <MESSAGE value="add Loop ast classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Loop ast classes" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
