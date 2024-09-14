@@ -18,7 +18,7 @@ import Parser.AST.Drop.DropEndNode;
 import Parser.AST.Drop.DropObjNameNode;
 import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
-import Parser.AST.IFELSIF.IFConditionNode;
+import Parser.AST.IFELSIF.*;
 import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
@@ -554,9 +554,96 @@ public class OracleParser {
      */
     public static ASTNode parseIFELSE(List<Token> parseTokens) {
         ASTNode root  = new IFConditionNode();
+        ASTNode currentNode = root;
         for (int i = 0; i < parseTokens.size(); i++) {
-            // TODO: implement
+            // match IF condition
+            if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("IF")) {
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                        i = j - 1;
+                        break;
+                    }
+                    root.addToken(parseTokens.get(j));
+                }
+            }
+            // match IF action
+            else if (currentNode instanceof IFConditionNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("THEN")) {
+                ASTNode childNode = new IFActionNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match ELSIF condition
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ELSIF")) {
+                ASTNode childNode = new ELSIFConditionNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                        i = j - 1;
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match ELSIF action
+            else if (currentNode instanceof ELSIFConditionNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("THEN")) {
+                ASTNode childNode = new ELSIFActionNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match ELSE
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ELSE")) {
+                ASTNode childNode = new ELSENode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            //match end if;
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new EndIFNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Parse failed!--" + parseTokens.get(i).getValue());
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
         return root;
     }
 

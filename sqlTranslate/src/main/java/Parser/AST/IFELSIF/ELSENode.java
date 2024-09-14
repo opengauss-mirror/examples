@@ -3,19 +3,23 @@ package Parser.AST.IFELSIF;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ELSENode extends ASTNode {
     public ELSENode() {
         super();
+        setTokens(new ArrayList<>());
     }
 
     public ELSENode(ASTNode node) {
         super(node);
+        setTokens(new ArrayList<>());
     }
 
     public ELSENode(List<Token> tokens) {
         super(tokens);
+        setTokens(new ArrayList<>());
     }
 
     @Override
