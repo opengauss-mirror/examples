@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class ELSENode extends ASTNode {
+    public ELSENode() {
+        super();
+    }
+
     public ELSENode(ASTNode node) {
         super(node);
     }

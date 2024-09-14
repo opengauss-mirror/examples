@@ -18,6 +18,7 @@ import Parser.AST.Drop.DropEndNode;
 import Parser.AST.Drop.DropObjNameNode;
 import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
+import Parser.AST.IFELSIF.IFConditionNode;
 import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
 import Parser.AST.Insert.InsertNode;
@@ -552,8 +553,11 @@ public class OracleParser {
      * @param parseTokens should start with IF
      */
     public static ASTNode parseIFELSE(List<Token> parseTokens) {
-        //TODO: implement
-        return null;
+        ASTNode root  = new IFConditionNode();
+        for (int i = 0; i < parseTokens.size(); i++) {
+            // TODO: implement
+        }
+        return root;
     }
 
 

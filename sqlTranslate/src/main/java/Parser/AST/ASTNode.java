@@ -31,6 +31,10 @@ public abstract class ASTNode {
         this.tokens = tokens;
     }
 
+    public void addToken(Token token) {
+        tokens.add(token);
+    }
+
     public boolean tokensEqual(List<Token> tokens) {
         if (this.tokens.size() != tokens.size())
             return false;

@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class ElSIFActionNode extends ASTNode {
+    public ElSIFActionNode() {
+        super();
+    }
+
     public ElSIFActionNode(ASTNode node) {
         super(node);
     }

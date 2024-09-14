@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class EndIFNode extends ASTNode {
+    public EndIFNode() {
+        super();
+    }
+
     public EndIFNode (ASTNode node) {
         super(node);
     }

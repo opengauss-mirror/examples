@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class IFConditionNode extends ASTNode {
+    public IFConditionNode() {
+        super();
+    }
+
     public IFConditionNode(ASTNode node) {
         super(node);
     }

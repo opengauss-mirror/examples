@@ -6,6 +6,10 @@ import Parser.AST.ASTNode;
 import java.util.List;
 
 public class IFActionNode extends ASTNode {
+    public IFActionNode() {
+        super();
+    }
+
     public IFActionNode(ASTNode node) {
         super(node);
     }
