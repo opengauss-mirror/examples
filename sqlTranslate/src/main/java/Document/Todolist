@@ -7,11 +7,11 @@ Operation
  insert into 1
  update... set 1
  delete 1
- if... elsif... else... end if
+ if... elsif... else... end if 1
  case... when... then 1
- loop... end loop
- while... loop... end loop
- for ... in () loop end loop
+ loop... end loop 1
+ while... loop... end loop 1
+ for ... in () loop end loop 1
  continue、exit
  return
  exception
