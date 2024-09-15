@@ -5,7 +5,7 @@ EXCEPTION
     -- divide by zero
     WHEN ZERO_DIVIDE THEN
         DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');
-    -- invalid text representations
+    -- invalid number
     WHEN INVALID_NUMBER THEN
         DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');
     -- other exceptions
