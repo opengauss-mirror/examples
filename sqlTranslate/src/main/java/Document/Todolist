@@ -12,16 +12,16 @@ Operation
  loop... end loop 1
  while... loop... end loop 1
  for ... in () loop end loop 1
- continue、exit
- return
- exception
- commit、rollback、execute
+ continue、exit 1
+ return ****
+ exception **
+ commit、rollback、execute ****
  alter table 1
  create table 1
  drop table 1
 Object
  table 1
  view 1
- function
- procedure
- trigger
+ function ***
+ procedure ***
+ trigger *****

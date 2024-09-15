@@ -32,7 +32,7 @@ public class OracleLexer {
             // PL/SQL
             , ":=", "IF", "ELSIF", "BEGIN", ".."
             // Loop
-            , "LOOP", "EXIT", "WHILE", "FOR", "IN"
+            , "LOOP", "EXIT", "WHILE", "FOR", "IN", "CONTINUE"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function

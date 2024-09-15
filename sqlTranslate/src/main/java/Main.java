@@ -47,6 +47,7 @@ public class Main {
 //                "             END IF;";
         String sql = "LOOP\n" +
                 "        DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
+                "        Continue;\n" +
                 "        v_counter := v_counter + 1;\n" +
                 "        EXIT WHEN v_counter > 10;\n" +
                 "    END LOOP;";

@@ -797,7 +797,7 @@ public class OracleParser {
                 currentNode.addChild(childNode);
                 currentNode = childNode;
             }
-            // match EXIT WHEN condition;
+            // match EXIT condition;
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("EXIT")) {
                 ASTNode childNode = new LoopExitNode();
                 for (int j = i; j < parseTokens.size(); j++) {
