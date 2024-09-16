@@ -13,8 +13,8 @@ Operation
  while... loop... end loop 1
  for ... in () loop end loop 1
  continue、exit 1
- return ****
- exception **
+ return ***
+ exception 1
  commit、rollback、execute ****
  alter table 1
  create table 1
