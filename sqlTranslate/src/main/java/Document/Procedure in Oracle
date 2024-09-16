@@ -4,7 +4,7 @@ BEGIN
     -- PL/SQL statements
 [EXCEPTION]
     -- Exception handling
-END [procedure_name];
+END [procedure_name]; -- [procedure_name] should be removed in OpenGauss
 
 Example: CREATE OR REPLACE PROCEDURE update_salary(
              employee_id IN NUMBER,

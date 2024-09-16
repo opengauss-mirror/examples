@@ -1,24 +1,29 @@
-package Parser.AST.CreateTable;
+package Parser.AST.Procedure;
 
 import Interface.ColumnType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
+import Parser.AST.CreateTable.CRTEndNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnNode extends ASTNode implements ColumnType {
+public class ProcedureColumnNode extends ASTNode implements ColumnType  {
     private Token name;
     private Token type;
     private List<Token> constraint;
-    public ColumnNode() {
+    private List<Token> InOut;
+    public ProcedureColumnNode() {
         super();
+        setTokens(new ArrayList<>());
     }
-    public ColumnNode(ASTNode node)
+
+    public ProcedureColumnNode(ASTNode node)
     {
         super(node);
     }
-    public ColumnNode(List<Token> tokens)
+
+    public ProcedureColumnNode(List<Token> tokens)
     {
         super(tokens);
     }
@@ -26,9 +31,9 @@ public class ColumnNode extends ASTNode implements ColumnType {
     @Override
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        if (node.hasChild() && !(node.getChildren().get(0) instanceof CRTEndNode) )
+        if (node.hasChild() && !(node.getChildren().get(0) instanceof ProcedureColumnNode) )
             queryString.append(toString() + ", ");
-        else if (node.hasChild() && (node.getChildren().get(0) instanceof CRTEndNode))
+        else if (node.hasChild() && (node.getChildren().get(0) instanceof ProcedureColumnNode))
             queryString.append(toString() + " ");
         for (ASTNode child : getChildren())
         {
@@ -62,15 +67,29 @@ public class ColumnNode extends ASTNode implements ColumnType {
         this.constraint = constraint;
     }
 
+    public List<Token> getInOut() {
+        return InOut;
+    }
+
+    public void setInOut(List<Token> InOut) {
+        this.InOut = InOut;
+    }
+
+    public void addInOut(Token InOut) {
+        this.InOut.add(InOut);
+    }
+
     @Override
     public void ResetTokensbyNameTypeConstraint() {
         List <Token> tokens = new ArrayList<>();
         tokens.add(name);
+        for (Token token : InOut) {
+            tokens.add(token);
+        }
         tokens.add(type);
         for (Token token : constraint) {
             tokens.add(token);
         }
         setTokens(tokens);
     }
-
 }
