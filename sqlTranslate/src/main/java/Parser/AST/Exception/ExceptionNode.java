@@ -15,12 +15,10 @@ public class ExceptionNode extends ASTNode {
 
     public ExceptionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ExceptionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {

@@ -6,26 +6,22 @@ import Parser.AST.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invalid_numberNode extends ASTNode {
-
-    public Invalid_numberNode() {
+public class ExceptionEndNode extends ASTNode {
+    public ExceptionEndNode() {
         super();
         setTokens(new ArrayList<>());
     }
 
-    public Invalid_numberNode(ASTNode node) {
+    public ExceptionEndNode(ASTNode node) {
         super(node);
     }
 
-    public Invalid_numberNode(List<Token> tokens) {
+    public ExceptionEndNode(List<Token> tokens) {
         super(tokens);
     }
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append(toString() + " ");
-        for (ASTNode child : node.getChildren()) {
-            child.visit(child, queryString);
-        }
+
     }
 }

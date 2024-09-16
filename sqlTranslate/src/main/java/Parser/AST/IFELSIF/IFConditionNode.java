@@ -14,12 +14,10 @@ public class IFConditionNode extends ASTNode {
 
     public IFConditionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public IFConditionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

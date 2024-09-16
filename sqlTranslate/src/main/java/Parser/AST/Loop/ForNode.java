@@ -14,12 +14,10 @@ public class ForNode extends ASTNode {
 
     public ForNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ForNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

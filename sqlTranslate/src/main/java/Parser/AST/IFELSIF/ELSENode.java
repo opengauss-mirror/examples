@@ -14,12 +14,10 @@ public class ELSENode extends ASTNode {
 
     public ELSENode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ELSENode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

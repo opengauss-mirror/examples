@@ -14,12 +14,10 @@ public class LoopExitNode extends ASTNode {
 
     public LoopExitNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public LoopExitNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

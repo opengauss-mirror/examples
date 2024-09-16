@@ -14,12 +14,10 @@ public class ExceptionActionNode extends ASTNode {
 
     public ExceptionActionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ExceptionActionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

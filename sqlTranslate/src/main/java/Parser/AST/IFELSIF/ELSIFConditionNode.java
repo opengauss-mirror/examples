@@ -14,12 +14,10 @@ public class ELSIFConditionNode extends ASTNode {
 
     public ELSIFConditionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ELSIFConditionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

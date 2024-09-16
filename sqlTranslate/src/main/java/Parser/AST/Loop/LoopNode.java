@@ -14,12 +14,10 @@ public class LoopNode extends ASTNode {
 
     public LoopNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public LoopNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

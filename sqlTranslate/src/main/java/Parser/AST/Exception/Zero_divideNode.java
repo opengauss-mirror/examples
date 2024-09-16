@@ -15,12 +15,10 @@ public class Zero_divideNode extends ASTNode {
 
     public Zero_divideNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public Zero_divideNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

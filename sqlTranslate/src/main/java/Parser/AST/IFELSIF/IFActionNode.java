@@ -14,12 +14,10 @@ public class IFActionNode extends ASTNode {
 
     public IFActionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public IFActionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

@@ -14,12 +14,10 @@ public class WhileNode extends ASTNode {
 
     public WhileNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public WhileNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

@@ -14,12 +14,10 @@ public class ELSIFActionNode extends ASTNode {
 
     public ELSIFActionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public ELSIFActionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

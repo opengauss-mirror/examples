@@ -15,12 +15,10 @@ public class OtherExceptionNode extends ASTNode {
 
     public OtherExceptionNode(ASTNode node) {
         super(node);
-        setTokens(new ArrayList<>());
     }
 
     public OtherExceptionNode(List<Token> tokens) {
         super(tokens);
-        setTokens(new ArrayList<>());
     }
 
     @Override

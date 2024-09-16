@@ -1,3 +1,7 @@
+DECLARE
+    -- declaration of variable
+BEGIN
+    -- PL/SQL
 EXCEPTION
     -- custom exception
     WHEN e_custom_exception THEN
@@ -11,3 +15,4 @@ EXCEPTION
     -- other exceptions
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);
+END;
