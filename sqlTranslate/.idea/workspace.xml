@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add Exception document">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/CustomExceptionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/ExceptionActionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/ExceptionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/Invalid_numberNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/OtherExceptionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Exception/Zero_divideNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Exception in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Exception in Oracle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,13 +100,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00026" summary="add select">
-      <created>1725955766774</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1725955766774</updated>
     </task>
     <task id="LOCAL-00027" summary="add case when">
       <created>1725956415475</created>
@@ -456,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726413069101</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="revise">
+      <created>1726471059208</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1726471059208</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -487,7 +475,6 @@
     <MESSAGE value="add ast class of view" />
     <MESSAGE value="add view" />
     <MESSAGE value="add view generate method" />
-    <MESSAGE value="revise" />
     <MESSAGE value="add if elseif else endif document" />
     <MESSAGE value="add if elseif else endif ast classes" />
     <MESSAGE value="add IF ELSIF" />
@@ -496,7 +483,8 @@
     <MESSAGE value="add Loop ast classes" />
     <MESSAGE value="add Loop" />
     <MESSAGE value="add Exception document" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Exception document" />
+    <MESSAGE value="revise" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
