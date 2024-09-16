@@ -18,6 +18,7 @@ import Parser.AST.Drop.DropEndNode;
 import Parser.AST.Drop.DropObjNameNode;
 import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
+import Parser.AST.Exception.*;
 import Parser.AST.IFELSIF.*;
 import Parser.AST.Insert.InsertDataNode;
 import Parser.AST.Insert.InsertEndNode;
@@ -843,6 +844,122 @@ public class OracleParser {
                 catch (ParseFailedException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+
+        return root;
+    }
+
+    /**
+     * Exception
+     * For example: EXCEPTION
+     *     -- custom exception
+     *     WHEN e_custom_exception THEN
+     *         DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');
+     *     -- divide by zero
+     *     WHEN ZERO_DIVIDE THEN
+     *         DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');
+     *     -- invalid number
+     *     WHEN INVALID_NUMBER THEN
+     *         DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');
+     *     -- other exceptions
+     *     WHEN OTHERS THEN
+     *         DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);
+     * @param parseTokens should start with Exception keyword
+     * @return ASTNode will not contain 'END'
+     */
+    public static ASTNode parseException(List<Token> parseTokens) {
+        ASTNode root = new ExceptionNode();
+        root.addToken(parseTokens.get(0));
+        ASTNode currentNode = root;
+        for (int i = 1; i < parseTokens.size(); i++) {
+            // match exception type
+            if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHEN")) {
+                if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.IDENTIFIER)) {
+                    ASTNode childNode = new CustomExceptionNode();
+                    for (int j = i; j < parseTokens.size(); j++) {
+                        childNode.addToken(parseTokens.get(j));
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                            i = j;
+                            break;
+                        }
+                    }
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("ZERO_DIVIDE")) {
+                    ASTNode childNode = new Zero_divideNode();
+                    for (int j = i; j < parseTokens.size(); j++) {
+                        childNode.addToken(parseTokens.get(j));
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                            i = j;
+                            break;
+                        }
+                    }
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("INVALID_NUMBER")) {
+                    ASTNode childNode = new Invalid_numberNode();
+                    for (int j = i; j < parseTokens.size(); j++) {
+                        childNode.addToken(parseTokens.get(j));
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                            i = j;
+                            break;
+                        }
+                    }
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("OTHERS")) {
+                    ASTNode childNode = new OtherExceptionNode();
+                    for (int j = i; j < parseTokens.size(); j++) {
+                        childNode.addToken(parseTokens.get(j));
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("THEN")) {
+                            i = j;
+                            break;
+                        }
+                    }
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else {
+                    try {
+                        throw new ParseFailedException("Parse failed:There exists syntex error in the input sql!");
+                    }
+                    catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new ExceptionEndNode();
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                break;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                if (!(currentNode instanceof ExceptionEndNode)) {
+                    ASTNode childNode = new ExceptionEndNode();
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+                else {
+                    break;
+                }
+            }
+            // match exception action
+            else {
+                ASTNode childNode = new ExceptionActionNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
             }
         }
 

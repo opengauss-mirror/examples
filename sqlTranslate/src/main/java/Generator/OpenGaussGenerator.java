@@ -13,6 +13,8 @@ import Exception.GenerateFailedException;
 import Parser.AST.Delete.DeleteNode;
 import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
+import Parser.AST.Exception.ExceptionActionNode;
+import Parser.AST.Exception.ExceptionNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
@@ -69,6 +71,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof LoopNode || node instanceof WhileNode || node instanceof ForNode) {
             return GenLoopSQL(node);
+        }
+        else if (node instanceof ExceptionNode) {
+            return GenExceptionSQL(node);
         }
         else {
             try {
@@ -135,6 +140,11 @@ public class OpenGaussGenerator {
         return node.toQueryString();
     }
 
+    private String GenExceptionSQL(ASTNode node) {
+        visitException(node);
+        return node.toQueryString();
+    }
+
     private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
             ColumnTypeConvert((ColumnNode) node);
@@ -180,6 +190,15 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitLoop(child);
+        }
+    }
+
+    private void visitException(ASTNode node) {
+        if (node instanceof ExceptionActionNode) {
+            PLConvert(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitException(child);
         }
     }
 
@@ -252,7 +271,7 @@ public class OpenGaussGenerator {
                     if (token.hasType(Token.TokenType.STRING)) {
                         output += token.getValue().replace("'", "");
                     }
-                    else if (token.hasType(Token.TokenType.IDENTIFIER)) {
+                    else if (token.hasType(Token.TokenType.IDENTIFIER) || token.hasType(Token.TokenType.KEYWORD)) {
                         output += "%";
                         outputObj.add(token);
                     }
@@ -260,16 +279,29 @@ public class OpenGaussGenerator {
                         continue;
                     }
                 }
-                List<Token> tokens = new ArrayList<>();
-                tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
-                tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
-                tokens.add(new Token(Token.TokenType.STRING, "'" + output + "'"));
-                for (Token token: outputObj) {
-                    tokens.add(new Token(Token.TokenType.SYMBOL, ","));
-                    tokens.add(token);
+                if (!outputObj.isEmpty()) {
+                    List<Token> tokens = new ArrayList<>();
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
+                    tokens.add(new Token(Token.TokenType.STRING, "'" + output + "'"));
+                    for (Token token: outputObj) {
+                        tokens.add(new Token(Token.TokenType.SYMBOL, ","));
+                        tokens.add(token);
+                    }
+                    tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+                    node.setTokens(tokens);
                 }
-                tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
-                node.setTokens(tokens);
+                else {
+                    List<Token> tokens = new ArrayList<>();
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
+                    tokens.add(new Token(Token.TokenType.STRING, "'%'"));
+                    tokens.add(new Token(Token.TokenType.SYMBOL, ","));
+                    tokens.add(new Token(Token.TokenType.STRING, "'" + output + "'"));
+                    tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+                    node.setTokens(tokens);
+                }
+
             }
         }
     }

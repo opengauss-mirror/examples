@@ -45,17 +45,27 @@ public class Main {
 //                "             ELSE\n" +
 //                "                 v_bonus := v_salary * 0.03;\n" +
 //                "             END IF;";
-        String sql = "LOOP\n" +
-                "        DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
-                "        Continue;\n" +
-                "        v_counter := v_counter + 1;\n" +
-                "        EXIT WHEN v_counter > 10;\n" +
-                "    END LOOP;";
+//        String sql = "LOOP\n" +
+//                "        DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
+//                "        Continue;\n" +
+//                "        v_counter := v_counter + 1;\n" +
+//                "        EXIT WHEN v_counter > 10;\n" +
+//                "    END LOOP;";
+        String sql = "EXCEPTION\n" +
+                "    WHEN e_custom_exception THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');\n" +
+                "    WHEN ZERO_DIVIDE THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');\n" +
+                "    WHEN INVALID_NUMBER THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
+                "    WHEN OTHERS THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
 //        OracleParser parser = new OracleParser(lexer);
 //        ASTNode root = parser.parse();
-        ASTNode root = OracleParser.parseLoop(lexer.getTokens());
+        ASTNode root = OracleParser.parseException(lexer.getTokens());
+//        ASTNode root = OracleParser.parseLoop(lexer.getTokens());
 //        ASTNode root = OracleParser.parseIFELSE(lexer.getTokens());
 //        ASTNode root = OracleParser.parseCaseWhen(lexer.getTokens());
 //        ASTNode root = OracleParser.parseJoin(lexer.getTokens());
