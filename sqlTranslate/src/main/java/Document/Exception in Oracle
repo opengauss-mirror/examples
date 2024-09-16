@@ -11,10 +11,3 @@ EXCEPTION
     -- other exceptions
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);
-
-Example:
-    EXCEPTION
-        WHEN ZERO_DIVIDE THEN
-            DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);

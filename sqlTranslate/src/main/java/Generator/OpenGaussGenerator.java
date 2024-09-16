@@ -1,6 +1,7 @@
 package Generator;
 
 import Interface.ColumnType;
+import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 import Parser.AST.AlterTable.AlterAddColumnNode;
@@ -233,14 +234,43 @@ public class OpenGaussGenerator {
                     break;
                 }
             }
-            List<Token> tokens = new ArrayList<>();
-            tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
-            tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
-            tokens.add(new Token(Token.TokenType.STRING, "'%'"));
-            tokens.add(new Token(Token.TokenType.SYMBOL, ","));
-            tokens.add(new Token(Token.TokenType.IDENTIFIER, printObj));
-            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
-            node.setTokens(tokens);
+            if (!printObj.contains("||")) {
+                List<Token> tokens = new ArrayList<>();
+                tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
+                tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
+                tokens.add(new Token(Token.TokenType.STRING, "'%'"));
+                tokens.add(new Token(Token.TokenType.SYMBOL, ","));
+                tokens.add(new Token(Token.TokenType.IDENTIFIER, printObj));
+                tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+                node.setTokens(tokens);
+            }
+            else {
+                OracleLexer lexer = new OracleLexer(printObj.replace("||", " "));
+                String output = "";
+                List<Token> outputObj = new ArrayList<>();
+                for (Token token: lexer.getTokens()) {
+                    if (token.hasType(Token.TokenType.STRING)) {
+                        output += token.getValue().replace("'", "");
+                    }
+                    else if (token.hasType(Token.TokenType.IDENTIFIER)) {
+                        output += "%";
+                        outputObj.add(token);
+                    }
+                    else {
+                        continue;
+                    }
+                }
+                List<Token> tokens = new ArrayList<>();
+                tokens.add(new Token(Token.TokenType.KEYWORD, "RAISE"));
+                tokens.add(new Token(Token.TokenType.KEYWORD, "NOTICE"));
+                tokens.add(new Token(Token.TokenType.STRING, "'" + output + "'"));
+                for (Token token: outputObj) {
+                    tokens.add(new Token(Token.TokenType.SYMBOL, ","));
+                    tokens.add(token);
+                }
+                tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+                node.setTokens(tokens);
+            }
         }
     }
 

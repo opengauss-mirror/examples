@@ -33,6 +33,8 @@ public class OracleLexer {
             , ":=", "IF", "ELSIF", "BEGIN", ".."
             // Loop
             , "LOOP", "EXIT", "WHILE", "FOR", "IN", "CONTINUE"
+            // Exception
+            , "EXCEPTION", "SQLERRM", "ZERO_DIVIDE", "INVALID_NUMBER"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
