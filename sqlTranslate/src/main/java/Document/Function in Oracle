@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION function_name (
+    parameter1 [IN | OUT] datatype1 ,
+    parameter2 [IN | OUT] datatype2 ,
+    ...
+) RETURN return_datatype IS
+BEGIN
+    -- function body
+    RETURN result;
+END;
+/

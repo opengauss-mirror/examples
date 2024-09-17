@@ -15,7 +15,7 @@ Operation
  continue、exit 1
  return ***
  exception 1
- commit、rollback、execute ***
+ commit、rollback、execute 1
  alter table 1
  create table 1
  drop table 1

@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add procedure">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Commit,rollback,execute in Oracle" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add document of rollback, commot, execute">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Function in Oracle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lexer/OracleLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,13 +104,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00033" summary="add parseSelect">
-      <created>1726041355829</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1726041355829</updated>
     </task>
     <task id="LOCAL-00034" summary="revise">
       <created>1726059547456</created>
@@ -449,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726554513046</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="add document of rollback, commot, execute">
+      <created>1726555125392</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1726555125392</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -464,7 +463,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add alter table grammar document" />
     <MESSAGE value="add alter table ast class" />
     <MESSAGE value="add alter table keywords" />
     <MESSAGE value="add alter table parser" />
@@ -489,7 +487,8 @@
     <MESSAGE value="add document of Procedure" />
     <MESSAGE value="add ast classes of procedure" />
     <MESSAGE value="add procedure" />
-    <option name="LAST_COMMIT_MESSAGE" value="add procedure" />
+    <MESSAGE value="add document of rollback, commot, execute" />
+    <option name="LAST_COMMIT_MESSAGE" value="add document of rollback, commot, execute" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
