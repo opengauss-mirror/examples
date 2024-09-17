@@ -9,6 +9,7 @@ import java.util.List;
 public class ProcedurePLStatementNode extends ASTNode {
     public ProcedurePLStatementNode() {
         super();
+        setTokens(new ArrayList<>());
     }
     public ProcedurePLStatementNode(ASTNode node) {
         super(node);

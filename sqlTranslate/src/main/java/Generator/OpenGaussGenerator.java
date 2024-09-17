@@ -22,6 +22,10 @@ import Parser.AST.Loop.ForNode;
 import Parser.AST.Loop.LoopBodyNode;
 import Parser.AST.Loop.LoopNode;
 import Parser.AST.Loop.WhileNode;
+import Parser.AST.Procedure.ProcedureColumnNode;
+import Parser.AST.Procedure.ProcedureEndNode;
+import Parser.AST.Procedure.ProcedureNode;
+import Parser.AST.Procedure.ProcedureRetDefNode;
 import Parser.AST.Select.SelectNode;
 import Parser.AST.Update.UpdateNode;
 import Parser.AST.View.ViewCreateNode;
@@ -74,6 +78,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof ExceptionNode) {
             return GenExceptionSQL(node);
+        }
+        else if (node instanceof ProcedureNode) {
+            return GenProcedureSQL(node);
         }
         else {
             try {
@@ -142,6 +149,12 @@ public class OpenGaussGenerator {
 
     private String GenExceptionSQL(ASTNode node) {
         visitException(node);
+        return node.toQueryString();
+    }
+
+    private String GenProcedureSQL(ASTNode node) {
+        visitPL(node);
+        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
@@ -240,6 +253,24 @@ public class OpenGaussGenerator {
             visitCreateView(child);
         }
     }
+
+    private void visitPL(ASTNode node) {
+        if (node instanceof ProcedureRetDefNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof ProcedureColumnNode) {
+            ColumnTypeConvert((ProcedureColumnNode) node);
+        }
+        else if (node instanceof ProcedureEndNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof ExceptionNode) {
+            visitException(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitPL(child);
+        }
+    }
     private void PLConvert(ASTNode node) {
         if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
             String printObj = "";
@@ -303,6 +334,30 @@ public class OpenGaussGenerator {
                 }
 
             }
+        }
+        if (node instanceof ProcedureRetDefNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "AS"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            for (Token token: node.getTokens()) {
+                if (token.hasType(Token.TokenType.KEYWORD) && token.getValue().equalsIgnoreCase("IS")) {
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "DECLARE"));
+                }
+                else {
+                    tokens.add(token);
+                }
+            }
+            node.setTokens(tokens);
+        }
+        if (node instanceof ProcedureEndNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "END"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "LANGUAGE"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "plpgsql"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            node.setTokens(tokens);
         }
     }
 

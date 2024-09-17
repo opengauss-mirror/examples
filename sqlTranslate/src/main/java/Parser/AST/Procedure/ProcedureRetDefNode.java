@@ -9,6 +9,7 @@ import java.util.List;
 public class ProcedureRetDefNode extends ASTNode {
     public ProcedureRetDefNode() {
         super();
+        setTokens(new ArrayList<>());
     }
 
     public ProcedureRetDefNode(ASTNode node) {

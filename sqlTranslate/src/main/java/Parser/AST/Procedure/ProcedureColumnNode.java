@@ -16,6 +16,7 @@ public class ProcedureColumnNode extends ASTNode implements ColumnType  {
     public ProcedureColumnNode() {
         super();
         setTokens(new ArrayList<>());
+        setInOut(new ArrayList<>());
     }
 
     public ProcedureColumnNode(ASTNode node)
@@ -31,9 +32,9 @@ public class ProcedureColumnNode extends ASTNode implements ColumnType  {
     @Override
     public void visit(ASTNode node, StringBuilder queryString)
     {
-        if (node.hasChild() && !(node.getChildren().get(0) instanceof ProcedureColumnNode) )
+        if (node.hasChild() && (node.getChildren().get(0) instanceof ProcedureColumnNode) )
             queryString.append(toString() + ", ");
-        else if (node.hasChild() && (node.getChildren().get(0) instanceof ProcedureColumnNode))
+        else if (node.hasChild() && !(node.getChildren().get(0) instanceof ProcedureColumnNode))
             queryString.append(toString() + " ");
         for (ASTNode child : getChildren())
         {

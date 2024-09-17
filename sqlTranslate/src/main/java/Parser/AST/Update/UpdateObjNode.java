@@ -18,7 +18,7 @@ public class UpdateObjNode extends ASTNode {
     public void visit(ASTNode node, StringBuilder queryString) {
         queryString.append(toString() + " ");
         for (ASTNode child : getChildren()) {
-            child.visit(this, queryString);
+            child.visit(child, queryString);
         }
     }
 }

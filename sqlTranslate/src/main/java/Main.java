@@ -22,11 +22,11 @@ public class Main {
 //        String sql = "DROP TABLE employees CASCADE CONSTRAINTS;";
 //        String sql = "SELECT e.first_name, d.department_name FROM employees e JOIN departments d Using e.department_id = d.department_id;";
 //        String sql = "employees e JOIN departments d ON e.department_id = d.department_id;";
-//        String sql = "UPDATE employees e\n" +
-//                "JOIN departments d using e.department_id = d.department_id\n" +
-//                "SET e.salary = e.salary * 1.10,\n" +
-//                "    d.budget = d.budget * 1.10\n" +
-//                "WHERE d.department_name = 'Sales';";
+        String sql = "UPDATE employees e\n" +
+                "JOIN departments d using e.department_id = d.department_id\n" +
+                "SET e.salary = e.salary * 1.10,\n" +
+                "    d.budget = d.budget * 1.10\n" +
+                "WHERE d.department_name = 'Sales';";
 //        String sql = "DELETE FROM employees e\n" +
 //                "WHERE e.department_id IN (\n" +
 //                "    SELECT d.department_id\n" +
@@ -51,20 +51,47 @@ public class Main {
 //                "        v_counter := v_counter + 1;\n" +
 //                "        EXIT WHEN v_counter > 10;\n" +
 //                "    END LOOP;";
-        String sql = "EXCEPTION\n" +
-                "    WHEN e_custom_exception THEN\n" +
-                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');\n" +
-                "    WHEN ZERO_DIVIDE THEN\n" +
-                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');\n" +
-                "    WHEN INVALID_NUMBER THEN\n" +
-                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
-                "    WHEN OTHERS THEN\n" +
-                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);";
+//        String sql = "EXCEPTION\n" +
+//                "    WHEN e_custom_exception THEN\n" +
+//                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');\n" +
+//                "    WHEN ZERO_DIVIDE THEN\n" +
+//                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');\n" +
+//                "    WHEN INVALID_NUMBER THEN\n" +
+//                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
+//                "    WHEN OTHERS THEN\n" +
+//                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);";
+//        String sql = "CREATE OR REPLACE PROCEDURE update_salary (\n" +
+//                "             employee_id IN NUMBER,\n" +
+//                "             new_salary IN OUT NUMBER\n" +
+//                "         ) IS\n" +
+//                "             v_employee employees%ROWTYPE;\n" +
+//                "         BEGIN\n" +
+//                "             SELECT * INTO v_employee FROM employees WHERE employee_id = employee_id;\n" +
+//                "\n" +
+//                "             IF new_salary < 3000 THEN\n" +
+//                "                 new_salary := new_salary * 1.1;\n" +
+//                "             ELSE\n" +
+//                "                 new_salary := new_salary * 1.05;\n" +
+//                "             END IF;\n" +
+//                "\n" +
+//                "             UPDATE employees SET salary = new_salary WHERE employee_id = employee_id;\n" +
+//                "             COMMIT;\n" +
+//                "\n" +
+//                "             DBMS_OUTPUT.PUT_LINE('Updated Salary: ' || new_salary);\n" +
+//                "         EXCEPTION\n" +
+//                "             WHEN NO_DATA_FOUND THEN\n" +
+//                "                 DBMS_OUTPUT.PUT_LINE('Employee not found.');\n" +
+//                "             WHEN TOO_MANY_ROWS THEN\n" +
+//                "                 DBMS_OUTPUT.PUT_LINE('Multiple employees found.');\n" +
+//                "             WHEN OTHERS THEN\n" +
+//                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
+//                "         END update_salary;\n" +
+//                "         /";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
-//        OracleParser parser = new OracleParser(lexer);
-//        ASTNode root = parser.parse();
-        ASTNode root = OracleParser.parseException(lexer.getTokens());
+        OracleParser parser = new OracleParser(lexer);
+        ASTNode root = parser.parse();
+//        ASTNode root = OracleParser.parseException(lexer.getTokens());
 //        ASTNode root = OracleParser.parseLoop(lexer.getTokens());
 //        ASTNode root = OracleParser.parseIFELSE(lexer.getTokens());
 //        ASTNode root = OracleParser.parseCaseWhen(lexer.getTokens());

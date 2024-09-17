@@ -22,6 +22,9 @@ public class ExceptionEndNode extends ASTNode {
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-
+        queryString.append(toString());
+        for (ASTNode child : node.getChildren()) {
+            child.visit(child, queryString);
+        }
     }
 }

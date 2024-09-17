@@ -35,6 +35,8 @@ public class OracleLexer {
             , "LOOP", "EXIT", "WHILE", "FOR", "IN", "CONTINUE"
             // Exception
             , "EXCEPTION", "SQLERRM", "ZERO_DIVIDE", "INVALID_NUMBER", "OTHERS"
+            // Procedure
+            , "PROCEDURE", "IS", "IN", "OUT", "$$"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -78,6 +80,7 @@ public class OracleLexer {
                     "(:=)|" +
                     "(\\.\\.)|" +
 
+                    "(\\b[A-Za-z_][A-Za-z0-9_]*(%[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
                     "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
                     "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
                     "(\\d+\\.?\\d*)|" +                 // Numbers (integer or decimal)
@@ -178,6 +181,8 @@ public class OracleLexer {
 
         else if (isKeyword(tokenValue)) {
             return new Token(Token.TokenType.KEYWORD, tokenValue);
+        } else if (tokenValue.matches("[A-Za-z_][A-Za-z0-9_]*(%[A-Za-z_][A-Za-z0-9_]*)*")) {
+            return new Token(Token.TokenType.IDENTIFIER, tokenValue);
         } else if (tokenValue.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*")) {
             return new Token(Token.TokenType.IDENTIFIER, tokenValue);
         } else if (tokenValue.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {

@@ -26,6 +26,7 @@ import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
 import Parser.AST.Loop.*;
+import Parser.AST.Procedure.*;
 import Parser.AST.Select.*;
 import Parser.AST.Update.*;
 import Parser.AST.View.ViewCreateNode;
@@ -73,6 +74,12 @@ public class OracleParser {
                     || lexer.getTokens().get(0).getValue().equalsIgnoreCase("WHILE")
             ) {
                 return parseLoop(lexer.getTokens());
+            } else if (
+                    (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("PROCEDURE"))
+                    || (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("OR")  && lexer.getTokens().get(2).getValue().equalsIgnoreCase("REPLACE") && lexer.getTokens().get(3).getValue().equalsIgnoreCase("PROCEDURE"))
+            )
+            {
+                return parseProcedure(lexer.getTokens());
             }
             else {
                 try {
@@ -1642,4 +1649,252 @@ public class OracleParser {
 
         return root;
     }
+
+    /**
+     * Create PROCEDURE
+     * Grammar: CREATE [OR REPLACE] PROCEDURE procedure_name ([parameter_list])
+     * IS [LOCAL DECLARATIONS]
+     * BEGIN
+     *     -- PL/SQL statements
+     * [EXCEPTION]
+     *     -- Exception handling
+     * END [procedure_name];
+     * Example: CREATE OR REPLACE PROCEDURE update_salary(
+     *              employee_id IN NUMBER,
+     *              new_salary IN OUT NUMBER
+     *          ) IS
+     *          BEGIN
+     *              IF new_salary < 3000 THEN
+     *                  new_salary := new_salary * 1.1;
+     *              ELSE
+     *                  new_salary := new_salary * 1.05;
+     *              END IF;
+     *          END update_salary;
+     *          /
+     */
+    private ASTNode parseProcedure(List<Token> parseTokens) {
+        ASTNode root = new ProcedureNode(new ArrayList<>());
+        ASTNode currentNode = root;
+        for (int i = 0; i < parseTokens.size(); i++) {
+            // match CREATE PROCEDURE
+            if (root.getTokens().isEmpty()) {
+                for (int j = i; j < parseTokens.size(); j++) {
+                    root.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("PROCEDURE")) {
+                        i = j;
+                        break;
+                    }
+                }
+            }
+            // match procedure name
+            else if (currentNode == root && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                ASTNode childNode = new ProcedureObjNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match parameter list
+            else if (currentNode instanceof ProcedureObjNode && parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals("(")) {
+                i++;
+                for (int ii = i; ii < parseTokens.size(); ii++) {
+                    if (parseTokens.get(ii).hasType(Token.TokenType.KEYWORD) && parseTokens.get(ii).getValue().equalsIgnoreCase("IS")) {
+                        i = ii - 1;
+                        break;
+                    }
+                    List<Token> tokens = new ArrayList<>();
+                    ProcedureColumnNode child = new ProcedureColumnNode();
+                    child.setName(parseTokens.get(ii));
+                    tokens.add(parseTokens.get(ii));
+                    List<Token> constraint = new ArrayList<>();
+                    boolean typeMatch = false;
+                    int typeIdx = -1;
+                    for (int j = ii + 1; j < parseTokens.size(); j++) {
+                        if (!typeMatch && !(parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(j).getValue().equalsIgnoreCase("IN") || parseTokens.get(j).getValue().equalsIgnoreCase("OUT"))))
+                        {
+                            child.setType(parseTokens.get(j));
+                            typeMatch = true;
+                            typeIdx = j;
+                        }
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(j).getValue().equalsIgnoreCase("IN") || parseTokens.get(j).getValue().equalsIgnoreCase("OUT"))) {
+                            child.addInOut(parseTokens.get(j));
+                        }
+                        // Check () or REFERENCES other_table(other_column)
+                        if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) &&
+                                (parseTokens.get(j).getValue().equalsIgnoreCase("REFERENCES")
+                                        || parseTokens.get(j).getValue().equalsIgnoreCase("CHECK"))) {
+                            tokens.add(parseTokens.get(j));
+                            if (!(parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(j).getValue().equalsIgnoreCase("IN") || parseTokens.get(j).getValue().equalsIgnoreCase("OUT"))))
+                                constraint.add(parseTokens.get(j));
+                            Stack<String> stack = new Stack<>();
+                            for (int k = j + 1; k < parseTokens.size(); k++) {
+                                tokens.add(parseTokens.get(k));
+                                if (!(parseTokens.get(k).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(k).getValue().equalsIgnoreCase("IN") || parseTokens.get(k).getValue().equalsIgnoreCase("OUT"))))
+                                    constraint.add(parseTokens.get(k));
+                                if (parseTokens.get(k).getValue().equals("(")) {
+                                    stack.push("(");
+                                    for (int t = k + 1; t < parseTokens.size(); t++) {
+                                        tokens.add(parseTokens.get(t));
+                                        if (!(parseTokens.get(t).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(t).getValue().equalsIgnoreCase("IN") || parseTokens.get(t).getValue().equalsIgnoreCase("OUT"))))
+                                            constraint.add(parseTokens.get(t));
+                                        if (parseTokens.get(t).getValue().equals("(")) {
+                                            stack.push("(");
+                                        } else if (parseTokens.get(t).getValue().equals(")")) {
+                                            stack.pop();
+                                            if (stack.empty()) {
+                                                ii = t;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        if ((parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(",")) ||
+                                (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(")"))) {
+                            ii = j;
+                            break;
+                        }
+                        tokens.add(parseTokens.get(j));
+                        if (typeMatch && j != typeIdx) {
+                            if (!(parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && (parseTokens.get(j).getValue().equalsIgnoreCase("IN") || parseTokens.get(j).getValue().equalsIgnoreCase("OUT"))))
+                                constraint.add(parseTokens.get(j));
+                        }
+                    }
+                    child.setTokens(tokens);
+                    child.setConstraint(constraint);
+                    currentNode.addChild(child);
+                    currentNode = child;
+                }
+            }
+            // match procedure return definition
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("IS")) {
+                ASTNode childNode = new ProcedureRetDefNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("BEGIN")) {
+                        i = j - 1;
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match procedure begin
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("BEGIN")) {
+                ASTNode childNode = new ProcedureBeginNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match procedure body
+            else if (currentNode instanceof ProcedureBeginNode) {
+                for (int ii = i; ii < parseTokens.size(); ii++) {
+                    if (parseTokens.get(ii).hasType(Token.TokenType.KEYWORD) && parseTokens.get(ii).getValue().equalsIgnoreCase("END")) {
+                        i = ii - 1;
+                        break;
+                    }
+                    else if (parseTokens.get(ii).hasType(Token.TokenType.KEYWORD) && parseTokens.get(ii).getValue().equalsIgnoreCase("EXCEPTION")) {
+                        i = ii - 1;
+                        break;
+                    }
+                    else if (parseTokens.get(ii).hasType(Token.TokenType.KEYWORD) && parseTokens.get(ii).getValue().equalsIgnoreCase("IF")) {
+                        int index = -1;
+                        for (int j = ii; j < parseTokens.size(); j++) {
+                            if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("END")
+                            && j + 1 < parseTokens.size() && parseTokens.get(j + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j + 1).getValue().equalsIgnoreCase("IF")
+                                    && j + 2 < parseTokens.size() && parseTokens.get(j + 2).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j + 2).getValue().equals(";") ) {
+                                index = j + 2;
+                                break;
+                            }
+                        }
+                        if (index == -1) {
+                            try {
+                                throw new ParseFailedException("There exists syntax error and no END if block is found!");
+                            } catch (ParseFailedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            ASTNode childNode = parseIFELSE(parseTokens.subList(ii, index + 1));
+                            currentNode.addChild(childNode);
+                            currentNode = childNode.getDeepestChild();
+                            ii = index;
+                        }
+                    }
+                    else {
+                        ASTNode childNode = new ProcedurePLStatementNode();
+                        for (int j = ii; j < parseTokens.size(); j++) {
+                            childNode.addToken(parseTokens.get(j));
+                            if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                                ii = j;
+                                break;
+                            }
+                        }
+                        currentNode.addChild(childNode);
+                        currentNode = childNode;
+                    }
+                }
+            }
+            // match exception
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("EXCEPTION")) {
+                int index = -1;
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("END")) {
+                        index = j;
+                        break;
+                    }
+                }
+                if (index == -1) {
+                    try {
+                        throw new ParseFailedException("There exists syntax error and no END block is found!");
+                    } catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ASTNode childNode = parseException(parseTokens.subList(i, index + 1));
+                currentNode.addChild(childNode);
+                currentNode = childNode.getDeepestChild();
+                childNode = new ProcedureEndNode();
+                for (int j = index; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.EOF)) {
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                break;
+            }
+            // match procedure end
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new ProcedureEndNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.EOF)) {
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                break;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Failed to parse:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        return root;
+    }
+
 }
