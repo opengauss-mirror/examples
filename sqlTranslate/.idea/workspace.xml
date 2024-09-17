@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add function">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Document/Trigger in Oracle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Document/Todolist" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add trigger document">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Trigger/TriggerConditionNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Trigger/TriggerNameNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Trigger/TriggerNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Trigger/TriggerObjNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser/AST/Trigger/TriggerOptionNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,13 +106,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723106789329</updated>
-    </task>
-    <task id="LOCAL-00037" summary="add join pattern">
-      <created>1726068883795</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1726068883795</updated>
     </task>
     <task id="LOCAL-00038" summary="add join class">
       <created>1726112198383</created>
@@ -448,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726587379509</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="add trigger document">
+      <created>1726588739459</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1726588739459</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -463,7 +465,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add alter" />
     <MESSAGE value="fix some bugs" />
     <MESSAGE value="add view document" />
     <MESSAGE value="add keywords of view" />
@@ -488,7 +489,8 @@
     <MESSAGE value="add document of function" />
     <MESSAGE value="add ast classes of function" />
     <MESSAGE value="add function" />
-    <option name="LAST_COMMIT_MESSAGE" value="add function" />
+    <MESSAGE value="add trigger document" />
+    <option name="LAST_COMMIT_MESSAGE" value="add trigger document" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

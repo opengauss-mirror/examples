@@ -4,7 +4,7 @@ BEFORE | AFTER | INSTEAD OF -- OpenGauss does not support INSTEAD OF
 ON table_name
 [REFERENCING NEW AS new OLD AS old] -- OpenGauss does not support this
 FOR EACH ROW
-WHEN (condition)
+[WHEN (condition)]
 BEGIN
     -- trigger body
 END;
