@@ -22,7 +22,7 @@ public class FunctionNameNode extends ASTNode {
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append(toString() + " ");
+        queryString.append(toString() + " ( ");
         for (ASTNode child : node.getChildren()) {
             child.visit(child, queryString);
         }

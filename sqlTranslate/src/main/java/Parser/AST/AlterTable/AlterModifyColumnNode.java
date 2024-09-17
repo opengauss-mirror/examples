@@ -1,13 +1,13 @@
 package Parser.AST.AlterTable;
 
-import Interface.ColumnType;
+import Interface.DataType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlterModifyColumnNode extends ASTNode implements ColumnType {
+public class AlterModifyColumnNode extends ASTNode implements DataType {
     private Token name;
     private Token type;
 

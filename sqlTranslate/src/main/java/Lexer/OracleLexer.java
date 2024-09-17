@@ -37,6 +37,8 @@ public class OracleLexer {
             , "EXCEPTION", "SQLERRM", "ZERO_DIVIDE", "INVALID_NUMBER", "OTHERS"
             // Procedure
             , "PROCEDURE", "IS", "IN", "OUT", "$$", "COMMIT", "ROLLBACK", "EXEC", "EXECUTE"
+            // function
+            , "FUNCTION", "RETURN"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -55,6 +57,7 @@ public class OracleLexer {
                     "(MIN\\(.*?\\))|" +                     // MIN() function
                     "(\\|\\|\\s*'.*?'\\s*\\|\\|)|" +        // || '*' ||
                     "(DBMS_OUTPUT.PUT_LINE\\(.*?\\))|" +                     // DBMS_OUTPUT.PUT_LINE() function
+                    "(LENGTH\\(.*?\\))|" +                     // LENGTH() function
 
                     "(NOT NULL)|" +
                     "(PRIMARY KEY)|" +
@@ -175,6 +178,9 @@ public class OracleLexer {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
         } else if (tokenValue.matches("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
+            // RAW() function, CASE_INSENSITIVE
+            return new Token(Token.TokenType.KEYWORD, tokenValue);
+        } else if (tokenValue.matches("(?i)LENGTH\\(.*?\\)")) {
             // RAW() function, CASE_INSENSITIVE
             return new Token(Token.TokenType.KEYWORD, tokenValue);
         }

@@ -1,6 +1,6 @@
 package Generator;
 
-import Interface.ColumnType;
+import Interface.DataType;
 import Lexer.OracleLexer;
 import Lexer.Token;
 import Parser.AST.ASTNode;
@@ -15,6 +15,10 @@ import Parser.AST.Drop.DropNode;
 import Parser.AST.Drop.DropOptionNode;
 import Parser.AST.Exception.ExceptionActionNode;
 import Parser.AST.Exception.ExceptionNode;
+import Parser.AST.Function.FunctionColumnNode;
+import Parser.AST.Function.FunctionEndNode;
+import Parser.AST.Function.FunctionNode;
+import Parser.AST.Function.FunctionRetDefNode;
 import Parser.AST.Insert.InsertNode;
 import Parser.AST.Join.JoinConditionNode;
 import Parser.AST.Join.JoinSourceTabNode;
@@ -81,6 +85,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof ProcedureNode) {
             return GenProcedureSQL(node);
+        }
+        else if (node instanceof FunctionNode) {
+            return GenFunctionSQL(node);
         }
         else {
             try {
@@ -154,7 +161,12 @@ public class OpenGaussGenerator {
 
     private String GenProcedureSQL(ASTNode node) {
         visitPL(node);
-        System.out.println(node.getASTString());
+//        System.out.println(node.getASTString());
+        return node.toQueryString();
+    }
+
+    private String GenFunctionSQL(ASTNode node) {
+        visitFunc(node);
         return node.toQueryString();
     }
 
@@ -271,6 +283,25 @@ public class OpenGaussGenerator {
             visitPL(child);
         }
     }
+
+    private void visitFunc(ASTNode node) {
+        if (node instanceof FunctionRetDefNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof ExceptionNode) {
+            visitException(node);
+        }
+        else if (node instanceof FunctionColumnNode) {
+            ColumnTypeConvert((FunctionColumnNode) node);
+        }
+        else if (node instanceof FunctionEndNode) {
+            PLConvert(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitFunc(child);
+        }
+    }
+
     private void PLConvert(ASTNode node) {
         if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
             String printObj = "";
@@ -359,10 +390,36 @@ public class OpenGaussGenerator {
             tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
             node.setTokens(tokens);
         }
+        if (node instanceof FunctionEndNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "END"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "LANGUAGE"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "plpgsql"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            node.setTokens(tokens);
+        }
+        if (node instanceof FunctionRetDefNode) {
+            List<Token> tokens = new ArrayList<>();
+            for (Token token: node.getTokens()) {
+                if (token.hasType(Token.TokenType.KEYWORD) && token.getValue().equalsIgnoreCase("RETURN")) {
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "RETURNS"));
+                }
+                else if (token.hasType(Token.TokenType.KEYWORD) && token.getValue().equalsIgnoreCase("IS")) {
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "AS"));
+                    tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+                }
+                else {
+                    tokens.add(token);
+                }
+            }
+            node.setTokens(tokens);
+        }
     }
 
 
-    private void ColumnTypeConvert(ColumnType node) {
+    private void ColumnTypeConvert(DataType node) {
         // type convert
         if (node.getType().getValue().equalsIgnoreCase("NUMBER")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "NUMERIC"));

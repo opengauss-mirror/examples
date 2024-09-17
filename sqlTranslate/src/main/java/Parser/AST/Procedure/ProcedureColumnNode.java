@@ -1,14 +1,13 @@
 package Parser.AST.Procedure;
 
-import Interface.ColumnType;
+import Interface.DataType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
-import Parser.AST.CreateTable.CRTEndNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcedureColumnNode extends ASTNode implements ColumnType  {
+public class ProcedureColumnNode extends ASTNode implements DataType {
     private Token name;
     private Token type;
     private List<Token> constraint;

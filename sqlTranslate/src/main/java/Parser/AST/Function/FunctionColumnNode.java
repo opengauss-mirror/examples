@@ -1,14 +1,13 @@
 package Parser.AST.Function;
 
-import Interface.ColumnType;
+import Interface.DataType;
 import Lexer.Token;
 import Parser.AST.ASTNode;
-import Parser.AST.Procedure.ProcedureColumnNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionColumnNode extends ASTNode implements ColumnType {
+public class FunctionColumnNode extends ASTNode implements DataType {
     private Token name;
     private Token type;
     private List<Token> constraint;
@@ -16,6 +15,7 @@ public class FunctionColumnNode extends ASTNode implements ColumnType {
     public FunctionColumnNode() {
         super();
         setTokens(new ArrayList<>());
+        setInOut(new ArrayList<>());
     }
 
     public FunctionColumnNode(ASTNode node) {
