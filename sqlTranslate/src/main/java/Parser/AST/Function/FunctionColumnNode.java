@@ -1,0 +1,93 @@
+package Parser.AST.Function;
+
+import Interface.ColumnType;
+import Lexer.Token;
+import Parser.AST.ASTNode;
+import Parser.AST.Procedure.ProcedureColumnNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FunctionColumnNode extends ASTNode implements ColumnType {
+    private Token name;
+    private Token type;
+    private List<Token> constraint;
+    private List<Token> InOut;
+    public FunctionColumnNode() {
+        super();
+        setTokens(new ArrayList<>());
+    }
+
+    public FunctionColumnNode(ASTNode node) {
+        super(node);
+    }
+
+    public FunctionColumnNode(List<Token> tokens) {
+        super(tokens);
+    }
+
+    @Override
+    public void visit(ASTNode node, StringBuilder queryString)
+    {
+        if (node.hasChild() && (node.getChildren().get(0) instanceof FunctionColumnNode) )
+            queryString.append(toString() + ", ");
+        else if (node.hasChild() && !(node.getChildren().get(0) instanceof FunctionColumnNode))
+            queryString.append(toString() + " ");
+        for (ASTNode child : getChildren())
+        {
+            child.visit(child, queryString);
+        }
+    }
+
+    public Token getName() {
+        return name;
+    }
+
+    public void setName(Token name) {
+        this.name = name;
+    }
+
+    @Override
+    public Token getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(Token type) {
+        this.type = type;
+    }
+
+    public List<Token> getConstraint() {
+        return constraint;
+    }
+
+    public void setConstraint(List<Token> constraint) {
+        this.constraint = constraint;
+    }
+
+    public List<Token> getInOut() {
+        return InOut;
+    }
+
+    public void setInOut(List<Token> InOut) {
+        this.InOut = InOut;
+    }
+
+    public void addInOut(Token InOut) {
+        this.InOut.add(InOut);
+    }
+
+    @Override
+    public void ResetTokensbyNameTypeConstraint() {
+        List <Token> tokens = new ArrayList<>();
+        tokens.add(name);
+        for (Token token : InOut) {
+            tokens.add(token);
+        }
+        tokens.add(type);
+        for (Token token : constraint) {
+            tokens.add(token);
+        }
+        setTokens(tokens);
+    }
+}

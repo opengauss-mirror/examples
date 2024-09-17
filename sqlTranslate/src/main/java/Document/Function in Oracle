@@ -8,3 +8,11 @@ BEGIN
     RETURN result;
 END;
 /
+
+Example: CREATE OR REPLACE FUNCTION string_length (
+             input_string VARCHAR2
+         ) RETURN NUMBER IS
+         BEGIN
+             RETURN LENGTH(input_string);
+         END;
+         /
