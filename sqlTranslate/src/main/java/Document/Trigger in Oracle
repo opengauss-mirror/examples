@@ -1,0 +1,17 @@
+CREATE OR REPLACE TRIGGER trigger_name
+BEFORE | AFTER | INSTEAD OF -- OpenGauss does not support INSTEAD OF
+{ INSERT | UPDATE | DELETE }
+ON table_name
+[REFERENCING NEW AS new OLD AS old] -- OpenGauss does not support this
+FOR EACH ROW
+WHEN (condition)
+BEGIN
+    -- trigger body
+END;
+
+Example: CREATE OR REPLACE TRIGGER log_insert
+         BEFORE INSERT ON employees
+         FOR EACH ROW
+         BEGIN
+             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);
+         END;

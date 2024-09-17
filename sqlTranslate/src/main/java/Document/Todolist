@@ -13,7 +13,7 @@ Operation
  while... loop... end loop 1
  for ... in () loop end loop 1
  continue、exit 1
- return ***
+ return 1
  exception 1
  commit、rollback、execute 1
  alter table 1
@@ -22,6 +22,6 @@ Operation
 Object
  table 1
  view 1
- function ***
+ function 1
  procedure 1
- trigger ****
+ trigger 1
