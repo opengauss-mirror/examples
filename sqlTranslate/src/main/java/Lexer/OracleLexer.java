@@ -39,6 +39,8 @@ public class OracleLexer {
             , "PROCEDURE", "IS", "IN", "OUT", "$$", "COMMIT", "ROLLBACK", "EXEC", "EXECUTE"
             // function
             , "FUNCTION", "RETURN"
+            // trigger
+            , "TRIGGER", "BEFORE", "AFTER", "INSTEAD OF", "REFERENCING", "NEW", "OLD", "EACH", "ROW"
     };
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
             "(NUMBER\\(.*?\\))|" +                     // NUMBER() function
@@ -79,6 +81,7 @@ public class OracleLexer {
                     "(FULL JOIN)|" +
                     "(FULL OUTER JOIN)|" +
                     "(CROSS JOIN)|" +
+                    "(INSTEAD OF)|" +
                     "(\\|\\|)|" +
                     "(:=)|" +
                     "(\\.\\.)|" +

@@ -29,6 +29,7 @@ import Parser.AST.Join.*;
 import Parser.AST.Loop.*;
 import Parser.AST.Procedure.*;
 import Parser.AST.Select.*;
+import Parser.AST.Trigger.*;
 import Parser.AST.Update.*;
 import Parser.AST.View.ViewCreateNode;
 import Parser.AST.View.ViewEndNode;
@@ -87,6 +88,12 @@ public class OracleParser {
             )
             {
                 return parseFunction(lexer.getTokens());
+            } else if (
+                    (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("TRIGGER"))
+                            || (lexer.getTokens().get(0).getValue().equalsIgnoreCase("CREATE") && lexer.getTokens().get(1).getValue().equalsIgnoreCase("OR")  && lexer.getTokens().get(2).getValue().equalsIgnoreCase("REPLACE") && lexer.getTokens().get(3).getValue().equalsIgnoreCase("TRIGGER"))
+            )
+            {
+                return parseTrigger(lexer.getTokens());
             }
             else {
                 try {
@@ -2141,5 +2148,157 @@ public class OracleParser {
         return root;
     }
 
+    /**
+     * Create TRIGGER
+     * Grammar: CREATE OR REPLACE TRIGGER trigger_name
+     * BEFORE | AFTER | INSTEAD OF -- OpenGauss does not support INSTEAD OF
+     * { INSERT | UPDATE | DELETE }
+     * ON table_name
+     * [REFERENCING NEW AS new OLD AS old] -- OpenGauss does not support this
+     * FOR EACH ROW
+     * [WHEN (condition)]
+     * BEGIN
+     *     -- trigger body
+     * END;
+     * Example: CREATE OR REPLACE TRIGGER log_insert
+     *          BEFORE INSERT ON employees
+     *          FOR EACH ROW
+     *          BEGIN
+     *              INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);
+     *          END;
+     */
+    private ASTNode parseTrigger(List<Token> parseTokens) {
+        ASTNode root = new TriggerNode();
+        ASTNode currentNode = root;
+        for (int i = 0; i < parseTokens.size(); i++) {
+            // match create trigger
+            if (root.getTokens().isEmpty()) {
+                for (int j = i; j < parseTokens.size(); j++) {
+                    root.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("TRIGGER")) {
+                        i = j;
+                        break;
+                    }
+                }
+            }
+            // match trigger name
+            else if (currentNode == root && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                ASTNode childNode = new TriggerNameNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match trigger condition
+            else if (currentNode instanceof TriggerNameNode && (
+                    parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("BEFORE") ||
+                            parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("AFTER") ||
+                            parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("INSTEAD OF")
+                    )) {
+                if (i + 1 < parseTokens.size() && (
+                        parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("INSERT") ||
+                                parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("UPDATE") ||
+                                parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("DELETE")
+                        )) {
+                    TriggerConditionNode childNode = new TriggerConditionNode();
+                    childNode.setCondition(parseTokens.get(i));
+                    childNode.setAction(parseTokens.get(i + 1));
+                }
+                else {
+                    try {
+                        throw new ParseFailedException("There exists syntax error!");
+                    } catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            // match trigger on table
+            else if (currentNode instanceof TriggerConditionNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("ON")) {
+                if (i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.IDENTIFIER)) {
+                    ASTNode childNode = new TriggerObjNode();
+                    childNode.addToken(parseTokens.get(i));
+                    childNode.addToken(parseTokens.get(i + 1));
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                    i++;
+                }
+                else {
+                    try {
+                        throw new ParseFailedException("There exists syntax error!");
+                    } catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            // match [REFERENCING NEW AS new OLD AS old]
+            else if (currentNode instanceof TriggerObjNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("REFERENCING")) {
+                ASTNode childNode = new TriggerOptionNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("FOR")) {
+                        i = j - 1;
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match FOR EACH ROW
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("FOR")) {
+                if ((i + 1 < parseTokens.size() && parseTokens.get(i + 1).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 1).getValue().equalsIgnoreCase("EACH"))
+                    && (i + 2 < parseTokens.size() && parseTokens.get(i + 2).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i + 2).getValue().equalsIgnoreCase("ROW"))) {
+                        ASTNode childNode = new TriggerForEachRowNode();
+                        childNode.addToken(parseTokens.get(i));
+                        childNode.addToken(parseTokens.get(i + 1));
+                        childNode.addToken(parseTokens.get(i + 2));
+                        currentNode.addChild(childNode);
+                        currentNode = childNode;
+                    }
+                else {
+                    try {
+                            throw new ParseFailedException("There exists syntax error!");
+                    } catch (ParseFailedException e) {
+                            e.printStackTrace();
+                    }
+                }
+            }
+            // match when
+            else if (currentNode instanceof TriggerForEachRowNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("WHEN")) {
+                ASTNode childNode = new TriggerWhenNode();
+                for(int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("BEGIN")) {
+                        i = j - 1;
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match begin
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("BEGIN")) {
+                ASTNode childNode = new TriggerBeginNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match trigger body
+            else if (currentNode instanceof TriggerBeginNode) {
+                //TODO: parse trigger body
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Failed to parse:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return root;
+    }
 
 }
