@@ -1,0 +1,14 @@
+BEGIN
+    -- some ddl sql
+    INSERT INTO my_table (id, value) VALUES (1, 'test');
+
+    -- Commit
+    COMMIT;
+
+    -- Failed
+    ROLLBACK;
+END;
+/
+
+EXECUTE: EXEC my_procedure('some value');
+        | EXECUTE IMMEDIATE 'INSERT INTO my_table (id, name) VALUES (1, ''John'')';
