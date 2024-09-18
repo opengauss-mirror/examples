@@ -87,13 +87,19 @@ public class Main {
 //                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
 //                "         END update_salary;\n" +
 //                "         /";
-        String sql = "CREATE OR REPLACE FUNCTION string_length (\n" +
-                "    input_string VARCHAR2\n" +
-                ") RETURN NUMBER IS\n" +
-                "BEGIN\n" +
-                "    RETURN LENGTH(input_string);\n" +
-                "END;\n" +
-                "/";
+//        String sql = "CREATE OR REPLACE FUNCTION string_length (\n" +
+//                "    input_string VARCHAR2\n" +
+//                ") RETURN NUMBER IS\n" +
+//                "BEGIN\n" +
+//                "    RETURN LENGTH(input_string);\n" +
+//                "END;\n" +
+//                "/";
+        String sql = "CREATE OR REPLACE TRIGGER log_insert\n" +
+                "         BEFORE INSERT ON employees\n" +
+                "         FOR EACH ROW\n" +
+                "         BEGIN\n" +
+                "             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);\n" +
+                "         END;";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);

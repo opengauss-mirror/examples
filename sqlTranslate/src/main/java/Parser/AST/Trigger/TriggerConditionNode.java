@@ -11,6 +11,7 @@ public class TriggerConditionNode extends ASTNode {
     private Token action;
     public TriggerConditionNode() {
         super();
+        setTokens(new ArrayList<>());
     }
 
     public TriggerConditionNode(List<Token> tokens) {
@@ -39,9 +40,16 @@ public class TriggerConditionNode extends ASTNode {
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append(getCondition().getValue() + getAction().getValue() + " ");
+        queryString.append(getCondition().getValue() + " " + getAction().getValue() + " ");
         for (ASTNode child : getChildren()) {
             child.visit(child, queryString);
         }
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = getCondition().getValue() + " " + getAction().getValue();
+        return str;
     }
 }

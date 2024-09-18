@@ -31,6 +31,7 @@ import Parser.AST.Procedure.ProcedureEndNode;
 import Parser.AST.Procedure.ProcedureNode;
 import Parser.AST.Procedure.ProcedureRetDefNode;
 import Parser.AST.Select.SelectNode;
+import Parser.AST.Trigger.*;
 import Parser.AST.Update.UpdateNode;
 import Parser.AST.View.ViewCreateNode;
 
@@ -88,6 +89,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof FunctionNode) {
             return GenFunctionSQL(node);
+        }
+        else if (node instanceof TriggerNode) {
+            return GenTriggerSQL(node);
         }
         else {
             try {
@@ -167,6 +171,11 @@ public class OpenGaussGenerator {
 
     private String GenFunctionSQL(ASTNode node) {
         visitFunc(node);
+        return node.toQueryString();
+    }
+
+    private String GenTriggerSQL(ASTNode node) {
+        visitTrigger(node);
         return node.toQueryString();
     }
 
@@ -302,6 +311,21 @@ public class OpenGaussGenerator {
         }
     }
 
+    private void visitTrigger(ASTNode node) {
+        if (node instanceof TriggerBodyNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof TriggerConditionNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof TriggerOptionNode) {
+            PLConvert(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitTrigger(child);
+        }
+    }
+
     private void PLConvert(ASTNode node) {
         if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
             String printObj = "";
@@ -415,6 +439,25 @@ public class OpenGaussGenerator {
                 }
             }
             node.setTokens(tokens);
+        }
+        if (node instanceof TriggerOptionNode) {
+            try {
+                throw new GenerateFailedException("Unsupported type:" + node.toString() + "(OpenGauss doesn't support the keyword -- " + node.toString() + " or have any expression that keeps the same semantic!)");
+            }
+            catch (GenerateFailedException e) {
+                e.printStackTrace();
+            }
+        }
+        if (node instanceof TriggerConditionNode) {
+            if (((TriggerConditionNode) node).getCondition().hasType(Token.TokenType.KEYWORD) &&
+                    ((TriggerConditionNode) node).getCondition().getValue().equalsIgnoreCase("INSTEAD OF")) {
+                try {
+                    throw new GenerateFailedException("Unsupported type:" + node.toString() + "(OpenGauss doesn't support the keyword -- " + node.toString() + " or have any expression that keeps the same semantic!)");
+                }
+                catch (GenerateFailedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

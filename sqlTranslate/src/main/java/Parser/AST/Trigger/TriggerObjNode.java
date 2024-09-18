@@ -9,6 +9,7 @@ import java.util.List;
 public class TriggerObjNode extends ASTNode {
     public TriggerObjNode() {
         super();
+        setTokens(new ArrayList<>());
     }
 
     public TriggerObjNode(List<Token> tokens) {

@@ -2202,6 +2202,9 @@ public class OracleParser {
                     TriggerConditionNode childNode = new TriggerConditionNode();
                     childNode.setCondition(parseTokens.get(i));
                     childNode.setAction(parseTokens.get(i + 1));
+                    i++;
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
                 }
                 else {
                     try {
@@ -2252,6 +2255,7 @@ public class OracleParser {
                         childNode.addToken(parseTokens.get(i + 2));
                         currentNode.addChild(childNode);
                         currentNode = childNode;
+                        i += 2;
                     }
                 else {
                     try {
@@ -2282,8 +2286,34 @@ public class OracleParser {
                 currentNode = childNode;
             }
             // match trigger body
-            else if (currentNode instanceof TriggerBeginNode) {
-                //TODO: parse trigger body
+            else if ( ((currentNode instanceof TriggerBeginNode) || (currentNode instanceof TriggerBodyNode)) && !(parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END"))) {
+                ASTNode childNode = new TriggerBodyNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("END")) {
+                        i = j - 1;
+                        break;
+                    }
+                    else if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equalsIgnoreCase(";")) {
+                        i = j;
+                        childNode.addToken(parseTokens.get(j));
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new TriggerEndNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
                 break;
