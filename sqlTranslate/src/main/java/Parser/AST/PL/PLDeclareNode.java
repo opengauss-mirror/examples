@@ -12,6 +12,7 @@ public class PLDeclareNode extends ASTNode implements DataType {
     public PLDeclareNode() {
         super();
         setTokens(new ArrayList<>());
+        setType(new Token(Token.TokenType.NULL, ""));
     }
 
     public PLDeclareNode(ASTNode node) {

@@ -27,8 +27,7 @@ import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
 import Parser.AST.Loop.*;
-import Parser.AST.PL.PLDeclareNode;
-import Parser.AST.PL.PLNode;
+import Parser.AST.PL.*;
 import Parser.AST.Procedure.*;
 import Parser.AST.Select.*;
 import Parser.AST.Trigger.*;
@@ -2369,13 +2368,71 @@ public class OracleParser {
                         i = j - 1;
                         break;
                     }
-                    ASTNode childNode = new PLDeclareNode();
+                    PLDeclareNode childNode = new PLDeclareNode();
                     for (int k = j; k < parseTokens.size(); k++) {
+                        childNode.addToken(parseTokens.get(k));
+                        if (parseTokens.get(k).hasType(Token.TokenType.KEYWORD)) {
+                            childNode.setType(parseTokens.get(k));
+                        }
                         if (parseTokens.get(k).hasType(Token.TokenType.SYMBOL) && parseTokens.get(k).getValue().equals(";")) {
                             j = k;
                             break;
                         }
                     }
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
+            }
+            // match begin
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("BEGIN")) {
+                ASTNode childNode = new PLBeginNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match body
+            else if (
+                    (currentNode instanceof PLBeginNode || currentNode instanceof PLBodyNode) &&
+                    !(parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END"))
+            ) {
+                ASTNode childNode = new PLBodyNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("END")) {
+                        i = j - 1;
+                        break;
+                    }
+                    else if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        childNode.addToken(parseTokens.get(j));
+                        break;
+                    }
+                    childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match end
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
+                ASTNode childNode = new PLEndNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (parseTokens.get(i).hasType(Token.TokenType.EOF)) {
+                break;
+            }
+            else {
+                try {
+                    throw new ParseFailedException("Failed to parse:" + parseTokens.get(i));
+                }
+                catch (ParseFailedException e) {
+                    e.printStackTrace();
                 }
             }
         }

@@ -30,7 +30,7 @@ public class OracleLexer {
             // keywords of view
             , "REPLACE", "VIEW"
             // PL/SQL
-            , ":=", "IF", "ELSIF", "BEGIN", ".."
+            , ":=", "IF", "ELSIF", "BEGIN", "..", "DECLARE"
             // Loop
             , "LOOP", "EXIT", "WHILE", "FOR", "IN", "CONTINUE"
             // Exception

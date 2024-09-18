@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Token {
     public enum TokenType {
-        KEYWORD, IDENTIFIER, NUMBER, OPERATOR, STRING, SYMBOL, EOF
+        KEYWORD, IDENTIFIER, NUMBER, OPERATOR, STRING, SYMBOL, NULL, EOF
     }
 
     private TokenType type;

@@ -26,6 +26,10 @@ import Parser.AST.Loop.ForNode;
 import Parser.AST.Loop.LoopBodyNode;
 import Parser.AST.Loop.LoopNode;
 import Parser.AST.Loop.WhileNode;
+import Parser.AST.PL.PLBodyNode;
+import Parser.AST.PL.PLDeclareNode;
+import Parser.AST.PL.PLEndNode;
+import Parser.AST.PL.PLNode;
 import Parser.AST.Procedure.ProcedureColumnNode;
 import Parser.AST.Procedure.ProcedureEndNode;
 import Parser.AST.Procedure.ProcedureNode;
@@ -92,6 +96,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof TriggerNode) {
             return GenTriggerSQL(node);
+        }
+        else if (node instanceof PLNode) {
+            return GenPLSQL(node);
         }
         else {
             try {
@@ -179,9 +186,14 @@ public class OpenGaussGenerator {
         return node.toQueryString();
     }
 
+    private String GenPLSQL(ASTNode node) {
+        visitPLSQL(node);
+        return node.toQueryString();
+    }
+
     private void visitCrt(ASTNode node) {
         if (node instanceof ColumnNode) {
-            ColumnTypeConvert((ColumnNode) node);
+            DataTypeConvert((ColumnNode) node);
         }
         for (ASTNode child : node.getChildren()) {
             visitCrt(child);
@@ -256,10 +268,10 @@ public class OpenGaussGenerator {
 
     private void visitAlter(ASTNode node) {
         if (node instanceof AlterAddColumnNode) {
-            ColumnTypeConvert((AlterAddColumnNode) node);
+            DataTypeConvert((AlterAddColumnNode) node);
         }
         else if (node instanceof AlterModifyColumnNode) {
-            ColumnTypeConvert((AlterModifyColumnNode) node);
+            DataTypeConvert((AlterModifyColumnNode) node);
         }
         for (ASTNode child : node.getChildren()) {
             visitAlter(child);
@@ -277,11 +289,11 @@ public class OpenGaussGenerator {
 
     private void visitPL(ASTNode node) {
         if (node instanceof ProcedureRetDefNode) {
-            ColumnTypeConvert((ProcedureRetDefNode) node);
+            DataTypeConvert((ProcedureRetDefNode) node);
             PLConvert(node);
         }
         else if (node instanceof ProcedureColumnNode) {
-            ColumnTypeConvert((ProcedureColumnNode) node);
+            DataTypeConvert((ProcedureColumnNode) node);
         }
         else if (node instanceof ProcedureEndNode) {
             PLConvert(node);
@@ -302,7 +314,7 @@ public class OpenGaussGenerator {
             visitException(node);
         }
         else if (node instanceof FunctionColumnNode) {
-            ColumnTypeConvert((FunctionColumnNode) node);
+            DataTypeConvert((FunctionColumnNode) node);
         }
         else if (node instanceof FunctionEndNode) {
             PLConvert(node);
@@ -324,6 +336,24 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitTrigger(child);
+        }
+    }
+
+    private void visitPLSQL(ASTNode node) {
+        if (node instanceof PLNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof PLDeclareNode) {
+            DataTypeConvert((PLDeclareNode) node);
+        }
+        else if (node instanceof PLEndNode) {
+            PLConvert(node);
+        }
+        else if (node instanceof PLBodyNode) {
+            PLConvert(node);
+        }
+        for (ASTNode child : node.getChildren()) {
+            visitPLSQL(child);
         }
     }
 
@@ -460,17 +490,31 @@ public class OpenGaussGenerator {
                 }
             }
         }
+        if (node instanceof PLNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "DO"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "DECLARE"));
+            node.setTokens(tokens);
+        }
+        if (node instanceof PLEndNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "END"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            node.setTokens(tokens);
+        }
     }
 
 
-    private void ColumnTypeConvert(DataType node) {
+    private void DataTypeConvert(DataType node) {
         // type convert
         if (node.getType().getValue().equalsIgnoreCase("NUMBER")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "NUMERIC"));
             node.ResetTokensbyNameTypeConstraint();
         }
         if (node.getType().getValue().matches("(?i)NUMBER\\(.*?\\)")) {
-            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().replace("NUMBER", "DECIMAL")));
+            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NUMBER", "DECIMAL")));
             node.ResetTokensbyNameTypeConstraint();
         }
 
@@ -479,7 +523,7 @@ public class OpenGaussGenerator {
             node.ResetTokensbyNameTypeConstraint();
         }
         if (node.getType().getValue().matches("(?i)VARCHAR2\\(.*?\\)")) {
-            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().replace("VARCHAR2", "VARCHAR")));
+            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("VARCHAR2", "VARCHAR")));
             node.ResetTokensbyNameTypeConstraint();
         }
 
@@ -488,7 +532,7 @@ public class OpenGaussGenerator {
             node.ResetTokensbyNameTypeConstraint();
         }
         if (node.getType().getValue().matches("(?i)RAW\\(.*?\\)")) {
-            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().replace("RAW", "BYTEA")));
+            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("RAW", "BYTEA")));
             node.ResetTokensbyNameTypeConstraint();
         }
 
@@ -502,7 +546,7 @@ public class OpenGaussGenerator {
             node.ResetTokensbyNameTypeConstraint();
         }
         if (node.getType().getValue().matches("(?i)NCHAR\\(.*?\\)")) {
-            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().replace("NCHAR", "VARCHAR")));
+            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NCHAR", "VARCHAR")));
             node.ResetTokensbyNameTypeConstraint();
         }
 
@@ -511,7 +555,7 @@ public class OpenGaussGenerator {
             node.ResetTokensbyNameTypeConstraint();
         }
         if (node.getType().getValue().matches("(?i)NVARCHAR2\\(.*?\\)")) {
-            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().replace("NVARCHAR2", "VARCHAR")));
+            node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NVARCHAR2", "VARCHAR")));
             node.ResetTokensbyNameTypeConstraint();
         }
 
