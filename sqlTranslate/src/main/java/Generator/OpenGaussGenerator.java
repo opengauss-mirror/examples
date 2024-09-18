@@ -277,6 +277,7 @@ public class OpenGaussGenerator {
 
     private void visitPL(ASTNode node) {
         if (node instanceof ProcedureRetDefNode) {
+            ColumnTypeConvert((ProcedureRetDefNode) node);
             PLConvert(node);
         }
         else if (node instanceof ProcedureColumnNode) {

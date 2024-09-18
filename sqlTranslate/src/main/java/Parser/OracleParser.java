@@ -27,6 +27,8 @@ import Parser.AST.Insert.InsertNode;
 import Parser.AST.Insert.InsertObjNode;
 import Parser.AST.Join.*;
 import Parser.AST.Loop.*;
+import Parser.AST.PL.PLDeclareNode;
+import Parser.AST.PL.PLNode;
 import Parser.AST.Procedure.*;
 import Parser.AST.Select.*;
 import Parser.AST.Trigger.*;
@@ -94,6 +96,8 @@ public class OracleParser {
             )
             {
                 return parseTrigger(lexer.getTokens());
+            } else if (lexer.getTokens().get(0).getValue().equalsIgnoreCase("DECLARE")) {
+                return parsePL(lexer.getTokens());
             }
             else {
                 try {
@@ -1784,11 +1788,14 @@ public class OracleParser {
             }
             // match procedure return definition
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("IS")) {
-                ASTNode childNode = new ProcedureRetDefNode();
+                ProcedureRetDefNode childNode = new ProcedureRetDefNode();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("BEGIN")) {
                         i = j - 1;
                         break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase("IS")) {
+                        childNode.setType(parseTokens.get(j));
                     }
                     childNode.addToken(parseTokens.get(j));
                 }
@@ -2327,6 +2334,52 @@ public class OracleParser {
                 }
             }
         }
+
+        return root;
+    }
+
+    /**
+     * PL/SQL
+     * Grammar: DECLARE
+     *    v_var1 v_type;
+     *    ...
+     * BEGIN
+     *    -- PL/SQL
+     * END;
+     * Example: DECLARE
+     *             v_name Varchar2(20);
+     *             v_salary employees.salary%TYPE;
+     *          BEGIN
+     *             SELECT name, salary INTO v_name, v_salary FROM employees WHERE employee_id = 100;
+     *             DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);
+     *          EXCEPTION
+     *             WHEN NO_DATA_FOUND THEN
+     *                DBMS_OUTPUT.PUT_LINE('No data found.');
+     *          END;
+     */
+    private ASTNode parsePL(List<Token> parseTokens) {
+        ASTNode root = new PLNode();
+        root.addToken(parseTokens.get(0));
+        ASTNode currentNode = root;
+        for (int i = 1; i < parseTokens.size(); i++) {
+            // match declare
+            if (currentNode == root) {
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("BEGIN")) {
+                        i = j - 1;
+                        break;
+                    }
+                    ASTNode childNode = new PLDeclareNode();
+                    for (int k = j; k < parseTokens.size(); k++) {
+                        if (parseTokens.get(k).hasType(Token.TokenType.SYMBOL) && parseTokens.get(k).getValue().equals(";")) {
+                            j = k;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
 
         return root;
     }

@@ -60,33 +60,33 @@ public class Main {
 //                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
 //                "    WHEN OTHERS THEN\n" +
 //                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);";
-//        String sql = "CREATE OR REPLACE PROCEDURE update_salary (\n" +
-//                "             employee_id IN NUMBER,\n" +
-//                "             new_salary IN OUT NUMBER\n" +
-//                "         ) IS\n" +
-//                "             v_employee employees%ROWTYPE;\n" +
-//                "         BEGIN\n" +
-//                "             SELECT * INTO v_employee FROM employees WHERE employee_id = employee_id;\n" +
-//                "\n" +
-//                "             IF new_salary < 3000 THEN\n" +
-//                "                 new_salary := new_salary * 1.1;\n" +
-//                "             ELSE\n" +
-//                "                 new_salary := new_salary * 1.05;\n" +
-//                "             END IF;\n" +
-//                "\n" +
-//                "             UPDATE employees SET salary = new_salary WHERE employee_id = employee_id;\n" +
-//                "             COMMIT;\n" +
-//                "\n" +
-//                "             DBMS_OUTPUT.PUT_LINE('Updated Salary: ' || new_salary);\n" +
-//                "         EXCEPTION\n" +
-//                "             WHEN NO_DATA_FOUND THEN\n" +
-//                "                 DBMS_OUTPUT.PUT_LINE('Employee not found.');\n" +
-//                "             WHEN TOO_MANY_ROWS THEN\n" +
-//                "                 DBMS_OUTPUT.PUT_LINE('Multiple employees found.');\n" +
-//                "             WHEN OTHERS THEN\n" +
-//                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
-//                "         END update_salary;\n" +
-//                "         /";
+        String sql = "CREATE OR REPLACE PROCEDURE update_salary (\n" +
+                "             employee_id IN NUMBER,\n" +
+                "             new_salary IN OUT NUMBER\n" +
+                "         ) IS\n" +
+                "             v_employee NUMBER;\n" +
+                "         BEGIN\n" +
+                "             SELECT * INTO v_employee FROM employees WHERE employee_id = employee_id;\n" +
+                "\n" +
+                "             IF new_salary < 3000 THEN\n" +
+                "                 new_salary := new_salary * 1.1;\n" +
+                "             ELSE\n" +
+                "                 new_salary := new_salary * 1.05;\n" +
+                "             END IF;\n" +
+                "\n" +
+                "             UPDATE employees SET salary = new_salary WHERE employee_id = employee_id;\n" +
+                "             COMMIT;\n" +
+                "\n" +
+                "             DBMS_OUTPUT.PUT_LINE('Updated Salary: ' || new_salary);\n" +
+                "         EXCEPTION\n" +
+                "             WHEN NO_DATA_FOUND THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('Employee not found.');\n" +
+                "             WHEN TOO_MANY_ROWS THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('Multiple employees found.');\n" +
+                "             WHEN OTHERS THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
+                "         END update_salary;\n" +
+                "         /";
 //        String sql = "CREATE OR REPLACE FUNCTION string_length (\n" +
 //                "    input_string VARCHAR2\n" +
 //                ") RETURN NUMBER IS\n" +
@@ -94,12 +94,12 @@ public class Main {
 //                "    RETURN LENGTH(input_string);\n" +
 //                "END;\n" +
 //                "/";
-        String sql = "CREATE OR REPLACE TRIGGER log_insert\n" +
-                "         BEFORE INSERT ON employees\n" +
-                "         FOR EACH ROW\n" +
-                "         BEGIN\n" +
-                "             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);\n" +
-                "         END;";
+//        String sql = "CREATE OR REPLACE TRIGGER log_insert\n" +
+//                "         BEFORE INSERT ON employees\n" +
+//                "         FOR EACH ROW\n" +
+//                "         BEGIN\n" +
+//                "             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);\n" +
+//                "         END;";
         OracleLexer lexer = new OracleLexer(sql);
         lexer.printTokens();
         OracleParser parser = new OracleParser(lexer);
