@@ -1,5 +1,6 @@
 package generator;
 
+import config.CommonConfig;
 import interfaces.DataType;
 import lexer.OracleLexer;
 import lexer.Token;
@@ -192,8 +193,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitCrt(ASTNode node) {
-        if (node instanceof ColumnNode) {
-            DataTypeConvert((ColumnNode) node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof ColumnNode) {
+                DataTypeConvert((ColumnNode) node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitCrt(child);
@@ -201,18 +205,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitDrop(ASTNode node) {
-        try {
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
             if (node instanceof DropOptionNode) {
-                List<Token> tokens = new ArrayList<>();
-                tokens.add(new Token(Token.TokenType.KEYWORD, "CASCADE"));
-                tokens.add(new Token(Token.TokenType.KEYWORD, "CONSTRAINTS"));
-                if (node.tokensEqual(tokens)) {
-                    throw new GenerateFailedException("Unsupported type:" + node.toString() + "(OpenGauss doesn't support the keyword -- " + node.toString() + " or have any expression that keeps the same semantic!)");
-                }
+                CommonConvert(node);
             }
-        }
-        catch (GenerateFailedException e) {
-            e.printStackTrace();
         }
         for (ASTNode child : node.getChildren()) {
             visitDrop(child);
@@ -220,10 +217,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitJoin(ASTNode node) {
-        if (node instanceof JoinConditionNode) {
-           if (((JoinConditionNode) node).getKeyword().equalsIgnoreCase("USING")) {
-               ((JoinConditionNode) node).setKeyword("ON");
-           }
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof JoinConditionNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitJoin(child);
@@ -231,8 +229,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitLoop(ASTNode node) {
-        if (node instanceof LoopBodyNode) {
-            PLConvert(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof LoopBodyNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitLoop(child);
@@ -240,8 +241,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitException(ASTNode node) {
-        if (node instanceof ExceptionActionNode) {
-            PLConvert(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof ExceptionActionNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitException(child);
@@ -249,8 +253,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitSelect(ASTNode node) {
-        if (node instanceof JoinSourceTabNode) {
-            visitJoin(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof JoinSourceTabNode) {
+                visitJoin(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitSelect(child);
@@ -258,8 +265,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitUpdate(ASTNode node) {
-        if (node instanceof JoinSourceTabNode) {
-            visitJoin(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof JoinSourceTabNode) {
+                visitJoin(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitUpdate(child);
@@ -267,11 +277,14 @@ public class OpenGaussGenerator {
     }
 
     private void visitAlter(ASTNode node) {
-        if (node instanceof AlterAddColumnNode) {
-            DataTypeConvert((AlterAddColumnNode) node);
-        }
-        else if (node instanceof AlterModifyColumnNode) {
-            DataTypeConvert((AlterModifyColumnNode) node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof AlterAddColumnNode) {
+                DataTypeConvert((AlterAddColumnNode) node);
+            }
+            else if (node instanceof AlterModifyColumnNode) {
+                DataTypeConvert((AlterModifyColumnNode) node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitAlter(child);
@@ -279,8 +292,11 @@ public class OpenGaussGenerator {
     }
 
     private void visitCreateView(ASTNode node) {
-        if (node instanceof SelectNode) {
-            visitSelect(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof SelectNode) {
+                visitSelect(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitCreateView(child);
@@ -288,18 +304,21 @@ public class OpenGaussGenerator {
     }
 
     private void visitPL(ASTNode node) {
-        if (node instanceof ProcedureRetDefNode) {
-            DataTypeConvert((ProcedureRetDefNode) node);
-            PLConvert(node);
-        }
-        else if (node instanceof ProcedureColumnNode) {
-            DataTypeConvert((ProcedureColumnNode) node);
-        }
-        else if (node instanceof ProcedureEndNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof ExceptionNode) {
-            visitException(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof ProcedureRetDefNode) {
+                DataTypeConvert((ProcedureRetDefNode) node);
+                CommonConvert(node);
+            }
+            else if (node instanceof ProcedureColumnNode) {
+                DataTypeConvert((ProcedureColumnNode) node);
+            }
+            else if (node instanceof ProcedureEndNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof ExceptionNode) {
+                visitException(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitPL(child);
@@ -307,17 +326,20 @@ public class OpenGaussGenerator {
     }
 
     private void visitFunc(ASTNode node) {
-        if (node instanceof FunctionRetDefNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof ExceptionNode) {
-            visitException(node);
-        }
-        else if (node instanceof FunctionColumnNode) {
-            DataTypeConvert((FunctionColumnNode) node);
-        }
-        else if (node instanceof FunctionEndNode) {
-            PLConvert(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof FunctionRetDefNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof ExceptionNode) {
+                visitException(node);
+            }
+            else if (node instanceof FunctionColumnNode) {
+                DataTypeConvert((FunctionColumnNode) node);
+            }
+            else if (node instanceof FunctionEndNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitFunc(child);
@@ -325,14 +347,17 @@ public class OpenGaussGenerator {
     }
 
     private void visitTrigger(ASTNode node) {
-        if (node instanceof TriggerBodyNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof TriggerConditionNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof TriggerOptionNode) {
-            PLConvert(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof TriggerBodyNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof TriggerConditionNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof TriggerOptionNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitTrigger(child);
@@ -340,24 +365,27 @@ public class OpenGaussGenerator {
     }
 
     private void visitPLSQL(ASTNode node) {
-        if (node instanceof PLNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof PLDeclareNode) {
-            DataTypeConvert((PLDeclareNode) node);
-        }
-        else if (node instanceof PLEndNode) {
-            PLConvert(node);
-        }
-        else if (node instanceof PLBodyNode) {
-            PLConvert(node);
+        if (CommonConfig.getSourceDB().equalsIgnoreCase("ORACLE-19C")
+         && CommonConfig.getTargetDB().equalsIgnoreCase("OPENGAUSS-3.0.0")) {
+            if (node instanceof PLNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof PLDeclareNode) {
+                DataTypeConvert((PLDeclareNode) node);
+            }
+            else if (node instanceof PLEndNode) {
+                CommonConvert(node);
+            }
+            else if (node instanceof PLBodyNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitPLSQL(child);
         }
     }
 
-    private void PLConvert(ASTNode node) {
+    private void CommonConvert(ASTNode node) {
         if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
             String printObj = "";
             for (Token token: node.getTokens()) {
@@ -504,6 +532,24 @@ public class OpenGaussGenerator {
             tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
             node.setTokens(tokens);
         }
+        if (node instanceof DropOptionNode) {
+            try {
+                List<Token> tokens = new ArrayList<>();
+                tokens.add(new Token(Token.TokenType.KEYWORD, "CASCADE"));
+                tokens.add(new Token(Token.TokenType.KEYWORD, "CONSTRAINTS"));
+                if (node.tokensEqual(tokens)) {
+                    throw new GenerateFailedException("Unsupported type:" + node.toString() + "(OpenGauss doesn't support the keyword -- " + node.toString() + " or have any expression that keeps the same semantic!)");
+                }
+            } catch (GenerateFailedException e) {
+                e.printStackTrace();
+            }
+        }
+        if (node instanceof JoinConditionNode) {
+            if (((JoinConditionNode) node).getKeyword().equalsIgnoreCase("USING")) {
+                ((JoinConditionNode) node).setKeyword("ON");
+            }
+        }
+
     }
 
 
