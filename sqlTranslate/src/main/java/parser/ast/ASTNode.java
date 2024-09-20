@@ -110,6 +110,13 @@ public abstract class ASTNode {
         return null;
     }
 
+    public ASTNode getFirstChild() {
+        if (hasChild())
+            return children.get(0);
+        else
+            return null;
+    }
+
     public List<ASTNode> getChildrenByName(String childName) {
         List<ASTNode> nodes = new ArrayList<>();
         for (ASTNode child : children) {

@@ -395,9 +395,17 @@ public class OpenGaussGenerator {
                 DataTypeConvert((TriggerDeclareContentNode) node);
             }
         }
-        for (ASTNode child : node.getChildren()) {
-            visitTrigger(child);
+        if (!(node.getFirstChild() instanceof TriggerDeclareNode || node.getFirstChild() instanceof TriggerBeginNode)) {
+            for (ASTNode child : node.getChildren()) {
+                visitTrigger(child);
+            }
         }
+        else {
+            // TODO: need to handle trigger body
+
+
+        }
+
     }
 
     private void visitPLSQL(ASTNode node) {
