@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add unit test">
-      <change afterPath="$PROJECT_DIR$/src/test/java/testCommitRollbackExec.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testCreateTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/testAlterTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testAlterTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testCommitRollbackExec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testCommitRollbackExec.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +46,8 @@
     "Application.Main.executor": "Run",
     "JUnit.testAlterTable.testAlterTable.executor": "Run",
     "JUnit.testCommitRollbackExec.test.executor": "Run",
+    "JUnit.testCreateTable.executor": "Run",
+    "JUnit.testCreateTable.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -56,39 +59,10 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.testCommitRollbackExec.test">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.App" />
-      <module name="sqlTranslate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.testCreateTable">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="sqlTranslate" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AppTest.shouldAnswerWithTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example" />
-      <option name="MAIN_CLASS_NAME" value="org.example.AppTest" />
-      <option name="METHOD_NAME" value="shouldAnswerWithTrue" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,20 +87,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="testCreateTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testCreateTable" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testCreateTable.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testCreateTable" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.App" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.testAlterTable.testAlterTable" />
       <item itemvalue="JUnit.testCommitRollbackExec.test" />
-      <item itemvalue="JUnit.AppTest.shouldAnswerWithTrue" />
+      <item itemvalue="JUnit.testCreateTable" />
+      <item itemvalue="JUnit.testCreateTable.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testCreateTable" />
+        <item itemvalue="JUnit.testCreateTable.test" />
         <item itemvalue="JUnit.testCommitRollbackExec.test" />
         <item itemvalue="JUnit.testAlterTable.testAlterTable" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.AppTest.shouldAnswerWithTrue" />
-        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -482,7 +475,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

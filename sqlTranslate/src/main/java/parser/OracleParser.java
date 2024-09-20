@@ -2362,7 +2362,7 @@ public class OracleParser {
         ASTNode currentNode = root;
         for (int i = 1; i < parseTokens.size(); i++) {
             // match declare
-            if (currentNode == root) {
+            if (currentNode == root && !(parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("BEGIN"))) {
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("BEGIN")) {
                         i = j - 1;

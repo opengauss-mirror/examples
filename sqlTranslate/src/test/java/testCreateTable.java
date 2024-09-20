@@ -9,21 +9,19 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCommitRollbackExec {
+public class testCreateTable {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("DECLARE\n" +
-                "BEGIN\n" +
-                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
-                "    ROLLBACK;\n" +
-                "END;");
-        testSQL.add("DECLARE\n" +
-                "BEGIN\n" +
-                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
-                "    COMMIT;\n" +
-                "END;");
+        testSQL.add("CREATE TABLE employees (\n" +
+                "    employee_id NUMBER PRIMARY KEY,\n" +
+                "    first_name VARCHAR2(20) Check(first_name > '221'),\n" +
+                "    last_name VARCHAR2(25) Check (last_name != '12813@163.com'),\n" +
+                "    email VARCHAR2(25),\n" +
+                "    hire_date DATE,\n" +
+                "    CONSTRAINT chk_example CHECK (employee_id > 0)" +
+                ");");
         System.out.println("===== test of the alter table =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
