@@ -20,7 +20,7 @@ public class testProcedure {
                 "         ) IS\n" +
                 "             v_employee employees%ROWTYPE;\n" +
                 "         BEGIN\n" +
-                "             SELECT * INTO v_employee FROM employees WHERE employee_id = employee_id;\n" +
+                "             SELECT * FROM employees WHERE employee_id = employee_id;\n" +
                 "             IF new_salary < 3000 THEN\n" +
                 "                 new_salary := new_salary * 1.1;\n" +
                 "             ELSE\n" +

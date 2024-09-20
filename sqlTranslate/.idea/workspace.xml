@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add unit test">
-      <change afterPath="$PROJECT_DIR$/src/test/java/testFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testIfElse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testInsert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testLoop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testPL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testProcedure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testSelect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testTrigger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/testView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testJoin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ASTNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionRetDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionRetDefNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureRetDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureRetDefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lexer/OracleLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +44,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.testAlterTable.executor": "Run",
     "JUnit.testAlterTable.testAlterTable.executor": "Run",
     "JUnit.testCommitRollbackExec.test.executor": "Run",
     "JUnit.testCreateTable.executor": "Run",
@@ -66,6 +55,8 @@
     "JUnit.testException.test.executor": "Run",
     "JUnit.testIfElse.test.executor": "Run",
     "JUnit.testInsert.test.executor": "Run",
+    "JUnit.testJoin.executor": "Run",
+    "JUnit.testJoin.test.executor": "Run",
     "JUnit.testLoop.test.executor": "Run",
     "JUnit.testPL.executor": "Run",
     "JUnit.testProcedure.test.executor": "Run",
@@ -84,7 +75,25 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.testView">
+  <component name="RunManager" selected="JUnit.testProcedure.test">
+    <configuration name="testAlterTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testAlterTable" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testJoin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testJoin" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="testProcedure.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
@@ -105,15 +114,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testTrigger" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
@@ -123,29 +123,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testView" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testView" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="JUnit.testAlterTable" />
+      <item itemvalue="JUnit.testJoin" />
       <item itemvalue="JUnit.testProcedure.test" />
       <item itemvalue="JUnit.testSelect.test" />
-      <item itemvalue="JUnit.testTrigger" />
       <item itemvalue="JUnit.testUpdate" />
-      <item itemvalue="JUnit.testView" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.testView" />
-        <item itemvalue="JUnit.testUpdate" />
-        <item itemvalue="JUnit.testTrigger" />
-        <item itemvalue="JUnit.testSelect.test" />
         <item itemvalue="JUnit.testProcedure.test" />
+        <item itemvalue="JUnit.testAlterTable" />
+        <item itemvalue="JUnit.testJoin" />
+        <item itemvalue="JUnit.testSelect.test" />
+        <item itemvalue="JUnit.testUpdate" />
       </list>
     </recent_temporary>
   </component>
@@ -501,7 +492,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

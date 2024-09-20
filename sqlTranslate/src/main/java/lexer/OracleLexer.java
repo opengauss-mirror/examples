@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 
 public class OracleLexer {
-    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE", "VALUES",
+    public static final String[] keywords = {"SELECT", "FROM", "WHERE", "AND", "OR", "INSERT", "UPDATE", "DELETE", "VALUES", "INTO",
             // keywords of creating table
             "CREATE", "TABLE", "TEMPORARY", "GLOBAL",
             "NUMBER", "INTEGER", "SMALLIN", "BINARY_INTEGER", "DECIMAL", "REAL", "FLOAT", "DOUBLE PRECISION", "CHAR", "VARCHAR2",
@@ -85,9 +85,7 @@ public class OracleLexer {
                     "(:=)|" +
                     "(\\.\\.)|" +
 
-                    "(\\b[A-Za-z_][A-Za-z0-9_]*(%[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
-                    "(\\b[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*\\b)|" + // Keywords and identifiers
-                    "(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|" + // Keywords and identifiers
+                    "(\\b[A-Za-z_][A-Za-z0-9_.%]*\\b)|" + // Keywords and identifiers
                     "(\\d+\\.?\\d*)|" +                 // Numbers (integer or decimal)
                     "(\"[^\"]*\")|" +                   // Double-quoted strings
                     "('([^']|\\\\')*)'|" +              // Single-quoted strings
@@ -189,11 +187,7 @@ public class OracleLexer {
 
         else if (isKeyword(tokenValue)) {
             return new Token(Token.TokenType.KEYWORD, tokenValue);
-        } else if (tokenValue.matches("[A-Za-z_][A-Za-z0-9_]*(%[A-Za-z_][A-Za-z0-9_]*)*")) {
-            return new Token(Token.TokenType.IDENTIFIER, tokenValue);
-        } else if (tokenValue.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*")) {
-            return new Token(Token.TokenType.IDENTIFIER, tokenValue);
-        } else if (tokenValue.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+        } else if (tokenValue.matches("[a-zA-Z_][a-zA-Z0-9_.%]*")) {
             return new Token(Token.TokenType.IDENTIFIER, tokenValue);
         }
         return null;
