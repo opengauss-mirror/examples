@@ -9,20 +9,14 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCreateTable {
+public class testDropTable {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE TABLE employees (\n" +
-                "    employee_id NUMBER PRIMARY KEY,\n" +
-                "    first_name VARCHAR2(20) Check(first_name > '221'),\n" +
-                "    last_name VARCHAR2(25) Check (last_name != '12813@163.com'),\n" +
-                "    email VARCHAR2(25),\n" +
-                "    hire_date DATE,\n" +
-                "    CONSTRAINT chk_example CHECK (employee_id > 0)" +
-                ");");
-        System.out.println("===== test of Create table =====");
+        testSQL.add("DROP TABLE employees CASCADE CONSTRAINTS;");
+        testSQL.add("DROP TABLE employees;");
+        System.out.println("===== test of Drop table =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

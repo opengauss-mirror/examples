@@ -9,20 +9,21 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCreateTable {
+public class testException {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE TABLE employees (\n" +
-                "    employee_id NUMBER PRIMARY KEY,\n" +
-                "    first_name VARCHAR2(20) Check(first_name > '221'),\n" +
-                "    last_name VARCHAR2(25) Check (last_name != '12813@163.com'),\n" +
-                "    email VARCHAR2(25),\n" +
-                "    hire_date DATE,\n" +
-                "    CONSTRAINT chk_example CHECK (employee_id > 0)" +
-                ");");
-        System.out.println("===== test of Create table =====");
+        testSQL.add("EXCEPTION\n" +
+                "    WHEN e_custom_exception THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');\n" +
+                "    WHEN ZERO_DIVIDE THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');\n" +
+                "    WHEN INVALID_NUMBER THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
+                "    WHEN OTHERS THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);");
+        System.out.println("===== test of EXCEPTION =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -37,8 +38,7 @@ public class testCreateTable {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            OracleParser parser = new OracleParser(lexer);
-            ASTNode root = parser.parse();
+            ASTNode root = OracleParser.parseException(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

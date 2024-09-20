@@ -9,20 +9,18 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCreateTable {
+public class testDelete {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE TABLE employees (\n" +
-                "    employee_id NUMBER PRIMARY KEY,\n" +
-                "    first_name VARCHAR2(20) Check(first_name > '221'),\n" +
-                "    last_name VARCHAR2(25) Check (last_name != '12813@163.com'),\n" +
-                "    email VARCHAR2(25),\n" +
-                "    hire_date DATE,\n" +
-                "    CONSTRAINT chk_example CHECK (employee_id > 0)" +
+        testSQL.add("DELETE FROM employees e\n" +
+                "WHERE e.department_id IN (\n" +
+                "    SELECT d.department_id\n" +
+                "    FROM departments d\n" +
+                "    WHERE d.department_name = 'Sales'\n" +
                 ");");
-        System.out.println("===== test of Create table =====");
+        System.out.println("===== test of Delete =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

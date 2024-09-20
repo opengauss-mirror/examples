@@ -23,7 +23,7 @@ public class testAlterTable {
         testSQL.add("ALTER TABLE employees ADD CONSTRAINT emp_pk PRIMARY KEY (employee_id);");
         testSQL.add("ALTER TABLE employees DROP CONSTRAINT emp_pk;");
         testSQL.add("ALTER TABLE employees RENAME TO staff;");
-        System.out.println("===== test of the alter table =====");
+        System.out.println("===== test of alter table =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -34,7 +34,7 @@ public class testAlterTable {
     {
         int num = 1;
         for (String sql : testSQL) {
-            System.out.println("===== test of the SQL" + num++ + " =====");
+            System.out.println("===== test the SQL" + num++ + " =====");
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();

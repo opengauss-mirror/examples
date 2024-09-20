@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add unit test">
-      <change afterPath="$PROJECT_DIR$/src/test/java/testCreateTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testDelete.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testDropTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/testCommitRollbackExec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testCommitRollbackExec.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,9 @@
     "JUnit.testCommitRollbackExec.test.executor": "Run",
     "JUnit.testCreateTable.executor": "Run",
     "JUnit.testCreateTable.test.executor": "Run",
+    "JUnit.testDelete.test.executor": "Run",
+    "JUnit.testDropTable.test.executor": "Run",
+    "JUnit.testException.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -59,34 +62,7 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.testCreateTable">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="sqlTranslate" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="testAlterTable.testAlterTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testAlterTable" />
-      <option name="METHOD_NAME" value="testAlterTable" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="testCommitRollbackExec.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testCommitRollbackExec" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.testException.test">
     <configuration name="testCreateTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
@@ -96,10 +72,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testCreateTable.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="testDelete.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testCreateTable" />
+      <option name="MAIN_CLASS_NAME" value="testDelete" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDropTable.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testDropTable" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testException" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testException.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testException" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -107,19 +112,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.testAlterTable.testAlterTable" />
-      <item itemvalue="JUnit.testCommitRollbackExec.test" />
       <item itemvalue="JUnit.testCreateTable" />
-      <item itemvalue="JUnit.testCreateTable.test" />
+      <item itemvalue="JUnit.testDelete.test" />
+      <item itemvalue="JUnit.testDropTable.test" />
+      <item itemvalue="JUnit.testException" />
+      <item itemvalue="JUnit.testException.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testException.test" />
+        <item itemvalue="JUnit.testException" />
+        <item itemvalue="JUnit.testDropTable.test" />
+        <item itemvalue="JUnit.testDelete.test" />
         <item itemvalue="JUnit.testCreateTable" />
-        <item itemvalue="JUnit.testCreateTable.test" />
-        <item itemvalue="JUnit.testCommitRollbackExec.test" />
-        <item itemvalue="JUnit.testAlterTable.testAlterTable" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -475,7 +480,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

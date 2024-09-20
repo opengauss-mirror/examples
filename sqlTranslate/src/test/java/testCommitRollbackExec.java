@@ -24,7 +24,7 @@ public class testCommitRollbackExec {
                 "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
                 "    COMMIT;\n" +
                 "END;");
-        System.out.println("===== test of the alter table =====");
+        System.out.println("===== test of Commit, Rollback，Exec =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -35,7 +35,7 @@ public class testCommitRollbackExec {
     {
         int num = 1;
         for (String sql : testSQL) {
-            System.out.println("===== test of the SQL" + num++ + " =====");
+            System.out.println("===== test the SQL" + num++ + " =====");
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
