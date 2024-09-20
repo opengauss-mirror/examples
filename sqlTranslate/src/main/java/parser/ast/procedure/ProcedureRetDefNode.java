@@ -12,6 +12,7 @@ public class ProcedureRetDefNode extends ASTNode implements DataType {
     public ProcedureRetDefNode() {
         super();
         setTokens(new ArrayList<>());
+        setType(new Token(Token.TokenType.NULL, ""));
     }
 
     public ProcedureRetDefNode(ASTNode node) {

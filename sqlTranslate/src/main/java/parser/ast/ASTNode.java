@@ -4,6 +4,8 @@ import lexer.Token;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 public abstract class ASTNode {
     private List<Token> tokens;
@@ -29,6 +31,37 @@ public abstract class ASTNode {
 
     public void setTokens(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public void modifyTokens(int index, Token token) {
+        tokens.set(index, token);
+    }
+
+    public void moveTokenByIndex(int index) {
+        tokens.remove(index);
+    }
+
+    public void addTokenByIndex(int index, Token token) {
+        tokens.add(index, token);
+    }
+
+    public void addTokensByIndex(int index, List<Token> tokens) {
+        this.tokens.addAll(index, tokens);
+    }
+
+    public int getTokenIndexByRegex(String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Optional<Integer> indexOpt = tokens.stream()
+                .filter(token -> pattern.matcher(token.getValue()).matches())
+                .map(token -> tokens.indexOf(token))
+                .findFirst();
+        if (indexOpt.isPresent()) {
+            int index = indexOpt.get();
+            return index;
+        } else {
+            return -1;
+        }
+
     }
 
     public boolean checkExistsByRegex (String regex) {

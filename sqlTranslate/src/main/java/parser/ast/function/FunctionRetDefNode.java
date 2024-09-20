@@ -12,6 +12,7 @@ public class FunctionRetDefNode extends ASTNode implements DataType {
     public FunctionRetDefNode() {
         super();
         setTokens(new ArrayList<>());
+        setType(new Token(Token.TokenType.NULL, ""));
     }
 
     public FunctionRetDefNode(ASTNode node) {

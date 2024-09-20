@@ -20,6 +20,7 @@ import parser.ast.function.FunctionColumnNode;
 import parser.ast.function.FunctionEndNode;
 import parser.ast.function.FunctionNode;
 import parser.ast.function.FunctionRetDefNode;
+import parser.ast.iFELSIF.IFConditionNode;
 import parser.ast.insert.InsertNode;
 import parser.ast.join.JoinConditionNode;
 import parser.ast.join.JoinSourceTabNode;
@@ -31,10 +32,7 @@ import parser.ast.pl.PLBodyNode;
 import parser.ast.pl.PLDeclareNode;
 import parser.ast.pl.PLEndNode;
 import parser.ast.pl.PLNode;
-import parser.ast.procedure.ProcedureColumnNode;
-import parser.ast.procedure.ProcedureEndNode;
-import parser.ast.procedure.ProcedureNode;
-import parser.ast.procedure.ProcedureRetDefNode;
+import parser.ast.procedure.*;
 import parser.ast.select.SelectNode;
 import parser.ast.trigger.*;
 import parser.ast.update.UpdateNode;
@@ -100,6 +98,9 @@ public class OpenGaussGenerator {
         }
         else if (node instanceof PLNode) {
             return GenPLSQL(node);
+        }
+        else if (node instanceof IFConditionNode) {
+            return GenIfElseSQL(node);
         }
         else {
             try {
@@ -189,6 +190,12 @@ public class OpenGaussGenerator {
 
     private String GenPLSQL(ASTNode node) {
         visitPLSQL(node);
+//        System.out.println(node.getASTString());
+        return node.toQueryString();
+    }
+
+    private String GenIfElseSQL(ASTNode node) {
+        visitIfElse(node);
         return node.toQueryString();
     }
 
@@ -237,6 +244,13 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitLoop(child);
+        }
+    }
+
+    private void visitIfElse(ASTNode node) {
+
+        for (ASTNode child : node.getChildren()) {
+            visitIfElse(child);
         }
     }
 
@@ -319,6 +333,9 @@ public class OpenGaussGenerator {
             else if (node instanceof ExceptionNode) {
                 visitException(node);
             }
+            else if (node instanceof ProcedurePLStatementNode) {
+                CommonConvert(node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitPL(child);
@@ -388,8 +405,10 @@ public class OpenGaussGenerator {
     private void CommonConvert(ASTNode node) {
         if (node.checkExistsByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
             String printObj = "";
+            int index = -1;
             for (Token token: node.getTokens()) {
                 if (token.getValue().matches("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)")) {
+                    index = node.getTokenIndexByRegex("(?i)DBMS_OUTPUT.PUT_LINE\\(.*?\\)");
                     Pattern pattern = Pattern.compile("\\(([^()]*)\\)");
                     Matcher matcher = pattern.matcher(token.getValue());
                     while (matcher.find()) {
@@ -405,8 +424,8 @@ public class OpenGaussGenerator {
                 tokens.add(new Token(Token.TokenType.STRING, "'%'"));
                 tokens.add(new Token(Token.TokenType.SYMBOL, ","));
                 tokens.add(new Token(Token.TokenType.IDENTIFIER, printObj));
-                tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
-                node.setTokens(tokens);
+                node.moveTokenByIndex(index);
+                node.addTokensByIndex(index, tokens);
             }
             else {
                 OracleLexer lexer = new OracleLexer(printObj.replace("||", " "));
@@ -433,8 +452,8 @@ public class OpenGaussGenerator {
                         tokens.add(new Token(Token.TokenType.SYMBOL, ","));
                         tokens.add(token);
                     }
-                    tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
-                    node.setTokens(tokens);
+                    node.moveTokenByIndex(index);
+                    node.addTokensByIndex(index, tokens);
                 }
                 else {
                     List<Token> tokens = new ArrayList<>();
@@ -443,8 +462,8 @@ public class OpenGaussGenerator {
                     tokens.add(new Token(Token.TokenType.STRING, "'%'"));
                     tokens.add(new Token(Token.TokenType.SYMBOL, ","));
                     tokens.add(new Token(Token.TokenType.STRING, "'" + output + "'"));
-                    tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
-                    node.setTokens(tokens);
+                    node.moveTokenByIndex(index);
+                    node.addTokensByIndex(index, tokens);
                 }
 
             }
