@@ -2157,7 +2157,7 @@ public class OracleParser {
     /**
      * Create TRIGGER
      * Grammar: CREATE OR REPLACE TRIGGER trigger_name
-     * BEFORE | AFTER | INSTEAD OF -- OpenGauss does not support INSTEAD OF
+     * BEFORE | AFTER
      * { INSERT | UPDATE | DELETE }
      * ON table_name
      * [REFERENCING NEW AS new OLD AS old] -- OpenGauss does not support this
@@ -2280,6 +2280,44 @@ public class OracleParser {
                         break;
                     }
                     childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DECLARE")) {
+                ASTNode childNode = new TriggerDeclareNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare content
+            else if (currentNode instanceof TriggerDeclareNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                TriggerDeclareContentNode childNode = new TriggerDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
+                        childNode.setType(parseTokens.get(j));
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (currentNode instanceof TriggerDeclareContentNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                TriggerDeclareContentNode childNode = new TriggerDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
+                        childNode.setType(parseTokens.get(j));
+                    }
                 }
                 currentNode.addChild(childNode);
                 currentNode = childNode;

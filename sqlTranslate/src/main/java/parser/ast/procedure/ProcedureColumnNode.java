@@ -80,7 +80,7 @@ public class ProcedureColumnNode extends ASTNode implements DataType {
     }
 
     @Override
-    public void ResetTokensbyNameTypeConstraint() {
+    public void ResetTokensbyType() {
         List <Token> tokens = new ArrayList<>();
         tokens.add(name);
         for (Token token : InOut) {

@@ -1,17 +1,80 @@
 CREATE OR REPLACE TRIGGER trigger_name
-BEFORE | AFTER | INSTEAD OF -- OpenGauss does not support INSTEAD OF
+BEFORE | AFTER
 { INSERT | UPDATE | DELETE }
 ON table_name
 [REFERENCING NEW AS new OLD AS old] -- OpenGauss does not support this
 FOR EACH ROW
 [WHEN (condition)]
+[DECLARE]
+-- declare part
 BEGIN
     -- trigger body
 END;
 
-Example: CREATE OR REPLACE TRIGGER log_insert
-         BEFORE INSERT ON employees
+Example: CREATE OR REPLACE TRIGGER log_insert_trigger
+         AFTER INSERT ON employees
          FOR EACH ROW
+         DECLARE
+             l_action VARCHAR2(10) := 'INSERT';
          BEGIN
-             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);
+             INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);
+             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || :NEW.id);
+         EXCEPTION
+             WHEN OTHERS THEN
+                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
          END;
+         /
+
+         CREATE TABLE employees (
+             id NUMBER PRIMARY KEY,
+             name VARCHAR2(100) NOT NULL,
+             position VARCHAR2(50),
+             hire_date DATE
+         );
+
+         CREATE TABLE audit_log (
+             action VARCHAR2(10) NOT NULL,
+             employee_id NUMBER,
+             timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+         );
+
+         INSERT INTO employees (id, name, position, hire_date) VALUES (1, 'John Doe', 'Developer', SYSDATE);
+
+         select * from audit_log;
+
+Equal SQL on OpenGauss:
+    CREATE OR REPLACE FUNCTION log_insert_trigger()
+    RETURNS TRIGGER AS $$
+    DECLARE
+        l_action TEXT := 'INSERT';
+    BEGIN
+        INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);
+        RETURN NEW;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE NOTICE 'An error occurred: %', SQLERRM;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER log_insert_trigger
+    AFTER INSERT ON employees
+    FOR EACH ROW
+    EXECUTE PROCEDURE log_insert_trigger();
+
+    CREATE TABLE employees (
+                 id NUMBER PRIMARY KEY,
+                 name VARCHAR(100) NOT NULL,
+                 position VARCHAR(50),
+                 hire_date DATE
+             );
+
+    CREATE TABLE audit_log (
+                 action VARCHAR(10) NOT NULL,
+                 employee_id NUMERIC,
+                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+             );
+
+    INSERT INTO employees (id, name, position, hire_date) VALUES (1, 'John Doe', 'Developer', SYSDATE);
+
+    select * from audit_log;
+

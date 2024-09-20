@@ -391,6 +391,9 @@ public class OpenGaussGenerator {
             else if (node instanceof TriggerOptionNode) {
                 CommonConvert(node);
             }
+            else if (node instanceof TriggerDeclareContentNode) {
+                DataTypeConvert((TriggerDeclareContentNode) node);
+            }
         }
         for (ASTNode child : node.getChildren()) {
             visitTrigger(child);
@@ -592,67 +595,67 @@ public class OpenGaussGenerator {
         // type convert
         if (node.getType().getValue().equalsIgnoreCase("NUMBER")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "NUMERIC"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
         if (node.getType().getValue().matches("(?i)NUMBER\\(.*?\\)")) {
             node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NUMBER", "DECIMAL")));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("VARCHAR2")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "VARCHAR"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
         if (node.getType().getValue().matches("(?i)VARCHAR2\\(.*?\\)")) {
             node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("VARCHAR2", "VARCHAR")));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("RAW")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "BYTEA"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
         if (node.getType().getValue().matches("(?i)RAW\\(.*?\\)")) {
             node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("RAW", "BYTEA")));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("BINARY_INTEGER")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "INTEGER"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("NCHAR")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "VARCHAR"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
         if (node.getType().getValue().matches("(?i)NCHAR\\(.*?\\)")) {
             node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NCHAR", "VARCHAR")));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("NVARCHAR2")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "VARCHAR"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
         if (node.getType().getValue().matches("(?i)NVARCHAR2\\(.*?\\)")) {
             node.setType(new Token(Token.TokenType.KEYWORD, node.getType().getValue().toUpperCase().replace("NVARCHAR2", "VARCHAR")));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("NCLOB")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "TEXT"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("INTERVAL YEAR TO MONTH")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "INTERVAL"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         if (node.getType().getValue().equalsIgnoreCase("INTERVAL DAY TO SECOND")) {
             node.setType(new Token(Token.TokenType.KEYWORD, "INTERVAL"));
-            node.ResetTokensbyNameTypeConstraint();
+            node.ResetTokensbyType();
         }
 
         // Impossible to convert

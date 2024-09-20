@@ -50,7 +50,7 @@ public class AlterModifyColumnNode extends ASTNode implements DataType {
     }
 
     @Override
-    public void ResetTokensbyNameTypeConstraint() {
+    public void ResetTokensbyType() {
         List <Token> tokens = new ArrayList<>();
         tokens.add(new Token(Token.TokenType.KEYWORD, "MODIFY"));
         tokens.add(name);

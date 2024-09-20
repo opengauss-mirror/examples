@@ -14,11 +14,17 @@ public class testTrigger {
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE OR REPLACE TRIGGER log_insert\n" +
-                "         BEFORE INSERT ON employees\n" +
+        testSQL.add("CREATE OR REPLACE TRIGGER log_insert_trigger\n" +
+                "         AFTER INSERT ON employees\n" +
                 "         FOR EACH ROW\n" +
+                "         DECLARE\n" +
+                "             l_action VARCHAR2(10) := 'INSERT';\n" +
                 "         BEGIN\n" +
-                "             INSERT INTO audit_log (action, employee_id) VALUES ('INSERT', :NEW.id);\n" +
+                "             INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);\n" +
+                "             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || :NEW.id);\n" +
+                "         EXCEPTION\n" +
+                "             WHEN OTHERS THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
                 "         END;");
         System.out.println("===== test of Trigger =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());

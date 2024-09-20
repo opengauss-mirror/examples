@@ -43,7 +43,7 @@ public class ProcedureRetDefNode extends ASTNode implements DataType {
     }
 
     @Override
-    public void ResetTokensbyNameTypeConstraint() {
+    public void ResetTokensbyType() {
         List <Token> tokens = new ArrayList<>();
         for (Token token: getTokens()) {
             if (token.hasType(Token.TokenType.KEYWORD) && !token.getValue().equalsIgnoreCase("IS")) {
