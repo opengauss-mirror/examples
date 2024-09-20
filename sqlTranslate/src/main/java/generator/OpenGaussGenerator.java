@@ -8,6 +8,7 @@ import parser.ast.ASTNode;
 import parser.ast.alterTable.AlterAddColumnNode;
 import parser.ast.alterTable.AlterModifyColumnNode;
 import parser.ast.alterTable.AlterNode;
+import parser.ast.caseWhen.CaseConditionNode;
 import parser.ast.createTable.ColumnNode;
 import parser.ast.createTable.CreateTabNode;
 import exception.GenerateFailedException;
@@ -102,6 +103,9 @@ public class OpenGaussGenerator {
         else if (node instanceof IFConditionNode) {
             return GenIfElseSQL(node);
         }
+        else if (node instanceof CaseConditionNode) {
+            return GenCaseWhenSQL(node);
+        }
         else {
             try {
                 throw new GenerateFailedException("Root node:" + node.getClass() + "(Unsupported node type!)");
@@ -138,6 +142,11 @@ public class OpenGaussGenerator {
 
     private String GenJoinSQL(ASTNode node) {
         visitJoin(node);
+        return node.toQueryString();
+    }
+
+    private String GenCaseWhenSQL(ASTNode node) {
+        visitCaseWhen(node);
         return node.toQueryString();
     }
 
@@ -232,6 +241,13 @@ public class OpenGaussGenerator {
         }
         for (ASTNode child : node.getChildren()) {
             visitJoin(child);
+        }
+    }
+
+    private void visitCaseWhen(ASTNode node) {
+
+        for (ASTNode child : node.getChildren()) {
+            visitCaseWhen(child);
         }
     }
 

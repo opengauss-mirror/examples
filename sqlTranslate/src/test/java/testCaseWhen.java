@@ -9,24 +9,13 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testSelect {
+public class testCaseWhen {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("SELECT * FROM employees Union SELECT employee_id, first_name, last_name FROM employees;");
-        testSQL.add("SELECT * FROM employees WHERE department_id = 10;");
-        testSQL.add("SELECT * FROM employees ORDER BY hire_date DESC;");
-        testSQL.add("SELECT COUNT(*), AVG(salary) FROM employees;");
-        testSQL.add("SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;");
-        testSQL.add("SELECT e.first_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;");
-        testSQL.add("SELECT\n" +
-                "        column1,\n" +
-                "        CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END as status,\n" +
-                "        SUBSTR(column3, 1, 5) as substring_column3\n" +
-                "    FROM table_name;");
-        testSQL.add("SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > 10;");
-        System.out.println("===== test of Select =====");
+        testSQL.add("CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END");
+        System.out.println("===== test of CaseWhen =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -41,8 +30,7 @@ public class testSelect {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            OracleParser parser = new OracleParser(lexer);
-            ASTNode root = parser.parse();
+            ASTNode root = OracleParser.parseCaseWhen(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

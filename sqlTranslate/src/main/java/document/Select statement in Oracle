@@ -5,8 +5,7 @@ select_option = GROUP BY | ORDER BY | HAVING
 function = COUNT() | SUM() | AVG() | MAX() | MIN()
 
 example:
-    SELECT * FROM employees;
-    SELECT employee_id, first_name, last_name FROM employees;
+    SELECT * FROM employees Union SELECT employee_id, first_name, last_name FROM employees;
     SELECT * FROM employees WHERE department_id = 10;
     SELECT * FROM employees ORDER BY hire_date DESC;
     SELECT COUNT(*), AVG(salary) FROM employees;

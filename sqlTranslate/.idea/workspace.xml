@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="add unit test">
-      <change afterPath="$PROJECT_DIR$/src/test/java/testJoin.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="fix some bugs">
+      <change afterPath="$PROJECT_DIR$/src/test/java/testCaseWhen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lexer/OracleLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lexer/OracleLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/document/Select statement in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Select statement in Oracle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Todolist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testSelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testSelect.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +48,7 @@
     "Application.Main.executor": "Run",
     "JUnit.testAlterTable.executor": "Run",
     "JUnit.testAlterTable.testAlterTable.executor": "Run",
+    "JUnit.testCaseWhen.test.executor": "Run",
     "JUnit.testCommitRollbackExec.test.executor": "Run",
     "JUnit.testCreateTable.executor": "Run",
     "JUnit.testCreateTable.test.executor": "Run",
@@ -60,6 +63,7 @@
     "JUnit.testLoop.test.executor": "Run",
     "JUnit.testPL.executor": "Run",
     "JUnit.testProcedure.test.executor": "Run",
+    "JUnit.testSelect.executor": "Run",
     "JUnit.testSelect.test.executor": "Run",
     "JUnit.testTrigger.executor": "Run",
     "JUnit.testUpdate.executor": "Run",
@@ -75,12 +79,22 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.testProcedure.test">
+  <component name="RunManager" selected="JUnit.testCaseWhen.test">
     <configuration name="testAlterTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="testAlterTable" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testCaseWhen.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testCaseWhen" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,20 +118,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testSelect.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="testSelect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="testSelect" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testUpdate" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -125,18 +129,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.testAlterTable" />
+      <item itemvalue="JUnit.testCaseWhen.test" />
       <item itemvalue="JUnit.testJoin" />
       <item itemvalue="JUnit.testProcedure.test" />
-      <item itemvalue="JUnit.testSelect.test" />
-      <item itemvalue="JUnit.testUpdate" />
+      <item itemvalue="JUnit.testSelect" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testCaseWhen.test" />
+        <item itemvalue="JUnit.testSelect" />
         <item itemvalue="JUnit.testProcedure.test" />
         <item itemvalue="JUnit.testAlterTable" />
         <item itemvalue="JUnit.testJoin" />
-        <item itemvalue="JUnit.testSelect.test" />
-        <item itemvalue="JUnit.testUpdate" />
       </list>
     </recent_temporary>
   </component>
@@ -492,7 +496,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -507,7 +511,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add if elseif else endif document" />
     <MESSAGE value="add if elseif else endif ast classes" />
     <MESSAGE value="add IF ELSIF" />
     <MESSAGE value="add Loop document" />
@@ -532,7 +535,8 @@
     <MESSAGE value="add pl/sql" />
     <MESSAGE value="revise" />
     <MESSAGE value="add unit test" />
-    <option name="LAST_COMMIT_MESSAGE" value="add unit test" />
+    <MESSAGE value="fix some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix some bugs" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
