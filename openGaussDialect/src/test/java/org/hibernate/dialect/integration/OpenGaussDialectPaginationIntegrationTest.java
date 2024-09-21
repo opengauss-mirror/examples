@@ -27,7 +27,6 @@ public class OpenGaussDialectPaginationIntegrationTest {
             entity.setName("Name " + i);
             session.save(entity);
         }
-
         session.getTransaction().commit();
         session.close();
     }

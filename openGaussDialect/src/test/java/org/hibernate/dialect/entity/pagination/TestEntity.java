@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "test_pagination")
+@Table(name = "test_pagination_entity")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
