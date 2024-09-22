@@ -13,6 +13,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.tool.schema.TargetType;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Entity;
@@ -20,12 +21,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 public class OpenGaussDialectDDLTableAndColumTest {
+
     private static StandardServiceRegistry standardRegistry;
+
     private static Metadata metadata;
+
     private static SessionFactory sessionFactory;
 
     public static void setUp(Class<?>... testClasses) {
@@ -73,7 +74,7 @@ public class OpenGaussDialectDDLTableAndColumTest {
         Session session = sessionFactory.openSession();
         String sql = "SELECT table_name FROM information_schema.tables WHERE table_name = 'test_table'";
         String tableName = (String) session.createNativeQuery(sql).uniqueResult();
-        assertEquals("test_table", tableName);
+        Assertions.assertEquals("test_table", tableName);
         session.close();
     }
 
@@ -101,7 +102,7 @@ public class OpenGaussDialectDDLTableAndColumTest {
         Session session = sessionFactory.openSession();
         String sql = "SELECT column_name FROM information_schema.columns WHERE table_name = 'test_table' AND column_name = 'description'";
         String columnName = (String) session.createNativeQuery(sql).uniqueResult();
-        assertEquals("description", columnName);
+        Assertions.assertEquals("description", columnName);
         session.close();
     }
 
@@ -113,7 +114,7 @@ public class OpenGaussDialectDDLTableAndColumTest {
         Session session = sessionFactory.openSession();
         String sql = "SELECT table_name FROM information_schema.tables WHERE table_name = 'test_table'";
         String tableName = (String) session.createNativeQuery(sql).uniqueResult();
-        assertNull(tableName);
+        Assertions.assertNull(tableName);
         session.close();
     }
 }

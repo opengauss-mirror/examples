@@ -8,11 +8,9 @@ import org.hibernate.dialect.entity.ddl.ParentEntity;
 import org.hibernate.dialect.util.HibernateUtil;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class OpenGaussDialectDDLConstraintTest {
 
@@ -49,7 +47,7 @@ public class OpenGaussDialectDDLConstraintTest {
         session.beginTransaction();
         String sql = "SELECT constraint_name FROM information_schema.table_constraints WHERE table_name='child_table' AND constraint_type='FOREIGN KEY'";
         String constraintName = (String) session.createNativeQuery(sql).uniqueResult();
-        assertEquals("fk_child_parent", constraintName);
+        Assertions.assertEquals("fk_child_parent", constraintName);
         session.getTransaction().commit();
         session.close();
     }
@@ -70,7 +68,7 @@ public class OpenGaussDialectDDLConstraintTest {
         session.getTransaction().commit();
         session.beginTransaction();
         Long childCount = (Long) session.createQuery("SELECT COUNT(c) FROM ChildEntity c").uniqueResult();
-        assertEquals(Long.valueOf(0), childCount);
+        Assertions.assertEquals(Long.valueOf(0), childCount);
         session.getTransaction().commit();
         session.close();
     }
@@ -98,7 +96,7 @@ public class OpenGaussDialectDDLConstraintTest {
         session.beginTransaction();
         String checkConstraintSQL = "SELECT constraint_name FROM information_schema.table_constraints WHERE table_name='child_table' AND constraint_name='test_constraint'";
         Object result = session.createNativeQuery(checkConstraintSQL).uniqueResult();
-        assertNull(result);
+        Assertions.assertNull(result);
         session.getTransaction().commit();
         session.close();
     }

@@ -6,8 +6,6 @@ import org.hibernate.dialect.entity.ddl.AnnotatedEntity;
 import org.hibernate.dialect.util.HibernateUtil;
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class OpenGaussDialectDDLCommentTest {
     private static SessionFactory sessionFactory;
 
@@ -38,10 +36,10 @@ public class OpenGaussDialectDDLCommentTest {
         session.getTransaction().commit();
         String tableCommentQuery = "SELECT description " + "FROM pg_description " + "WHERE objoid = (" + "    SELECT oid FROM pg_class WHERE relname = 'annotated_table'" + ") AND objsubid = 0";
         String tableComment = (String) session.createNativeQuery(tableCommentQuery).getSingleResult();
-        assertEquals("This is a table comment", tableComment);
+        Assertions.assertEquals("This is a table comment", tableComment);
         String columnCommentQuery = "SELECT description " + "FROM pg_description " + "WHERE objoid = (" + "    SELECT oid FROM pg_class WHERE relname = 'annotated_table'" + ") AND objsubid = (" + "    SELECT attnum FROM pg_attribute " + "    WHERE attrelid = (" + "        SELECT oid FROM pg_class WHERE relname = 'annotated_table'" + "    ) AND attname = 'annotated_column'" + ")";
         String columnComment = (String) session.createNativeQuery(columnCommentQuery).getSingleResult();
-        assertEquals("This is a column comment", columnComment);
+        Assertions.assertEquals("This is a column comment", columnComment);
         session.close();
     }
 }

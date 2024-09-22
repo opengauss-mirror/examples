@@ -22,7 +22,7 @@ public class OpenGaussFunctionTest {
     private Session session;
 
     @BeforeAll
-    public static void setUpAll() {
+    public static void init() {
         sessionFactory = HibernateUtil.getSessionFactory(TestEntity.class);
     }
 
@@ -42,7 +42,7 @@ public class OpenGaussFunctionTest {
     }
 
     @AfterAll
-    public static void tearDownALL() {
+    public static void close() {
         if (sessionFactory != null) {
             sessionFactory.close();
         }

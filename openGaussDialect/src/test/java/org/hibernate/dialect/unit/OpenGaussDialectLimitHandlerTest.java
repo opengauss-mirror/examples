@@ -12,7 +12,7 @@ public class OpenGaussDialectLimitHandlerTest {
     private static OpenGaussDialect dialect;
 
     @BeforeAll
-    public static void setUp() {
+    public static void init() {
         dialect = new OpenGaussDialect();
     }
 

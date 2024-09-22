@@ -3,6 +3,7 @@ package org.hibernate.dialect.integration;
 import org.hibernate.*;
 import org.hibernate.dialect.entity.lock.TestEntity;
 import org.hibernate.dialect.util.HibernateUtil;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,12 @@ public class OpenGaussLockIntegrationTest {
         session.close();
     }
 
+    @AfterAll
+    public static void close() {
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
+    }
     // testPessimisticWriteLockNoWait()：测试当记录已被锁定且设置不等待时，事务是否会立即失败，确保数据一致性和锁机制的有效性。
     @Test
     public void testPessimisticWriteLockNoWait() {
