@@ -1,9 +1,9 @@
-package org.hibernate.dialect.unit;
+package org.hibernate.dialect.integration;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.dialect.entity.datatype.*;
-import org.hibernate.dialect.pojo.Person;
+import org.hibernate.dialect.pojo.*;
 import org.hibernate.dialect.util.HibernateUtil;
 import org.hibernate.dialect.util.JDBCUtil;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,7 @@ import java.util.List;
 
 
 public class OpenGaussTypeMappingTest {
+
     private static SessionFactory sessionFactory;
 
     public static void formatColumns(List<String[]> columns) {

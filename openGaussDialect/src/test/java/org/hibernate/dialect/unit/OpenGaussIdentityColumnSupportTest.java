@@ -4,16 +4,17 @@ import org.hibernate.dialect.OpenGaussDialect;
 import org.hibernate.dialect.identity.IdentityColumnSupport;
 import org.hibernate.dialect.identity.OpenGaussIdentityColumnSupport;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Types;
 
 public class OpenGaussIdentityColumnSupportTest {
-    private OpenGaussDialect dialect;
+    private static OpenGaussDialect dialect;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         dialect = new OpenGaussDialect();
     }
 

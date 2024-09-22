@@ -1,8 +1,6 @@
 package org.hibernate.dialect;
 
-import org.hibernate.JDBCException;
-import org.hibernate.PessimisticLockException;
-import org.hibernate.QueryTimeoutException;
+import org.hibernate.*;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.function.*;
 import org.hibernate.dialect.identity.IdentityColumnSupport;
@@ -286,7 +284,101 @@ public class OpenGaussDialect extends Dialect {
     }
 
     // lock acquisition support
-    // todo
+    @Override
+    public String getForUpdateString(String aliases) {
+         return getForUpdateString() + " of " + aliases;
+    }
+
+    @Override
+    public String getForUpdateString(String aliases, LockOptions lockOptions) {
+        LockMode lockMode = lockOptions.getLockMode();
+        if (aliases != null && !aliases.isEmpty()) {
+            lockMode = lockOptions.getAliasSpecificLockMode(aliases);
+            if (lockMode == null) {
+                lockMode = lockOptions.getLockMode();
+            }
+        }
+        switch (lockMode) {
+            case UPGRADE:
+                return getForUpdateString(aliases);
+            case PESSIMISTIC_READ:
+                return getReadLockString(aliases, lockOptions.getTimeOut());
+            case PESSIMISTIC_WRITE:
+                return getWriteLockString(aliases, lockOptions.getTimeOut());
+            case UPGRADE_NOWAIT:
+            case FORCE:
+            case PESSIMISTIC_FORCE_INCREMENT:
+                return getForUpdateNowaitString(aliases);
+            case UPGRADE_SKIPLOCKED:
+                return getForUpdateSkipLockedString(aliases);
+            default:
+                return "";
+        }
+    }
+
+    @Override
+    public String getWriteLockString(int timeout) {
+        if (timeout == LockOptions.NO_WAIT) {
+            return " for update nowait";
+        } else if (timeout == LockOptions.SKIP_LOCKED) {
+            return " for update skip locked";
+        } else {
+            return " for update";
+        }
+    }
+
+    @Override
+    public String getWriteLockString(String aliases, int timeout) {
+        if (timeout == LockOptions.NO_WAIT) {
+            return String.format(" for update of %s nowait", aliases);
+        } else if (timeout == LockOptions.SKIP_LOCKED) {
+            return String.format(" for update of %s skip locked", aliases);
+        } else {
+            return " for update of " + aliases;
+        }
+    }
+
+    @Override
+    public String getReadLockString(int timeout) {
+        if (timeout == LockOptions.NO_WAIT) {
+            return " for share nowait";
+        } else if (timeout == LockOptions.SKIP_LOCKED) {
+            return " for share skip locked";
+        } else {
+            return " for share";
+        }
+    }
+
+    @Override
+    public String getReadLockString(String aliases, int timeout) {
+        if (timeout == LockOptions.NO_WAIT) {
+            return String.format(" for share of %s nowait", aliases);
+        } else if (timeout == LockOptions.SKIP_LOCKED) {
+            return String.format(" for share of %s skip locked", aliases);
+        } else {
+            return " for share of " + aliases;
+        }
+    }
+
+    @Override
+    public String getForUpdateNowaitString() {
+        return getForUpdateString() + " nowait";
+    }
+
+    @Override
+    public String getForUpdateNowaitString(String aliases) {
+        return getForUpdateString(aliases) + " nowait";
+    }
+
+    @Override
+    public String getForUpdateSkipLockedString() {
+        return getForUpdateString() + " skip locked";
+    }
+
+    @Override
+    public String getForUpdateSkipLockedString(String aliases) {
+        return getForUpdateString(aliases) + " skip locked";
+    }
 
     // callable statement support
     @Override
@@ -447,12 +539,12 @@ public class OpenGaussDialect extends Dialect {
     // DDL support
     @Override
     public String[] getCreateSchemaCommand(String schemaName) {
-        return new String[] {"create schema if not exists " + schemaName};
+        return new String[]{"create schema if not exists " + schemaName};
     }
 
     @Override
     public String[] getDropSchemaCommand(String schemaName) {
-        return new String[] {"drop schema if exists " + schemaName};
+        return new String[]{"drop schema if exists " + schemaName};
     }
 
     @Override

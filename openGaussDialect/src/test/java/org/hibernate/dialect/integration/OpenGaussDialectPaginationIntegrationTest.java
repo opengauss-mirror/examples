@@ -21,7 +21,7 @@ public class OpenGaussDialectPaginationIntegrationTest {
         sessionFactory = HibernateUtil.getSessionFactory(TestEntity.class);
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.createQuery("delete from TestEntity").executeUpdate();
+        session.createQuery("DELETE FROM TestEntity").executeUpdate();
         for (int i = 1; i <= 100; i++) {
             TestEntity entity = new TestEntity();
             entity.setName("Name " + i);
@@ -32,7 +32,7 @@ public class OpenGaussDialectPaginationIntegrationTest {
     }
 
     @AfterAll
-    public static void tearDown() {
+    public static void close() {
         if (sessionFactory != null) {
             sessionFactory.close();
         }

@@ -1,4 +1,4 @@
-package org.hibernate.dialect.unit;
+package org.hibernate.dialect.integration;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

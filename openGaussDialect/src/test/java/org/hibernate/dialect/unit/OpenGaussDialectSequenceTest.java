@@ -2,16 +2,17 @@ package org.hibernate.dialect.unit;
 
 import org.hibernate.dialect.OpenGaussDialect;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 
 public class OpenGaussDialectSequenceTest {
-    private OpenGaussDialect dialect;
+    private static OpenGaussDialect dialect;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         dialect = new OpenGaussDialect();
     }
     

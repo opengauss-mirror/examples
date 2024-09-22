@@ -4,14 +4,15 @@ import org.hibernate.dialect.OpenGaussDialect;
 import org.hibernate.dialect.pagination.LimitHandler;
 import org.hibernate.engine.spi.RowSelection;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OpenGaussDialectLimitHandlerTest {
-    private OpenGaussDialect dialect;
+    private static OpenGaussDialect dialect;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         dialect = new OpenGaussDialect();
     }
 

@@ -16,7 +16,7 @@ public class OpenGaussDialectSequenceIntegrationTest {
     }
 
     @AfterAll
-    public static void tearDown() {
+    public static void close() {
         if (sessionFactory != null) {
             sessionFactory.close();
         }
