@@ -1,5 +1,7 @@
 CREATE [OR REPLACE] PROCEDURE procedure_name ([parameter_list])
 IS [LOCAL DECLARATIONS]
+[DECLARE]
+-- declare part
 BEGIN
     -- PL/SQL statements
 [EXCEPTION]

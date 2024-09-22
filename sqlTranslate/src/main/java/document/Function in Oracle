@@ -3,6 +3,8 @@ CREATE OR REPLACE FUNCTION function_name (
     parameter2 [IN | OUT] datatype2 ,
     ...
 ) RETURN return_datatype IS
+[DECLARE]
+-- declare part
 BEGIN
     -- function body
     RETURN result;

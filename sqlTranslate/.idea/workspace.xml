@@ -4,22 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise">
-      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/trigger/TriggerDeclareContentNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/trigger/TriggerDeclareNode.java" afterDir="false" />
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="revise trigger">
+      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionDeclareContentNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionDeclareNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureDeclareContentNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureDeclareNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/document/Function in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Function in Oracle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/document/Procedure in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Procedure in Oracle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/document/Todolist" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Todolist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/document/Trigger in Oracle" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/document/Trigger in Oracle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/DataType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterAddColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterAddColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterModifyColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterModifyColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/ColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/ColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionRetDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/function/FunctionRetDefNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/pl/PLDeclareNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/pl/PLDeclareNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureRetDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/procedure/ProcedureRetDefNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/testTrigger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testTrigger.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,6 +62,7 @@
     "JUnit.testDropTable.test.executor": "Run",
     "JUnit.testException.executor": "Run",
     "JUnit.testException.test.executor": "Run",
+    "JUnit.testFunction.test.executor": "Run",
     "JUnit.testIfElse.test.executor": "Run",
     "JUnit.testInsert.test.executor": "Run",
     "JUnit.testJoin.executor": "Run",
@@ -76,6 +73,7 @@
     "JUnit.testSelect.executor": "Run",
     "JUnit.testSelect.test.executor": "Run",
     "JUnit.testTrigger.executor": "Run",
+    "JUnit.testTrigger.test.executor": "Run",
     "JUnit.testUpdate.executor": "Run",
     "JUnit.testView.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -89,16 +87,7 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.testTrigger">
-    <configuration name="testAlterTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sqlTranslate" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testAlterTable" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.testTrigger.test">
     <configuration name="testCaseWhen.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
@@ -109,10 +98,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testProcedure.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="testFunction.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testProcedure" />
+      <option name="MAIN_CLASS_NAME" value="testFunction" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -137,20 +126,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="testTrigger.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testTrigger" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="JUnit.testAlterTable" />
       <item itemvalue="JUnit.testCaseWhen.test" />
-      <item itemvalue="JUnit.testProcedure.test" />
+      <item itemvalue="JUnit.testFunction.test" />
       <item itemvalue="JUnit.testSelect" />
       <item itemvalue="JUnit.testTrigger" />
+      <item itemvalue="JUnit.testTrigger.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testTrigger.test" />
+        <item itemvalue="JUnit.testFunction.test" />
         <item itemvalue="JUnit.testTrigger" />
         <item itemvalue="JUnit.testCaseWhen.test" />
         <item itemvalue="JUnit.testSelect" />
-        <item itemvalue="JUnit.testProcedure.test" />
-        <item itemvalue="JUnit.testAlterTable" />
       </list>
     </recent_temporary>
   </component>
@@ -506,7 +505,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -521,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add if elseif else endif ast classes" />
     <MESSAGE value="add IF ELSIF" />
     <MESSAGE value="add Loop document" />
     <MESSAGE value="add Loop keywords" />
@@ -546,7 +544,8 @@
     <MESSAGE value="add unit test" />
     <MESSAGE value="fix some bugs" />
     <MESSAGE value="revise" />
-    <option name="LAST_COMMIT_MESSAGE" value="revise" />
+    <MESSAGE value="revise trigger" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise trigger" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

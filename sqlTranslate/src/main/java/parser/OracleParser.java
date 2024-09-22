@@ -1709,9 +1709,13 @@ public class OracleParser {
                 childNode.addToken(parseTokens.get(i));
                 currentNode.addChild(childNode);
                 currentNode = childNode;
+                i++;
+                if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(")")) {
+                    i++;
+                }
             }
             // match parameter list
-            else if (currentNode instanceof ProcedureObjNode && parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals("(")) {
+            else if (currentNode instanceof ProcedureObjNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
                 i++;
                 for (int ii = i; ii < parseTokens.size(); ii++) {
                     if (parseTokens.get(ii).hasType(Token.TokenType.KEYWORD) && parseTokens.get(ii).getValue().equalsIgnoreCase("IS")) {
@@ -1797,6 +1801,44 @@ public class OracleParser {
                         childNode.setType(parseTokens.get(j));
                     }
                     childNode.addToken(parseTokens.get(j));
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DECLARE")) {
+                ASTNode childNode = new ProcedureDeclareNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare content
+            else if (currentNode instanceof TriggerDeclareNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                ProcedureDeclareContentNode childNode = new ProcedureDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
+                        childNode.setType(parseTokens.get(j));
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (currentNode instanceof TriggerDeclareContentNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                ProcedureDeclareContentNode childNode = new ProcedureDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
+                        childNode.setType(parseTokens.get(j));
+                    }
                 }
                 currentNode.addChild(childNode);
                 currentNode = childNode;
@@ -1960,6 +2002,9 @@ public class OracleParser {
                 currentNode.addChild(childNode);
                 currentNode = childNode;
                 i++;
+                if (parseTokens.get(i).hasType(Token.TokenType.SYMBOL) && parseTokens.get(i).getValue().equals(")")) {
+                    i++;
+                }
             }
             // match parameters
             else if (currentNode instanceof FunctionNameNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
@@ -2036,7 +2081,7 @@ public class OracleParser {
                 }
             }
             // match return definition
-            else if (currentNode instanceof FunctionColumnNode && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RETURN")) {
+            else if ((currentNode instanceof FunctionColumnNode || currentNode instanceof FunctionNameNode) && parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("RETURN")) {
                 FunctionRetDefNode childNode = new FunctionRetDefNode();
                 for (int j = i; j < parseTokens.size(); j++) {
                     if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("RETURN")) {
@@ -2049,6 +2094,44 @@ public class OracleParser {
                     }
                     else {
                         childNode.addToken(parseTokens.get(j));
+                        childNode.setType(parseTokens.get(j));
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("DECLARE")) {
+                ASTNode childNode = new FunctionDeclareNode();
+                childNode.addToken(parseTokens.get(i));
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            // match declare content
+            else if (currentNode instanceof TriggerDeclareNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                FunctionDeclareContentNode childNode = new FunctionDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
+                        childNode.setType(parseTokens.get(j));
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+            }
+            else if (currentNode instanceof TriggerDeclareContentNode && parseTokens.get(i).hasType(Token.TokenType.IDENTIFIER)) {
+                FunctionDeclareContentNode childNode = new FunctionDeclareContentNode();
+                for (int j = i; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(j).getValue().equalsIgnoreCase(":=")) {
                         childNode.setType(parseTokens.get(j));
                     }
                 }
@@ -2409,7 +2492,7 @@ public class OracleParser {
                     PLDeclareNode childNode = new PLDeclareNode();
                     for (int k = j; k < parseTokens.size(); k++) {
                         childNode.addToken(parseTokens.get(k));
-                        if (parseTokens.get(k).hasType(Token.TokenType.KEYWORD)) {
+                        if (parseTokens.get(k).hasType(Token.TokenType.KEYWORD) && !parseTokens.get(k).getValue().equalsIgnoreCase(":=")) {
                             childNode.setType(parseTokens.get(k));
                         }
                         if (parseTokens.get(k).hasType(Token.TokenType.SYMBOL) && parseTokens.get(k).getValue().equals(";")) {

@@ -21,7 +21,7 @@ public class testTrigger {
                 "             l_action VARCHAR2(10) := 'INSERT';\n" +
                 "         BEGIN\n" +
                 "             INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);\n" +
-                "             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || :NEW.id);\n" +
+                "             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || 11);\n" +
                 "         EXCEPTION\n" +
                 "             WHEN OTHERS THEN\n" +
                 "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +

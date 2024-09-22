@@ -18,7 +18,7 @@ Example: CREATE OR REPLACE TRIGGER log_insert_trigger
              l_action VARCHAR2(10) := 'INSERT';
          BEGIN
              INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);
-             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || :NEW.id);
+             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || 11);
          EXCEPTION
              WHEN OTHERS THEN
                  DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
@@ -46,7 +46,7 @@ Equal SQL on OpenGauss:
     CREATE OR REPLACE FUNCTION log_insert_trigger()
     RETURNS TRIGGER AS $$
     DECLARE
-        l_action TEXT := 'INSERT';
+        l_action VARCHAR(10) := 'INSERT';
     BEGIN
         INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);
         RETURN NEW;

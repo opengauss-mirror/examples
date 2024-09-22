@@ -17,10 +17,7 @@ import parser.ast.drop.DropNode;
 import parser.ast.drop.DropOptionNode;
 import parser.ast.exception.ExceptionActionNode;
 import parser.ast.exception.ExceptionNode;
-import parser.ast.function.FunctionColumnNode;
-import parser.ast.function.FunctionEndNode;
-import parser.ast.function.FunctionNode;
-import parser.ast.function.FunctionRetDefNode;
+import parser.ast.function.*;
 import parser.ast.iFELSIF.IFConditionNode;
 import parser.ast.insert.InsertNode;
 import parser.ast.join.JoinConditionNode;
@@ -194,6 +191,7 @@ public class OpenGaussGenerator {
 
     private String GenTriggerSQL(ASTNode node) {
         visitTrigger(node);
+//        System.out.println(node.getASTString());
         return node.toQueryString();
     }
 
@@ -340,6 +338,9 @@ public class OpenGaussGenerator {
                 DataTypeConvert((ProcedureRetDefNode) node);
                 CommonConvert(node);
             }
+            else if (node instanceof ProcedureDeclareContentNode) {
+                DataTypeConvert((ProcedureDeclareContentNode) node);
+            }
             else if (node instanceof ProcedureColumnNode) {
                 DataTypeConvert((ProcedureColumnNode) node);
             }
@@ -364,8 +365,14 @@ public class OpenGaussGenerator {
             if (node instanceof FunctionRetDefNode) {
                 CommonConvert(node);
             }
+            else if (node instanceof FunctionDeclareContentNode) {
+                DataTypeConvert((FunctionDeclareContentNode) node);
+            }
             else if (node instanceof ExceptionNode) {
                 visitException(node);
+            }
+            else if (node instanceof FunctionBodyNode) {
+                CommonConvert(node);
             }
             else if (node instanceof FunctionColumnNode) {
                 DataTypeConvert((FunctionColumnNode) node);
@@ -401,11 +408,8 @@ public class OpenGaussGenerator {
             }
         }
         else {
-            // TODO: need to handle trigger body
-
-
+            CommonConvert(node);
         }
-
     }
 
     private void visitPLSQL(ASTNode node) {
@@ -593,6 +597,67 @@ public class OpenGaussGenerator {
         if (node instanceof JoinConditionNode) {
             if (((JoinConditionNode) node).getKeyword().equalsIgnoreCase("USING")) {
                 ((JoinConditionNode) node).setKeyword("ON");
+            }
+        }
+        if (node instanceof TriggerEndNode) {
+            List<Token> tokens = new ArrayList<>();
+            tokens.add(new Token(Token.TokenType.KEYWORD, "END"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "$$"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "LANGUAGE"));
+            tokens.add(new Token(Token.TokenType.KEYWORD, "plpgsql"));
+            tokens.add(new Token(Token.TokenType.SYMBOL, ";"));
+            node.setTokens(tokens);
+        }
+        if ((node.getFirstChild() instanceof TriggerDeclareNode || node.getFirstChild() instanceof TriggerBeginNode)) {
+            // EXEC the procedure function
+            ASTNode currentNode = null;
+            ASTNode childNode = new TriggerBodyNode();
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "EXECUTE"));
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "PROCEDURE"));
+            childNode.addToken(new Token(Token.TokenType.IDENTIFIER, "trigger_func()"));
+            childNode.addToken(new Token(Token.TokenType.SYMBOL, ";"));
+            ASTNode triggerFuncRoot = node.getFirstChild();
+            node.replaceChild(triggerFuncRoot, childNode);
+            currentNode = childNode;
+            ASTNode triggerEndNode = new TriggerEndNode();
+            currentNode.addChild(triggerEndNode);
+            currentNode = triggerEndNode;
+
+            // Define the trigger function
+            ASTNode triggerFuncNode = new FunctionNode();
+            triggerFuncNode.addToken(new Token(Token.TokenType.KEYWORD, "CREATE"));
+            triggerFuncNode.addToken(new Token(Token.TokenType.KEYWORD, "OR"));
+            triggerFuncNode.addToken(new Token(Token.TokenType.KEYWORD, "REPLACE"));
+            triggerFuncNode.addToken(new Token(Token.TokenType.KEYWORD, "FUNCTION"));
+            currentNode.addChild(triggerFuncNode);
+            currentNode = triggerFuncNode;
+            childNode = new FunctionNameNode();
+            childNode.addToken(new Token(Token.TokenType.IDENTIFIER, "trigger_func"));
+            currentNode.addChild(childNode);
+            currentNode = childNode;
+            childNode = new FunctionRetDefNode();
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "RETURNS"));
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "TRIGGER"));
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "AS"));
+            childNode.addToken(new Token(Token.TokenType.KEYWORD, "$$"));
+            currentNode.addChild(childNode);
+            currentNode = childNode;
+            //convert the other parts
+            currentNode.addChild(triggerFuncRoot);
+            currentNode = triggerFuncRoot;
+            while (true) {
+                if (currentNode instanceof TriggerDeclareContentNode) {
+                    DataTypeConvert((TriggerDeclareContentNode) currentNode);
+                }
+                else if (currentNode instanceof TriggerBodyNode) {
+                    CommonConvert(currentNode);
+                }
+                else if (currentNode instanceof TriggerEndNode) {
+                    CommonConvert(currentNode);
+                    break;
+                }
+                currentNode = currentNode.getFirstChild();
             }
         }
 
