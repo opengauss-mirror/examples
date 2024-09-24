@@ -1,4 +1,3 @@
-
 import generator.OpenGaussGenerator;
 import lexer.OracleLexer;
 import parser.ast.ASTNode;
