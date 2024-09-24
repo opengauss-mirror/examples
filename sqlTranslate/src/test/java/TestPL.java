@@ -9,20 +9,22 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCreateTable {
+public class TestPL {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE TABLE employees (\n" +
-                "    employee_id NUMBER PRIMARY KEY,\n" +
-                "    first_name VARCHAR2(20) Check(first_name > '221'),\n" +
-                "    last_name VARCHAR2(25) Check (last_name != '12813@163.com'),\n" +
-                "    email VARCHAR2(25),\n" +
-                "    hire_date DATE,\n" +
-                "    CONSTRAINT chk_example CHECK (employee_id > 0)" +
-                ");");
-        System.out.println("===== test of Create table =====");
+        testSQL.add("DECLARE\n" +
+                "            v_name Varchar2(20);\n" +
+                "            v_salary employees.salary%TYPE;\n" +
+                "         BEGIN\n" +
+                "            SELECT name, salary INTO v_name, v_salary FROM employees WHERE employee_id = 100;\n" +
+                "            DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);\n" +
+                "         EXCEPTION\n" +
+                "            WHEN NO_DATA_FOUND THEN\n" +
+                "               DBMS_OUTPUT.PUT_LINE('No data found.');\n" +
+                "         END;");
+        System.out.println("===== test of PL =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

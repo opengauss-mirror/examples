@@ -9,24 +9,18 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testTrigger {
+public class TestFunction {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE OR REPLACE TRIGGER log_insert_trigger\n" +
-                "         AFTER INSERT ON employees\n" +
-                "         FOR EACH ROW\n" +
-                "         DECLARE\n" +
-                "             l_action VARCHAR2(10) := 'INSERT';\n" +
+        testSQL.add("CREATE OR REPLACE FUNCTION string_length (\n" +
+                "             input_string VARCHAR2\n" +
+                "         ) RETURN NUMBER IS\n" +
                 "         BEGIN\n" +
-                "             INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);\n" +
-                "             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || 11);\n" +
-                "         EXCEPTION\n" +
-                "             WHEN OTHERS THEN\n" +
-                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
+                "             RETURN LENGTH(input_string);\n" +
                 "         END;");
-        System.out.println("===== test of Trigger =====");
+        System.out.println("===== test of Function =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

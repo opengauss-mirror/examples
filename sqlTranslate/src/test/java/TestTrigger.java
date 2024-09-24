@@ -9,13 +9,24 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCaseWhen {
+public class TestTrigger {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END");
-        System.out.println("===== test of CaseWhen =====");
+        testSQL.add("CREATE OR REPLACE TRIGGER log_insert_trigger\n" +
+                "         AFTER INSERT ON employees\n" +
+                "         FOR EACH ROW\n" +
+                "         DECLARE\n" +
+                "             l_action VARCHAR2(10) := 'INSERT';\n" +
+                "         BEGIN\n" +
+                "             INSERT INTO audit_log (action, employee_id) VALUES (l_action, 11);\n" +
+                "             DBMS_OUTPUT.PUT_LINE('Inserted record with ID: ' || 11);\n" +
+                "         EXCEPTION\n" +
+                "             WHEN OTHERS THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
+                "         END;");
+        System.out.println("===== test of Trigger =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -30,7 +41,8 @@ public class testCaseWhen {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            ASTNode root = OracleParser.parseCaseWhen(lexer.getTokens());
+            OracleParser parser = new OracleParser(lexer);
+            ASTNode root = parser.parse();
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

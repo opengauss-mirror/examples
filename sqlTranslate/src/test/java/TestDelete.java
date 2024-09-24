@@ -9,14 +9,18 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testUpdate {
+public class TestDelete {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("UPDATE employees e JOIN departments d using e.department_id = d.department_id\n" +
-                "         SET e.salary = e.salary * 1.10, d.budget = d.budget * 1.10 WHERE d.department_name = 'Sales';");
-        System.out.println("===== test of Update =====");
+        testSQL.add("DELETE FROM employees e\n" +
+                "WHERE e.department_id IN (\n" +
+                "    SELECT d.department_id\n" +
+                "    FROM departments d\n" +
+                "    WHERE d.department_name = 'Sales'\n" +
+                ");");
+        System.out.println("===== test of Delete =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

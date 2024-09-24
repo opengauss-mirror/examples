@@ -9,21 +9,21 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testAlterTable {
+public class TestIfElse {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("ALTER TABLE employees ADD email VARCHAR2(100);");
-        testSQL.add("ALTER TABLE employees ADD email LONG RAW;");
-        testSQL.add("ALTER TABLE employees DROP COLUMN middle_name;");
-        testSQL.add("ALTER TABLE employees MODIFY salary NUMBER(10,2);");
-        testSQL.add("ALTER TABLE employees MODIFY salary ROWID;");
-        testSQL.add("ALTER TABLE employees RENAME COLUMN first_name TO given_name;");
-        testSQL.add("ALTER TABLE employees ADD CONSTRAINT emp_pk PRIMARY KEY (employee_id);");
-        testSQL.add("ALTER TABLE employees DROP CONSTRAINT emp_pk;");
-        testSQL.add("ALTER TABLE employees RENAME TO staff;");
-        System.out.println("===== test of alter table =====");
+        testSQL.add("IF v_salary >= 100000 THEN\n" +
+                "                 v_bonus := v_salary * 0.1;\n" +
+                "             ELSIF v_salary >= 50000 THEN\n" +
+                "                 v_bonus := v_salary * 0.08;\n" +
+                "             ELSIF v_salary >= 30000 THEN\n" +
+                "                 v_bonus := v_salary * 0.05;\n" +
+                "             ELSE\n" +
+                "                 v_bonus := v_salary * 0.03;\n" +
+                "             END IF;");
+        System.out.println("===== test of IfElse =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -38,8 +38,7 @@ public class testAlterTable {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            OracleParser parser = new OracleParser(lexer);
-            ASTNode root = parser.parse();
+            ASTNode root = OracleParser.parseIFELSE(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

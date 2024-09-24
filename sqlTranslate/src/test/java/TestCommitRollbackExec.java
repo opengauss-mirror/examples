@@ -9,22 +9,22 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testPL {
+public class TestCommitRollbackExec {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
         testSQL.add("DECLARE\n" +
-                "            v_name Varchar2(20);\n" +
-                "            v_salary employees.salary%TYPE;\n" +
-                "         BEGIN\n" +
-                "            SELECT name, salary INTO v_name, v_salary FROM employees WHERE employee_id = 100;\n" +
-                "            DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);\n" +
-                "         EXCEPTION\n" +
-                "            WHEN NO_DATA_FOUND THEN\n" +
-                "               DBMS_OUTPUT.PUT_LINE('No data found.');\n" +
-                "         END;");
-        System.out.println("===== test of PL =====");
+                "BEGIN\n" +
+                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
+                "    ROLLBACK;\n" +
+                "END;");
+        testSQL.add("DECLARE\n" +
+                "BEGIN\n" +
+                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
+                "    COMMIT;\n" +
+                "END;");
+        System.out.println("===== test of Commit, Rollback，Exec =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

@@ -9,16 +9,24 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testView {
+public class TestLoop {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE OR REPLACE VIEW employee_details AS SELECT first_name, last_name, salary FROM employees;");
-        testSQL.add("CREATE OR REPLACE VIEW emp_info (full_name, pay) AS SELECT first_name || ' ' || last_name AS full_name, salary AS pay FROM employees;");
-        testSQL.add("CREATE OR REPLACE VIEW emp_dept_info AS SELECT e.first_name, e.last_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;");
-        testSQL.add("CREATE OR REPLACE VIEW high_salary_employees AS SELECT first_name, last_name, salary FROM employees WHERE salary > 50000;");
-        System.out.println("===== test of View =====");
+        testSQL.add("LOOP\n" +
+                "            DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
+                "            v_counter := v_counter + 1;\n" +
+                "            EXIT WHEN v_counter > 10;\n" +
+                "        END LOOP;");
+        testSQL.add("WHILE v_counter <= 10 LOOP\n" +
+                "            DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
+                "            v_counter := v_counter + 1;\n" +
+                "        END LOOP;");
+        testSQL.add("FOR i IN 1..10 LOOP\n" +
+                "            DBMS_OUTPUT.PUT_LINE(i);\n" +
+                "        END LOOP;");
+        System.out.println("===== test of Loop =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -33,8 +41,7 @@ public class testView {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            OracleParser parser = new OracleParser(lexer);
-            ASTNode root = parser.parse();
+            ASTNode root = OracleParser.parseLoop(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

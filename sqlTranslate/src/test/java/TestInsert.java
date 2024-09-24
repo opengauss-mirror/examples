@@ -9,22 +9,14 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCommitRollbackExec {
+public class TestInsert {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("DECLARE\n" +
-                "BEGIN\n" +
-                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
-                "    ROLLBACK;\n" +
-                "END;");
-        testSQL.add("DECLARE\n" +
-                "BEGIN\n" +
-                "    INSERT INTO my_table (id, value) VALUES (1, 'test');\n" +
-                "    COMMIT;\n" +
-                "END;");
-        System.out.println("===== test of Commit, Rollback，Exec =====");
+        testSQL.add("INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');");
+        testSQL.add("INSERT INTO employees VALUES ('Jane', 'Smith', 'janesm@example.com');");
+        System.out.println("===== test of Insert =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

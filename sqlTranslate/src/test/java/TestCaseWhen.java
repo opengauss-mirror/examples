@@ -9,14 +9,13 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testDropTable {
+public class TestCaseWhen {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("DROP TABLE employees CASCADE CONSTRAINTS;");
-        testSQL.add("DROP TABLE employees;");
-        System.out.println("===== test of Drop table =====");
+        testSQL.add("CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END");
+        System.out.println("===== test of CaseWhen =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -31,8 +30,7 @@ public class testDropTable {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            OracleParser parser = new OracleParser(lexer);
-            ASTNode root = parser.parse();
+            ASTNode root = OracleParser.parseCaseWhen(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

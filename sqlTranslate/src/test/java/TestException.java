@@ -9,24 +9,21 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testLoop {
+public class TestException {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("LOOP\n" +
-                "            DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
-                "            v_counter := v_counter + 1;\n" +
-                "            EXIT WHEN v_counter > 10;\n" +
-                "        END LOOP;");
-        testSQL.add("WHILE v_counter <= 10 LOOP\n" +
-                "            DBMS_OUTPUT.PUT_LINE(v_counter);\n" +
-                "            v_counter := v_counter + 1;\n" +
-                "        END LOOP;");
-        testSQL.add("FOR i IN 1..10 LOOP\n" +
-                "            DBMS_OUTPUT.PUT_LINE(i);\n" +
-                "        END LOOP;");
-        System.out.println("===== test of Loop =====");
+        testSQL.add("EXCEPTION\n" +
+                "    WHEN e_custom_exception THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');\n" +
+                "    WHEN ZERO_DIVIDE THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');\n" +
+                "    WHEN INVALID_NUMBER THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');\n" +
+                "    WHEN OTHERS THEN\n" +
+                "        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);");
+        System.out.println("===== test of EXCEPTION =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -41,7 +38,7 @@ public class testLoop {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            ASTNode root = OracleParser.parseLoop(lexer.getTokens());
+            ASTNode root = OracleParser.parseException(lexer.getTokens());
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

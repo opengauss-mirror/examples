@@ -9,18 +9,21 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testFunction {
+public class TestAlterTable {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("CREATE OR REPLACE FUNCTION string_length (\n" +
-                "             input_string VARCHAR2\n" +
-                "         ) RETURN NUMBER IS\n" +
-                "         BEGIN\n" +
-                "             RETURN LENGTH(input_string);\n" +
-                "         END;");
-        System.out.println("===== test of Function =====");
+        testSQL.add("ALTER TABLE employees ADD email VARCHAR2(100);");
+        testSQL.add("ALTER TABLE employees ADD email LONG RAW;");
+        testSQL.add("ALTER TABLE employees DROP COLUMN middle_name;");
+        testSQL.add("ALTER TABLE employees MODIFY salary NUMBER(10,2);");
+        testSQL.add("ALTER TABLE employees MODIFY salary ROWID;");
+        testSQL.add("ALTER TABLE employees RENAME COLUMN first_name TO given_name;");
+        testSQL.add("ALTER TABLE employees ADD CONSTRAINT emp_pk PRIMARY KEY (employee_id);");
+        testSQL.add("ALTER TABLE employees DROP CONSTRAINT emp_pk;");
+        testSQL.add("ALTER TABLE employees RENAME TO staff;");
+        System.out.println("===== test of alter table =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

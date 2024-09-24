@@ -9,7 +9,7 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testProcedure {
+public class TestProcedure {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()

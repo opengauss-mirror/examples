@@ -9,21 +9,14 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testIfElse {
+public class TestUpdate {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("IF v_salary >= 100000 THEN\n" +
-                "                 v_bonus := v_salary * 0.1;\n" +
-                "             ELSIF v_salary >= 50000 THEN\n" +
-                "                 v_bonus := v_salary * 0.08;\n" +
-                "             ELSIF v_salary >= 30000 THEN\n" +
-                "                 v_bonus := v_salary * 0.05;\n" +
-                "             ELSE\n" +
-                "                 v_bonus := v_salary * 0.03;\n" +
-                "             END IF;");
-        System.out.println("===== test of IfElse =====");
+        testSQL.add("UPDATE employees e JOIN departments d using e.department_id = d.department_id\n" +
+                "         SET e.salary = e.salary * 1.10, d.budget = d.budget * 1.10 WHERE d.department_name = 'Sales';");
+        System.out.println("===== test of Update =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
@@ -38,7 +31,8 @@ public class testIfElse {
             System.out.println("Input SQL: " + sql);
             OracleLexer lexer = new OracleLexer(sql);
             lexer.printTokens();
-            ASTNode root = OracleParser.parseIFELSE(lexer.getTokens());
+            OracleParser parser = new OracleParser(lexer);
+            ASTNode root = parser.parse();
             System.out.println("The AST of the input SQL: ");
             System.out.println(root.getASTString());
             System.out.println("The query String of the AST parsed from the input SQL: ");

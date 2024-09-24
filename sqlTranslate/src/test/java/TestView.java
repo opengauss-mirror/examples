@@ -9,24 +9,16 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testSelect {
+public class TestView {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("SELECT * FROM employees Union SELECT employee_id, first_name, last_name FROM employees;");
-        testSQL.add("SELECT * FROM employees WHERE department_id = 10;");
-        testSQL.add("SELECT * FROM employees ORDER BY hire_date DESC;");
-        testSQL.add("SELECT COUNT(*), AVG(salary) FROM employees;");
-        testSQL.add("SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;");
-        testSQL.add("SELECT e.first_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;");
-        testSQL.add("SELECT\n" +
-                "        column1,\n" +
-                "        CASE WHEN column2 > 0 THEN 'Positive' ELSE 'Non-positive' END as status,\n" +
-                "        SUBSTR(column3, 1, 5) as substring_column3\n" +
-                "    FROM table_name;");
-        testSQL.add("SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > 10;");
-        System.out.println("===== test of Select =====");
+        testSQL.add("CREATE OR REPLACE VIEW employee_details AS SELECT first_name, last_name, salary FROM employees;");
+        testSQL.add("CREATE OR REPLACE VIEW emp_info (full_name, pay) AS SELECT first_name || ' ' || last_name AS full_name, salary AS pay FROM employees;");
+        testSQL.add("CREATE OR REPLACE VIEW emp_dept_info AS SELECT e.first_name, e.last_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id;");
+        testSQL.add("CREATE OR REPLACE VIEW high_salary_employees AS SELECT first_name, last_name, salary FROM employees WHERE salary > 50000;");
+        System.out.println("===== test of View =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();

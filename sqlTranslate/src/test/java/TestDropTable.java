@@ -9,14 +9,14 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testInsert {
+public class TestDropTable {
     List<String> testSQL = new ArrayList<>();
     @BeforeEach
     public void loadData()
     {
-        testSQL.add("INSERT INTO employees (first_name, last_name, email) VALUES ('Jane', 'Smith', 'janesm@example.com');");
-        testSQL.add("INSERT INTO employees VALUES ('Jane', 'Smith', 'janesm@example.com');");
-        System.out.println("===== test of Insert =====");
+        testSQL.add("DROP TABLE employees CASCADE CONSTRAINTS;");
+        testSQL.add("DROP TABLE employees;");
+        System.out.println("===== test of Drop table =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());
         System.out.println("The target DBMS is: " + CommonConfig.getTargetDB());
         System.out.println();
