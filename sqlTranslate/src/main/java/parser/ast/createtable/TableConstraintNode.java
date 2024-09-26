@@ -1,4 +1,4 @@
-package parser.ast.createTable;
+package parser.ast.createtable;
 
 import lexer.Token;
 import parser.ast.ASTNode;

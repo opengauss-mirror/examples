@@ -1,16 +1,17 @@
-package parser.ast.alterTable;
+package parser.ast.altertable;
 
 import lexer.Token;
 import parser.ast.ASTNode;
 
 import java.util.List;
 
-public class AlterObjNode extends ASTNode {
-    public AlterObjNode(ASTNode node) {
+public class AlterDropColumnNode extends ASTNode {
+
+    public AlterDropColumnNode(ASTNode node) {
         super(node);
     }
 
-    public AlterObjNode(List<Token> tokens) {
+    public AlterDropColumnNode(List<Token> tokens) {
         super(tokens);
     }
 

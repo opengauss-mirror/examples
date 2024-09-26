@@ -1,4 +1,4 @@
-package parser.ast.iFELSIF;
+package parser.ast.ifelsif;
 
 import lexer.Token;
 import parser.ast.ASTNode;
@@ -6,23 +6,23 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndIFNode extends ASTNode {
-    public EndIFNode() {
+public class IFConditionNode extends ASTNode {
+    public IFConditionNode() {
         super();
         setTokens(new ArrayList<>());
     }
 
-    public EndIFNode (ASTNode node) {
+    public IFConditionNode(ASTNode node) {
         super(node);
     }
 
-    public EndIFNode (List<Token> tokens) {
+    public IFConditionNode(List<Token> tokens) {
         super(tokens);
     }
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append(toString());
+        queryString.append(toString() + " ");
         for (ASTNode child : node.getChildren()) {
             child.visit(child, queryString);
         }

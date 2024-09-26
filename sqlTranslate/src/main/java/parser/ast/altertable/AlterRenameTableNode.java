@@ -1,16 +1,16 @@
-package parser.ast.caseWhen;
+package parser.ast.altertable;
 
 import lexer.Token;
 import parser.ast.ASTNode;
 
 import java.util.List;
 
-public class CaseElseNode extends ASTNode {
-    public CaseElseNode(ASTNode node) {
+public class AlterRenameTableNode extends ASTNode {
+    public AlterRenameTableNode(ASTNode node) {
         super(node);
     }
 
-    public CaseElseNode(List<Token> tokens) {
+    public AlterRenameTableNode(List<Token> tokens) {
         super(tokens);
     }
 

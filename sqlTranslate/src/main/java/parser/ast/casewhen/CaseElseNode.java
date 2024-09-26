@@ -1,17 +1,16 @@
-package parser.ast.alterTable;
+package parser.ast.casewhen;
 
 import lexer.Token;
 import parser.ast.ASTNode;
 
 import java.util.List;
 
-public class AlterDropColumnNode extends ASTNode {
-
-    public AlterDropColumnNode(ASTNode node) {
+public class CaseElseNode extends ASTNode {
+    public CaseElseNode(ASTNode node) {
         super(node);
     }
 
-    public AlterDropColumnNode(List<Token> tokens) {
+    public CaseElseNode(List<Token> tokens) {
         super(tokens);
     }
 

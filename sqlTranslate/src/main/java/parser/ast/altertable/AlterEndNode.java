@@ -1,4 +1,4 @@
-package parser.ast.alterTable;
+package parser.ast.altertable;
 
 import lexer.Token;
 import parser.ast.ASTNode;

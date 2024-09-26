@@ -1,4 +1,4 @@
-package parser.ast.iFELSIF;
+package parser.ast.ifelsif;
 
 import lexer.Token;
 import parser.ast.ASTNode;
@@ -6,17 +6,17 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IFActionNode extends ASTNode {
-    public IFActionNode() {
+public class ELSIFActionNode extends ASTNode {
+    public ELSIFActionNode() {
         super();
         setTokens(new ArrayList<>());
     }
 
-    public IFActionNode(ASTNode node) {
+    public ELSIFActionNode(ASTNode node) {
         super(node);
     }
 
-    public IFActionNode(List<Token> tokens) {
+    public ELSIFActionNode(List<Token> tokens) {
         super(tokens);
     }
 

@@ -1,4 +1,4 @@
-package parser.ast.createTable;
+package parser.ast.altertable;
 
 import interfaces.DataType;
 import lexer.Token;
@@ -7,31 +7,29 @@ import parser.ast.ASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnNode extends ASTNode implements DataType {
+public class AlterAddColumnNode extends ASTNode implements DataType {
     private Token name;
     private Token type;
     private List<Token> constraint;
-    public ColumnNode() {
+
+    public AlterAddColumnNode() {
         super();
     }
-    public ColumnNode(ASTNode node)
+
+    public AlterAddColumnNode(ASTNode node)
     {
         super(node);
     }
-    public ColumnNode(List<Token> tokens)
+
+    public AlterAddColumnNode(List<Token> tokens)
     {
         super(tokens);
     }
 
     @Override
-    public void visit(ASTNode node, StringBuilder queryString)
-    {
-        if (node.hasChild() && !(node.getChildren().get(0) instanceof CRTEndNode) )
-            queryString.append(toString() + ", ");
-        else if (node.hasChild() && (node.getChildren().get(0) instanceof CRTEndNode))
-            queryString.append(toString() + " ");
-        for (ASTNode child : getChildren())
-        {
+    public void visit(ASTNode node, StringBuilder queryString) {
+        queryString.append(toString() + " ");
+        for (ASTNode child : getChildren()) {
             child.visit(child, queryString);
         }
     }
@@ -65,6 +63,7 @@ public class ColumnNode extends ASTNode implements DataType {
     @Override
     public void ResetTokensbyType() {
         List <Token> tokens = new ArrayList<>();
+        tokens.add(new Token(Token.TokenType.KEYWORD, "ADD"));
         tokens.add(name);
         tokens.add(type);
         for (Token token : constraint) {
@@ -72,5 +71,4 @@ public class ColumnNode extends ASTNode implements DataType {
         }
         setTokens(tokens);
     }
-
 }

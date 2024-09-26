@@ -1,24 +1,21 @@
-package parser.ast.caseWhen;
+package parser.ast.createtable;
 
 import lexer.Token;
 import parser.ast.ASTNode;
-
 import java.util.List;
 
-public class CaseEndNode extends ASTNode {
-    public CaseEndNode(ASTNode node)
-    {
+public class CreateTabNode extends ASTNode {
+    public CreateTabNode(ASTNode node) {
         super(node);
     }
-
-    public CaseEndNode(List<Token> tokens)
-    {
+    public CreateTabNode(List<Token> tokens) {
         super(tokens);
     }
 
     @Override
     public void visit(ASTNode node, StringBuilder queryString) {
-        queryString.append(toString());
+        // judge the type of the table
+        queryString.append(toString() + " ");
         for (ASTNode child : getChildren())
         {
             child.visit(child, queryString);

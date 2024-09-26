@@ -1,4 +1,4 @@
-package parser.ast.iFELSIF;
+package parser.ast.ifelsif;
 
 import lexer.Token;
 import parser.ast.ASTNode;
