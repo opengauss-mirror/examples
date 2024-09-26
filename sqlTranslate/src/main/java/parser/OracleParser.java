@@ -44,7 +44,11 @@ import java.util.List;
 
 public class OracleParser {
     private OracleLexer lexer;
+    public OracleParser() {}
     public OracleParser(OracleLexer lexer) {
+        this.lexer = lexer;
+    }
+    public void setLexer(OracleLexer lexer) {
         this.lexer = lexer;
     }
     public ASTNode parse()
@@ -108,6 +112,35 @@ public class OracleParser {
             }
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ASTNode parseTokens(List<Token> parseTokens) {
+        try {
+            if ((parseTokens.get(0).getValue().equalsIgnoreCase("CREATE") && parseTokens.get(1).getValue().equalsIgnoreCase("TABLE")) ||
+                    (parseTokens.get(0).getValue().equalsIgnoreCase("CREATE") && parseTokens.get(2).getValue().equalsIgnoreCase("TEMPORARY") && parseTokens.get(3).getValue().equalsIgnoreCase("TABLE"))) {
+                return parseCreateTab(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("INSERT")) {
+                return parseInsert(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("DROP")) {
+                return parseDrop(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("SELECT")) {
+                return parseSelect(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("UPDATE")) {
+                return parseUpdate(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("DELETE")) {
+                return parseDelete(parseTokens);
+            } else if (parseTokens.get(0).getValue().equalsIgnoreCase("ALTER")) {
+                return parseAlterTable(parseTokens);
+            } else if (
+                    (parseTokens.get(0).getValue().equalsIgnoreCase("CREATE") && parseTokens.get(1).getValue().equalsIgnoreCase("OR") && parseTokens.get(2).getValue().equalsIgnoreCase("REPLACE") && parseTokens.get(3).getValue().equalsIgnoreCase("VIEW"))
+                            || (parseTokens.get(0).getValue().equalsIgnoreCase("CREATE") && parseTokens.get(1).getValue().equalsIgnoreCase("VIEW"))
+            ) {
+                return parseCreateView(parseTokens);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -1894,8 +1927,18 @@ public class OracleParser {
                                 break;
                             }
                         }
-                        currentNode.addChild(childNode);
-                        currentNode = childNode;
+                        ASTNode bodystatementNode = parseTokens(childNode.getTokens());
+                        if (bodystatementNode != null) {
+                            currentNode.addChild(bodystatementNode);
+                            currentNode = bodystatementNode.getDeepestChild();
+                            ASTNode bodystatementEndNode = new ProcedurePLStatementNode();
+                            currentNode.addChild(bodystatementEndNode);
+                            currentNode = bodystatementEndNode;
+                        }
+                        else {
+                            currentNode.addChild(childNode);
+                            currentNode = childNode;
+                        }
                     }
                 }
             }
@@ -2201,10 +2244,51 @@ public class OracleParser {
                                 break;
                             }
                         }
-                        currentNode.addChild(childNode);
-                        currentNode = childNode;
+                        ASTNode bodystatementNode = parseTokens(childNode.getTokens());
+                        if (bodystatementNode != null) {
+                            currentNode.addChild(bodystatementNode);
+                            currentNode = bodystatementNode.getDeepestChild();
+                            ASTNode bodystatementEndNode = new FunctionBodyNode();
+                            currentNode.addChild(bodystatementEndNode);
+                            currentNode = bodystatementEndNode;
+                        }
+                        else {
+                            currentNode.addChild(childNode);
+                            currentNode = childNode;
+                        }
                     }
                 }
+            }
+            // match exception
+            else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("EXCEPTION")) {
+                int index = -1;
+                for (int j = i; j < parseTokens.size(); j++) {
+                    if (parseTokens.get(j).hasType(Token.TokenType.KEYWORD) && parseTokens.get(j).getValue().equalsIgnoreCase("END")) {
+                        index = j;
+                        break;
+                    }
+                }
+                if (index == -1) {
+                    try {
+                        throw new ParseFailedException("There exists syntax error and no END block is found!");
+                    } catch (ParseFailedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ASTNode childNode = parseException(parseTokens.subList(i, index + 1));
+                currentNode.addChild(childNode);
+                currentNode = childNode.getDeepestChild();
+                childNode = new FunctionEndNode();
+                for (int j = index; j < parseTokens.size(); j++) {
+                    childNode.addToken(parseTokens.get(j));
+                    if (parseTokens.get(j).hasType(Token.TokenType.SYMBOL) && parseTokens.get(j).getValue().equals(";")) {
+                        i = j;
+                        break;
+                    }
+                }
+                currentNode.addChild(childNode);
+                currentNode = childNode;
+                break;
             }
             // match function end
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
@@ -2427,8 +2511,18 @@ public class OracleParser {
                     }
                     childNode.addToken(parseTokens.get(j));
                 }
-                currentNode.addChild(childNode);
-                currentNode = childNode;
+                ASTNode bodystatementNode = parseTokens(childNode.getTokens());
+                if (bodystatementNode != null) {
+                    currentNode.addChild(bodystatementNode);
+                    currentNode = bodystatementNode.getDeepestChild();
+                    ASTNode bodystatementEndNode = new TriggerBodyNode();
+                    currentNode.addChild(bodystatementEndNode);
+                    currentNode = bodystatementEndNode;
+                }
+                else {
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
             }
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {
                 ASTNode childNode = new TriggerEndNode();
@@ -2529,8 +2623,18 @@ public class OracleParser {
                     }
                     childNode.addToken(parseTokens.get(j));
                 }
-                currentNode.addChild(childNode);
-                currentNode = childNode;
+                ASTNode bodystatementNode = parseTokens(childNode.getTokens());
+                if (bodystatementNode != null) {
+                    currentNode.addChild(bodystatementNode);
+                    currentNode = bodystatementNode.getDeepestChild();
+                    ASTNode bodystatementEndNode = new PLBodyNode();
+                    currentNode.addChild(bodystatementEndNode);
+                    currentNode = bodystatementEndNode;
+                }
+                else {
+                    currentNode.addChild(childNode);
+                    currentNode = childNode;
+                }
             }
             // match end
             else if (parseTokens.get(i).hasType(Token.TokenType.KEYWORD) && parseTokens.get(i).getValue().equalsIgnoreCase("END")) {

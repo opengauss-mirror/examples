@@ -18,7 +18,11 @@ public class TestFunction {
                 "             input_string VARCHAR2\n" +
                 "         ) RETURN NUMBER IS\n" +
                 "         BEGIN\n" +
+                "             SELECT name, salary INTO v_name, v_salary FROM employees WHERE employee_id = 100;\n" +
                 "             RETURN LENGTH(input_string);\n" +
+                "         EXCEPTION\n" +
+                "             WHEN OTHERS THEN\n" +
+                "                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);\n" +
                 "         END;");
         System.out.println("===== test of Function =====");
         System.out.println("The source DBMS is: " + CommonConfig.getSourceDB());

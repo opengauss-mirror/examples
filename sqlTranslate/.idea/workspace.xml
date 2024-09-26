@@ -8,32 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterAddColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterAddColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterAddConstraintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterAddConstraintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterDropColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterDropColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterDropConstraintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterDropConstraintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterEndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterEndNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterModifyColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterModifyColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterObjNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterObjNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterRenameColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterRenameColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/alterTable/AlterRenameTableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/altertable/AlterRenameTableNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/caseWhen/CaseConditionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/casewhen/CaseConditionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/caseWhen/CaseElseNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/casewhen/CaseElseNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/caseWhen/CaseEndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/casewhen/CaseEndNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/caseWhen/CaseThenNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/casewhen/CaseThenNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/CRTEndNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/CRTEndNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/ColumnNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/ColumnNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/CreateTabNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/CreateTabNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/TableConstraintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/TableConstraintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/TableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/TableNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/createTable/TableTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/createtable/TableTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/ELSENode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/ELSENode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/ELSIFActionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/ELSIFActionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/ELSIFConditionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/ELSIFConditionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/EndIFNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/EndIFNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/IFActionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/IFActionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ast/iFELSIF/IFConditionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ast/ifelsif/IFConditionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestFunction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,58 +41,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testAlterTable.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testAlterTable.testAlterTable.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testCaseWhen.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testCommitRollbackExec.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testCreateTable.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testCreateTable.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testDelete.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testDropTable.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testException.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testFunction.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testIfElse.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testInsert.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testJoin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testJoin.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testLoop.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testPL.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testProcedure.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testSelect.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testSelect.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testTrigger.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testTrigger.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testUpdate.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.testView.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/oracle2opengauss/examples/sqlTranslate&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.TestFunction.executor": "Run",
+    "JUnit.TestFunction.test.executor": "Run",
+    "JUnit.TestPL.test.executor": "Run",
+    "JUnit.TestProcedure.test.executor": "Run",
+    "JUnit.TestTrigger.test.executor": "Run",
+    "JUnit.testAlterTable.executor": "Run",
+    "JUnit.testAlterTable.testAlterTable.executor": "Run",
+    "JUnit.testCaseWhen.test.executor": "Run",
+    "JUnit.testCommitRollbackExec.test.executor": "Run",
+    "JUnit.testCreateTable.executor": "Run",
+    "JUnit.testCreateTable.test.executor": "Run",
+    "JUnit.testDelete.test.executor": "Run",
+    "JUnit.testDropTable.test.executor": "Run",
+    "JUnit.testException.executor": "Run",
+    "JUnit.testException.test.executor": "Run",
+    "JUnit.testFunction.test.executor": "Run",
+    "JUnit.testIfElse.test.executor": "Run",
+    "JUnit.testInsert.test.executor": "Run",
+    "JUnit.testJoin.executor": "Run",
+    "JUnit.testJoin.test.executor": "Run",
+    "JUnit.testLoop.test.executor": "Run",
+    "JUnit.testPL.executor": "Run",
+    "JUnit.testProcedure.test.executor": "Run",
+    "JUnit.testSelect.executor": "Run",
+    "JUnit.testSelect.test.executor": "Run",
+    "JUnit.testTrigger.executor": "Run",
+    "JUnit.testTrigger.test.executor": "Run",
+    "JUnit.testUpdate.executor": "Run",
+    "JUnit.testView.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/oracle2opengauss/examples/sqlTranslate",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="sqlTranslate" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestCaseWhen.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="JUnit.TestProcedure.test">
+    <configuration name="TestFunction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestCaseWhen" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="TestFunction" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,11 +104,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestPL.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sqlTranslate" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestTrigger" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="TestPL" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestProcedure.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestProcedure" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,19 +135,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.TestCaseWhen.test" />
+      <item itemvalue="JUnit.TestFunction" />
+      <item itemvalue="JUnit.TestPL.test" />
+      <item itemvalue="JUnit.TestProcedure.test" />
       <item itemvalue="JUnit.TestFunction.test" />
-      <item itemvalue="JUnit.TestTrigger" />
       <item itemvalue="JUnit.TestTrigger.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.TestTrigger.test" />
+        <item itemvalue="JUnit.TestProcedure.test" />
         <item itemvalue="JUnit.TestFunction.test" />
-        <item itemvalue="JUnit.TestTrigger" />
-        <item itemvalue="JUnit.TestCaseWhen.test" />
+        <item itemvalue="JUnit.TestFunction" />
+        <item itemvalue="JUnit.TestTrigger.test" />
+        <item itemvalue="JUnit.TestPL.test" />
       </list>
     </recent_temporary>
   </component>
@@ -520,7 +503,7 @@
       <option name="project" value="LOCAL" />
       <updated>1726633703475</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

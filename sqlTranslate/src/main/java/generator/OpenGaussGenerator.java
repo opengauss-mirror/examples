@@ -463,7 +463,7 @@ public class OpenGaussGenerator {
                 String output = "";
                 List<Token> outputObj = new ArrayList<>();
                 for (Token token: lexer.getTokens()) {
-                    if (token.hasType(Token.TokenType.STRING)) {
+                    if (token.hasType(Token.TokenType.STRING) || token.hasType(Token.TokenType.NUMBER)) {
                         output += token.getValue().replace("'", "");
                     }
                     else if (token.hasType(Token.TokenType.IDENTIFIER) || token.hasType(Token.TokenType.KEYWORD)) {
@@ -656,6 +656,9 @@ public class OpenGaussGenerator {
                 else if (currentNode instanceof TriggerEndNode) {
                     CommonConvert(currentNode);
                     break;
+                }
+                else {
+                    CommonConvert(currentNode);
                 }
                 currentNode = currentNode.getFirstChild();
             }
