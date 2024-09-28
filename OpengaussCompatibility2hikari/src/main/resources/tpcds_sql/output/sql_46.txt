@@ -1,0 +1,101 @@
+c_last_name,c_first_name,ca_city,bought_city,ss_ticket_number,amt,profit
+null,null,Antioch,Blair,375099,2513.51,-10720.96
+null,null,Ashland,Liberty,436721,1740.90,-17453.87
+null,null,Bethel,Harmony,171528,602.05,-1032.30
+null,null,Brownsville,Sunnyside,263574,0.00,-13272.64
+null,null,Brownsville,Walnut Grove,35184,1498.79,-15914.88
+null,null,Bunker Hill,Maple Hill,95185,0.00,-1603.28
+null,null,Calhoun,Enterprise,404017,0.00,-2959.09
+null,null,Campbell,Greenville,208078,2660.07,-10031.71
+null,null,Cedar Grove,Waterloo,29840,865.26,-2314.47
+null,null,Enterprise,Hamilton,360314,2272.53,-20527.25
+null,null,Forest Hills,Oak Ridge,470194,710.43,-18900.23
+null,null,Forest Hills,Oneida,148829,887.93,-5278.63
+null,null,Forestville,Belmont,344859,0.00,124.57
+null,null,Franklin,Centerville,309602,157.50,-7126.41
+null,null,Franklin,Spring Hill,207626,5204.65,-5326.57
+null,null,Friendship,Midway,38494,2779.73,-18379.27
+null,null,Georgetown,Manchester,157802,2039.29,-8635.27
+null,null,Glendale,Franklin,466299,5188.22,-17032.12
+null,null,Glendale,Page,223260,3853.08,-24812.74
+null,null,Greenfield,Newport,443923,26.37,-3526.30
+null,null,Greenville,Green Acres,286128,172.22,-4580.22
+null,null,Hamilton,Brownsville,349084,1818.35,-6300.82
+null,null,Highland,Midway,359621,4989.44,-7309.37
+null,null,Lakeside,Superior,140023,4248.53,-17589.21
+null,null,Lakewood,Oakdale,474091,5149.14,-4766.94
+null,null,Lakewood,Riverdale,318615,763.71,-14338.48
+null,null,Lincoln,Summerville,367149,1320.12,-15233.03
+null,null,Macedonia,Providence,458084,3278.72,-12941.35
+null,null,Marion,Five Points,332803,503.42,-5972.81
+null,null,Mount Olive,Sulphur Springs,244282,1347.27,-16676.62
+null,null,Mount Vernon,Plainview,434906,2723.99,-26082.50
+null,null,Mount Vernon,Springdale,394092,985.07,-4855.71
+null,null,Mountain View,Kingston,417544,3990.60,-23059.68
+null,null,New Hope,Cedar Grove,137241,39.73,-6449.28
+null,null,Newport,Edgewood,284016,834.57,-8193.06
+null,null,Newport,Glendale,235177,13144.15,-22531.59
+null,null,Newtown,Hilltop,308580,1041.15,-8250.06
+null,null,Oak Hill,Stringtown,25061,0.00,2322.21
+null,null,Oakland,Edgewood,164022,0.00,-10113.69
+null,null,Oakwood,New Hope,98628,444.69,-657.28
+null,null,Oakwood,Sunnyside,204597,864.54,-5738.90
+null,null,Pine Grove,Forest,38281,769.24,-7702.93
+null,null,Red Hill,Union Hill,355802,2111.05,-789.50
+null,null,Riverdale,Brownsville,52554,857.73,-3676.44
+null,null,Riverdale,Walnut Grove,73231,2211.53,-14454.49
+null,null,Shiloh,Springfield,373019,890.46,-1140.59
+null,null,Spring Hill,Greenfield,428199,0.00,-14451.63
+null,null,Summit,Clifford,150758,6455.25,-8464.48
+null,null,Summit,Lakeside,238301,3402.89,-12385.79
+null,null,Summit,Riverview,411242,2735.73,-8214.58
+null,null,Sunnyside,Lakeside,38359,10286.92,-12329.88
+null,null,Union,Lakeside,412761,188.57,-2507.86
+null,null,Union,Oak Hill,352012,318.73,-9022.66
+null,null,White Hall,Spring Hill,346514,2395.41,-9155.66
+null,null,White Oak,Marion,104274,3974.94,-10343.33
+null,null,Winslow,Newtown,442302,0.00,-14260.03
+null,null,Woodlawn,Bethel,237661,2581.51,-10839.32
+null,null,Woodville,Concord,433443,45.53,-8820.09
+null,Alan                ,Bunker Hill,Forest Hills,66533,713.25,-3893.56
+null,Arthur              ,Concord,Hillcrest,464034,2437.80,-13451.09
+null,Barbara             ,Greenwood,Glenwood,343001,0.00,3831.28
+null,Bessie              ,Providence,Oneida,138227,2428.69,-7704.14
+null,Bradford            ,Plainview,Hopewell,470810,2738.27,2860.67
+null,Brian               ,Jackson,Waterloo,231495,1812.19,-15059.22
+null,Brittany            ,Deerfield,Greenville,458441,12.96,-5298.24
+null,Carole              ,Oak Grove,The Meadows,423187,2599.90,-8589.46
+null,Charles             ,Greenwood,Oakland,64392,328.22,-9350.43
+null,Chris               ,Franklin,Enterprise,222215,3319.07,-2941.87
+null,Christopher         ,Arlington,New Hope,288847,5794.14,-14513.47
+null,Clarissa            ,Sunnyside,Friendship,202803,0.00,-1104.20
+null,Coreen              ,Oak Grove,Glenwood,478108,2485.90,-3556.63
+null,Danielle            ,Acme,Florence,117965,913.94,-7757.53
+null,Danny               ,Belmont,Fairfield,43666,92.36,-7611.24
+null,David               ,Edgewood,Maple Grove,303787,0.00,-7240.83
+null,David               ,Walnut Grove,Oakwood,280467,632.84,-11381.21
+null,Debra               ,Pleasant Hill,Riverdale,264168,2384.95,-7594.66
+null,Diana               ,Valley View,Lakewood,253363,1436.07,-7091.52
+null,Diane               ,Mount Zion,Elba,151624,428.32,-690.00
+null,Dora                ,Hopewell,Antioch,172991,1577.04,-4037.83
+null,Elisa               ,Liberty,Maple Grove,86277,0.00,192.55
+null,Ernestina           ,Harmony,Five Points,184153,2292.49,-8718.93
+null,Ernestine           ,Florence,Brownsville,155826,875.09,-10596.90
+null,Ernestine           ,Florence,Roscoe,100781,9854.86,-9082.26
+null,Gary                ,Shady Grove,Florence,441131,757.73,-10697.42
+null,Jamie               ,Buena Vista,Lakeside,209005,0.00,-1210.54
+null,Jerry               ,Waterloo,Sulphur Springs,203269,0.00,2419.71
+null,John                ,Empire,Mount Pleasant,341753,3331.97,-10551.58
+null,Joseph              ,Mount Pleasant,Woodville,211971,6709.11,-11825.31
+null,Judy                ,Highland,Lebanon,50086,9.70,-8086.02
+null,Katherine           ,Plainview,Red Hill,425988,4928.92,-10526.16
+null,Kathleen            ,Oakdale,Riceville,88837,2755.39,-10090.18
+null,Kenneth             ,Forest Hills,Greenfield,256999,496.12,-11076.49
+null,Kyle                ,Fowler,Oak Grove,181695,3113.61,-8960.01
+null,Leo                 ,Enterprise,Glendale,236901,4829.22,-9622.70
+null,Lillian             ,Lakewood,Enterprise,479667,4037.35,-7161.08
+null,Lois                ,Lakewood,Lakeview,153415,116.82,-8581.74
+null,Lois                ,Lakewood,Woodlawn,153444,119.09,-1175.39
+null,Matthew             ,Bunker Hill,Texas,302114,2485.19,-7521.23
+null,Megan               ,Lebanon,Liberty,262319,5071.32,-7726.16
+null,Michael             ,Stringtown,Franklin,376054,5190.38,-18424.60

@@ -1,0 +1,101 @@
+i_category,i_class,i_brand,i_product_name,d_year,d_qoy,d_moy,s_store_id,sumsales,rk
+null,null,null,null,null,null,null,null,269551.72,5
+null,null,null,null,null,null,null,null,1182672.72,4
+null,null,null,null,null,null,null,null,2484440.10,3
+null,null,null,null,null,null,null,null,5418286.26,2
+null,null,null,null,null,null,null,null,2020790387.86,1
+null,null,null,null,1998,null,null,null,112549.08,85
+null,null,null,null,1998,4,null,null,112549.08,85
+null,null,null,null,1999,null,null,null,157002.64,46
+null,null,null,ableeingprin stought                              ,null,null,null,null,154513.23,53
+null,null,null,ablepriablebarought                               ,null,null,null,null,96665.75,100
+null,null,null,antiationeinganti                                 ,null,null,null,null,163324.61,33
+null,null,null,barationableeing                                  ,null,null,null,null,151943.08,58
+null,null,null,barationableeing                                  ,1999,null,null,null,112692.00,84
+null,null,null,callybarcallyn stought                            ,null,null,null,null,162173.83,37
+null,null,null,callybarcallyn stought                            ,1999,null,null,null,107026.18,92
+null,null,null,eingcallyoughteing                                ,null,null,null,null,184500.50,8
+null,null,null,eingcallyoughteing                                ,1999,null,null,null,128231.59,77
+null,null,brandmaxi #2                                      ,null,null,null,null,null,153826.05,54
+null,null,brandmaxi #2                                      ,oughteingought                                    ,null,null,null,null,153826.05,54
+null,null,brandmaxi #2                                      ,oughteingought                                    ,1999,null,null,null,98826.80,97
+null,null,corpunivamalg #3                                  ,null,null,null,null,null,157949.69,41
+null,null,corpunivamalg #3                                  ,eseantin stationought                             ,null,null,null,null,157949.69,41
+null,null,corpunivamalg #3                                  ,eseantin stationought                             ,1999,null,null,null,105440.56,93
+null,null,edu packamalgamalg #17                            ,null,null,null,null,null,152587.91,56
+null,null,edu packamalgamalg #17                            ,null,null,null,null,null,152587.91,56
+null,null,edu packexporti #1                                ,null,null,null,null,null,128921.01,75
+null,null,edu packexporti #1                                ,null,null,null,null,null,128921.01,75
+null,null,exportiedu pack #2                                ,null,null,null,null,null,141939.65,70
+null,null,exportiedu pack #2                                ,null,null,null,null,null,141939.65,70
+null,null,exportischolar #2                                 ,null,null,null,null,null,195244.10,6
+null,null,exportischolar #2                                 ,prieingeseought                                   ,null,null,null,null,195244.10,6
+null,null,exportischolar #2                                 ,prieingeseought                                   ,1999,null,null,null,103603.78,96
+null,null,importoamalg #2                                   ,null,null,null,null,null,151639.91,59
+null,null,importoamalg #2                                   ,n stoughtprieingought                             ,null,null,null,null,151639.91,59
+null,null,importoedu pack #1                                ,null,null,null,null,null,125639.23,78
+null,null,importoedu pack #1                                ,null,null,null,null,null,125639.23,78
+null,archery                                           ,null,null,null,null,null,null,156352.97,47
+null,archery                                           ,amalgmaxi #6                                      ,null,null,null,null,null,156352.97,47
+null,archery                                           ,amalgmaxi #6                                      ,antioughtn stought                                ,null,null,null,null,156352.97,47
+null,athletic                                          ,null,null,null,null,null,null,157068.96,43
+null,athletic                                          ,null,null,null,null,null,null,157068.96,43
+null,athletic                                          ,null,eingcallyationn stought                           ,null,null,null,null,157068.96,43
+null,baseball                                          ,null,null,null,null,null,null,176593.82,9
+null,baseball                                          ,null,null,null,null,null,null,176593.82,9
+null,baseball                                          ,null,null,null,null,null,null,176593.82,9
+null,baseball                                          ,null,null,1999,null,null,null,97098.41,99
+null,basketball                                        ,null,null,null,null,null,null,166886.43,24
+null,basketball                                        ,exportinameless #3                                ,null,null,null,null,null,166886.43,24
+null,basketball                                        ,exportinameless #3                                ,ablen stpriationought                             ,null,null,null,null,166886.43,24
+null,basketball                                        ,exportinameless #3                                ,ablen stpriationought                             ,1999,null,null,null,117678.29,80
+null,diamonds                                          ,null,null,null,null,null,null,166977.26,21
+null,diamonds                                          ,null,null,null,null,null,null,166977.26,21
+null,diamonds                                          ,null,null,null,null,null,null,166977.26,21
+null,diamonds                                          ,null,null,1999,null,null,null,107753.64,88
+null,dresses                                           ,null,null,null,null,null,null,113708.55,81
+null,dresses                                           ,null,null,null,null,null,null,113708.55,81
+null,dresses                                           ,null,antieseoughtcally                                 ,null,null,null,null,113708.55,81
+null,flatware                                          ,null,null,null,null,null,null,107226.71,89
+null,flatware                                          ,null,null,null,null,null,null,107226.71,89
+null,flatware                                          ,null,oughteingationn st                                ,null,null,null,null,107226.71,89
+null,fragrances                                        ,null,null,null,null,null,null,139167.97,72
+null,fragrances                                        ,importoamalg #2                                   ,null,null,null,null,null,139167.97,72
+null,fragrances                                        ,importoamalg #2                                   ,priantiableeseable                                ,null,null,null,null,139167.97,72
+null,guns                                              ,null,null,null,null,null,null,164581.00,30
+null,guns                                              ,importomaxi #4                                    ,null,null,null,null,null,164581.00,30
+null,guns                                              ,importomaxi #4                                    ,null,null,null,null,null,164581.00,30
+null,guns                                              ,importomaxi #4                                    ,null,1999,null,null,null,98495.03,98
+null,mattresses                                        ,null,null,null,null,null,null,145617.57,61
+null,mattresses                                        ,null,null,null,null,null,null,145617.57,61
+null,mattresses                                        ,null,null,null,null,null,null,145617.57,61
+null,memory                                            ,null,null,null,null,null,null,171167.99,15
+null,memory                                            ,univamalgamalg #1                                 ,null,null,null,null,null,171167.99,15
+null,memory                                            ,univamalgamalg #1                                 ,ableantiablecallyought                            ,null,null,null,null,171167.99,15
+null,memory                                            ,univamalgamalg #1                                 ,ableantiablecallyought                            ,1999,null,null,null,104009.88,95
+null,outdoor                                           ,null,null,null,null,null,null,166406.76,27
+null,outdoor                                           ,namelessnameless #3                               ,null,null,null,null,null,166406.76,27
+null,outdoor                                           ,namelessnameless #3                               ,null,null,null,null,null,166406.76,27
+null,pants                                             ,null,null,null,null,null,null,144302.79,64
+null,pants                                             ,exportiimporto #2                                 ,null,null,null,null,null,144302.79,64
+null,pants                                             ,exportiimporto #2                                 ,antibarableableought                              ,null,null,null,null,144302.79,64
+null,rock                                              ,null,null,null,null,null,null,167118.10,18
+null,rock                                              ,amalgscholar #1                                   ,null,null,null,null,null,167118.10,18
+null,rock                                              ,amalgscholar #1                                   ,null,null,null,null,null,167118.10,18
+null,rock                                              ,amalgscholar #1                                   ,null,1999,null,null,null,108738.35,87
+null,scanners                                          ,null,null,null,null,null,null,155677.90,50
+null,scanners                                          ,namelessunivamalg #10                             ,null,null,null,null,null,155677.90,50
+null,scanners                                          ,namelessunivamalg #10                             ,n stbaresepri                                     ,null,null,null,null,155677.90,50
+null,scanners                                          ,namelessunivamalg #10                             ,n stbaresepri                                     ,1999,null,null,null,105231.05,94
+null,shirts                                            ,null,null,null,null,null,null,172094.27,12
+null,shirts                                            ,null,null,null,null,null,null,172094.27,12
+null,shirts                                            ,null,null,null,null,null,null,172094.27,12
+null,sports-apparel                                    ,null,null,null,null,null,null,162526.71,34
+null,sports-apparel                                    ,null,null,null,null,null,null,162526.71,34
+null,sports-apparel                                    ,null,null,null,null,null,null,162526.71,34
+null,tennis                                            ,null,null,null,null,null,null,158378.69,38
+null,tennis                                            ,null,null,null,null,null,null,158378.69,38
+null,tennis                                            ,null,barpribaranti                                     ,null,null,null,null,158378.69,38
+null,womens                                            ,null,null,null,null,null,null,141991.71,67
+null,womens                                            ,null,null,null,null,null,null,141991.71,67
+null,womens                                            ,null,null,null,null,null,null,141991.71,67

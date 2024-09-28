@@ -1,0 +1,33 @@
+customer_id,customer_first_name,customer_last_name,customer_birth_country
+AAAAAAAAAECKBAAA,Ed                  ,Upchurch                      ,GERMANY
+AAAAAAAAAGDCBAAA,Jonathan            ,Bullard                       ,SUDAN
+AAAAAAAAAIOMBAAA,Michael             ,Gipson                        ,PALAU
+AAAAAAAAAJKBBAAA,Eric                ,Headrick                      ,ESTONIA
+AAAAAAAABIPBCAAA,Kendrick            ,Callaway                      ,TURKEY
+AAAAAAAABLGFAAAA,Wm                  ,Thompson                      ,KOREA, REPUBLIC OF
+AAAAAAAADEDDBAAA,Debra               ,Mitchell                      ,UNITED STATES
+AAAAAAAADGGMBAAA,Henry               ,Peters                        ,PHILIPPINES
+AAAAAAAADPPBAAAA,Lyn                 ,Williams                      ,MONACO
+AAAAAAAAEFPJAAAA,Tamara              ,Norman                        ,TOKELAU
+AAAAAAAAFFFFBAAA,Sally               ,Hampton                       ,SINGAPORE
+AAAAAAAAFJMMAAAA,Jeanine             ,Collins                       ,GREENLAND
+AAAAAAAAGBMBAAAA,Roger               ,Branch                        ,TUNISIA
+AAAAAAAAGEFDBAAA,Patrick             ,Jones                         ,GREENLAND
+AAAAAAAAGOLLBAAA,Nancy               ,Robbins                       ,SENEGAL
+AAAAAAAAHJMFAAAA,Carolyn             ,Allison                       ,MONACO
+AAAAAAAAIMGPBAAA,James               ,Ramirez                       ,TURKEY
+AAAAAAAAKALDAAAA,Gerald              ,null,LEBANON
+AAAAAAAAKIIBBAAA,null,null,null
+AAAAAAAAKKCBBAAA,Vickie              ,Lyons                         ,UGANDA
+AAAAAAAAKNCEAAAA,Ruby                ,Meek                          ,MALTA
+AAAAAAAALJGJAAAA,Jason               ,Garcia                        ,SWITZERLAND
+AAAAAAAAMLHBBAAA,Pilar               ,Enos                          ,INDONESIA
+AAAAAAAAMLPLAAAA,Helen               ,Gardner                       ,CÔTE D'IVOIRE
+AAAAAAAAMPNHAAAA,Marylin             ,Bassett                       ,UKRAINE
+AAAAAAAANIOBCAAA,Arthur              ,Brown                         ,CUBA
+AAAAAAAAOANMAAAA,Michael             ,Griffin                       ,SOUTH AFRICA
+AAAAAAAAOLAEBAAA,William             ,Dunn                          ,SINGAPORE
+AAAAAAAAPJEHBAAA,Harry               ,Lambert                       ,GUADELOUPE
+AAAAAAAAPLHLBAAA,Laura               ,Lewis                         ,QATAR
+AAAAAAAAPMDABAAA,Peter               ,Tan                           ,CAYMAN ISLANDS
+AAAAAAAAPNFPBAAA,James               ,null,null

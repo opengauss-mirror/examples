@@ -1,0 +1,29 @@
+product_name,store_name,store_zip,b_street_number,b_street_name,b_city,b_zip,c_street_number,c_street_name,c_city,c_zip,syear,cnt,s11,s21,s31,s12,s22,s32,syear,cnt
+ableoughtn stoughtought                           ,ought,31904     ,620       ,1st ,Bridgeport,65817     ,6         ,Meadow ,Fairfield,26192     ,1999,1,2.46,3.34,0.00,2.25,4.32,0.00,2000,1
+barbaroughtn stought                              ,cally,31904     ,295       ,Davis 10th,Amity,60766     ,876       ,8th 9th,Sulphur Springs,28354     ,1999,1,47.49,71.23,2488.04,47.66,76.73,0.00,2000,1
+barbaroughtn stought                              ,cally,31904     ,295       ,Davis 10th,Amity,60766     ,876       ,8th 9th,Sulphur Springs,28354     ,1999,1,47.49,71.23,2488.04,99.72,122.65,0.00,2000,1
+barbaroughtn stought                              ,eing,35709     ,887       ,13th 14th,Summit,60499     ,758       ,Ridge Birch,Shiloh,69275     ,1999,1,28.77,31.93,0.00,8.03,15.41,0.00,2000,1
+barbaroughtn stought                              ,pri,31904     ,null,South 7th,null,null,36        ,Valley ,Red Hill,44338     ,1999,1,66.95,123.18,0.00,54.93,60.42,2090.50,2000,1
+barbaroughtn stought                              ,pri,31904     ,248       ,Railroad Williams,Pleasant Grove,54136     ,681       ,Meadow ,Rossville,52503     ,1999,1,68.95,117.90,0.00,54.93,60.42,2090.50,2000,1
+eingcallyantiese                                  ,able,31904     ,319       ,Center ,Wildwood,56871     ,70        ,Lake ,Summit,30499     ,1999,1,98.67,101.63,0.00,70.06,88.27,6029.10,2000,1
+eingcallyantiese                                  ,able,31904     ,319       ,Center ,Wildwood,56871     ,70        ,Lake ,Summit,30499     ,1999,1,98.67,101.63,0.00,72.65,96.62,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,278       ,Jefferson ,Lakeview,38579     ,679       ,5th Second,Bunker Hill,70150     ,1999,1,24.04,31.49,0.00,18.18,31.63,1561.46,2000,1
+eingcallyantiese                                  ,bar,31904     ,278       ,Jefferson ,Lakeview,38579     ,679       ,5th Second,Bunker Hill,70150     ,1999,1,24.04,31.49,0.00,25.60,45.56,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,278       ,Jefferson ,Lakeview,38579     ,679       ,5th Second,Bunker Hill,70150     ,1999,1,24.04,31.49,0.00,26.00,41.08,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,205       ,First Main,Greenville,51387     ,215       ,Madison Church,Salem,58048     ,1999,1,41.84,81.58,0.00,18.18,31.63,1561.46,2000,1
+eingcallyantiese                                  ,bar,31904     ,205       ,First Main,Greenville,51387     ,215       ,Madison Church,Salem,58048     ,1999,1,41.84,81.58,0.00,25.60,45.56,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,205       ,First Main,Greenville,51387     ,215       ,Madison Church,Salem,58048     ,1999,1,41.84,81.58,0.00,26.00,41.08,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,48        ,First ,Sulphur Springs,98354     ,41        ,Sycamore Franklin,Sunnyside,81952     ,1999,1,73.98,118.36,0.00,18.18,31.63,1561.46,2000,1
+eingcallyantiese                                  ,bar,31904     ,48        ,First ,Sulphur Springs,98354     ,41        ,Sycamore Franklin,Sunnyside,81952     ,1999,1,73.98,118.36,0.00,25.60,45.56,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,48        ,First ,Sulphur Springs,98354     ,41        ,Sycamore Franklin,Sunnyside,81952     ,1999,1,73.98,118.36,0.00,26.00,41.08,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,47        ,Laurel ,Shady Grove,62812     ,549       ,Spring 8th,Marion,60399     ,1999,1,75.83,149.38,0.00,18.18,31.63,1561.46,2000,1
+eingcallyantiese                                  ,bar,31904     ,47        ,Laurel ,Shady Grove,62812     ,549       ,Spring 8th,Marion,60399     ,1999,1,75.83,149.38,0.00,25.60,45.56,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,47        ,Laurel ,Shady Grove,62812     ,549       ,Spring 8th,Marion,60399     ,1999,1,75.83,149.38,0.00,26.00,41.08,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,729       ,1st ,Farmington,39145     ,716       ,3rd Highland,Waterloo,61675     ,1999,1,89.58,104.80,0.00,18.18,31.63,1561.46,2000,1
+eingcallyantiese                                  ,bar,31904     ,729       ,1st ,Farmington,39145     ,716       ,3rd Highland,Waterloo,61675     ,1999,1,89.58,104.80,0.00,25.60,45.56,0.00,2000,1
+eingcallyantiese                                  ,bar,31904     ,729       ,1st ,Farmington,39145     ,716       ,3rd Highland,Waterloo,61675     ,1999,1,89.58,104.80,0.00,26.00,41.08,0.00,2000,1
+eingcallyantiese                                  ,cally,31904     ,862       ,Franklin 1st,Woodcrest,44919     ,442       ,11th Johnson,Florence,33394     ,1999,1,27.39,34.23,0.00,34.86,44.96,0.00,2000,1
+eingcallyantiese                                  ,cally,31904     ,862       ,Franklin 1st,Woodcrest,44919     ,442       ,11th Johnson,Florence,33394     ,1999,1,27.39,34.23,0.00,47.06,78.11,0.00,2000,1
+eingcallyantiese                                  ,cally,31904     ,null,South Green,Greenwood,null,263       ,9th ,Oak Hill,67838     ,1999,1,59.68,76.98,0.00,34.86,44.96,0.00,2000,1
+eingcallyantiese                                  ,cally,31904     ,null,South Green,Greenwood,null,263       ,9th ,Oak Hill,67838     ,1999,1,59.68,76.98,0.00,47.06,78.11,0.00,2000,1
+eingcallyantiese                                  ,ese,31904     ,831       ,Second ,Brownsville,69310     ,70        ,Seventh ,Lakewood,98877     ,1999,1,49.18,59.99,0.00,14.68,27.45,0.00,2000,1

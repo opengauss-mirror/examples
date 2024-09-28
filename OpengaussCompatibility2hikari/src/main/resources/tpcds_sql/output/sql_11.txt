@@ -1,0 +1,101 @@
+customer_id,customer_first_name,customer_last_name,customer_birth_country
+AAAAAAAAAAODBAAA,Barbara             ,Carter                        ,CAMEROON
+AAAAAAAAABAFAAAA,Ariane              ,Fleming                       ,MYANMAR
+AAAAAAAAABNCAAAA,Ada                 ,Payne                         ,PALAU
+AAAAAAAAABNKAAAA,Thomas              ,Moore                         ,EL SALVADOR
+AAAAAAAAACIACAAA,Sherman             ,Manuel                        ,UNITED STATES
+AAAAAAAAACMBBAAA,Catherine           ,Schwartz                      ,GHANA
+AAAAAAAAACNACAAA,Karen               ,Beasley                       ,COMOROS
+AAAAAAAAAEBIBAAA,Eugenie             ,Herrera                       ,GHANA
+AAAAAAAAAECKBAAA,Ed                  ,Upchurch                      ,GERMANY
+AAAAAAAAAEEPAAAA,Benjamin            ,Allen                         ,HONDURAS
+AAAAAAAAAEGFAAAA,Julie               ,Williams                      ,SYRIAN ARAB REPUBLIC
+AAAAAAAAAEJIAAAA,Cheyenne            ,Welch                         ,BOTSWANA
+AAAAAAAAAGGEAAAA,Donna               ,Smith                         ,HONG KONG
+AAAAAAAAAGIBCAAA,David               ,Henderson                     ,CROATIA
+AAAAAAAAAGLJBAAA,Mack                ,Tolbert                       ,NIGERIA
+AAAAAAAAAHKFBAAA,Jesse               ,Velez                         ,THAILAND
+AAAAAAAAAIOMBAAA,Michael             ,Gipson                        ,PALAU
+AAAAAAAAAJJBCAAA,James               ,Braswell                      ,ANGOLA
+AAAAAAAAAJJOBAAA,Daniel              ,Pantoja                       ,BULGARIA
+AAAAAAAAAJNHAAAA,Jennifer            ,Hinton                        ,TUVALU
+AAAAAAAAAKENBAAA,Lino                ,Jackson                       ,PUERTO RICO
+AAAAAAAAAKPIBAAA,Chad                ,Wampler                       ,NIGER
+AAAAAAAAALKBBAAA,Armando             ,Holloway                      ,GUERNSEY
+AAAAAAAAAMFEAAAA,Violet              ,Brink                         ,SAINT LUCIA
+AAAAAAAAANEGBAAA,John                ,Selby                         ,BELGIUM
+AAAAAAAAANEMAAAA,Freida              ,Singer                        ,BOTSWANA
+AAAAAAAAAOIKBAAA,Sara                ,Harper                        ,SEYCHELLES
+AAAAAAAAAOPHAAAA,Ralph               ,Turner                        ,IRELAND
+AAAAAAAAAPDLAAAA,Leona               ,Ford                          ,EL SALVADOR
+AAAAAAAAAPHOAAAA,Robert              ,Johnson                       ,DJIBOUTI
+AAAAAAAAAPKMBAAA,Juanita             ,Patton                        ,AUSTRALIA
+AAAAAAAABAFJAAAA,Kevin               ,Kelley                        ,OMAN
+AAAAAAAABAMAAAAA,null,null,NAURU
+AAAAAAAABAOOAAAA,Nicolas             ,Rodriguez                     ,FRENCH POLYNESIA
+AAAAAAAABAPCBAAA,Marcia              ,Appleton                      ,SAN MARINO
+AAAAAAAABCACCAAA,Matthew             ,Potter                        ,GUINEA-BISSAU
+AAAAAAAABDAAAAAA,Steven              ,Venable                       ,NETHERLANDS ANTILLES
+AAAAAAAABDBEAAAA,Cesar               ,Wiley                         ,SERBIA
+AAAAAAAABDGDBAAA,Camille             ,Young                         ,MYANMAR
+AAAAAAAABEGGBAAA,Iris                ,Matthews                      ,MACAO
+AAAAAAAABELMBAAA,Imogene             ,Little                        ,ALBANIA
+AAAAAAAABENCBAAA,Wayne               ,Mayhew                        ,BELGIUM
+AAAAAAAABFFFBAAA,null,null,null
+AAAAAAAABFOOAAAA,Vida                ,Crain                         ,BRAZIL
+AAAAAAAABGNLBAAA,Jennifer            ,Robinson                      ,SERBIA
+AAAAAAAABHDBAAAA,Mitch               ,Gonzalez                      ,CHRISTMAS ISLAND
+AAAAAAAABHEPAAAA,Joseph              ,Lemon                         ,CHRISTMAS ISLAND
+AAAAAAAABICAAAAA,null,Caldwell                      ,null
+AAAAAAAABJJKBAAA,Hobert              ,Leonard                       ,SOMALIA
+AAAAAAAABJMIBAAA,Ruby                ,Simon                         ,ALAND ISLANDS
+AAAAAAAABKKLBAAA,Victoria            ,Guy                           ,ROMANIA
+AAAAAAAABKPOBAAA,Martin              ,Lynch                         ,EL SALVADOR
+AAAAAAAABNCEBAAA,Lucia               ,Carrasco                      ,ESTONIA
+AAAAAAAABNFMBAAA,Alisa               ,Jordan                        ,EQUATORIAL GUINEA
+AAAAAAAABNLEBAAA,Goldie              ,Carson                        ,TOKELAU
+AAAAAAAABNLMAAAA,David               ,Allen                         ,QATAR
+AAAAAAAABPCFAAAA,Tiffany             ,Taggart                       ,null
+AAAAAAAACBDOAAAA,Rita                ,Huff                          ,BELGIUM
+AAAAAAAACBEDBAAA,Robert              ,Reyes                         ,FAROE ISLANDS
+AAAAAAAACBENBAAA,Thomas              ,Fernandez                     ,GUINEA-BISSAU
+AAAAAAAACCBFBAAA,James               ,Madrid                        ,PERU
+AAAAAAAACCHPBAAA,Monica              ,Black                         ,GREECE
+AAAAAAAACCOOAAAA,Vernon              ,Mooney                        ,MALTA
+AAAAAAAACDHBBAAA,Fred                ,Groves                        ,ANGOLA
+AAAAAAAACDIFBAAA,Quentin             ,Clark                         ,GUADELOUPE
+AAAAAAAACEOIAAAA,Tricia              ,Free                          ,ZIMBABWE
+AAAAAAAACFBLBAAA,Samuel              ,Alston                        ,INDIA
+AAAAAAAACFKGAAAA,Michael             ,Lilly                         ,MONACO
+AAAAAAAACGNFAAAA,Helen               ,Driscoll                      ,VANUATU
+AAAAAAAACHNEBAAA,Kenneth             ,Nelson                        ,PAKISTAN
+AAAAAAAACHOBCAAA,Charles             ,France                        ,THAILAND
+AAAAAAAACHPDAAAA,Jaime               ,Hodges                        ,TRINIDAD AND TOBAGO
+AAAAAAAACJECBAAA,Jennifer            ,Mahan                         ,OMAN
+AAAAAAAACKLBBAAA,Ruth                ,Bright                        ,BURUNDI
+AAAAAAAACLLHAAAA,Mark                ,Ortiz                         ,MALI
+AAAAAAAACLLLBAAA,Dalton              ,Kim                           ,ETHIOPIA
+AAAAAAAACMGNAAAA,William             ,Thomas                        ,BOLIVIA
+AAAAAAAACMKJAAAA,Michell             ,Crawford                      ,INDONESIA
+AAAAAAAACNGFAAAA,Tina                ,Seidel                        ,BOTSWANA
+AAAAAAAACOFKBAAA,Michael             ,Williams                      ,AFGHANISTAN
+AAAAAAAACPGCAAAA,Leroy               ,Pearson                       ,PARAGUAY
+AAAAAAAACPKDBAAA,Lana                ,Coleman                       ,EGYPT
+AAAAAAAACPPLAAAA,Marshall            ,Thompson                      ,POLAND
+AAAAAAAADBMACAAA,Earl                ,Rogers                        ,CROATIA
+AAAAAAAADBPCAAAA,Michael             ,Maher                         ,EL SALVADOR
+AAAAAAAADCMNAAAA,Katherine           ,Thomas                        ,YEMEN
+AAAAAAAADCPFBAAA,Paul                ,Webster                       ,ERITREA
+AAAAAAAADDNBCAAA,Stanley             ,Tinsley                       ,BENIN
+AAAAAAAADEFEAAAA,Glynda              ,Morris                        ,MYANMAR
+AAAAAAAADEGIBAAA,Eric                ,Guzman                        ,RUSSIAN FEDERATION
+AAAAAAAADFIABAAA,null,Harris                        ,NIGERIA
+AAAAAAAADFOMAAAA,Joaquin             ,Sheppard                      ,SIERRA LEONE
+AAAAAAAADFPKAAAA,Christina           ,Scott                         ,SIERRA LEONE
+AAAAAAAADGGMBAAA,Henry               ,Peters                        ,PHILIPPINES
+AAAAAAAADGHBBAAA,Bessie              ,Walker                        ,SERBIA
+AAAAAAAADGOJAAAA,Penelope            ,Laney                         ,PARAGUAY
+AAAAAAAADIALBAAA,Renee               ,Hannon                        ,TUVALU
+AAAAAAAADIFACAAA,Beverly             ,Cole                          ,ANGUILLA
+AAAAAAAADJFGAAAA,Joseph              ,Miles                         ,POLAND
+AAAAAAAADJGPAAAA,Curtis              ,Huynh                         ,GABON

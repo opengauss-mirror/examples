@@ -1,0 +1,101 @@
+customer_id,customer_first_name,customer_last_name
+AAAAAAAAAABIAAAA,null,null
+AAAAAAAADEHIBAAA,null,null
+AAAAAAAAEPHDAAAA,null,null
+AAAAAAAAFHFABAAA,Lucius              ,null
+AAAAAAAAFOKCCAAA,null,null
+AAAAAAAAGKPOBAAA,Jana                ,null
+AAAAAAAAHEJIAAAA,Vernon              ,null
+AAAAAAAAJFABCAAA,Felix               ,null
+AAAAAAAAKEGDAAAA,John                ,null
+AAAAAAAAKNDOAAAA,null,null
+AAAAAAAALCGNAAAA,Robert              ,null
+AAAAAAAALMHMBAAA,null,null
+AAAAAAAAMAFFAAAA,null,null
+AAAAAAAAMODKBAAA,Daniel              ,null
+AAAAAAAAODJIBAAA,null,null
+AAAAAAAAMKAMAAAA,Pamela              ,Adams                         
+AAAAAAAANHCMAAAA,Michael             ,Adams                         
+AAAAAAAACBLEAAAA,Daniel              ,Albright                      
+AAAAAAAAAEEPAAAA,Benjamin            ,Allen                         
+AAAAAAAADKOIAAAA,Matthew             ,Allen                         
+AAAAAAAAKKBMAAAA,Dominic             ,Allen                         
+AAAAAAAAMHOHAAAA,Helen               ,Archibald                     
+AAAAAAAAPOFMAAAA,Samantha            ,Askew                         
+AAAAAAAAHKLCCAAA,Joyce               ,Autry                         
+AAAAAAAACAKJAAAA,Joseph              ,Bailey                        
+AAAAAAAANJDIBAAA,James               ,Bain                          
+AAAAAAAAHNMNAAAA,George              ,Baker                         
+AAAAAAAANGKFBAAA,Kevin               ,Baker                         
+AAAAAAAAGHCEBAAA,Sarah               ,Banks                         
+AAAAAAAACOIGAAAA,Michael             ,Barnard                       
+AAAAAAAANMHFAAAA,Michael             ,Barnard                       
+AAAAAAAAOLLDBAAA,John                ,Barnard                       
+AAAAAAAAOOMCAAAA,Ila                 ,Barnes                        
+AAAAAAAAHJBHAAAA,Melissa             ,Beard                         
+AAAAAAAADNHHBAAA,Kristina            ,Belcher                       
+AAAAAAAAEBJDBAAA,Mildred             ,Bell                          
+AAAAAAAABGLOAAAA,Louise              ,Benge                         
+AAAAAAAAEHPCCAAA,Darius              ,Bennett                       
+AAAAAAAAPGPPBAAA,Stephanie           ,Bentley                       
+AAAAAAAAHMFHAAAA,Manuel              ,Berry                         
+AAAAAAAAFJIBCAAA,Talitha             ,Bishop                        
+AAAAAAAAJEGBBAAA,Dorothy             ,Bivins                        
+AAAAAAAAPFIGBAAA,John                ,Blake                         
+AAAAAAAAEIBEBAAA,Owen                ,Bloom                         
+AAAAAAAAIKEPAAAA,Erlinda             ,Blunt                         
+AAAAAAAACPONAAAA,Nicholas            ,Booker                        
+AAAAAAAAHLACAAAA,Randy               ,Bourgeois                     
+AAAAAAAAFBJFBAAA,Elizabeth           ,Briscoe                       
+AAAAAAAAKGEEBAAA,Martha              ,Brown                         
+AAAAAAAAMDJHBAAA,Lora                ,Brown                         
+AAAAAAAAPNMLAAAA,Barbara             ,Bruce                         
+AAAAAAAALNKJBAAA,Fred                ,Brunson                       
+AAAAAAAAJDKBBAAA,Larry               ,Bryant                        
+AAAAAAAALLHFAAAA,Troy                ,Bryant                        
+AAAAAAAAACEPBAAA,James               ,Burnett                       
+AAAAAAAAPCGNAAAA,Gregory             ,Bush                          
+AAAAAAAAAKAOAAAA,Robert              ,Button                        
+AAAAAAAAFHJIBAAA,Donald              ,Butts                         
+AAAAAAAAFFBABAAA,Corey               ,Caldwell                      
+AAAAAAAACJKNBAAA,Brian               ,Call                          
+AAAAAAAAEBHPAAAA,Tommy               ,Callahan                      
+AAAAAAAAJLJLBAAA,Sheila              ,Cameron                       
+AAAAAAAALACHAAAA,Steven              ,Campbell                      
+AAAAAAAACKOMAAAA,Linda               ,Carmona                       
+AAAAAAAADHKACAAA,Stephen             ,Carnes                        
+AAAAAAAADDBPAAAA,Fred                ,Carter                        
+AAAAAAAADNGACAAA,Kenneth             ,Carter                        
+AAAAAAAAMPFJBAAA,Barbara             ,Carter                        
+AAAAAAAAHGANAAAA,Allison             ,Casey                         
+AAAAAAAAAGIHAAAA,Martha              ,Causey                        
+AAAAAAAAHCKBAAAA,Michael             ,Chaney                        
+AAAAAAAAFKDBBAAA,Michael             ,Chavez                        
+AAAAAAAACHJHAAAA,Donald              ,Chew                          
+AAAAAAAADMGLBAAA,Amelia              ,Chew                          
+AAAAAAAALAGDBAAA,Kimberly            ,Clark                         
+AAAAAAAALBBDBAAA,Larry               ,Clement                       
+AAAAAAAAKPJFAAAA,Gregory             ,Clemons                       
+AAAAAAAAEFDKAAAA,Edward              ,Colburn                       
+AAAAAAAAGBCEBAAA,Wayne               ,Coleman                       
+AAAAAAAAHNBJAAAA,Kevin               ,Colvin                        
+AAAAAAAADBJNAAAA,Brian               ,Connelly                      
+AAAAAAAAFGKEAAAA,Berta               ,Cooper                        
+AAAAAAAAJBNIBAAA,Freddie             ,Cooper                        
+AAAAAAAACCJDBAAA,Cindy               ,Correa                        
+AAAAAAAAOBOFAAAA,John                ,Cortes                        
+AAAAAAAALILNAAAA,Sandra              ,Cortez                        
+AAAAAAAANGLGAAAA,Stanley             ,Cortez                        
+AAAAAAAADNFFBAAA,Thelma              ,Costa                         
+AAAAAAAAKPDOAAAA,Nancy               ,Cotton                        
+AAAAAAAAMAICAAAA,Alfreda             ,Crisp                         
+AAAAAAAABJCHBAAA,Nellie              ,Cruz                          
+AAAAAAAAEBJNBAAA,Judy                ,Cunningham                    
+AAAAAAAANLMOBAAA,Lisa                ,Cunningham                    
+AAAAAAAAEIFNBAAA,Steve               ,Currie                        
+AAAAAAAADCPLAAAA,Lester              ,Curry                         
+AAAAAAAAHHLJBAAA,Federico            ,Dailey                        
+AAAAAAAAKMLBBAAA,Bernadette          ,Daniel                        
+AAAAAAAACJMFAAAA,Roy                 ,Darby                         
+AAAAAAAAHBHMBAAA,Gary                ,Daugherty                     
+AAAAAAAAIPFCAAAA,Roberto             ,Davis                         

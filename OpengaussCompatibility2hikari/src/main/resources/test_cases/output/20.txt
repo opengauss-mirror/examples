@@ -1,0 +1,41 @@
+id1	id2	id3	
+100	200	300	
+
+id1	id2	id3	
+100	200	300	
+
+id1	id2	id3	
+100	200	400	
+
+id1	id2	id3	
+100	200	400	
+
+id1	id2	id3	
+
+id1	id2	id3	
+
+id	name	
+1	lion                          	
+
+id	foodtype	remark	
+1	ice cream	sdsdsdsd	
+4	sausage	sdsdsdsd	
+3	cake	sdsdsdsd	
+2	chocolate	sdsdsdsd	
+
+id	name	
+1	lion                          	
+2	dog                           	
+
+id	foodtype	remark	
+1	ice cream	sdsdsdsd	
+4	sausage	sdsdsdsd	
+3	cake	sdsdsdsd	
+2	chocolate	sdsdsdsd	
+1	ice cream	sdsdsdsd	
+4	sausage	sdsdsdsd	
+5	milk	sdsds	
+3	cake	sdsdsdsd	
+6	strawberry	sdsds	
+2	chocolate	sdsdsdsd	
+

@@ -1,0 +1,39 @@
+ca_zip,ca_county,sum
+null,null,66.20
+null,Ochiltree County,0.00
+null,Smith County,27.71
+12812     ,Livingston County,46.25
+16098     ,Juniata County,80.97
+25038     ,Isle of Wight County,1.50
+25124     ,Roane County,148.15
+28252     ,Caldwell County,16.10
+29310     ,Gates County,57.27
+33394     ,Pasco County,41.96
+34289     ,Floyd County,97.91
+40216     ,Vanderburgh County,11.16
+41289     ,Clark County,30.78
+45038     ,Kosciusko County,5.64
+50162     ,Columbia County,2.77
+53804     ,Racine County,86.95
+55038     ,Adams County,16.16
+56867     ,Mahnomen County,43.51
+58054     ,Aitkin County,2.82
+59003     ,Miner County,11.77
+59532     ,Chippewa County,1.04
+59840     ,Koochiching County,28.54
+60399     ,Coffey County,15.06
+61521     ,Nemaha County,49.19
+66534     ,Neosho County,33.38
+73604     ,Polk County,4.43
+76614     ,Desha County,8.28
+80069     ,Owyhee County,114.70
+82477     ,Esmeralda County,27.70
+83683     ,Greenlee County,152.77
+86277     ,Torrance County,35.58
+86668     ,Socorro County,0.73
+87838     ,Washington County,16.57
+88482     ,San Juan County,66.73
+89303     ,Hot Springs County,6.99
+89532     ,Cibola County,49.97
+96192     ,null,61.14
+98222     ,San Francisco County,8.21

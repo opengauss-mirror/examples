@@ -1,0 +1,101 @@
+gross_margin,i_category,i_class,lochierarchy,rank_within_parent
+-0.43267801330923048426,null,null,2,1
+-0.44861288089766250381,null,null,1,1
+-0.43693319684394226457,Books                                             ,null,1,2
+-0.43605127039753616961,Electronics                                       ,null,1,3
+-0.43504878022421987277,Home                                              ,null,1,4
+-0.43452183383651198866,Women                                             ,null,1,5
+-0.43231945801026584689,Children                                          ,null,1,6
+-0.43184327569590578030,Jewelry                                           ,null,1,7
+-0.43159272587457562323,Shoes                                             ,null,1,8
+-0.43125138977483322195,Sports                                            ,null,1,9
+-0.42860901404742937105,Men                                               ,null,1,10
+-0.42859716722616891254,Music                                             ,null,1,11
+-1.06926677043034620778,null,flatware                                          ,0,1
+-0.71162489956330854570,null,archery                                           ,0,2
+-0.67061445181644903285,null,shirts                                            ,0,3
+-0.61435063656819010385,null,fragrances                                        ,0,4
+-0.59191620799070248690,null,sports-apparel                                    ,0,5
+-0.57304960891510504955,null,diamonds                                          ,0,6
+-0.57277948435059715830,null,tennis                                            ,0,7
+-0.56090018384932740470,null,pants                                             ,0,8
+-0.53914135049382930379,null,athletic                                          ,0,9
+-0.53002430684458303961,null,guns                                              ,0,10
+-0.48416631473127896904,null,rock                                              ,0,11
+-0.48035339775168708810,null,dresses                                           ,0,12
+-0.46002836884279553554,null,outdoor                                           ,0,13
+-0.42901451619630230954,null,mattresses                                        ,0,14
+-0.42146286149506806759,null,womens                                            ,0,15
+-0.40240137280812304243,null,null,0,16
+-0.33869671511064414168,null,basketball                                        ,0,17
+-0.27337627102007777045,null,memory                                            ,0,18
+-0.27135970635291582531,null,scanners                                          ,0,19
+-0.24092079967603115818,null,baseball                                          ,0,20
+-0.69645904555909088936,Books                                             ,null,0,1
+-0.45653816372898552250,Books                                             ,parenting                                         ,0,2
+-0.45297309506658693424,Books                                             ,cooking                                           ,0,3
+-0.45111905128848716208,Books                                             ,arts                                              ,0,4
+-0.45087644286712710174,Books                                             ,reference                                         ,0,5
+-0.44620182000759718924,Books                                             ,entertainments                                    ,0,6
+-0.44516131838997294852,Books                                             ,home repair                                       ,0,7
+-0.44405005173156633276,Books                                             ,travel                                            ,0,8
+-0.44332774652420165614,Books                                             ,self-help                                         ,0,9
+-0.44175926059631831395,Books                                             ,history                                           ,0,10
+-0.43277459527310521603,Books                                             ,sports                                            ,0,11
+-0.43163741842426711262,Books                                             ,fiction                                           ,0,12
+-0.42322549942016432375,Books                                             ,romance                                           ,0,13
+-0.42238035207163761808,Books                                             ,mystery                                           ,0,14
+-0.42176173088507614404,Books                                             ,business                                          ,0,15
+-0.41309082946107815956,Books                                             ,computers                                         ,0,16
+-0.41046676983241907996,Books                                             ,science                                           ,0,17
+-0.47612230608336172531,Children                                          ,null,0,1
+-0.43999320114824552627,Children                                          ,newborn                                           ,0,2
+-0.43391074062721100633,Children                                          ,toddlers                                          ,0,3
+-0.43274498172055534933,Children                                          ,school-uniforms                                   ,0,4
+-0.42320813123074894977,Children                                          ,infants                                           ,0,5
+-0.44931040612445572484,Electronics                                       ,dvd/vcr players                                   ,0,1
+-0.44872947632499882347,Electronics                                       ,stereo                                            ,0,2
+-0.44852447556913129437,Electronics                                       ,memory                                            ,0,3
+-0.44775440685230198572,Electronics                                       ,monitors                                          ,0,4
+-0.44511619615563216947,Electronics                                       ,camcorders                                        ,0,5
+-0.44171575804329717952,Electronics                                       ,personal                                          ,0,6
+-0.43889789651647604485,Electronics                                       ,televisions                                       ,0,7
+-0.43872482018818404041,Electronics                                       ,automotive                                        ,0,8
+-0.43596925436770973262,Electronics                                       ,scanners                                          ,0,9
+-0.43473161377664072549,Electronics                                       ,wireless                                          ,0,10
+-0.43029560122350531194,Electronics                                       ,karoke                                            ,0,11
+-0.42769436590560291890,Electronics                                       ,disk drives                                       ,0,12
+-0.42598762693959642144,Electronics                                       ,portable                                          ,0,13
+-0.42540105994867911827,Electronics                                       ,audio                                             ,0,14
+-0.42013043772196107678,Electronics                                       ,musical                                           ,0,15
+-0.41235393403261990458,Electronics                                       ,cameras                                           ,0,16
+-0.46490505286772718230,Home                                              ,curtains/drapes                                   ,0,1
+-0.45221667092117310520,Home                                              ,wallpaper                                         ,0,2
+-0.44983447245481873520,Home                                              ,kids                                              ,0,3
+-0.44620739212143709301,Home                                              ,accent                                            ,0,4
+-0.44334464863241459731,Home                                              ,furniture                                         ,0,5
+-0.44268393745633450955,Home                                              ,lighting                                          ,0,6
+-0.44186331686067831855,Home                                              ,bathroom                                          ,0,7
+-0.43703669975515594386,Home                                              ,decor                                             ,0,8
+-0.43480670590744799126,Home                                              ,rugs                                              ,0,9
+-0.42992002353147183728,Home                                              ,glassware                                         ,0,10
+-0.42646384483567311260,Home                                              ,flatware                                          ,0,11
+-0.42574106871238990193,Home                                              ,paint                                             ,0,12
+-0.42546443471647984613,Home                                              ,mattresses                                        ,0,13
+-0.42522294470938916580,Home                                              ,blinds/shades                                     ,0,14
+-0.42498659503247283610,Home                                              ,tables                                            ,0,15
+-0.40277339288417433189,Home                                              ,bedding                                           ,0,16
+-0.36425594410191331981,Home                                              ,null,0,17
+-0.47073687412701793585,Jewelry                                           ,loose stones                                      ,0,1
+-0.44992481116536188073,Jewelry                                           ,bracelets                                         ,0,2
+-0.44986243657157262124,Jewelry                                           ,consignment                                       ,0,3
+-0.44554712472665876029,Jewelry                                           ,jewelry boxes                                     ,0,4
+-0.44310679395421473845,Jewelry                                           ,costume                                           ,0,5
+-0.43770581442525743518,Jewelry                                           ,womens watch                                      ,0,6
+-0.43634128493726759068,Jewelry                                           ,rings                                             ,0,7
+-0.43474728577968398876,Jewelry                                           ,diamonds                                          ,0,8
+-0.43230408253354018081,Jewelry                                           ,pendants                                          ,0,9
+-0.43209441920628535577,Jewelry                                           ,estate                                            ,0,10
+-0.42816479599914535107,Jewelry                                           ,earings                                           ,0,11
+-0.42316657720499966107,Jewelry                                           ,custom                                            ,0,12
+-0.41762293676667391764,Jewelry                                           ,gold                                              ,0,13
