@@ -1,0 +1,40 @@
+LOOP
+    -- 循环体
+    EXIT WHEN condition;
+END LOOP;
+
+Example:
+    DECLARE
+        v_counter NUMBER := 1;
+    BEGIN
+        LOOP
+            DBMS_OUTPUT.PUT_LINE(v_counter);
+            v_counter := v_counter + 1;
+            EXIT WHEN v_counter > 10;
+        END LOOP;
+    END;
+
+WHILE condition LOOP
+    -- 循环体
+END LOOP;
+
+Example:
+    DECLARE
+        v_counter NUMBER := 1;
+    BEGIN
+        WHILE v_counter <= 10 LOOP
+            DBMS_OUTPUT.PUT_LINE(v_counter);
+            v_counter := v_counter + 1;
+        END LOOP;
+    END;
+
+FOR counter IN start..stop LOOP
+    -- 循环体
+END LOOP;
+
+Example:
+    BEGIN
+        FOR i IN 1..10 LOOP
+            DBMS_OUTPUT.PUT_LINE(i);
+        END LOOP;
+    END;

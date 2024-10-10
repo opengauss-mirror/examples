@@ -1,0 +1,14 @@
+IF condition1 THEN ...
+(ELSIF condition2 THEN ...)*
+[ELSE...]
+END IF;
+
+Example: IF v_salary >= 100000 THEN
+                 v_bonus := v_salary * 0.1;
+             ELSIF v_salary >= 50000 THEN
+                 v_bonus := v_salary * 0.08;
+             ELSIF v_salary >= 30000 THEN
+                 v_bonus := v_salary * 0.05;
+             ELSE
+                 v_bonus := v_salary * 0.03;
+             END IF;

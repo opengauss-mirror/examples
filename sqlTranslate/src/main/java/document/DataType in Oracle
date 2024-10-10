@@ -1,0 +1,105 @@
+数值类型
+    NUMBER
+        用于存储整数或浮点数。
+        可以指定精度（总位数）和小数位数。
+        示例：NUMBER(10, 2) 表示一个最多有 10 位数字的数，其中 2 位是小数位。
+    INTEGER
+        用于存储整数。
+        等价于 NUMBER 但默认没有精度限制。
+        示例：INTEGER
+    SMALLINT
+        用于存储较小的整数。
+        等价于 INTEGER 但默认范围更小。
+        示例：SMALLINT
+    BINARY_INTEGER
+        用于存储整数。
+        通常用于内部使用，而不是直接在表定义中使用。
+        示例：BINARY_INTEGER
+    DECIMAL
+        等价于 NUMBER。
+        示例：DECIMAL(10, 2)
+    REAL
+        用于存储单精度浮点数。
+        示例：REAL
+    FLOAT
+        用于存储双精度浮点数。
+        可以指定精度。
+        示例：FLOAT(128)
+    DOUBLE PRECISION
+        用于存储双精度浮点数。
+        示例：DOUBLE PRECISION
+
+字符串类型
+    CHAR
+        用于存储固定长度的字符串。
+        示例：CHAR(20)
+    VARCHAR2
+        用于存储可变长度的字符串。
+        最大长度为 4000 字节（在早期版本中）或 32767 字节（从 Oracle 12c 开始）。
+        示例：VARCHAR2(255)
+    NCHAR
+        用于存储固定长度的 Unicode 字符串。
+        示例：NCHAR(20)
+    NVARCHAR2
+        用于存储可变长度的 Unicode 字符串。
+        示例：NVARCHAR2(255)
+    CLOB
+        用于存储大文本块。
+        示例：CLOB
+    NCLOB
+        用于存储大 Unicode 文本块。
+        示例：NCLOB
+
+日期/时间类型
+    DATE
+        用于存储日期和时间信息。
+        包括年、月、日、小时、分钟和秒。
+        示例：DATE
+    TIMESTAMP
+        用于存储日期和时间信息。
+        可以包含毫秒。
+        示例：TIMESTAMP
+    TIMESTAMP WITH TIME ZONE
+        用于存储日期和时间信息，包括时区。
+        示例：TIMESTAMP WITH TIME ZONE
+    TIMESTAMP WITH LOCAL TIME ZONE
+        用于存储日期和时间信息，按照本地时区显示。
+        示例：TIMESTAMP WITH LOCAL TIME ZONE
+
+二进制类型
+    BLOB
+        用于存储大二进制对象，如图像或文件。
+        示例：BLOB
+    RAW
+        用于存储固定长度的二进制数据。
+        示例：RAW(2000)
+    LONG RAW
+        用于存储长二进制数据。
+        最大长度为 2GB。
+        示例：LONG RAW
+
+特殊类型
+    BOOLEAN
+        用于存储布尔值 TRUE, FALSE 或 NULL。
+        从 Oracle 12c 开始支持。
+    INTERVAL YEAR TO MONTH
+        用于存储年份到月份的时间间隔。
+        示例：INTERVAL YEAR TO MONTH
+    INTERVAL DAY TO SECOND
+        用于存储天到秒的时间间隔。
+        示例：INTERVAL DAY TO SECOND
+    ROWID
+        用于存储行标识符。
+        示例：ROWID
+    UROWID
+        用于存储统一行标识符。
+        示例：UROWID
+    REF
+        用于存储对另一个表的引用。
+        示例：REF <typename>
+    OBJECT
+        用于存储用户定义的对象类型。
+        示例：OBJECT (attr1 NUMBER, attr2 VARCHAR2(50))
+    REF CURSOR
+        用于存储游标引用。
+        示例：REF CURSOR

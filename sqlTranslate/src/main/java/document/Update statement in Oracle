@@ -1,0 +1,4 @@
+UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+
+Example: UPDATE employees e JOIN departments d using e.department_id = d.department_id
+         SET e.salary = e.salary * 1.10, d.budget = d.budget * 1.10 WHERE d.department_name = 'Sales';

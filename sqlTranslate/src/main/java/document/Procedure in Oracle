@@ -1,0 +1,37 @@
+CREATE [OR REPLACE] PROCEDURE procedure_name ([parameter_list])
+IS [LOCAL DECLARATIONS]
+[DECLARE]
+-- declare part
+BEGIN
+    -- PL/SQL statements
+[EXCEPTION]
+    -- exception handling
+END [procedure_name]; -- [procedure_name] should be removed in OpenGauss
+
+Example: CREATE OR REPLACE PROCEDURE update_salary (
+             employee_id IN NUMBER,
+             new_salary IN OUT NUMBER
+         ) IS
+             v_employee employees%ROWTYPE;
+         BEGIN
+             SELECT * INTO v_employee FROM employees WHERE employee_id = employee_id;
+
+             IF new_salary < 3000 THEN
+                 new_salary := new_salary * 1.1;
+             ELSE
+                 new_salary := new_salary * 1.05;
+             END IF;
+
+             UPDATE employees SET salary = new_salary WHERE employee_id = employee_id;
+             COMMIT;
+
+             DBMS_OUTPUT.PUT_LINE('Updated Salary: ' || new_salary);
+         EXCEPTION
+             WHEN NO_DATA_FOUND THEN
+                 DBMS_OUTPUT.PUT_LINE('Employee not found.');
+             WHEN TOO_MANY_ROWS THEN
+                 DBMS_OUTPUT.PUT_LINE('Multiple employees found.');
+             WHEN OTHERS THEN
+                 DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+         END update_salary;
+         /

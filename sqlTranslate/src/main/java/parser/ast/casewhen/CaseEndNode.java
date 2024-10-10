@@ -1,0 +1,27 @@
+package parser.ast.casewhen;
+
+import lexer.Token;
+import parser.ast.ASTNode;
+
+import java.util.List;
+
+public class CaseEndNode extends ASTNode {
+    public CaseEndNode(ASTNode node)
+    {
+        super(node);
+    }
+
+    public CaseEndNode(List<Token> tokens)
+    {
+        super(tokens);
+    }
+
+    @Override
+    public void visit(ASTNode node, StringBuilder queryString) {
+        queryString.append(toString());
+        for (ASTNode child : getChildren())
+        {
+            child.visit(child, queryString);
+        }
+    }
+}

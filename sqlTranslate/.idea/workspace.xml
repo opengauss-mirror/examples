@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="refactor the package name">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generator/OpenGaussGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/OracleParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestFunction.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2kMwWhUohyqt8bZ1bSi1kwgGkSK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.TestFunction.executor": "Run",
+    "JUnit.TestFunction.test.executor": "Run",
+    "JUnit.TestPL.test.executor": "Run",
+    "JUnit.TestProcedure.test.executor": "Run",
+    "JUnit.TestTrigger.test.executor": "Run",
+    "JUnit.testAlterTable.executor": "Run",
+    "JUnit.testAlterTable.testAlterTable.executor": "Run",
+    "JUnit.testCaseWhen.test.executor": "Run",
+    "JUnit.testCommitRollbackExec.test.executor": "Run",
+    "JUnit.testCreateTable.executor": "Run",
+    "JUnit.testCreateTable.test.executor": "Run",
+    "JUnit.testDelete.test.executor": "Run",
+    "JUnit.testDropTable.test.executor": "Run",
+    "JUnit.testException.executor": "Run",
+    "JUnit.testException.test.executor": "Run",
+    "JUnit.testFunction.test.executor": "Run",
+    "JUnit.testIfElse.test.executor": "Run",
+    "JUnit.testInsert.test.executor": "Run",
+    "JUnit.testJoin.executor": "Run",
+    "JUnit.testJoin.test.executor": "Run",
+    "JUnit.testLoop.test.executor": "Run",
+    "JUnit.testPL.executor": "Run",
+    "JUnit.testProcedure.test.executor": "Run",
+    "JUnit.testSelect.executor": "Run",
+    "JUnit.testSelect.test.executor": "Run",
+    "JUnit.testTrigger.executor": "Run",
+    "JUnit.testTrigger.test.executor": "Run",
+    "JUnit.testUpdate.executor": "Run",
+    "JUnit.testView.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/oracle2opengauss/examples/sqlTranslate",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.TestProcedure.test">
+    <configuration name="TestFunction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestFunction" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestFunction.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestFunction" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPL.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestPL" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestProcedure.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestProcedure" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestTrigger.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sqlTranslate" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestTrigger" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.TestFunction" />
+      <item itemvalue="JUnit.TestPL.test" />
+      <item itemvalue="JUnit.TestProcedure.test" />
+      <item itemvalue="JUnit.TestFunction.test" />
+      <item itemvalue="JUnit.TestTrigger.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestProcedure.test" />
+        <item itemvalue="JUnit.TestFunction.test" />
+        <item itemvalue="JUnit.TestFunction" />
+        <item itemvalue="JUnit.TestTrigger.test" />
+        <item itemvalue="JUnit.TestPL.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="d8d12963-4777-48e3-9669-309cf5e41d60" name="更改" comment="" />
+      <created>1723106789329</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723106789329</updated>
+    </task>
+    <task id="LOCAL-00045" summary="add update convert rules">
+      <created>1726151534112</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1726151534112</updated>
+    </task>
+    <task id="LOCAL-00046" summary="add Delete ast class">
+      <created>1726152030692</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1726152030692</updated>
+    </task>
+    <task id="LOCAL-00047" summary="add Delete">
+      <created>1726153009186</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1726153009186</updated>
+    </task>
+    <task id="LOCAL-00048" summary="add alter table grammar document">
+      <created>1726153173228</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1726153173228</updated>
+    </task>
+    <task id="LOCAL-00049" summary="add alter table ast class">
+      <created>1726153977485</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1726153977485</updated>
+    </task>
+    <task id="LOCAL-00050" summary="add alter table keywords">
+      <created>1726154243358</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1726154243360</updated>
+    </task>
+    <task id="LOCAL-00051" summary="add alter table parser">
+      <created>1726154479052</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1726154479052</updated>
+    </task>
+    <task id="LOCAL-00052" summary="revise">
+      <created>1726197698087</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1726197698087</updated>
+    </task>
+    <task id="LOCAL-00053" summary="revise">
+      <created>1726198053495</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1726198053495</updated>
+    </task>
+    <task id="LOCAL-00054" summary="revise">
+      <created>1726209430618</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1726209430619</updated>
+    </task>
+    <task id="LOCAL-00055" summary="add alter">
+      <created>1726210280295</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1726210280296</updated>
+    </task>
+    <task id="LOCAL-00056" summary="add alter">
+      <created>1726212919328</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1726212919328</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix some bugs">
+      <created>1726214700141</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1726214700141</updated>
+    </task>
+    <task id="LOCAL-00058" summary="add view document">
+      <created>1726214965146</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1726214965146</updated>
+    </task>
+    <task id="LOCAL-00059" summary="add keywords of view">
+      <created>1726215246855</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1726215246856</updated>
+    </task>
+    <task id="LOCAL-00060" summary="add ast class of view">
+      <created>1726215657277</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1726215657277</updated>
+    </task>
+    <task id="LOCAL-00061" summary="add view">
+      <created>1726234244501</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1726234244501</updated>
+    </task>
+    <task id="LOCAL-00062" summary="add view generate method">
+      <created>1726235338624</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1726235338624</updated>
+    </task>
+    <task id="LOCAL-00063" summary="revise">
+      <created>1726235703488</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1726235703488</updated>
+    </task>
+    <task id="LOCAL-00064" summary="add if elseif else endif document">
+      <created>1726236869086</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1726236869087</updated>
+    </task>
+    <task id="LOCAL-00065" summary="add if elseif else endif ast classes">
+      <created>1726238974056</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1726238974056</updated>
+    </task>
+    <task id="LOCAL-00066" summary="add IF ELSIF">
+      <created>1726241748943</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1726241748943</updated>
+    </task>
+    <task id="LOCAL-00067" summary="add IF ELSIF">
+      <created>1726284970450</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1726284970451</updated>
+    </task>
+    <task id="LOCAL-00068" summary="add IF ELSIF">
+      <created>1726298762626</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1726298762627</updated>
+    </task>
+    <task id="LOCAL-00069" summary="add Loop document">
+      <created>1726315007495</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1726315007495</updated>
+    </task>
+    <task id="LOCAL-00070" summary="add Loop keywords">
+      <created>1726315219011</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1726315219011</updated>
+    </task>
+    <task id="LOCAL-00071" summary="add Loop ast classes">
+      <created>1726316179151</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1726316179152</updated>
+    </task>
+    <task id="LOCAL-00072" summary="add Loop">
+      <created>1726326745122</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1726326745123</updated>
+    </task>
+    <task id="LOCAL-00073" summary="add Exception document">
+      <created>1726413056810</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1726413056811</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add Exception document">
+      <created>1726413069101</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1726413069101</updated>
+    </task>
+    <task id="LOCAL-00075" summary="revise">
+      <created>1726471059208</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1726471059208</updated>
+    </task>
+    <task id="LOCAL-00076" summary="add exception classes">
+      <created>1726471382852</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1726471382852</updated>
+    </task>
+    <task id="LOCAL-00077" summary="revise">
+      <created>1726472321577</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1726472321577</updated>
+    </task>
+    <task id="LOCAL-00078" summary="add exception">
+      <created>1726474768114</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1726474768114</updated>
+    </task>
+    <task id="LOCAL-00079" summary="add document of Procedure">
+      <created>1726491998608</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1726491998609</updated>
+    </task>
+    <task id="LOCAL-00080" summary="add ast classes of procedure">
+      <created>1726496640760</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1726496640760</updated>
+    </task>
+    <task id="LOCAL-00081" summary="add procedure">
+      <created>1726554513045</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1726554513046</updated>
+    </task>
+    <task id="LOCAL-00082" summary="add document of rollback, commot, execute">
+      <created>1726555125392</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1726555125392</updated>
+    </task>
+    <task id="LOCAL-00083" summary="add document of function">
+      <created>1726561299659</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1726561299659</updated>
+    </task>
+    <task id="LOCAL-00084" summary="add ast classes of function">
+      <created>1726583392370</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1726583392370</updated>
+    </task>
+    <task id="LOCAL-00085" summary="add function">
+      <created>1726587379509</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1726587379509</updated>
+    </task>
+    <task id="LOCAL-00086" summary="add trigger document">
+      <created>1726588739459</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1726588739459</updated>
+    </task>
+    <task id="LOCAL-00087" summary="add trigger ast classes">
+      <created>1726590115566</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1726590115566</updated>
+    </task>
+    <task id="LOCAL-00088" summary="add trigger">
+      <created>1726591998690</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1726591998690</updated>
+    </task>
+    <task id="LOCAL-00089" summary="add trigger">
+      <created>1726628514219</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1726628514220</updated>
+    </task>
+    <task id="LOCAL-00090" summary="add PL document">
+      <created>1726629251761</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1726629251761</updated>
+    </task>
+    <task id="LOCAL-00091" summary="add PL ast classes">
+      <created>1726629819863</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1726629819863</updated>
+    </task>
+    <task id="LOCAL-00092" summary="revise">
+      <created>1726631451338</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1726631451338</updated>
+    </task>
+    <task id="LOCAL-00093" summary="add pl/sql">
+      <created>1726633703475</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1726633703475</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add Loop keywords" />
+    <MESSAGE value="add Loop ast classes" />
+    <MESSAGE value="add Loop" />
+    <MESSAGE value="add Exception document" />
+    <MESSAGE value="add exception classes" />
+    <MESSAGE value="add exception" />
+    <MESSAGE value="add document of Procedure" />
+    <MESSAGE value="add ast classes of procedure" />
+    <MESSAGE value="add procedure" />
+    <MESSAGE value="add document of rollback, commot, execute" />
+    <MESSAGE value="add document of function" />
+    <MESSAGE value="add ast classes of function" />
+    <MESSAGE value="add function" />
+    <MESSAGE value="add trigger document" />
+    <MESSAGE value="add trigger ast classes" />
+    <MESSAGE value="add trigger" />
+    <MESSAGE value="add PL document" />
+    <MESSAGE value="add PL ast classes" />
+    <MESSAGE value="add pl/sql" />
+    <MESSAGE value="add unit test" />
+    <MESSAGE value="fix some bugs" />
+    <MESSAGE value="revise" />
+    <MESSAGE value="revise trigger" />
+    <MESSAGE value="refactor" />
+    <MESSAGE value="refactor the package name" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor the package name" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((CreateTabNode)root).tokens" custom="Parser.AST.CreateTable.CreateTabNode" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,17 @@
+DECLARE
+   v_var1 v_type;
+   ...
+BEGIN
+   -- PL/SQL
+END;
+
+Example: DECLARE
+            v_name Varchar2(20);
+            v_salary employees.salary%TYPE;
+         BEGIN
+            SELECT name, salary INTO v_name, v_salary FROM employees WHERE employee_id = 100;
+            DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);
+         EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+               DBMS_OUTPUT.PUT_LINE('No data found.');
+         END;

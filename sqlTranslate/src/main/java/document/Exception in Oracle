@@ -1,0 +1,18 @@
+DECLARE
+    -- declaration of variable
+BEGIN
+    -- PL/SQL
+EXCEPTION
+    -- custom exception
+    WHEN e_custom_exception THEN
+        DBMS_OUTPUT.PUT_LINE('Caught an exception: Custom exception raised');
+    -- divide by zero
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Caught an exception: Division by zero');
+    -- invalid number
+    WHEN INVALID_NUMBER THEN
+        DBMS_OUTPUT.PUT_LINE('Caught an exception: Invalid number');
+    -- other exceptions
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Caught an exception: ' || SQLERRM);
+END;
