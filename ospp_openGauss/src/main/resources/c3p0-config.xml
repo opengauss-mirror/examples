@@ -5,8 +5,8 @@
         <!--连接参数-->
         <property name="driverClass">org.postgresql.Driver</property>
         <property name="jdbcUrl">jdbc:postgresql://192.168.56.102:7654/postgres</property>
-        <property name="user">dboper</property>
-        <property name="password">dboper@123</property>
+        <property name="user">new_user</property>
+        <property name="password">hydrogen0923!</property>
         <!--连接池参数-->
         <!--初始化申请的连接数量-->
         <property name="initialPoolSize">5</property>
