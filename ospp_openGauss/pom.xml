@@ -21,6 +21,11 @@
             <version>0.9.5.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.opengauss/opengauss-jdbc -->
         <dependency>
             <groupId>org.opengauss</groupId>
