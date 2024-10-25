@@ -1,0 +1,5 @@
+name,role,salary,department_id
+Alice,Engineer,5000.00,1
+Bob,Manager,6500.00,3
+Eve,Developer,7000.00,1
+John,Intern,3000.00,2
