@@ -1,0 +1,101 @@
+brand_id,brand,i_manufact_id,i_manufact,ext_price
+2001001,amalgimporto #1                                   ,70,baration                                          ,67886.05
+10008016,namelessunivamalg #16                             ,84,eseeing                                           ,66015.21
+6001005,amalgcorp #5                                      ,126,callyableought                                    ,61724.59
+1002001,importoamalg #1                                   ,345,antiesepri                                        ,57357.07
+1004001,edu packamalg #1                                  ,635,antiprically                                      ,54536.42
+5004002,edu packscholar #2                                ,282,ableeingable                                      ,52657.83
+4003001,exportiedu pack #1                                ,327,ationablepri                                      ,52146.31
+3002001,importoexporti #1                                 ,350,barantipri                                        ,51661.60
+10010008,univamalgamalg #8                                 ,116,callyoughtought                                   ,47183.61
+1004001,edu packamalg #1                                  ,104,esebarought                                       ,47111.62
+2004001,edu packimporto #1                                ,216,callyoughtable                                    ,46135.60
+5004002,edu packscholar #2                                ,41,oughtese                                          ,45638.51
+5004002,edu packscholar #2                                ,12,ableought                                         ,45035.71
+3002001,importoexporti #1                                 ,295,antin stable                                      ,44450.51
+7002010,importobrand #10                                  ,67,ationcally                                        ,43945.64
+10006002,corpunivamalg #2                                  ,431,oughtpriese                                       ,43923.81
+8002003,importonameless #3                                ,131,oughtpriought                                     ,43591.01
+5002001,importoscholar #1                                 ,628,eingablecally                                     ,43386.75
+1004001,edu packamalg #1                                  ,665,anticallycally                                    ,42863.83
+3004002,edu packexporti #2                                ,862,ablecallyeing                                     ,42517.84
+9006011,corpmaxi #11                                      ,291,oughtn stable                                     ,42021.53
+3003001,exportiexporti #1                                 ,406,callybarese                                       ,41691.30
+1002001,importoamalg #1                                   ,112,ableoughtought                                    ,41053.21
+3001002,amalgexporti #2                                   ,302,ablebarpri                                        ,40626.66
+4002002,importoedu pack #2                                ,631,oughtprically                                     ,40396.04
+10014017,edu packamalgamalg #17                            ,544,eseeseanti                                        ,39999.99
+10016014,corpamalgamalg #14                                ,694,esen stcally                                      ,39825.08
+4004001,edu packedu pack #1                               ,220,barableable                                       ,39455.80
+8011005,amalgmaxi #5                                      ,636,callyprically                                     ,39012.70
+10010013,univamalgamalg #13                                ,166,callycallyought                                   ,38775.75
+8010007,univmaxi #7                                       ,91,oughtn st                                         ,38142.56
+1004001,edu packamalg #1                                  ,859,n stantieing                                      ,37758.04
+6008001,namelesscorp #1                                   ,399,n stn stpri                                       ,37675.97
+1004001,edu packamalg #1                                  ,420,barableese                                        ,37618.38
+6006006,corpcorp #6                                       ,244,eseeseable                                        ,37322.47
+8003007,exportinameless #7                                ,122,ableableought                                     ,37023.11
+2001001,amalgimporto #1                                   ,500,barbaranti                                        ,36554.64
+4001001,amalgedu pack #1                                  ,545,antieseanti                                       ,36414.24
+7002001,importobrand #1                                   ,404,esebarese                                         ,36355.89
+4004002,edu packedu pack #2                               ,293,prin stable                                       ,36078.84
+4002002,importoedu pack #2                                ,221,oughtableable                                     ,36040.25
+7001010,amalgbrand #10                                    ,271,oughtationable                                    ,35990.97
+4004002,edu packedu pack #2                               ,98,eingn st                                          ,35914.73
+10010013,univamalgamalg #13                                ,618,eingoughtcally                                    ,35569.70
+5001001,amalgscholar #1                                   ,176,callyationought                                   ,35431.40
+8011010,amalgmaxi #10                                     ,144,eseeseought                                       ,34721.90
+10009008,maxiunivamalg #8                                  ,639,n stprically                                      ,34203.70
+10002002,importounivamalg #2                               ,215,antioughtable                                     ,33738.80
+1003002,exportiamalg #2                                   ,674,eseationcally                                     ,33704.55
+3004002,edu packexporti #2                                ,568,eingcallyanti                                     ,33603.17
+6015005,scholarbrand #5                                   ,133,pripriought                                       ,33411.15
+3003001,exportiexporti #1                                 ,789,n steingation                                     ,33345.01
+9015009,scholarunivamalg #9                               ,244,eseeseable                                        ,33260.96
+4001001,amalgedu pack #1                                  ,570,barationanti                                      ,33253.87
+1004002,edu packamalg #2                                  ,142,ableeseought                                      ,33184.47
+7003006,exportibrand #6                                   ,233,pripriable                                        ,32967.82
+8016009,corpmaxi #9                                       ,121,oughtableought                                    ,32481.56
+5004002,edu packscholar #2                                ,623,priablecally                                      ,32442.06
+3002002,importoexporti #2                                 ,185,antieingought                                     ,31390.30
+2004002,edu packimporto #2                                ,215,antioughtable                                     ,31134.74
+1003001,exportiamalg #1                                   ,26,callyable                                         ,31092.35
+8013008,exportimaxi #8                                    ,103,pribarought                                       ,31039.21
+10012012,importoamalgamalg #12                             ,135,antipriought                                      ,30882.55
+6014006,edu packbrand #6                                  ,348,eingesepri                                        ,30799.60
+1003001,exportiamalg #1                                   ,451,oughtantiese                                      ,30658.60
+4004001,edu packedu pack #1                               ,217,ationoughtable                                    ,30611.41
+3003002,exportiexporti #2                                 ,158,eingantiought                                     ,30431.00
+3004002,edu packexporti #2                                ,629,n stablecally                                     ,30356.41
+8010005,univmaxi #5                                       ,305,antibarpri                                        ,30348.68
+2004001,edu packimporto #1                                ,80,bareing                                           ,30276.11
+2003001,exportiimporto #1                                 ,264,esecallyable                                      ,30204.62
+4001001,amalgedu pack #1                                  ,858,eingantieing                                      ,30121.41
+9004002,edu packmaxi #2                                   ,621,oughtablecally                                    ,30089.33
+6001007,amalgcorp #7                                      ,153,priantiought                                      ,29919.19
+3003001,exportiexporti #1                                 ,138,eingpriought                                      ,29865.26
+9002002,importomaxi #2                                    ,162,ablecallyought                                    ,29797.77
+6009005,maxicorp #5                                       ,30,barpri                                            ,29794.97
+6014002,edu packbrand #2                                  ,210,baroughtable                                      ,29763.12
+7002009,importobrand #9                                   ,239,n stpriable                                       ,29630.50
+4001001,amalgedu pack #1                                  ,178,eingationought                                    ,29528.87
+2001002,amalgimporto #2                                   ,34,esepri                                            ,29481.00
+9015005,scholarunivamalg #5                               ,409,n stbarese                                        ,29381.79
+9006003,corpmaxi #3                                       ,216,callyoughtable                                    ,29331.84
+2004001,edu packimporto #1                                ,3,pri                                               ,29218.87
+9007011,brandmaxi #11                                     ,105,antibarought                                      ,29142.40
+8009007,maxinameless #7                                   ,441,oughteseese                                       ,29039.10
+10004008,edu packunivamalg #8                              ,106,callybarought                                     ,28912.72
+8001001,amalgnameless #1                                  ,302,ablebarpri                                        ,28709.17
+10013010,exportiamalgamalg #10                             ,100,barbarought                                       ,28653.54
+9001009,amalgmaxi #9                                      ,89,n steing                                          ,28285.95
+10003013,exportiunivamalg #13                              ,98,eingn st                                          ,28241.33
+5001001,amalgscholar #1                                   ,30,barpri                                            ,28226.18
+1004001,edu packamalg #1                                  ,33,pripri                                            ,28067.60
+4002001,importoedu pack #1                                ,591,oughtn stanti                                     ,27980.02
+6011001,amalgbrand #1                                     ,245,antieseable                                       ,27912.97
+5002001,importoscholar #1                                 ,727,ationableation                                    ,27786.13
+8005001,scholarnameless #1                                ,301,oughtbarpri                                       ,27748.97
+7009003,maxibrand #3                                      ,167,ationcallyought                                   ,27736.93
+7001010,amalgbrand #10                                    ,489,n steingese                                       ,27712.84
+10003012,exportiunivamalg #12                              ,124,eseableought                                      ,27629.71

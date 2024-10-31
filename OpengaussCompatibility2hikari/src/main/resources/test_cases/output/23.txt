@@ -1,0 +1,3 @@
+dolphin.sql_mode	
+block_return_multi_results	
+

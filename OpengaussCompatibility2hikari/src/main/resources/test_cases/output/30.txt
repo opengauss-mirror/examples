@@ -1,0 +1,326 @@
+relname	
+
+QUERY PLAN	
+Bitmap Heap Scan on test_part  (cost=57.72..1493.38 rows=2396 width=16)	
+  Recheck Cond: (((99990 < c) AND (c < 100000)) OR ((219990 < c) AND (c < 220000)))	
+  ->  BitmapOr  (cost=57.72..57.72 rows=2402 width=0)	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((99990 < c) AND (c < 100000))	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((219990 < c) AND (c < 220000))	
+
+a	b	c	d	
+33330	66661	99992	133323	
+33331	66663	99995	133327	
+33332	66665	99998	133331	
+73330	146661	219992	293323	
+73331	146663	219995	293327	
+73332	146665	219998	293331	
+
+a	b	c	d	
+24997	49995	74993	99991	
+24998	49997	74996	99995	
+24999	49999	74999	99999	
+54997	109995	164993	219991	
+54998	109997	164996	219995	
+54999	109999	164999	219999	
+
+a	b	c	d	
+49995	99991	149987	199983	
+49996	99993	149990	199987	
+49997	99995	149993	199991	
+49998	99997	149996	199995	
+49999	99999	149999	199999	
+109995	219991	329987	439983	
+109996	219993	329990	439987	
+109997	219995	329993	439991	
+109998	219997	329996	439995	
+109999	219999	329999	439999	
+
+rebuild_partition	
+test_part	
+
+relname	
+p0	
+p1	
+
+QUERY PLAN	
+Bitmap Heap Scan on test_part  (cost=57.72..1493.38 rows=2396 width=16)	
+  Recheck Cond: (((99990 < c) AND (c < 100000)) OR ((219990 < c) AND (c < 220000)))	
+  ->  BitmapOr  (cost=57.72..57.72 rows=2402 width=0)	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((99990 < c) AND (c < 100000))	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((219990 < c) AND (c < 220000))	
+
+a	b	c	d	
+33330	66661	99992	133323	
+33331	66663	99995	133327	
+33332	66665	99998	133331	
+73330	146661	219992	293323	
+73331	146663	219995	293327	
+73332	146665	219998	293331	
+
+a	b	c	d	
+24997	49995	74993	99991	
+24998	49997	74996	99995	
+24999	49999	74999	99999	
+54997	109995	164993	219991	
+54998	109997	164996	219995	
+54999	109999	164999	219999	
+
+a	b	c	d	
+49995	99991	149987	199983	
+49996	99993	149990	199987	
+49997	99995	149993	199991	
+49998	99997	149996	199995	
+49999	99999	149999	199999	
+109995	219991	329987	439983	
+109996	219993	329990	439987	
+109997	219995	329993	439991	
+109998	219997	329996	439995	
+109999	219999	329999	439999	
+
+rebuild_partition	
+test_part	
+
+relname	
+p0	
+p1	
+p2	
+
+QUERY PLAN	
+Bitmap Heap Scan on test_part  (cost=57.72..1493.38 rows=2396 width=16)	
+  Recheck Cond: (((99990 < c) AND (c < 100000)) OR ((219990 < c) AND (c < 220000)))	
+  ->  BitmapOr  (cost=57.72..57.72 rows=2402 width=0)	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((99990 < c) AND (c < 100000))	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.26 rows=1201 width=0)	
+              Index Cond: ((219990 < c) AND (c < 220000))	
+
+a	b	c	d	
+33330	66661	99992	133323	
+33331	66663	99995	133327	
+33332	66665	99998	133331	
+73330	146661	219992	293323	
+73331	146663	219995	293327	
+73332	146665	219998	293331	
+
+a	b	c	d	
+24997	49995	74993	99991	
+24998	49997	74996	99995	
+24999	49999	74999	99999	
+54997	109995	164993	219991	
+54998	109997	164996	219995	
+54999	109999	164999	219999	
+
+a	b	c	d	
+49995	99991	149987	199983	
+49996	99993	149990	199987	
+49997	99995	149993	199991	
+49998	99997	149996	199995	
+49999	99999	149999	199999	
+109995	219991	329987	439983	
+109996	219993	329990	439987	
+109997	219995	329993	439991	
+109998	219997	329996	439995	
+109999	219999	329999	439999	
+
+relname	boundaries	
+p0	{100000}	
+p1	{200000}	
+p2	{300000}	
+test_part	null	
+
+parttype	relname	
+
+remove_partitioning	
+test_part	
+
+QUERY PLAN	
+Bitmap Heap Scan on test_part  (cost=58.75..1484.48 rows=2494 width=16)	
+  Recheck Cond: (((99990 < c) AND (c < 100000)) OR ((219990 < c) AND (c < 220000)))	
+  ->  BitmapOr  (cost=58.75..58.75 rows=2500 width=0)	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.75 rows=1250 width=0)	
+              Index Cond: ((99990 < c) AND (c < 100000))	
+        ->  Bitmap Index Scan on uidx_c  (cost=0.00..28.75 rows=1250 width=0)	
+              Index Cond: ((219990 < c) AND (c < 220000))	
+
+a	b	c	d	
+33330	66661	99992	133323	
+33331	66663	99995	133327	
+33332	66665	99998	133331	
+73330	146661	219992	293323	
+73331	146663	219995	293327	
+73332	146665	219998	293331	
+
+relname	boundaries	
+
+parttype	relname	
+n	test_part	
+
+a	b	
+99	1	
+199	1	
+299	1	
+
+a	b	
+299	1	
+
+a	b	
+0	1	
+1	3	
+2	5	
+3	7	
+4	9	
+5	11	
+6	13	
+7	15	
+8	17	
+9	19	
+10	21	
+11	23	
+12	25	
+13	27	
+14	29	
+15	31	
+16	33	
+17	35	
+18	37	
+19	39	
+20	41	
+299	1	
+
+a	b	
+
+a	b	
+99	1	
+199	1	
+
+a	b	
+299	1	
+
+a	b	
+99	1	
+199	1	
+299	1	
+
+a	b	
+
+analyze_partition	
+test_part1	
+
+relname	boundaries	
+test_part2	null	
+p0	{100}	
+p1	{200}	
+p2	{300}	
+p3	{400}	
+
+relname	boundaries	
+test_part2	null	
+p0	{100}	
+p1	{200}	
+p2	{300}	
+
+relname	boundaries	
+test_part2	null	
+p0	{100}	
+p1	{200}	
+p2	{300}	
+p3	{400}	
+p4	{500}	
+p5	{600}	
+
+relname	boundaries	
+test_part2	null	
+p0	{100}	
+p1	{200}	
+p2	{300}	
+p3	{400}	
+p7	{800}	
+
+relname	boundaries	
+p0_0	{100}	
+p0_1	{200}	
+p0_2	{300}	
+p1_0	{100}	
+p1_1	{200}	
+p1_2	{300}	
+p2_0	{100}	
+p2_1	{200}	
+p2_2	{300}	
+p3_0	{100}	
+p3_1	{200}	
+p3_2	{300}	
+
+relname	boundaries	
+p0_1	{200}	
+p1_1	{200}	
+p2_0	{100}	
+p2_1	{200}	
+p2_2	{300}	
+p3_0	{100}	
+p3_1	{200}	
+p3_2	{300}	
+
+pg_get_tabledef	
+SET search_path = public;
+CREATE TABLE test_range_subpart (
+    a integer NOT NULL,
+    b integer
+)
+WITH (orientation=row, compression=no)
+PARTITION BY RANGE (a) SUBPARTITION BY HASH (b)
+( 
+    PARTITION m1 VALUES LESS THAN (100)
+    (
+        SUBPARTITION m1_subpartdefault1
+    ),
+    PARTITION m2 VALUES LESS THAN (500)
+    (
+        SUBPARTITION m21,
+        SUBPARTITION m22
+    ),
+    PARTITION p3 VALUES LESS THAN (800)
+    (
+        SUBPARTITION p3_subpartdefault1
+    ),
+    PARTITION p4 VALUES LESS THAN (1200)
+    (
+        SUBPARTITION s41
+    )
+)
+ENABLE ROW MOVEMENT;
+ALTER TABLE test_range_subpart ADD CONSTRAINT test_range_subpart_pkey PRIMARY KEY USING btree  (a) INCLUDE (tableoid);	
+
+a	b	
+199	1	
+499	1	
+
+a	b	
+
+a	b	
+
+QUERY PLAN	
+Index Scan using test_range_subpart_pkey on test_range_subpart  (cost=0.00..64.78 rows=716 width=8)	
+  Index Cond: (a > 0)	
+
+a	b	
+199	1	
+499	1	
+799	1	
+1199	1	
+
+partkeyexpr	
+{FUNCEXPR :funcid 1396 :funcresulttype 20 :funcresulttype_orig -1 :funcretset false :funcformat 0 :funccollid 0 :inputcollid 0 :args ({OPEXPR :opno 18391 :opname * :opnamespace dolphin_catalog :oprleft int4 :oprright int4 :opfuncid 18390 :funcname dolphin_int4mul :funcnamespace dolphin_catalog :opresulttype 20 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnoold 1 :varoattno 1 :location 78} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :ismaxvalue false :location 80 :constvalue 4 [ 2 0 0 0 0 0 0 0 ] :cursor_data  :row_count 0 :cur_dno -1 :is_open false :found false :not_found false :null_open false :null_fetch false}) :location 79}) :location 74 :refSynOid 0}	
+
+a	b	
+49	2	
+
+a	b	
+-51	1	
+
+a	b	
+-51	1	
+

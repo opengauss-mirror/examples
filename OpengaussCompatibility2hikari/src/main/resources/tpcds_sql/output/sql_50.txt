@@ -1,0 +1,13 @@
+s_store_name,s_company_id,s_street_number,s_street_name,s_street_type,s_suite_number,s_city,s_county,s_state,s_zip,30 days,31-60 days,61-90 days,91-120 days,>120 days
+able,1,255,Sycamore ,Dr.            ,Suite 410 ,Midway,Williamson County,TN,31904     ,104,86,45,62,93
+able,1,479,Park First,Lane           ,Suite 20  ,Midway,Williamson County,TN,31904     ,105,93,46,59,103
+ation,1,811,Lee ,Circle         ,Suite T   ,Midway,Williamson County,TN,31904     ,110,93,47,63,93
+bar,1,175,4th ,Court          ,Suite C   ,Midway,Williamson County,TN,31904     ,108,77,60,72,106
+bar,1,200,Lake ,RD             ,Suite 320 ,Midway,Williamson County,TN,31904     ,124,92,54,56,104
+cally,1,588,View Mill,Court          ,Suite 160 ,Midway,Williamson County,TN,31904     ,98,102,55,56,107
+eing,1,226,12th ,Lane           ,Suite D   ,Fairview,Williamson County,TN,35709     ,93,79,49,64,119
+ese,1,27,Lake ,Ln             ,Suite 260 ,Midway,Williamson County,TN,31904     ,96,85,55,73,121
+ese,1,408,Washington 1st,Circle         ,Suite 390 ,Midway,Williamson County,TN,31904     ,111,84,56,56,92
+n st,1,240,Willow ,RD             ,Suite 280 ,Fairview,Williamson County,TN,35709     ,104,84,46,54,104
+ought,1,767,Spring ,Wy             ,Suite 250 ,Midway,Williamson County,TN,31904     ,109,92,56,54,104
+pri,1,84,First ,Cir.           ,Suite 180 ,Midway,Williamson County,TN,31904     ,105,85,52,46,111

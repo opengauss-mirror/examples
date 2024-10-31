@@ -1,0 +1,2 @@
+i_item_id,s_state,g_state,agg1,agg2,agg3,agg4
+null,null,1,null,null,null,null

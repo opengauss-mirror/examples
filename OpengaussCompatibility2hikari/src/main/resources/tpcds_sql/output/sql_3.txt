@@ -1,0 +1,32 @@
+d_year,brand_id,brand,sum_agg
+1998,4003002,exportiedu pack #2                                ,744.26
+1998,7014008,edu packnameless #8                               ,683.34
+1998,7013003,exportinameless #3                                ,681.69
+1998,4004001,edu packedu pack #1                               ,574.06
+1998,10003014,exportiunivamalg #14                              ,533.89
+1998,3003001,exportiexporti #1                                 ,434.29
+1998,8011005,amalgmaxi #5                                      ,394.29
+1999,7014008,edu packnameless #8                               ,707.63
+1999,7013003,exportinameless #3                                ,692.77
+1999,3003001,exportiexporti #1                                 ,583.01
+1999,4003002,exportiedu pack #2                                ,455.42
+1999,4004001,edu packedu pack #1                               ,424.78
+1999,8011005,amalgmaxi #5                                      ,345.39
+1999,10003014,exportiunivamalg #14                              ,343.96
+2000,3003001,exportiexporti #1                                 ,1108.86
+2000,7014008,edu packnameless #8                               ,743.30
+2000,4004001,edu packedu pack #1                               ,576.33
+2000,10003014,exportiunivamalg #14                              ,555.09
+2000,4003002,exportiedu pack #2                                ,445.96
+2000,1002002,importoamalg #2                                   ,356.64
+2001,1002002,importoamalg #2                                   ,562.68
+2001,10003014,exportiunivamalg #14                              ,501.64
+2001,4003002,exportiedu pack #2                                ,487.25
+2001,7014008,edu packnameless #8                               ,292.24
+2001,6011006,amalgbrand #6                                     ,258.72
+2002,1004001,edu packamalg #1                                  ,939.34
+2002,8012002,amalgedu pack #1                                  ,813.40
+2002,10003014,exportiunivamalg #14                              ,502.43
+2002,4003002,exportiedu pack #2                                ,428.15
+2002,7014008,edu packnameless #8                               ,185.69
+2002,6011006,amalgbrand #6                                     ,145.53

@@ -1,0 +1,20 @@
+column_name	data_type	is_nullable	column_default	
+ID	integer	YES	null	
+title	character varying	YES	null	
+
+column_name	data_type	is_nullable	column_default	
+ID	integer	YES	null	
+title	character varying	YES	null	
+
+column_name	data_type	is_nullable	column_default	
+ID	integer	YES	null	
+title	character varying	YES	null	
+
+column_name	data_type	is_nullable	column_default	
+ID	integer	YES	null	
+title	character varying	YES	null	
+
+column_name	data_type	is_nullable	column_default	
+col1	integer	YES	null	
+col2	character varying	YES	null	
+

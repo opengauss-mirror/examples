@@ -1,0 +1,101 @@
+i_product_name,i_brand,i_class,i_category,qoh
+ableationeinganti                                 ,null,null,null,424.7568627450980392
+ableationeinganti                                 ,edu packexporti #1                                ,null,null,424.7568627450980392
+ableationeinganti                                 ,edu packexporti #1                                ,school-uniforms                                   ,null,424.7568627450980392
+ableationeinganti                                 ,edu packexporti #1                                ,school-uniforms                                   ,Children                                          ,424.7568627450980392
+einganticallycallyought                           ,null,null,null,430.5020080321285141
+einganticallycallyought                           ,exportiexporti #1                                 ,null,null,430.5020080321285141
+einganticallycallyought                           ,exportiexporti #1                                 ,toddlers                                          ,null,430.5020080321285141
+einganticallycallyought                           ,exportiexporti #1                                 ,toddlers                                          ,Children                                          ,430.5020080321285141
+eingeingprically                                  ,null,null,null,434.3209876543209877
+eingeingprically                                  ,brandbrand #9                                     ,null,null,434.3209876543209877
+eingeingprically                                  ,brandbrand #9                                     ,decor                                             ,null,434.3209876543209877
+eingeingprically                                  ,brandbrand #9                                     ,decor                                             ,Home                                              ,434.3209876543209877
+eseeingantin st                                   ,null,null,null,436.9797570850202429
+eseeingantin st                                   ,edu packimporto #1                                ,null,null,436.9797570850202429
+eseeingantin st                                   ,edu packimporto #1                                ,sports-apparel                                    ,null,436.9797570850202429
+eseeingantin st                                   ,edu packimporto #1                                ,sports-apparel                                    ,Men                                               ,436.9797570850202429
+callyoughtprin st                                 ,null,null,null,437.1452282157676349
+callyoughtprin st                                 ,univunivamalg #5                                  ,null,null,437.1452282157676349
+callyoughtprin st                                 ,univunivamalg #5                                  ,travel                                            ,null,437.1452282157676349
+callyoughtprin st                                 ,univunivamalg #5                                  ,travel                                            ,Books                                             ,437.1452282157676349
+ablen stoughtought                                ,null,null,null,437.4775510204081633
+ablen stoughtought                                ,importomaxi #5                                    ,null,null,437.4775510204081633
+ablen stoughtought                                ,importomaxi #5                                    ,business                                          ,null,437.4775510204081633
+ablen stoughtought                                ,importomaxi #5                                    ,business                                          ,Books                                             ,437.4775510204081633
+esepriationeseable                                ,null,null,null,437.8492063492063492
+esepriationeseable                                ,univnameless #5                                   ,null,null,437.8492063492063492
+esepriationeseable                                ,univnameless #5                                   ,flatware                                          ,null,437.8492063492063492
+esepriationeseable                                ,univnameless #5                                   ,flatware                                          ,Home                                              ,437.8492063492063492
+ableeingationeseought                             ,null,null,null,438.9634146341463415
+ableeingationeseought                             ,amalgamalg #1                                     ,null,null,438.9634146341463415
+ableeingationeseought                             ,amalgamalg #1                                     ,dresses                                           ,null,438.9634146341463415
+ableeingationeseought                             ,amalgamalg #1                                     ,dresses                                           ,Women                                             ,438.9634146341463415
+n stcallyationpri                                 ,null,null,null,439.2983870967741935
+n stcallyationpri                                 ,importoedu pack #2                                ,null,null,439.2983870967741935
+n stcallyationpri                                 ,importoedu pack #2                                ,mens                                              ,null,439.2983870967741935
+n stcallyationpri                                 ,importoedu pack #2                                ,mens                                              ,Shoes                                             ,439.2983870967741935
+priantieingcally                                  ,null,null,null,439.6024590163934426
+priantieingcally                                  ,exportibrand #6                                   ,null,null,439.6024590163934426
+priantieingcally                                  ,exportibrand #6                                   ,loose stones                                      ,null,439.6024590163934426
+priantieingcally                                  ,exportibrand #6                                   ,loose stones                                      ,Jewelry                                           ,439.6024590163934426
+callyn stn stoughtought                           ,null,null,null,439.6178861788617886
+callyn stn stoughtought                           ,edu packamalg #1                                  ,null,null,439.6178861788617886
+callyn stn stoughtought                           ,edu packamalg #1                                  ,swimwear                                          ,null,439.6178861788617886
+callyn stn stoughtought                           ,edu packamalg #1                                  ,swimwear                                          ,Women                                             ,439.6178861788617886
+callyn stesen st                                  ,null,null,null,439.7108433734939759
+callyn stesen st                                  ,corpbrand #7                                      ,null,null,439.7108433734939759
+callyn stesen st                                  ,corpbrand #7                                      ,rugs                                              ,null,439.7108433734939759
+callyn stesen st                                  ,corpbrand #7                                      ,rugs                                              ,Home                                              ,439.7108433734939759
+eingationantieing                                 ,null,null,null,440.1265306122448980
+eingationantieing                                 ,brandmaxi #11                                     ,null,null,440.1265306122448980
+eingationantieing                                 ,brandmaxi #11                                     ,reference                                         ,null,440.1265306122448980
+eingationantieing                                 ,brandmaxi #11                                     ,reference                                         ,Books                                             ,440.1265306122448980
+callyoughtcallybarought                           ,null,null,null,440.4326530612244898
+callyoughtcallybarought                           ,amalgamalg #1                                     ,null,null,440.4326530612244898
+callyoughtcallybarought                           ,amalgamalg #1                                     ,dresses                                           ,null,440.4326530612244898
+callyoughtcallybarought                           ,amalgamalg #1                                     ,dresses                                           ,Women                                             ,440.4326530612244898
+antiantiprioughtable                              ,null,null,null,441.9514170040485830
+antiantiprioughtable                              ,brandbrand #6                                     ,null,null,441.9514170040485830
+antiantiprioughtable                              ,brandbrand #6                                     ,decor                                             ,null,441.9514170040485830
+antiantiprioughtable                              ,brandbrand #6                                     ,decor                                             ,Home                                              ,441.9514170040485830
+ationantiableeseought                             ,null,null,null,442.0039840637450199
+ationantiableeseought                             ,amalgscholar #2                                   ,null,null,442.0039840637450199
+ationantiableeseought                             ,amalgscholar #2                                   ,rock                                              ,null,442.0039840637450199
+ationantiableeseought                             ,amalgscholar #2                                   ,rock                                              ,Music                                             ,442.0039840637450199
+prin stcallyought                                 ,null,null,null,442.1589958158995816
+prin stcallyought                                 ,edu packcorp #6                                   ,null,null,442.1589958158995816
+prin stcallyought                                 ,edu packcorp #6                                   ,bracelets                                         ,null,442.1589958158995816
+prin stcallyought                                 ,edu packcorp #6                                   ,bracelets                                         ,Jewelry                                           ,442.1589958158995816
+ableeingesecally                                  ,null,null,null,442.3280000000000000
+ableeingesecally                                  ,amalgscholar #1                                   ,null,null,442.3280000000000000
+ableeingesecally                                  ,amalgscholar #1                                   ,rock                                              ,null,442.3280000000000000
+ableeingesecally                                  ,amalgscholar #1                                   ,rock                                              ,Music                                             ,442.3280000000000000
+callyeseationable                                 ,null,null,null,442.6528925619834711
+callyeseationable                                 ,amalgscholar #1                                   ,null,null,442.6528925619834711
+callyeseationable                                 ,amalgscholar #1                                   ,rock                                              ,null,442.6528925619834711
+callyeseationable                                 ,amalgscholar #1                                   ,rock                                              ,Music                                             ,442.6528925619834711
+antiesepriableable                                ,null,null,null,443.7142857142857143
+antiesepriableable                                ,exportiamalg #2                                   ,null,null,443.7142857142857143
+antiesepriableable                                ,exportiamalg #2                                   ,maternity                                         ,null,443.7142857142857143
+antiesepriableable                                ,exportiamalg #2                                   ,maternity                                         ,Women                                             ,443.7142857142857143
+eingeingoughteing                                 ,null,null,null,443.9796747967479675
+eingeingoughteing                                 ,importoamalg #1                                   ,null,null,443.9796747967479675
+eingeingoughteing                                 ,importoamalg #1                                   ,fragrances                                        ,null,443.9796747967479675
+eingeingoughteing                                 ,importoamalg #1                                   ,fragrances                                        ,Women                                             ,443.9796747967479675
+ablen stablecally                                 ,null,null,null,444.3508064516129032
+ablen stablecally                                 ,amalgexporti #1                                   ,null,null,444.3508064516129032
+ablen stablecally                                 ,amalgexporti #1                                   ,newborn                                           ,null,444.3508064516129032
+ablen stablecally                                 ,amalgexporti #1                                   ,newborn                                           ,Children                                          ,444.3508064516129032
+ableoughtationableable                            ,null,null,null,444.5750000000000000
+ableoughtationableable                            ,exportiimporto #1                                 ,null,null,444.5750000000000000
+ableoughtationableable                            ,exportiimporto #1                                 ,pants                                             ,null,444.5750000000000000
+ableoughtationableable                            ,exportiimporto #1                                 ,pants                                             ,Men                                               ,444.5750000000000000
+n steseantin stought                              ,null,null,null,445.3181818181818182
+n steseantin stought                              ,amalgcorp #6                                      ,null,null,445.3181818181818182
+n steseantin stought                              ,amalgcorp #6                                      ,birdal                                            ,null,445.3181818181818182
+n steseantin stought                              ,amalgcorp #6                                      ,birdal                                            ,Jewelry                                           ,445.3181818181818182
+priantiationableable                              ,null,null,null,445.3745019920318725
+priantiationableable                              ,edu packimporto #2                                ,null,null,445.3745019920318725
+priantiationableable                              ,edu packimporto #2                                ,sports-apparel                                    ,null,445.3745019920318725
+priantiationableable                              ,edu packimporto #2                                ,sports-apparel                                    ,Men                                               ,445.3745019920318725

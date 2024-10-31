@@ -1,0 +1,5 @@
+Call_Center,Call_Center_Name,Manager,Returns_Loss
+AAAAAAAAHAAAAAAA,Pacific Northwest,Alden Snyder,2217.35
+AAAAAAAACAAAAAAA,Mid Atlantic,Felipe Perkins,213.25
+AAAAAAAAIAAAAAAA,California,Wayne Ray,155.31
+AAAAAAAAIAAAAAAA,California,Wayne Ray,23.52

@@ -1,0 +1,1 @@
+item_sk,d_date,web_sales,store_sales,web_cumulative,store_cumulative

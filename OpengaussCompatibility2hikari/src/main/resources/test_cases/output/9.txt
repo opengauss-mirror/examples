@@ -1,0 +1,6 @@
+ca_address_sk	ca_address_id	ca_street_number	ca_street_name	ca_street_type	ca_suite_number	ca_city	ca_county	ca_state	ca_zip	ca_country	ca_gmt_offset	ca_location_type	
+14888	A4	101	Fourth	Rd	4D	Fourthcity	Fourthcounty	FC	09876	USA	-5.00	Commercial	
+14889	A5	102	Fifth	Ln	5E	Fifthcity	Fifthcounty	FC	67890	USA	-5.00	Residential	
+
+ca_address_sk	ca_address_id	ca_street_number	ca_street_name	ca_street_type	ca_suite_number	ca_city	ca_county	ca_state	ca_zip	ca_country	ca_gmt_offset	ca_location_type	
+
