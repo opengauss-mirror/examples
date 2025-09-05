@@ -249,7 +249,8 @@ class SetupPage(BasePage):
                     spec={
                         "__type__": "kotaemon.embeddings.OpenAIEmbeddings",
                         "base_url": "https://api.openai.com/v1",
-                        "model": "text-embedding-3-large",
+                        "model": "text-embedding-3-small",
+                        "dimensions": 1536,
                         "api_key": openai_api_key,
                         "timeout": 10,
                         "context_length": 8191,

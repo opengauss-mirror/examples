@@ -95,13 +95,28 @@ KH_DOCSTORE = {
     "__type__": "kotaemon.storages.LanceDBDocumentStore",
     "path": str(KH_USER_DATA_DIR / "docstore"),
 }
+# KH_VECTORSTORE = {
+#     # "__type__": "kotaemon.storages.LanceDBVectorStore",
+#     "__type__": "kotaemon.storages.ChromaVectorStore",
+#     # "__type__": "kotaemon.storages.MilvusVectorStore",
+#     # "__type__": "kotaemon.storages.QdrantVectorStore",
+#     "path": str(KH_USER_DATA_DIR / "vectorstore"),
+# }
+
+# OpenGauss configuration (uncomment and configure when needed)
 KH_VECTORSTORE = {
-    # "__type__": "kotaemon.storages.LanceDBVectorStore",
-    "__type__": "kotaemon.storages.ChromaVectorStore",
-    # "__type__": "kotaemon.storages.MilvusVectorStore",
-    # "__type__": "kotaemon.storages.QdrantVectorStore",
-    "path": str(KH_USER_DATA_DIR / "vectorstore"),
+    "__type__": "kotaemon.storages.OpenGaussVectorStore",
+    "host": "localhost",
+    "port": 8888,
+    "database": "postgres",
+    "user": "gaussdb",
+    "password": "123456@Xxd",
+    "table_name": "kotaemon_vectors",
+    "schema_name": "public",
+    "embed_dim": 1536,
+    "ssl": False,
 }
+
 KH_LLMS = {}
 KH_EMBEDDINGS = {}
 KH_RERANKINGS = {}
@@ -164,8 +179,9 @@ if OPENAI_API_KEY:
             "base_url": config("OPENAI_API_BASE", default="https://api.openai.com/v1"),
             "api_key": OPENAI_API_KEY,
             "model": config(
-                "OPENAI_EMBEDDINGS_MODEL", default="text-embedding-3-large"
+                "OPENAI_EMBEDDINGS_MODEL", default="text-embedding-3-small"
             ),
+            "dimensions": 1536,
             "timeout": 10,
             "context_length": 8191,
         },
