@@ -202,3 +202,21 @@ class TestOpenGaussVectorStoreQuery:
         if 'query_test_1' in ids:  # Query vector is same as first test vector
             first_result_idx = ids.index('query_test_1')
             assert similarities[first_result_idx] == 1.0, f"Same vector should have similarity 1.0, actual: {similarities[first_result_idx]}"
+    
+    def test_query_without_opengauss_database(self):
+        """Test that query operations fail when openGauss database is not available"""
+        # Use invalid database configuration to simulate database unavailability
+        invalid_cfg = {
+            "host": "invalid_host",
+            "port": 5432,
+            "database": "invalid_db",
+            "user": "invalid_user",
+            "password": "invalid_password",
+            "table_name": "test_invalid",
+            "schema_name": "public",
+            "embed_dim": 1536
+        }
+        
+        # OpenGaussVectorStore initialization should fail with invalid configuration
+        with pytest.raises(Exception):
+            OpenGaussVectorStore(**invalid_cfg)

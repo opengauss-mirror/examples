@@ -19,27 +19,10 @@ class EmbeddingManager:
         self._default: str = ""
         self._vendors: list[Type] = []
 
-        # populate the pool if empty or force reload
+        # populate the pool if empty
         if hasattr(flowsettings, "KH_EMBEDDINGS"):
             with Session(engine) as sess:
-                # force reload from flowsettings
                 count = sess.query(EmbeddingTable).count()
-                if count > 0:
-                    print("DEBUG: Clearing old embedding configurations from database...")
-                    sess.query(EmbeddingTable).delete()
-                    sess.commit()
-                    print("DEBUG: Old configurations cleared, reloading from flowsettings...")
-                
-                for name, model in flowsettings.KH_EMBEDDINGS.items():
-                    print(f"DEBUG: Adding embedding model {name} with spec: {model['spec']}")
-                    self.add(
-                        name=name,
-                        spec=model["spec"],
-                        default=model.get("default", False),
-                    )
-
-            # # default load from flowsettings
-            #     count = sess.query(EmbeddingTable).count()
             if not count:
                 for name, model in flowsettings.KH_EMBEDDINGS.items():
                     self.add(

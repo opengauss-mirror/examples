@@ -216,3 +216,21 @@ class TestOpenGaussVectorStoreMetadata:
         assert retrieved_metadata[ids[0]]["empty_dict"] == {}, f"Empty dict should remain empty dict"
         assert retrieved_metadata[ids[1]]["normal_field"] == "value", f"Normal field should remain"
         assert retrieved_metadata[ids[1]]["empty_field"] == "", f"Empty field should remain empty string"
+    
+    def test_metadata_without_opengauss_database(self):
+        """Test that metadata operations fail when openGauss database is not available"""
+        # Use invalid database configuration to simulate database unavailability
+        invalid_cfg = {
+            "host": "invalid_host",
+            "port": 5432,
+            "database": "invalid_db",
+            "user": "invalid_user",
+            "password": "invalid_password",
+            "table_name": "test_invalid",
+            "schema_name": "public",
+            "embed_dim": 1536
+        }
+        
+        # OpenGaussVectorStore initialization should fail with invalid configuration
+        with pytest.raises(Exception):
+            OpenGaussVectorStore(**invalid_cfg)

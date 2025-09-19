@@ -142,3 +142,21 @@ class TestOpenGaussVectorStoreCount:
         
         # Cleanup
         self.vectorstore.delete(ids)
+    
+    def test_count_without_opengauss_database(self):
+        """Test that count operations fail when openGauss database is not available"""
+        # Use invalid database configuration to simulate database unavailability
+        invalid_cfg = {
+            "host": "invalid_host",
+            "port": 5432,
+            "database": "invalid_db",
+            "user": "invalid_user",
+            "password": "invalid_password",
+            "table_name": "test_invalid",
+            "schema_name": "public",
+            "embed_dim": 1536
+        }
+        
+        # OpenGaussVectorStore initialization should fail with invalid configuration
+        with pytest.raises(Exception):
+            OpenGaussVectorStore(**invalid_cfg)

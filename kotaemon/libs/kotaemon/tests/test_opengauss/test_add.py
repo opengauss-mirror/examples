@@ -167,3 +167,21 @@ class TestOpenGaussVectorStoreAdd:
         # Verify count
         count = self.vectorstore.count()
         assert count == len(test_embeddings), f"Count after insertion should be {len(test_embeddings)}, actual: {count}"
+    
+    def test_add_without_opengauss_database(self):
+        """Test that add operations fail when openGauss database is not available"""
+        # Use invalid database configuration to simulate database unavailability
+        invalid_cfg = {
+            "host": "invalid_host",
+            "port": 5432,
+            "database": "invalid_db",
+            "user": "invalid_user",
+            "password": "invalid_password",
+            "table_name": "test_invalid",
+            "schema_name": "public",
+            "embed_dim": 1536
+        }
+        
+        # OpenGaussVectorStore initialization should fail with invalid configuration
+        with pytest.raises(Exception):
+            OpenGaussVectorStore(**invalid_cfg)
