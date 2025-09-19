@@ -72,7 +72,7 @@ abctl local credentials --password YourStrongPasswordExample
 
 访问 [http://localhost:8000](http://localhost:8000/) (部署airbyte所在机器的ip)登录后，点击Setting -> Destinations -> +New connector
 
-![image-20250918222315397](C:\Users\胡力俨\AppData\Roaming\Typora\typora-user-images\image-20250918222315397.png)
+![image-20250918222315397](images/image-20250918222315397.png)
 
 填写表单如下
 
@@ -80,7 +80,7 @@ abctl local credentials --password YourStrongPasswordExample
 - `Docker repository name`:  `lucashu123/airbyte-connector-opengauss-datavec`
 - `Docker image tag`：`latest`
 
-![image-20250918222423289](C:\Users\胡力俨\AppData\Roaming\Typora\typora-user-images\image-20250918222423289.png)
+![image-20250918222423289](images/image-20250918222423289.png)
 
 > Connector documentation URL选项有点问题，填充URL后也不会显示文档
 
@@ -90,7 +90,7 @@ abctl local credentials --password YourStrongPasswordExample
 
 之后便可在Destination -> Custom中选择openGauss DataVec作为destination。
 
-![image-20250918223149758](C:\Users\胡力俨\AppData\Roaming\Typora\typora-user-images\image-20250918223149758.png)
+![image-20250918223149758](images/image-20250918223149758.png)
 
 
 
