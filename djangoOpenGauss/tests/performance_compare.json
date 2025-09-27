@@ -1,0 +1,52 @@
+{
+  "generated_at": "2025-09-27T02:15:07.133505Z",
+  "native": {
+    "OpenGauss": {
+      "connect_ms": 7.468208408681676,
+      "concurrent_100": 639.1384810267482,
+      "read_select_1": 0.8882959955371916,
+      "read_bulk": 0.5210351024288684,
+      "read_aggregate": 2.6520170038565993,
+      "write_batch_insert": 116.37345899362117,
+      "update_batch": 50.042375980410725,
+      "delete_batch": 35.11813801014796,
+      "transaction_commit": 4.056517995195463,
+      "transaction_rollback": 1.554664206923917,
+      "qps_10": 626.9643793294516,
+      "qps_50": 701.9784190502633,
+      "qps_100": 719.6996391427343
+    },
+    "PostgreSQL": {
+      "connect_ms": 5.043800006387755,
+      "concurrent_100": 537.938056018902,
+      "read_select_1": 0.667721003992483,
+      "read_bulk": 0.2239235967863351,
+      "read_aggregate": 0.47314839612226933,
+      "write_batch_insert": 47.034097980940714,
+      "update_batch": 22.301835007965565,
+      "delete_batch": 18.67661002324894,
+      "transaction_commit": 2.7822835894767195,
+      "transaction_rollback": 1.0326481948141009,
+      "qps_10": 1511.2655933832973,
+      "qps_50": 1546.060614260811,
+      "qps_100": 1578.7718451150424
+    },
+    "SQLite": {
+      "connect_ms": 0.048977602273225784,
+      "read_select_1": 0.009064999176189303,
+      "read_bulk": 0.016765299369581044,
+      "read_aggregate": 0.5200439074542373,
+      "write_batch_insert": 1.2462879822123796,
+      "update_batch": 0.6618360057473183,
+      "delete_batch": 0.33556498237885535,
+      "transaction_commit": 9.764935402199626,
+      "transaction_rollback": 0.1971926016267389
+    }
+  },
+  "django": {},
+  "environment": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "django_opengauss_test"
+  }
+}

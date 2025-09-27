@@ -1,0 +1,89 @@
+{
+  "generated_at": "2025-09-27T02:14:05.168599Z",
+  "duration_seconds": 0.4158926010131836,
+  "tests_run": 13,
+  "failures": [],
+  "errors": [],
+  "skipped": [],
+  "passed": [
+    {
+      "test": "__main__.OpenGaussDriverFullStackTest.test_bulk_create_returning_multiple_columns",
+      "messages": [
+        "批量插入 RETURNING 行为验证通过。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussDriverFullStackTest.test_connection_options_propagated",
+      "messages": [
+        "连接参数透传及游标/自动提交校验通过。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussDriverFullStackTest.test_crud_roundtrip_and_transactions",
+      "messages": [
+        "ORM 基础读写与事务验证通过。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussDriverFullStackTest.test_introspection_reports_constraints",
+      "messages": [
+        "内省约束与索引信息验证通过。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussDriverFullStackTest.test_partition_tables_visible_in_table_list",
+      "messages": [
+        "分区表枚举验证通过。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_client_argument_and_runshell",
+      "messages": [
+        "DatabaseClient 参数与 shell 调用验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_connection_pool_workflow",
+      "messages": [
+        "连接池工作流程验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_creation_database_management",
+      "messages": [
+        "DatabaseCreation 创建/克隆/销毁逻辑验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_creation_suffix",
+      "messages": [
+        "DatabaseCreation 表后缀逻辑验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_features_flags",
+      "messages": [
+        "DatabaseFeatures 属性验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_operations_helpers",
+      "messages": [
+        "DatabaseOperations 方法验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_pool_management_command",
+      "messages": [
+        "连接池管理命令验证完成。"
+      ]
+    },
+    {
+      "test": "__main__.OpenGaussBackendUnitTest.test_schema_helpers",
+      "messages": [
+        "DatabaseSchemaEditor 方法验证完成。"
+      ]
+    }
+  ],
+  "successful": true
+}
