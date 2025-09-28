@@ -44,7 +44,7 @@
 
 以生成10000条数据为例，如图所示
 
-![image-20250925175315991](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925175315991.png)
+![](..\images\image-20250925175315991.png)
 
 ### 3.2 数据迁移功能测试
 
@@ -58,7 +58,7 @@
 
 以30000条数据的迁移为例：
 
-![image-20250925180445053](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925180445053.png)
+![](..\images\image-20250925180445053.png)
 
 这里出现了稀疏向量索引迁移失败的情况，因为目前两款产品的稀疏向量索引的对应关系并不明确，因此此部分索引的映射很有限。索引建立失败不影响正常数据迁移，用户可在迁移后根据自身需求进行手动构建。
 
@@ -73,7 +73,7 @@
 
 迁移HNSW索引数据如下图：
 
-![image-20250925182514209](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925182514209.png)
+![](..\images\image-20250925182514209.png)
 
 ### 3.4 数据一致性测试
 
@@ -85,11 +85,11 @@
 
 一致性测试如下：
 
-![image-20250925182915643](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925182915643.png)
+![](..\images\image-20250925182915643.png)
 
-![image-20250925182934797](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925182934797.png)
+![image-20250925182934797](..\images\image-20250925182934797.png)
 
-![image-20250925183016228](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925183016228.png)
+![image-20250925183016228](..\images\image-20250925183016228.png)
 
 ### 3.5 DQL功能测试
 
@@ -99,9 +99,9 @@
 | DQL-002    | 相似度搜索   | ***Top-K结果召回率较低*** | 多数情况下召回率在20%以下 |
 
 DQL检索Top-k召回率测试：
-![image-20250925183416690](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925183416690.png)
+![image-20250925183416690](..\images\image-20250925183416690.png)
 
-![image-20250925183448026](C:\Users\Tian\AppData\Roaming\Typora\typora-user-images\image-20250925183448026.png)
+![image-20250925183448026](..\images\image-20250925183448026.png)
 
 **原因分析：**在两个数据库数据一致的情况下，且注意到两个数据库检索到的数据均距离目标数据较近，返回内容属于合理内容，此类问题很可能与迁移脚本无关，而与两个数据库的检索模式和索引构造有关。
 
