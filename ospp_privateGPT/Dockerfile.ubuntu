@@ -38,7 +38,7 @@ RUN poetry env use python3.11
 RUN poetry config virtualenvs.create false
 
 # 复制 poetry 配置文件
-COPY pyproject.toml poetry.lock ./
+# COPY pyproject.toml poetry.lock ./
 
 # 安装 Python 依赖
 RUN poetry lock && \
