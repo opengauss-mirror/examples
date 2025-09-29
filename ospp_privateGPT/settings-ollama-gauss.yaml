@@ -1,0 +1,35 @@
+# Using ollama and postgres for the vector, doc and index store. Ollama is also used for embeddings.
+# To use install these extras:
+# poetry install --extras "llms-ollama ui vector-stores-postgres embeddings-ollama storage-nodestore-postgres"
+server:
+  env_name: ${APP_ENV:ollama}
+
+llm:
+  mode: ollama
+  max_new_tokens: 512
+  context_window: 3900
+
+embedding:
+  mode: ollama
+  embed_dim: 768
+
+ollama:
+  llm_model: llama3.1
+  embedding_model: nomic-embed-text
+  api_base: ${PGPT_OLLAMA_API_BASE:http://ollama:11434}
+  embedding_api_base: ${PGPT_OLLAMA_API_BASE:http://ollama:11434}
+
+nodestore:
+  database: simple
+
+vectorstore:
+  database: opengauss
+
+opengauss:
+  host: ${PGPT_OPENGAUSS_API_HOST:localhost}
+  port: ${PGPT_OPENGAUSS_API_PORT:5432}
+  database: ${PGPT_OPENGAUSS_API_DATABASE:postgres}
+  user: ${PGPT_OPENGAUSS_API_USER:gaussdb}
+  password: ${PGPT_OPENGAUSS_API_PASSWORD:MyStrongPass$123}
+  schema_name: ${PGPT_OPENGAUSS_API_SCHEMA_NAME:private_gpt}
+
