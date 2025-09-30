@@ -1,0 +1,8 @@
+service: "service:svc"
+python:
+  packages:
+    - sentence-transformers
+    - torch
+    - transformers
+docker:
+  distro: debian
