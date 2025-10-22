@@ -1,0 +1,326 @@
+diff --git a/cmake/src/build_function.cmake b/cmake/src/build_function.cmake
+index fc114c9f2..f22208259 100755
+--- a/cmake/src/build_function.cmake
++++ b/cmake/src/build_function.cmake
+@@ -395,7 +395,7 @@ function(check_headers_func_c check_include_files check_functions check_decl che
+ endfunction(check_headers_func_c)
+ 
+ function(CHECK_FOR_MPPDB)
+-    set(CHECK_INC_FILES crtdefs.h crypt.h dld.h editline/history.h editline/readline.h fp_class.h getopt.h gssapi/gssapi.h gssapi.h history.h ieeefp.h ifaddrs.h inttypes.h langinfo.h ldap.h memory.h netinet/in.h netinet/tcp.h net/if.h ossp/uuid.h pam/pam_appl.h poll.h pwd.h readline.h readline/history.h readline/readline.h security/pam_appl.h stdint.h stdlib.h strings.h string.h sys/ioctl.h sys/ipc.h sys/poll.h sys/pstat.h sys/resource.h sys/select.h sys/sem.h sys/shm.h sys/socket.h sys/sockio.h sys/stat.h sys/tas.h sys/time.h sys/wait.h sys/types.h sys/ucred.h sys/un.h termios.h ucred.h unistd.h utime.h uuid.h wchar.h wctype.h winldap.h stdio.h stddef.h stdarg.h ac_nonexistent.h float.h zlib.h krb5.h libxml/parser.h libxslt/xslt.h windows.h dns_sd.h sys/param.h limits.h netdb.h locale.h xlocale.h fcntl.h machine/vmparam.h sys/exec.h math.h dbghelp.h setjmp.h signal.h syslog.h pthread.h cpuid.h intrin.h nmmintrin.h libintl.h tcl.h Python.h dlfcn.h errno.h)
++    set(CHECK_INC_FILES crtdefs.h crypt.h dld.h fp_class.h getopt.h gssapi/gssapi.h gssapi.h history.h ieeefp.h ifaddrs.h inttypes.h langinfo.h ldap.h memory.h netinet/in.h netinet/tcp.h net/if.h ossp/uuid.h pam/pam_appl.h poll.h pwd.h readline.h readline/history.h readline/readline.h security/pam_appl.h stdint.h stdlib.h strings.h string.h sys/ioctl.h sys/ipc.h sys/poll.h sys/pstat.h sys/resource.h sys/select.h sys/sem.h sys/shm.h sys/socket.h sys/sockio.h sys/stat.h sys/tas.h sys/time.h sys/wait.h sys/types.h sys/ucred.h sys/un.h termios.h ucred.h unistd.h utime.h uuid.h wchar.h wctype.h winldap.h stdio.h stddef.h stdarg.h ac_nonexistent.h float.h zlib.h krb5.h libxml/parser.h libxslt/xslt.h windows.h dns_sd.h sys/param.h limits.h netdb.h locale.h xlocale.h fcntl.h machine/vmparam.h sys/exec.h math.h dbghelp.h setjmp.h signal.h syslog.h pthread.h cpuid.h intrin.h nmmintrin.h libintl.h tcl.h Python.h dlfcn.h errno.h)
+     set(STDC_HEADERS 1 PARENT_SCOPE)
+ 
+     set(CHECK_FUNCTIONS append_history cbrt class crypt dlopen fdatasync fls fpclass fp_class fp_class_d getaddrinfo gethostbyname_r getifaddrs getopt getopt_long getpeereid getpeerucred getpwuid_r getrlimit getrusage gettimeofday history_truncate_file inet_aton mbstowcs_l memmove poll posix_fadvise pstat random readlink rint rl_completion_matches rl_filename_completion_function setproctitle setsid sigprocmask snprintf srandom strerror strerror_r strlcat strlcpy strtoll strtoq strtoull strtouq symlink sync_file_range towlower unsetenv utime utimes vsnprintf waitpid wcstombs wcstombs_l fseeko rl_completion_append_character isinf sigsetjmp syslog)
+diff --git a/src/common/interfaces/libpq/CMakeLists.txt b/src/common/interfaces/libpq/CMakeLists.txt
+index b899d1bde..de20fce00 100755
+--- a/src/common/interfaces/libpq/CMakeLists.txt
++++ b/src/common/interfaces/libpq/CMakeLists.txt
+@@ -279,9 +279,9 @@ if(NOT "${ENABLE_MULTIPLE_NODES}_${ENABLE_PRIVATEGAUSS}" STREQUAL "OFF_OFF")
+     endif()
+ endif()
+ if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+-    target_link_libraries(pq_ce PRIVATE ${pq_ce_LINK_LIBS} libkeymgr.a -lcurl -lcjson -lssl -lcrypto -l${SECURE_C_CHECK} -lpthread -lgssapi_krb5_gauss -lgssrpc_gauss -lkrb5_gauss -lkrb5support_gauss -lk5crypto_gauss -lcom_err_gauss)
++    target_link_libraries(pq_ce PRIVATE ${pq_ce_LINK_LIBS} keymgr_static -lcurl -lcjson -lssl -lcrypto -l${SECURE_C_CHECK} -lpthread -lgssapi_krb5_gauss -lgssrpc_gauss -lkrb5_gauss -lkrb5support_gauss -lk5crypto_gauss -lcom_err_gauss)
+ else()
+-    target_link_libraries(pq_ce PRIVATE ${pq_ce_LINK_LIBS} libkeymgr.a -lcurl -lcjson -lssl -lcrypto -l${SECURE_C_CHECK} -lpthread)
++    target_link_libraries(pq_ce PRIVATE ${pq_ce_LINK_LIBS} keymgr_static -lcurl -lcjson -lssl -lcrypto -l${SECURE_C_CHECK} -lpthread)
+ endif()
+ add_dependencies(pq_ce libpq_ce encryption_hooks client_logic_common client_logic_expressions client_logic_cache client_logic_processor client_logic_fmt client_logic_hooks client_logic_data_fetcher frontend_parser)
+ target_link_directories(pq_ce PUBLIC 
+diff --git a/src/gausskernel/cbb/bbox/bbox_elf_dump.h b/src/gausskernel/cbb/bbox/bbox_elf_dump.h
+index acdf5ede4..8b9065ab6 100644
+--- a/src/gausskernel/cbb/bbox/bbox_elf_dump.h
++++ b/src/gausskernel/cbb/bbox/bbox_elf_dump.h
+@@ -31,11 +31,7 @@
+ #include <sys/poll.h>
+ #include <sys/prctl.h>
+ #include <sys/socket.h>
+-#if (defined WITH_OPENEULER_OS) || (defined OPENEULER_MAJOR)
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+-#endif
+ #include <sys/ptrace.h>
+ #include <asm/ptrace.h>
+ #include <sys/time.h>
+diff --git a/src/gausskernel/cbb/bbox/bbox_syscall_support.h b/src/gausskernel/cbb/bbox/bbox_syscall_support.h
+index 12adc5728..6db7840ea 100644
+--- a/src/gausskernel/cbb/bbox/bbox_syscall_support.h
++++ b/src/gausskernel/cbb/bbox/bbox_syscall_support.h
+@@ -54,11 +54,7 @@
+ #include <sys/poll.h>
+ #include <sys/prctl.h>
+ #include <sys/socket.h>
+-#if (defined WITH_OPENEULER_OS) || (defined OPENEULER_MAJOR)
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+-#endif
+ #include <sys/uio.h>
+ #include <sys/wait.h>
+ 
+diff --git a/src/common/backend/utils/adt/xml.cpp b/src/common/backend/utils/adt/xml.cpp
+index 9a62a82..48adb14 100644
+--- a/src/common/backend/utils/adt/xml.cpp
++++ b/src/common/backend/utils/adt/xml.cpp
+@@ -112,7 +112,7 @@ struct PgXmlErrorContext {
+ };
+
+ static xmlParserInputPtr xmlPgEntityLoader(const char* URL, const char* ID, xmlParserCtxtPtr ctxt);
+-static void xml_error_handler(void* data, xmlErrorPtr error);
++static void xml_error_handler(void* data, const xmlError *error);
+ static void xml_ereport_by_code(int level, int sqlcode, const char* msg, int errcode);
+ static void chopStringInfoNewlines(StringInfo str);
+ static void appendStringInfoLineSeparator(StringInfo str);
+@@ -1537,7 +1537,7 @@ void xml_ereport(PgXmlErrorContext* errcxt, int level, int sqlcode, const char*
+     ereport(level, (errcode(sqlcode), errmsg_internal("%s", msg), detail ? errdetail_internal("%s", detail) : 0));
+ }
+
+-static void xml_append_errbuf(xmlErrorPtr error, const xmlChar* name, StringInfo errorBuf)
++static void xml_append_errbuf(const xmlError *error, const xmlChar* name, StringInfo errorBuf)
+ {
+     if (error->line > 0)
+         appendStringInfo(errorBuf, "line %d: ", error->line);
+@@ -1554,7 +1554,7 @@ static void xml_append_errbuf(xmlErrorPtr error, const xmlChar* name, StringInfo
+ /*
+  * Error handler for libxml errors and warnings
+  */
+-static void xml_error_handler(void* data, xmlErrorPtr error)
++static void xml_error_handler(void* data, const xmlError *error)
+ {
+     PgXmlErrorContext* xmlerrcxt = (PgXmlErrorContext*)data;
+     xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr)error->ctxt;
+-- 
+2.43.0
+
+diff --git a/src/bin/pg_basebackup/pg_basebackup.cpp b/src/bin/pg_basebackup/pg_basebackup.cpp
+index 88c47e72..a334a782 100644
+--- a/src/bin/pg_basebackup/pg_basebackup.cpp
++++ b/src/bin/pg_basebackup/pg_basebackup.cpp
+@@ -1689,7 +1689,7 @@ static void GsTarDirCheck(char* tarfilename)
+     struct dirent* ent;
+     while (1) {
+         ent = readdir(dir);
+-        if (ent <= 0) {
++        if (ent == NULL) {
+             break;
+         }
+         if ((strcmp(".", ent->d_name) == 0) || (strcmp("..", ent->d_name) == 0)) {
+diff --git a/src/bin/pg_ctl/backup.cpp b/src/bin/pg_ctl/backup.cpp
+index 82b50a0c..93444196 100755
+--- a/src/bin/pg_ctl/backup.cpp
++++ b/src/bin/pg_ctl/backup.cpp
+@@ -1985,7 +1985,7 @@ bool CopySecureFilesMain(char* dirname, uint32 term)
+         }
+         while (1) {
+             de = readdir(dir);
+-            if (de <= 0) {
++            if (de == NULL) {
+                 break;
+             }
+             if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0) {
+@@ -2884,4 +2884,4 @@ static void BeginGetXlogbyStream(char* xlogstart, uint32 timeline, char* sysiden
+     /* free sysidentifier after use */
+     pg_free(sysidentifier);
+     sysidentifier = NULL;
+-}
+\ No newline at end of file
++}
+diff --git a/src/gausskernel/optimizer/commands/sequence/sequence.cpp b/src/gausskernel/optimizer/commands/sequence/sequence.cpp
+index 7c101598..257b8054 100644
+--- a/src/gausskernel/optimizer/commands/sequence/sequence.cpp
++++ b/src/gausskernel/optimizer/commands/sequence/sequence.cpp
+@@ -749,18 +749,6 @@ static T_Int FetchLogLocal(T_Int* next, T_Int* result, T_Int* last, T_Int maxv,
+     return log;
+ }
+ 
+-template<typename T, bool large>
+-static Datum GetIntDefVal(TypeName* name, T value)
+-{
+-    if (large) {
+-        *name = makeTypeNameFromOid(INT16OID, -1);
+-        return Int128GetDatum(value);
+-    } else {
+-        *name = makeTypeNameFromOid(INT8OID, -1);
+-        return Int64GetDatumFast(value);
+-    }
+-}
+-
+ ObjectAddress DefineSequenceWrapper(CreateSeqStmt* seq)
+ {
+     if (seq->is_large) {
+diff --git a/src/gausskernel/runtime/opfusion/opfusion_util.cpp b/src/gausskernel/runtime/opfusion/opfusion_util.cpp
+index 98f3568f..220d4b2f 100644
+--- a/src/gausskernel/runtime/opfusion/opfusion_util.cpp
++++ b/src/gausskernel/runtime/opfusion/opfusion_util.cpp
+@@ -446,7 +446,7 @@ FusionType checkFusionAgg(Agg *node, ParamListInfo params)
+ 
+     /* check whether to have order by */
+     if (node->aggstrategy != AGG_PLAIN ||
+-            node->groupingSets > 0) {
++            node->groupingSets) {
+         return NOBYPASS_NOT_PLAIN_AGG;
+     }
+ 
+diff --git a/src/include/client_logic/cstrings_map.h b/src/include/client_logic/cstrings_map.h
+index b5f48757..098bcd33 100644
+--- a/src/include/client_logic/cstrings_map.h
++++ b/src/include/client_logic/cstrings_map.h
+@@ -23,6 +23,7 @@
+ 
+ #ifndef C_STRINGS_MAP_H
+ #define C_STRINGS_MAP_H
++#include <cstdint>
+ #include <cstdio>
+ #include <string>
+ 
+diff --git a/src/include/datatypes.h b/src/include/datatypes.h
+index 3d40936e..0690aacc 100644
+--- a/src/include/datatypes.h
++++ b/src/include/datatypes.h
+@@ -24,10 +24,12 @@
+ #ifndef DATA_TYPES_H
+ #define DATA_TYPES_H
+ 
++#include <stdint.h>
++
+ typedef unsigned int Oid;
+ typedef uintptr_t Datum;
+ typedef uint16_t uint16;
+ typedef uint32_t uint32;
+ typedef int32_t int32;
+ 
+-#endif /* DATA_TYPES_H */
+\ No newline at end of file
++#endif /* DATA_TYPES_H */
+diff --git a/src/include/gs_policy/policy_common.h b/src/include/gs_policy/policy_common.h
+index 50552ed9..fd0fd173 100644
+--- a/src/include/gs_policy/policy_common.h
++++ b/src/include/gs_policy/policy_common.h
+@@ -31,6 +31,8 @@
+ #include "gs_vector.h"
+ #include "pgaudit.h"
+ 
++#include <vector>
++
+ struct GsPolicyFQDN {
+     GsPolicyFQDN():m_value_schema(0), m_value_object(0), is_function(false){}
+     Oid m_value_schema; /* schema */
+diff --git a/contrib/pagehack/CMakeLists.txt b/contrib/pagehack/CMakeLists.txt
+index b15bee1..4b4a021 100644
+--- a/contrib/pagehack/CMakeLists.txt
++++ b/contrib/pagehack/CMakeLists.txt
+@@ -14,7 +14,7 @@ if(${ENABLE_DEBUG} STREQUAL "ON")
+ endif()
+ set(pagehack_COMPILE_OPTIONS ${OS_OPTIONS} ${PROTECT_OPTIONS} ${WARNING_OPTIONS} ${CHECK_OPTIONS} ${BIN_SECURE_OPTIONS} ${OPTIMIZE_OPTIONS})
+ set(pagehack_LINK_OPTIONS ${BIN_LINK_OPTIONS})
+-set(pagehack_LINK_LIBS -lpgport -lcrypt -ldl -lm -ledit -lssl -lcrypto -l${SECURE_C_CHECK} -lrt -lz -lminizip -lzstd -lpagecompression -llz4)
++set(pagehack_LINK_LIBS -lpgport -lcrypt -ldl -lm -ledit -lssl -lcrypto -lpagecompression -l${SECURE_C_CHECK} -lrt -lz -lminizip -lzstd -llz4)
+ add_bintarget(pagehack TGT_pagehack_SRC TGT_pagehack_INC "${pagehack_DEF_OPTIONS}" "${pagehack_COMPILE_OPTIONS}" "${pagehack_LINK_OPTIONS}" "${pagehack_LINK_LIBS}")
+ add_dependencies(pagehack pgport_static pagecompression)
+ target_link_directories(pagehack PUBLIC
+diff --git a/src/common/backend/utils/adt/CMakeLists.txt b/src/common/backend/utils/adt/CMakeLists.txt
+index b339090..bc9598e 100755
+--- a/src/common/backend/utils/adt/CMakeLists.txt
++++ b/src/common/backend/utils/adt/CMakeLists.txt
+@@ -14,6 +14,6 @@ set(TGT_adt_INC
+ )
+ 
+ set(adt_DEF_OPTIONS ${MACRO_OPTIONS})
+-set(adt_COMPILE_OPTIONS ${OPTIMIZE_OPTIONS} ${OS_OPTIONS} ${PROTECT_OPTIONS} ${WARNING_OPTIONS} ${BIN_SECURE_OPTIONS} ${CHECK_OPTIONS})
++set(adt_COMPILE_OPTIONS ${OPTIMIZE_OPTIONS} ${OS_OPTIONS} ${PROTECT_OPTIONS} ${WARNING_OPTIONS} ${BIN_SECURE_OPTIONS} ${CHECK_OPTIONS} -fpermissive)
+ set(adt_LINK_OPTIONS ${BIN_LINK_OPTIONS})
+ add_static_objtarget(common_backend_utils_adt TGT_adt_SRC TGT_adt_INC "${adt_DEF_OPTIONS}" "${adt_COMPILE_OPTIONS}" "${adt_LINK_OPTIONS}")
+
+diff --git a/src/bin/pg_basebackup/CMakeLists.txt b/src/bin/pg_basebackup/CMakeLists.txt
+index dc5efefb6..f28af37c7 100755
+--- a/src/bin/pg_basebackup/CMakeLists.txt
++++ b/src/bin/pg_basebackup/CMakeLists.txt
+@@ -33,7 +33,7 @@ set(TGT_basebackup_INC
+ set(basebackup_DEF_OPTIONS ${MACRO_OPTIONS} -DHAVE_LIBZ -DFRONTEND)
+ set(basebackup_COMPILE_OPTIONS ${OPTIMIZE_OPTIONS} ${OS_OPTIONS} ${PROTECT_OPTIONS} ${WARNING_OPTIONS} ${BIN_SECURE_OPTIONS} ${CHECK_OPTIONS})
+ set(basebackup_LINK_OPTIONS ${BIN_LINK_OPTIONS})
+-set(basebackup_LINK_LIBS lib_string_obj libelog.a libbuildquery.a libpgcommon.a libhotpatchclient.a libpgport.a -lpq -lcrypt -ldl -lm -lssl -lcrypto -l${SECURE_C_CHECK} -lrt -lz -lminizip -llz4 -lzstd -lpagecompression)
++set(basebackup_LINK_LIBS lib_string_obj libelog.a libbuildquery.a libpgcommon.a libhotpatchclient.a libpgport.a -lpq -lcrypt -ldl -lm -lssl -lcrypto -lpagecompression -l${SECURE_C_CHECK} -lrt -lz -lminizip -llz4 -lzstd)
+ if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+     list(APPEND basebackup_LINK_LIBS -lgssapi_krb5_gauss -lgssrpc_gauss -lkrb5_gauss -lkrb5support_gauss -lk5crypto_gauss -lcom_err_gauss)
+ endif()
+
+diff --git a/src/gausskernel/cbb/utils/zfiles/zip_file.cpp b/src/gausskernel/cbb/utils/zfiles/zip_file.cpp
+index dfe74794..3203c293 100644
+--- a/src/gausskernel/cbb/utils/zfiles/zip_file.cpp
++++ b/src/gausskernel/cbb/utils/zfiles/zip_file.cpp
+@@ -14,34 +14,6 @@
+ #include "utils/palloc.h"
+ #include "utils/zfiles.h"
+ 
+-/* MALLOC api for struct unz_memfunc */
+-static voidp memcnxt_palloc(size_t s)
+-{
+-    return palloc(s);
+-}
+-
+-/* FREE api for struct unz_memfunc */
+-static void memcnxt_pfree(voidp p)
+-{
+-    pfree(p);
+-}
+-
+-/*
+- * Postmaster will call this function at startup time
+- * to set memory API for MINIUNZ lib.
+- * struct unz_memfunc has two members:
+- * 1) MALLOC api whose type is:  typedef voidp (* malloc_pf) (size_t);
+- * 2) FREE api whose type is:    typedef void  (* free_pf) (voidp);
+- *
+- * see also:
+- *     3rd_src/zlib1.2.11/unzip_alloc_hook.patch
+- *     3rd_src/zlib1.2.11/unzip_alloc_hook.patch2
+- */
+-void pm_set_unzip_memfuncs(void)
+-{
+-    setUnzipMemoryFunc(memcnxt_palloc, memcnxt_pfree);
+-}
+-
+ /* open a log file using vfd method */
+ void* vfd_file_open(const char* logfile)
+ {
+diff --git a/src/gausskernel/process/postmaster/postmaster.cpp b/src/gausskernel/process/postmaster/postmaster.cpp
+index d1749be8..ccc2e1fd 100644
+--- a/src/gausskernel/process/postmaster/postmaster.cpp
++++ b/src/gausskernel/process/postmaster/postmaster.cpp
+@@ -1880,9 +1880,6 @@ int PostmasterMain(int argc, char* argv[])
+     S3_init();
+ #endif
+ 
+-    /* set memory manager for minizip libs */
+-    pm_set_unzip_memfuncs();
+-
+     /* set memory manager for cJSON */
+     cJSON_Hooks hooks = {cJSON_internal_malloc, cJSON_internal_free};
+     cJSON_InitHooks(&hooks);
+diff --git a/src/include/utils/zfiles.h b/src/include/utils/zfiles.h
+index 89b6632c..3b87dfb4 100644
+--- a/src/include/utils/zfiles.h
++++ b/src/include/utils/zfiles.h
+@@ -48,8 +48,6 @@ typedef struct gz_reader {
+     opaque_vfd* m_vfd;
+ } gz_reader;
+ 
+-extern void pm_set_unzip_memfuncs(void);
+-
+ /* unzip postgresql-2018-03-31_000000.zip log file and read its contents */
+ extern void set_unzip_filefuncs(zlib_filefunc64_def* funcs, voidpf opaque);
+ extern void* unzip_open(const char* zipfile);
+diff --git a/cmake/src/build_options.cmake b/cmake/src/build_options.cmake
+index 57fbc28e..a024fa29 100755
+--- a/cmake/src/build_options.cmake
++++ b/cmake/src/build_options.cmake
+@@ -189,6 +189,7 @@ endif()
+ set(LIB_SECURE_OPTIONS -fPIC -fno-common -fstack-protector-strong)
+ # libraries need link options during linking
+ set(LIB_LINK_OPTIONS -pthread -std=c++14 -Wl,-z,noexecstack -Wl,-z,relro,-z,now)
++string(REPLACE "-Wl,--no-undefined" "" CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
+ if(NOT "${ENABLE_UT}" STREQUAL "ON")
+     # binaries need fPIE to satisfy security options during compling
+     set(BIN_SECURE_OPTIONS -fPIE -fno-common -fstack-protector)

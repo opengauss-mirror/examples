@@ -1,0 +1,10 @@
+# This file contains a list of exceptions for rpmlint checker
+
+addFilter(r'(non-standard-gid|non-standard-uid) .* opengauss')
+addFilter(r'(postin-without-ldconfig|postun-without-ldconfig) /var/lib/opengauss/pkg_6.0.0/lib/.*')
+addFilter(r'shared-lib-calls-exit /var/lib/opengauss/pkg_6.0.0/lib/.*')
+addFilter(r'binary-or-shlib-calls-gethostbyname')
+addFilter(r'non-standard-group')
+
+addFilter(r'devel-file-in-non-devel-package.* /var/lib/opengauss/pkg_6.0.0/lib/.*.so')
+

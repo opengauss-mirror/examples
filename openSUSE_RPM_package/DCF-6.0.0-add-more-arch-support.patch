@@ -1,0 +1,90 @@
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' DCF-6.0.0/CMakeLists.txt DCF-6.0.0-edit/CMakeLists.txt
+*** DCF-6.0.0/CMakeLists.txt	2024-11-02 17:04:54.937886579 +0800
+--- DCF-6.0.0-edit/CMakeLists.txt	2024-11-02 17:04:05.634252331 +0800
+***************
+*** 84,89 ****
+--- 84,91 ----
+          add_compile_options(-mtune=cortex-a72 -fsigned-char -g -ggdb3 -march=armv8-a+crc -funwind-tables)
+      elseif (OS_ARCH STREQUAL "x86_64")
+          add_compile_options(-msse4.2 )
++     else ()
++         add_compile_options()
+      endif ()
+      Add_Definitions(-DWSEC_COMPILE_CAC_OPENSSL -DWSEC_AES_GCM_SUPPORT -DWSEC_USE_OPENSSL_110)
+  else ()
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' DCF-6.0.0/src/common/cm_concurrency/cm_spinlock.h DCF-6.0.0-edit/src/common/cm_concurrency/cm_spinlock.h
+*** DCF-6.0.0/src/common/cm_concurrency/cm_spinlock.h  2025-09-09 11:35:06.205098732 +0800
+--- DCF-6.0.0-edit/src/common/cm_concurrency/cm_spinlock.h  2025-09-09 11:37:37.272606843 +0800
+***************
+*** 63,77 ****
+      uint64 fails;
+  } spin_statis_t;
+  
+! #if defined(__arm__) || defined(__aarch64__) || defined(__loongarch__)
+  #define fas_cpu_pause()          \
+      {                            \
+!         __asm__ volatile("nop"); \
+      }
+  #else
+  #define fas_cpu_pause()            \
+      {                              \
+!         __asm__ volatile("pause"); \
+      }
+  #endif
+  
+--- 63,77 ----
+      uint64 fails;
+  } spin_statis_t;
+  
+! #if defined(__i386__) || defined(__x86_64__)
+  #define fas_cpu_pause()          \
+      {                            \
+!         __asm__ volatile("pause"); \
+      }
+  #else
+  #define fas_cpu_pause()            \
+      {                              \
+!         __asm__ volatile("nop"); \
+      }
+  #endif
+
+diff -crN DCF-6.0.0/src/common/cm_utils/cm_memory.h DCF-6.0.0-edit/src/common/cm_utils/cm_memory.h
+*** DCF-6.0.0/src/common/cm_utils/cm_memory.h	2024-11-02 17:38:45.539451623 +0800
+--- DCF-6.0.0-edit/src/common/cm_utils/cm_memory.h	2024-11-02 17:37:19.781567264 +0800
+***************
+*** 62,68 ****
+          __asm__ volatile("mfence" ::      \
+                               : "memory"); \
+      }
+! #elif defined(__loongarch__)
+  #define CM_MFENCE                         \
+      {                                     \
+          __asm__ volatile("" ::            \
+--- 62,68 ----
+          __asm__ volatile("mfence" ::      \
+                               : "memory"); \
+      }
+! #elif defined(__loongarch__) || defined(__riscv) || defined(_ARCH_PPC64) || defined(__s390x__)
+  #define CM_MFENCE                         \
+      {                                     \
+          __asm__ volatile("" ::            \
+diff -crN DCF-6.0.0/src/common/cm_utils/cm_checksum.h DCF-6.0.0-edit/src/common/cm_utils/cm_checksum.h
+*** DCF-6.0.0/src/common/cm_utils/cm_checksum.h 2025-09-08 16:39:54.805517026 +0800
+--- DCF-6.0.0-edit/src/common/cm_utils/cm_checksum.h 2025-09-08 16:40:03.269468694 +0800
+***************
+*** 38,44 ****
+  #define CM_HAVE_SSE4_2
+  #include <intrin.h>
+  #define CM_HAVE__CPUID
+! #elif defined(__i386__) || defined(__x86_64__)
+  #include <nmmintrin.h>
+  #define CM_HAVE_SSE4_2
+  #include <cpuid.h>
+--- 38,44 ----
+  #define CM_HAVE_SSE4_2
+  #include <intrin.h>
+  #define CM_HAVE__CPUID
+! #elif defined(__x86_64__)
+  #include <nmmintrin.h>
+  #define CM_HAVE_SSE4_2
+  #include <cpuid.h>

@@ -1,0 +1,7 @@
+export GAUSSHOME=/usr/local/opengauss
+export GAUSSLOG=/var/lib/opengauss/log
+export LD_LIBRARY_PATH=${GAUSSHOME}/lib:$LD_LIBRARY_PATH
+export PATH=${GAUSSHOME}/bin:$PATH
+export PGDATA=/var/lib/opengauss/data
+export PGPORT=7654
+export PGDATABASE=postgres

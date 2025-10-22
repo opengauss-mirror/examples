@@ -1,0 +1,8 @@
+--- dmlc-core-0.5/CMakeLists.txt.orig	2025-03-12 09:50:11.043991872 +0800
++++ dmlc-core-0.5/CMakeLists.txt	2025-03-12 09:50:18.250094059 +0800
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.2)
++cmake_minimum_required(VERSION 3.2...${CMAKE_VERSION})
+ 
+ project(dmlc VERSION 0.3 LANGUAGES C CXX)
+ 

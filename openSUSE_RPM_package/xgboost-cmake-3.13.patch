@@ -1,0 +1,8 @@
+--- xgboost-1.4.1/rabit/CMakeLists.txt.orig	2025-03-12 09:39:22.266791744 +0800
++++ xgboost-1.4.1/rabit/CMakeLists.txt	2025-03-12 09:39:47.096143841 +0800
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.3)
++cmake_minimum_required(VERSION 3.13)
+ 
+ find_package(Threads REQUIRED)
+ 

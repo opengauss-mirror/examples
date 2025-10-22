@@ -1,0 +1,16 @@
+[Unit]
+Description=Start openGauss server
+After=local-fs.target
+
+[Service]
+Type=forking
+User=opengauss
+WorkingDirectory=/var/lib/opengauss
+ExecStart=/bin/bash -c 'source ~/.bash_profile; gs_ctl start -D /var/lib/opengauss/data'
+ExecStop=/bin/bash -c 'source ~/.bash_profile; gs_ctl stop -D /var/lib/opengauss/data'
+ExecReload=/bin/bash -c 'source ~/.bash_profile; gs_ctl reload -D /var/lib/opengauss/data'
+Delegate=yes
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
