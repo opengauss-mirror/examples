@@ -1,0 +1,24 @@
+version: 2
+distribution_spec:
+  description: "Custom configuration using OpenGauss for vector storage and metadata"
+  providers:
+    inference:
+      - provider_type: remote::together
+    vector_io:
+      - provider_type: remote::opengauss
+    agents:
+      - provider_type: inline::meta-reference
+    tool_runtime:
+      - provider_type: inline::rag-runtime
+    files:
+      - provider_type: inline::localfs
+    telemetry:
+      - provider_type: inline::meta-reference
+    safety:
+      - provider_type: inline::llama-guard
+
+image_type: venv
+additional_pip_packages:
+  - psycopg2-binary>=2.9.3
+  - pgvector>=0.2.0
+  - asyncpg>=0.27.0
