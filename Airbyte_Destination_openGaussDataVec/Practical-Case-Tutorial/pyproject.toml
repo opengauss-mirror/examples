@@ -1,0 +1,16 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "chatbot-ollama"
+version = "0.1.0"
+description = "A chatbot implementation using Ollama."
+authors = ["huliyan <liyanhu03@163.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+ollama = ">=0.2.0"
+psycopg2-binary = "2.9.9"
