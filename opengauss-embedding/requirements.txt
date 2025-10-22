@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+psycopg2-binary
+pydantic
+python-dotenv
+requests
+sentence-transformers
+torch
+transformers
+cohere
+streamlit
+bentoml

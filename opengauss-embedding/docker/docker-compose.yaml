@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  opengauss:
+    image: swr.cn-north-4.myhuaweicloud.com/opengauss-x86-64/opengauss-datavec:latest
+    container_name: og-datavec
+    environment:
+      GS_PASSWORD: "${OG_PASSWORD:-Gauss@123}"
+    ports:
+      - "8888:5432"
+    volumes:
+      - ./ogdata:/var/lib/opengauss
+    healthcheck:
+      test: ["CMD", "bash", "-lc", "pg_isready -U gaussdb -h 127.0.0.1 -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama:/root/.ollama
+    healthcheck:
+      test: ["CMD", "bash", "-lc", "curl -sf http://127.0.0.1:11434/api/tags || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  bento-emb:
+    build:
+      context: ./bento
+    ports:
+      - "3001:3000"
+    healthcheck:
+      test: ["CMD", "bash", "-lc", "curl -sf http://127.0.0.1:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
