@@ -1,0 +1,1362 @@
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/cmake/src/build_options.cmake opengauss_server_600_edit/cmake/src/build_options.cmake
+*** opengauss_server_600/cmake/src/build_options.cmake	2024-11-19 20:01:27.693621300 +0800
+--- opengauss_server_600_edit/cmake/src/build_options.cmake	2024-11-19 20:04:06.889621300 +0800
+***************
+*** 65,70 ****
+--- 65,72 ----
+  option(ENABLE_ORACLE_FDW "enable export or import data with oracle,the old is --enable-oracle-fdw" OFF)
+  option(ENABLE_BBOX "enable bbox,the old is --enable-bbox " ON)
+  option(ENABLE_JEMALLOC "enable jemalloc,the old is --enable-jemalloc " ON)
++ option(ENABLE_OBS "enable obs, the old is --enable-obs " ON)
++ option(ENABLE_OPENSSL3 "enable openssl, the old is --enable-openssl " OFF)
+  option(BUILD_BY_CMAKE "the BUILD_BY_CMAKE is new,used in distribute pg_regress.cpp" ON)
+  option(DEBUG_UHEAP "collect USTORE statistics" OFF)
+  option(MAX_ALLOC_SEGNUM "max alloc xlog seg num in extreme_rto" 4)
+***************
+*** 158,163 ****
+--- 160,173 ----
+      add_definitions(-DOPENEULER_MAJOR)
+  endif()
+  
++ if(ENABLE_OBS)
++     add_definitions(-DENABLE_OBS)
++ endif()
++ 
++ if(ENABLE_OPENSSL3)
++     add_definitions(-DENABLE_OPENSSL3)
++ endif()
++ 
+  set(PROTECT_OPTIONS -fwrapv -std=c++14 -fnon-call-exceptions ${OPTIMIZE_LEVEL})
+  set(WARNING_OPTIONS -Wall -Wendif-labels -Wformat-security)
+  set(OPTIMIZE_OPTIONS -pipe -pthread -fno-aggressive-loop-optimizations -fno-expensive-optimizations -fno-omit-frame-pointer -fno-strict-aliasing -freg-struct-return)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/common/backend/pgxc_single/barrier/barrier.cpp opengauss_server_600_edit/src/common/backend/pgxc_single/barrier/barrier.cpp
+*** opengauss_server_600/src/common/backend/pgxc_single/barrier/barrier.cpp	2024-11-19 20:01:27.697621300 +0800
+--- opengauss_server_600_edit/src/common/backend/pgxc_single/barrier/barrier.cpp	2024-11-19 20:04:07.237621300 +0800
+***************
+*** 401,410 ****
+--- 401,412 ----
+      recptr = XLogInsert(RM_BARRIER_ID, XLOG_BARRIER_CREATE, InvalidBktId);
+      XLogWaitFlush(recptr);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      if (t_thrd.role == BARRIER_CREATOR) {
+          UpdateGlobalBarrierListOnMedia(id, g_instance.attr.attr_common.PGXCNodeName);
+      }
+  #endif
++ #endif
+      SpinLockAcquire(&g_instance.archive_obs_cxt.barrier_lock);
+      pg_atomic_init_u64(&g_instance.archive_obs_cxt.barrierLsn, recptr);
+      rc = memcpy_s(g_instance.archive_obs_cxt.barrierName, MAX_BARRIER_ID_LENGTH, id, strlen(id));
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/CMakeLists.txt opengauss_server_600_edit/src/gausskernel/CMakeLists.txt
+*** opengauss_server_600/src/gausskernel/CMakeLists.txt	2024-11-19 20:01:27.697621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/CMakeLists.txt	2024-11-19 20:04:07.509621300 +0800
+***************
+*** 257,271 ****
+      )
+  endif()
+  
+! if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+!     list(APPEND gaussdb_objects
+!         $<TARGET_OBJECTS:gausskernel_storage_access_archive>
+!         $<TARGET_OBJECTS:gausskernel_runtime_codegen_executor>
+!         $<TARGET_OBJECTS:gausskernel_runtime_codegen_vecexecutor>
+!         $<TARGET_OBJECTS:gausskernel_runtime_codegen_codegenutil>
+!         $<TARGET_OBJECTS:gausskernel_runtime_codegen>
+!     )
+! endif()
+  
+  set(gaussdb_objects ${gaussdb_objects} ${gaussdb_server_objects})
+  
+--- 257,271 ----
+      )
+  endif()
+  
+! # if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+! #     list(APPEND gaussdb_objects
+! #         $<TARGET_OBJECTS:gausskernel_storage_access_archive>
+! #         $<TARGET_OBJECTS:gausskernel_runtime_codegen_executor>
+! #         $<TARGET_OBJECTS:gausskernel_runtime_codegen_vecexecutor>
+! #         $<TARGET_OBJECTS:gausskernel_runtime_codegen_codegenutil>
+! #         $<TARGET_OBJECTS:gausskernel_runtime_codegen>
+! #     )
+! # endif()
+  
+  set(gaussdb_objects ${gaussdb_objects} ${gaussdb_server_objects})
+  
+***************
+*** 299,306 ****
+      list(APPEND gaussdb_LINK_DIRS ${LIBXML_LIB_PATH})
+  endif()
+  
+  if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+!     list(APPEND gaussdb_LINK_LIBS -lz -lminizip -leSDKOBS -leSDKLogAPI -lpcre -liconv -lnghttp2 -llog4cpp -lcurl -llz4 -lcjson -l${JEMALLOC_LIB_NAME} -lcgroup -lzstd -lcom_err_gauss -lgssapi_krb5_gauss -lkrb5_gauss -lgssrpc_gauss -lk5crypto_gauss -lkadm5clnt_mit -lkadm5srv_mit -lkdb5 -lkrb5support_gauss -lstdc++ -lboost_thread -lboost_chrono -lboost_system -lboost_atomic -lxml2 -laio -lncurses -ltinfo -latomic)
+  else()
+      list(APPEND gaussdb_LINK_LIBS -lz -lminizip -lcurl -llz4 -lcjson -l${JEMALLOC_LIB_NAME} -lcgroup -lzstd -lncurses -ltinfo -lboost_thread -lboost_chrono -lboost_system -lboost_atomic)
+  endif()
+--- 299,310 ----
+      list(APPEND gaussdb_LINK_DIRS ${LIBXML_LIB_PATH})
+  endif()
+  
++ if("${ENABLE_OBS}" STREQUAL "ON")
++     list(APPEND gaussdb_LINK_LIBS -leSDKOBS -leSDKLogAPI -lpcre -liconv -lnghttp2 -llog4cpp)
++ endif()
++ 
+  if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+!     list(APPEND gaussdb_LINK_LIBS -lz -lminizip -lcurl -llz4 -lcjson -l${JEMALLOC_LIB_NAME} -lcgroup -lzstd -lcom_err_gauss -lgssapi_krb5_gauss -lkrb5_gauss -lgssrpc_gauss -lk5crypto_gauss -lkadm5clnt_mit -lkadm5srv_mit -lkdb5 -lkrb5support_gauss -lstdc++ -lboost_thread -lboost_chrono -lboost_system -lboost_atomic -lxml2 -laio -lncurses -ltinfo -latomic)
+  else()
+      list(APPEND gaussdb_LINK_LIBS -lz -lminizip -lcurl -llz4 -lcjson -l${JEMALLOC_LIB_NAME} -lcgroup -lzstd -lncurses -ltinfo -lboost_thread -lboost_chrono -lboost_system -lboost_atomic)
+  endif()
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/optimizer/commands/CMakeLists.txt opengauss_server_600_edit/src/gausskernel/optimizer/commands/CMakeLists.txt
+*** opengauss_server_600/src/gausskernel/optimizer/commands/CMakeLists.txt	2024-11-19 20:01:27.697621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/optimizer/commands/CMakeLists.txt	2024-11-19 20:04:07.561621300 +0800
+***************
+*** 1,7 ****
+  #This is the main CMAKE for build all components.
+  AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} TGT_commands_SRC)
+  
+! if("${ENABLE_LITE_MODE}" STREQUAL "ON")
+      list(REMOVE_ITEM TGT_commands_SRC ${CMAKE_CURRENT_SOURCE_DIR}/obs_stream.cpp)
+  endif()
+  
+--- 1,7 ----
+  #This is the main CMAKE for build all components.
+  AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} TGT_commands_SRC)
+  
+! if("${ENABLE_LITE_MODE}" STREQUAL "ON" OR NOT "${ENABLE_OBS}" STREQUAL "ON")
+      list(REMOVE_ITEM TGT_commands_SRC ${CMAKE_CURRENT_SOURCE_DIR}/obs_stream.cpp)
+  endif()
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/optimizer/commands/copy.cpp opengauss_server_600_edit/src/gausskernel/optimizer/commands/copy.cpp
+*** opengauss_server_600/src/gausskernel/optimizer/commands/copy.cpp	2024-11-19 20:01:27.701621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/optimizer/commands/copy.cpp	2024-11-19 20:04:07.569621300 +0800
+***************
+*** 6811,6816 ****
+--- 6811,6817 ----
+          if (cstate->mode == MODE_NORMAL) {
+              if (cstate->filename && is_obs_protocol(cstate->filename)) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+                  if (getNextOBS(cstate)) {
+                      cstate->eol_type = EOL_UNKNOWN;
+                      goto retry;
+***************
+*** 6818,6823 ****
+--- 6819,6825 ----
+  #else
+                  FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+              } else {
+                  if (getNextGDS<true>(cstate)) {
+                      if (cstate->eol_type != EOL_UD)
+***************
+*** 9632,9637 ****
+--- 9634,9640 ----
+          case MODE_NORMAL: /* for GDS oriented dist import */
+              if (is_obs_protocol(cstate->filename)) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+                  /* Attache working house routines for OBS oriented dist import */
+                  func.initBulkLoad = initOBSModeState;
+                  func.endBulkLoad = endOBSModeBulkLoad;
+***************
+*** 9641,9646 ****
+--- 9644,9650 ----
+  #else
+                  FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+              } else {
+                  /* Attache working house routines for GDS oriented dist import */
+                  func.initBulkLoad = initNormalModeState<true>;
+***************
+*** 9707,9712 ****
+--- 9711,9717 ----
+  
+              if (is_obs_protocol(filename)) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+                  /* Fetch OBS write only table related attribtues */
+                  getOBSOptions(&cstate->obs_copy_options, options);
+  
+***************
+*** 9726,9731 ****
+--- 9731,9737 ----
+  #else
+                  FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+              } else {
+                  initNormalModeState<false>(cstate, filename, tasklist);
+              }
+***************
+*** 9889,9894 ****
+--- 9895,9901 ----
+          }
+      } else if (cstate->copy_dest == COPY_OBS) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+          if (IS_PGXC_DATANODE) {
+              if (cstate->outBuffer->len > 0)
+                  RemoteExportFlushData(cstate);
+***************
+*** 9899,9904 ****
+--- 9906,9912 ----
+  #else
+          FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      } else
+          exportDeinitOutBuffer(cstate);
+      MemoryContextDelete(cstate->rowcontext);
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/process/postmaster/CMakeLists.txt opengauss_server_600_edit/src/gausskernel/process/postmaster/CMakeLists.txt
+*** opengauss_server_600/src/gausskernel/process/postmaster/CMakeLists.txt	2024-11-19 20:01:27.701621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/process/postmaster/CMakeLists.txt	2024-11-19 20:04:07.697621300 +0800
+***************
+*** 1,11 ****
+  #This is the main CMAKE for build bin.
+  AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} TGT_postmaster_SRC)
+  
+! if("${ENABLE_LITE_MODE}" STREQUAL "ON")
+      list(REMOVE_ITEM TGT_postmaster_SRC
+          ${CMAKE_CURRENT_SOURCE_DIR}/barrier_creator.cpp
+          ${CMAKE_CURRENT_SOURCE_DIR}/barrier_arch.cpp
+!         ${CMAKE_CURRENT_SOURCE_DIR}/aiocompleter.cpp
+      )
+  endif()
+  
+--- 1,11 ----
+  #This is the main CMAKE for build bin.
+  AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} TGT_postmaster_SRC)
+  
+! if("${ENABLE_LITE_MODE}" STREQUAL "ON" OR NOT "${ENABLE_OBS}" STREQUAL "ON")
+      list(REMOVE_ITEM TGT_postmaster_SRC
+          ${CMAKE_CURRENT_SOURCE_DIR}/barrier_creator.cpp
+          ${CMAKE_CURRENT_SOURCE_DIR}/barrier_arch.cpp
+!         # ${CMAKE_CURRENT_SOURCE_DIR}/aiocompleter.cpp
+      )
+  endif()
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/process/postmaster/pgarch.cpp opengauss_server_600_edit/src/gausskernel/process/postmaster/pgarch.cpp
+*** opengauss_server_600/src/gausskernel/process/postmaster/pgarch.cpp	2024-11-19 20:01:27.701621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/process/postmaster/pgarch.cpp	2024-11-19 20:04:07.705621300 +0800
+***************
+*** 109,114 ****
+--- 109,115 ----
+  static void pgarch_archiveDone(const char* xlog);
+  static void archKill(int code, Datum arg);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  static void pgarch_archiveRoachForPitrStandby();
+  static bool pgarch_archiveRoachForPitrMaster(XLogRecPtr targetLsn);
+  static bool pgarch_archiveRoachForCoordinator(XLogRecPtr targetLsn);
+***************
+*** 117,122 ****
+--- 118,124 ----
+  static void pgarch_ArchiverObsCopyLoop(XLogRecPtr flushPtr, doArchive fun);
+  static void InitArchiverLastTaskLsn(ArchiveSlotConfig* obs_archive_slot);
+  #endif
++ #endif
+  
+  AlarmCheckResult DataInstArchChecker(Alarm* alarm, AlarmAdditionalParam* additionalParam)
+  {
+***************
+*** 242,249 ****
+--- 244,253 ----
+      setObsArchLatch(&t_thrd.arch.mainloop_latch);
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      InitArchiverLastTaskLsn(NULL);
+  #endif
++ #endif
+      pgarch_MainLoop();
+  
+      gs_thread_exit(0);
+***************
+*** 338,346 ****
+--- 342,352 ----
+      gettimeofday(&last_copy_time, NULL);
+      bool time_to_stop = false;
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      doArchive fun = NULL;
+      const int millitosec = 1000;
+  #endif
++ #endif
+  
+      /*
+       * We run the copy loop immediately upon entry, in case there are
+***************
+*** 393,398 ****
+--- 399,405 ----
+                  break;
+          }
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+          load_server_mode();
+          if (IsServerModeStandby()) {
+              
+***************
+*** 412,422 ****
+--- 419,431 ----
+              }
+          }
+  #endif
++ #endif
+  
+          /* Do what we're here for */
+          if (t_thrd.arch.wakened || time_to_stop) {
+              t_thrd.arch.wakened = false;
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              obs_archive_slot = getArchiveReplicationSlot();
+              if (obs_archive_slot != NULL && !IsServerModeStandby()) {
+                  gettimeofday(&curtime, NULL);
+***************
+*** 474,484 ****
+--- 483,496 ----
+                  }
+              } else {
+  #endif
++ #endif
+                  pgarch_ArchiverCopyLoop();
+                  gettimeofday(&last_copy_time, NULL);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              }
+  #endif
++ #endif
+          }
+  
+          /*
+***************
+*** 688,693 ****
+--- 700,706 ----
+  }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  /*
+   * pgarch_ArchiverObsCopyLoop
+   *
+***************
+*** 771,776 ****
+--- 784,790 ----
+      } while (XLByteLT(t_thrd.arch.pitr_task_last_lsn, flushPtr));
+  }
+  #endif
++ #endif
+  
+  /*
+   * pgarch_archiveXlog
+***************
+*** 1031,1036 ****
+--- 1045,1051 ----
+  }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  /*
+   * pgarch_archiveRoachForPitrStandby
+   * get signal from walreceiver, fork a roach process to archive xlog
+***************
+*** 1307,1309 ****
+--- 1322,1325 ----
+  }
+  
+  #endif
++ #endif
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/process/postmaster/postmaster.cpp opengauss_server_600_edit/src/gausskernel/process/postmaster/postmaster.cpp
+*** opengauss_server_600/src/gausskernel/process/postmaster/postmaster.cpp	2024-11-19 20:01:27.705621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/process/postmaster/postmaster.cpp	2024-11-19 20:04:07.709621300 +0800
+***************
+*** 225,231 ****
+  
+  #include "distributelayer/streamMain.h"
+  #include "distributelayer/streamProducer.h"
+! #ifndef ENABLE_LITE_MODE
+  #include "eSDKOBS.h"
+  #endif
+  #include "cjson/cJSON.h"
+--- 225,231 ----
+  
+  #include "distributelayer/streamMain.h"
+  #include "distributelayer/streamProducer.h"
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+  #include "eSDKOBS.h"
+  #endif
+  #include "cjson/cJSON.h"
+***************
+*** 1870,1876 ****
+       */
+      initialize_feature_flags();
+  
+! #ifndef ENABLE_LITE_MODE
+      /*
+       * @OBS
+       * Create a global OBS CA object shared among threads
+--- 1870,1876 ----
+       */
+      initialize_feature_flags();
+  
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+      /*
+       * @OBS
+       * Create a global OBS CA object shared among threads
+***************
+*** 3002,3010 ****
+--- 3002,3012 ----
+      }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      if (g_instance.attr.attr_storage.enable_adio_function)
+          AioResourceInitialize();
+  #endif
++ #endif
+  
+      /* start alarm checker thread. */
+      if (!dummyStandbyMode)
+***************
+*** 6341,6346 ****
+--- 6343,6349 ----
+              }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              if (g_instance.pid_cxt.BarrierCreatorPID != 0) {
+                  barrier_creator_thread_shutdown();
+                  signal_child(g_instance.pid_cxt.BarrierCreatorPID, SIGTERM);
+***************
+*** 6354,6359 ****
+--- 6357,6363 ----
+                  }
+              }
+  #endif
++ #endif
+  
+  #ifdef ENABLE_MULTIPLE_NODES
+              if (g_instance.pid_cxt.CsnminSyncPID != 0) {
+***************
+*** 6778,6788 ****
+--- 6782,6794 ----
+              }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              if (g_instance.pid_cxt.BarrierCreatorPID != 0) {
+                  barrier_creator_thread_shutdown();
+                  signal_child(g_instance.pid_cxt.BarrierCreatorPID, SIGTERM);
+              }
+  #endif
++ #endif
+  
+  #ifdef ENABLE_MULTIPLE_NODES
+              if (g_instance.pid_cxt.CsnminSyncPID != 0) {
+***************
+*** 8468,8478 ****
+--- 8474,8486 ----
+                  signal_child(g_instance.pid_cxt.HeartbeatPID, SIGTERM);
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              if (g_instance.pid_cxt.BarrierCreatorPID != 0) {
+                  barrier_creator_thread_shutdown();
+                  signal_child(g_instance.pid_cxt.BarrierCreatorPID, SIGTERM);
+              }
+  #endif
++ #endif
+  #ifdef ENABLE_MULTIPLE_NODES
+              if (g_instance.pid_cxt.CsnminSyncPID != 0) {
+                  csnminsync_thread_shutdown();
+***************
+*** 9637,9643 ****
+  
+      CloseGaussPidDir();
+  
+! #ifndef ENABLE_LITE_MODE
+      obs_deinitialize();
+  #endif
+  
+--- 9645,9651 ----
+  
+      CloseGaussPidDir();
+  
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+      obs_deinitialize();
+  #endif
+  
+***************
+*** 14640,14645 ****
+--- 14648,14654 ----
+          } break;
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+          case BARRIER_CREATOR: {
+              if (START_BARRIER_CREATOR) {
+                  t_thrd.proc_cxt.MyPMChildSlot = AssignPostmasterChildSlot();
+***************
+*** 14665,14670 ****
+--- 14674,14680 ----
+              }
+         } break;
+  #endif
++ #endif
+  
+  #ifdef ENABLE_MULTIPLE_NODES
+          case COMM_POOLER_CLEAN: {
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/runtime/CMakeLists.txt opengauss_server_600_edit/src/gausskernel/runtime/CMakeLists.txt
+*** opengauss_server_600/src/gausskernel/runtime/CMakeLists.txt	2024-11-19 20:01:27.705621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/runtime/CMakeLists.txt	2024-11-19 20:04:07.725621300 +0800
+***************
+*** 12,18 ****
+      ${CMAKE_CURRENT_SOURCE_DIR}/vecexecutor
+  )
+  
+! if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+      list(APPEND CMAKE_MODULE_PATH
+          ${CMAKE_CURRENT_SOURCE_DIR}/codegen
+      )
+--- 12,18 ----
+      ${CMAKE_CURRENT_SOURCE_DIR}/vecexecutor
+  )
+  
+! if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON" AND "${ENABLE_LLVM_COMPILE}" STREQUAL "ON")
+      list(APPEND CMAKE_MODULE_PATH
+          ${CMAKE_CURRENT_SOURCE_DIR}/codegen
+      )
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/access/archive/archive_am.cpp opengauss_server_600_edit/src/gausskernel/storage/access/archive/archive_am.cpp
+*** opengauss_server_600/src/gausskernel/storage/access/archive/archive_am.cpp	2024-11-19 20:01:27.705621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/access/archive/archive_am.cpp	2024-11-19 20:04:07.777621300 +0800
+***************
+*** 30,41 ****
+      if (archive_config == NULL) {
+          return 0;
+      }
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          return obsRead(fileName, offset, buffer, length, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          return NasRead(fileName, offset, buffer, length, archive_config);
+      }
+! 
+      return 0;
+  }
+  
+--- 30,42 ----
+      if (archive_config == NULL) {
+          return 0;
+      }
++ #ifdef ENABLE_OBS
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          return obsRead(fileName, offset, buffer, length, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          return NasRead(fileName, offset, buffer, length, archive_config);
+      }
+! #endif
+      return 0;
+  }
+  
+***************
+*** 46,57 ****
+          return ret;
+      }
+  
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = obsWrite(fileName, buffer, bufferLength, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = NasWrite(fileName, buffer, bufferLength, archive_config);
+      }
+! 
+      return ret;
+  }
+  
+--- 47,59 ----
+          return ret;
+      }
+  
++ #ifdef ENABLE_OBS
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = obsWrite(fileName, buffer, bufferLength, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = NasWrite(fileName, buffer, bufferLength, archive_config);
+      }
+! #endif
+      return ret;
+  }
+  
+***************
+*** 61,73 ****
+      if (archive_config == NULL) {
+          return ret;
+      }
+! 
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = obsDelete(fileName, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = NasDelete(fileName, archive_config);
+      }
+! 
+      return ret;
+  }
+  
+--- 63,75 ----
+      if (archive_config == NULL) {
+          return ret;
+      }
+! #ifdef ENABLE_OBS
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = obsDelete(fileName, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = NasDelete(fileName, archive_config);
+      }
+! #endif
+      return ret;
+  }
+  
+***************
+*** 77,89 ****
+      if (archive_config == NULL) {
+          return fileNameList;
+      }
+! 
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          fileNameList = obsList(prefix, archive_config, reportError, shortenConnTime);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          fileNameList = NasList(prefix, archive_config);
+      }
+! 
+      return fileNameList;
+  }
+  
+--- 79,91 ----
+      if (archive_config == NULL) {
+          return fileNameList;
+      }
+! #ifdef ENABLE_OBS
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          fileNameList = obsList(prefix, archive_config, reportError, shortenConnTime);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          fileNameList = NasList(prefix, archive_config);
+      }
+! #endif
+      return fileNameList;
+  }
+  
+***************
+*** 94,105 ****
+          ereport(WARNING, (errmsg("when check file exist, the archive config is null")));
+          return ret;
+      }
+! 
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = checkOBSFileExist(file_path, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = checkNASFileExist(file_path, archive_config);
+      }
+! 
+      return ret;
+  }
+--- 96,107 ----
+          ereport(WARNING, (errmsg("when check file exist, the archive config is null")));
+          return ret;
+      }
+! #ifdef ENABLE_OBS
+      if (archive_config->media_type == ARCHIVE_OBS) {
+          ret = checkOBSFileExist(file_path, archive_config);
+      } else if (archive_config->media_type == ARCHIVE_NAS) {
+          ret = checkNASFileExist(file_path, archive_config);
+      }
+! #endif
+      return ret;
+  }
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/access/CMakeLists.txt opengauss_server_600_edit/src/gausskernel/storage/access/CMakeLists.txt
+*** opengauss_server_600/src/gausskernel/storage/access/CMakeLists.txt	2024-11-19 20:01:27.705621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/access/CMakeLists.txt	2024-11-19 20:04:07.777621300 +0800
+***************
+*** 25,31 ****
+      ${CMAKE_CURRENT_SOURCE_DIR}/ustore 
+  )
+  
+! if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
+      list(APPEND CMAKE_MODULE_PATH
+          ${CMAKE_CURRENT_SOURCE_DIR}/archive
+      )
+--- 25,31 ----
+      ${CMAKE_CURRENT_SOURCE_DIR}/ustore 
+  )
+  
+! if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON" AND "${ENABLE_OBS}" STREQUAL "ON")
+      list(APPEND CMAKE_MODULE_PATH
+          ${CMAKE_CURRENT_SOURCE_DIR}/archive
+      )
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/access/obs/obs_am.cpp opengauss_server_600_edit/src/gausskernel/storage/access/obs/obs_am.cpp
+*** opengauss_server_600/src/gausskernel/storage/access/obs/obs_am.cpp	2024-11-19 20:01:27.709621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/access/obs/obs_am.cpp	2024-11-19 20:04:07.797621300 +0800
+***************
+*** 21,27 ****
+  #define strpos(p, s) (strstr((p), (s)) != NULL ? strstr((p), (s)) - (p) : -1)
+  
+  #include "access/obs/obs_am.h"
+! #ifndef ENABLE_LITE_MODE
+  #include "eSDKOBS.h"
+  #endif
+  
+--- 21,27 ----
+  #define strpos(p, s) (strstr((p), (s)) != NULL ? strstr((p), (s)) - (p) : -1)
+  
+  #include "access/obs/obs_am.h"
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+  #include "eSDKOBS.h"
+  #endif
+  
+***************
+*** 235,241 ****
+                      errmsg("OBS URL's %s is not valid '%s'", invalid_element, folderName)));
+  }
+  
+! #ifndef ENABLE_LITE_MODE
+  // Some Windows stuff
+  #ifndef FOPEN_EXTRA_FLAGS
+  #define FOPEN_EXTRA_FLAGS ""
+--- 235,241 ----
+                      errmsg("OBS URL's %s is not valid '%s'", invalid_element, folderName)));
+  }
+  
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+  // Some Windows stuff
+  #ifndef FOPEN_EXTRA_FLAGS
+  #define FOPEN_EXTRA_FLAGS ""
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/access/transam/xlog.cpp opengauss_server_600_edit/src/gausskernel/storage/access/transam/xlog.cpp
+*** opengauss_server_600/src/gausskernel/storage/access/transam/xlog.cpp	2024-11-19 20:01:27.713621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/access/transam/xlog.cpp	2024-11-19 20:04:07.825621300 +0800
+***************
+*** 7812,7817 ****
+--- 7812,7818 ----
+  #endif
+      else if (XLogRecGetRmid(record) == RM_BARRIER_ID) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+          if (record_info == XLOG_BARRIER_CREATE) {
+              recordBarrierId = (char *)XLogRecGetData(record);
+              ereport(u_sess->attr.attr_storage.HaModuleDebug ? LOG : DEBUG4,
+***************
+*** 7822,7827 ****
+--- 7823,7829 ----
+  #else
+          FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      } else if (XLogRecGetRmid(record) == RM_XLOG_ID) {
+          if (record_info == XLOG_RESTORE_POINT) {
+              xl_restore_point *recordRestorePointData = (xl_restore_point *)XLogRecGetData(record);
+***************
+*** 10412,10419 ****
+--- 10414,10423 ----
+                                   (uint32)t_thrd.xlog_cxt.ReadRecPtr)));
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              update_stop_barrier();
+  #endif
++ #endif
+              INSTR_TIME_SET_CURRENT(rec_startTime);
+              g_instance.dms_cxt.SSReformInfo.redo_start_time = GetCurrentTimestamp();
+              t_thrd.xlog_cxt.RedoStartLSN = t_thrd.xlog_cxt.ReadRecPtr;
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/access/transam/xlogfuncs.cpp opengauss_server_600_edit/src/gausskernel/storage/access/transam/xlogfuncs.cpp
+*** opengauss_server_600/src/gausskernel/storage/access/transam/xlogfuncs.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/access/transam/xlogfuncs.cpp	2024-11-19 20:04:07.825621300 +0800
+***************
+*** 1202,1207 ****
+--- 1202,1208 ----
+  Datum gs_set_obs_delete_location_with_slotname(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      char* lsnLocation = PG_GETARG_CSTRING(0);
+      char* currentSlotName = PG_GETARG_CSTRING(1);
+  
+***************
+*** 1241,1246 ****
+--- 1242,1248 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  /*
+***************
+*** 1251,1256 ****
+--- 1253,1259 ----
+  Datum gs_set_obs_delete_location(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      text *location = PG_GETARG_TEXT_P(0);
+      char *locationstr = NULL;
+      uint32 hi = 0;
+***************
+*** 1292,1302 ****
+--- 1295,1307 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  Datum gs_get_global_barrier_status(PG_FUNCTION_ARGS) 
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  #define PG_GET_GLOBAL_BARRIER_STATUS_COLS 2
+      char globalBarrierId[MAX_BARRIER_ID_LENGTH] = {0};
+      char globalAchiveBarrierId[MAX_BARRIER_ID_LENGTH] = {0};
+***************
+*** 1392,1402 ****
+--- 1397,1409 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_DATUM(0);
+  #endif
++ #endif
+  }    
+  
+  Datum gs_get_global_barriers_status(PG_FUNCTION_ARGS) 
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  #define PG_GET_GLOBAL_BARRIERS_STATUS_COLS 3
+      char globalBarrierId[MAX_BARRIER_ID_LENGTH] = {0};
+      char globalAchiveBarrierId[MAX_BARRIER_ID_LENGTH] = {0};
+***************
+*** 1520,1525 ****
+--- 1527,1533 ----
+  #else
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      PG_RETURN_DATUM(0);
+  }    
+  
+***************
+*** 1607,1612 ****
+--- 1615,1621 ----
+  Datum gs_hadr_do_switchover(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  #define TIME_GET_MILLISEC(t) (((long)(t).tv_sec * 1000) + ((long)(t).tv_usec) / 1000)
+      uint64_t barrier_index = 0;
+      int ret;
+***************
+*** 1697,1702 ****
+--- 1706,1712 ----
+  #else
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      PG_RETURN_BOOL(true);
+  }
+  
+***************
+*** 1743,1748 ****
+--- 1753,1759 ----
+  Datum gs_upload_obs_file(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      char* slotname = PG_GETARG_CSTRING(0);
+      char* src = PG_GETARG_CSTRING(1);
+      char* dest = PG_GETARG_CSTRING(2);
+***************
+*** 1781,1786 ****
+--- 1792,1798 ----
+  #else
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+  
+      PG_RETURN_VOID();
+  }
+***************
+*** 1788,1793 ****
+--- 1800,1806 ----
+  Datum gs_download_obs_file(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      char* slotname = PG_GETARG_CSTRING(0);
+      char* src = PG_GETARG_CSTRING(1);
+      char* dest = PG_GETARG_CSTRING(2);
+***************
+*** 1831,1836 ****
+--- 1844,1850 ----
+  #else
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+  
+      PG_RETURN_VOID();
+  }
+***************
+*** 1838,1843 ****
+--- 1852,1858 ----
+  Datum gs_get_obs_file_context(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      char fileContext[MAXPGPATH] = {0};
+      size_t readLen = 0;
+      char* setFileName = PG_GETARG_CSTRING(0);
+***************
+*** 1882,1892 ****
+--- 1897,1909 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  Datum gs_set_obs_file_context(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      int ret = 0;
+      char* setFileName = PG_GETARG_CSTRING(0);
+      char* setFileContext = PG_GETARG_CSTRING(1);
+***************
+*** 1922,1932 ****
+--- 1939,1951 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  Datum gs_get_hadr_key_cn(PG_FUNCTION_ARGS) 
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  #define GS_GET_HADR_KEY_CN_COLS 4
+      bool needLocalKeyCn = false;
+      char localKeyCn[MAXFNAMELEN] = {0};
+***************
+*** 2028,2033 ****
+--- 2047,2053 ----
+  #else
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      PG_RETURN_DATUM(0);
+  }
+  
+***************
+*** 2177,2182 ****
+--- 2197,2203 ----
+  Datum gs_get_active_archiving_standby(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      int i;
+      int rc;
+      errno_t errorno = EOK;
+***************
+*** 2269,2274 ****
+--- 2290,2296 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_DATUM(0);
+  #endif
++ #endif
+  }
+  
+  #ifndef ENABLE_LITE_MODE
+***************
+*** 2287,2292 ****
+--- 2309,2315 ----
+  Datum gs_pitr_clean_history_global_barriers(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      if (!superuser() && !(isOperatoradmin(GetUserId()) && u_sess->attr.attr_security.operation_mode)) {
+          ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                  (errmsg("Must be system admin or operator admin in operation mode to "
+***************
+*** 2316,2326 ****
+--- 2339,2351 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  Datum gs_pitr_archive_slot_force_advance(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      XLogSegNo currArchslotSegNo;
+      XLogRecPtr archiveSlotLocNow = InvalidXLogRecPtr;
+      char location[MAXFNAMELEN];
+***************
+*** 2445,2450 ****
+--- 2470,2476 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_TEXT_P(NULL);
+  #endif
++ #endif
+  }
+  
+  Datum gs_get_standby_cluster_barrier_status(PG_FUNCTION_ARGS)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/bulkload/dist_fdw.cpp opengauss_server_600_edit/src/gausskernel/storage/bulkload/dist_fdw.cpp
+*** opengauss_server_600/src/gausskernel/storage/bulkload/dist_fdw.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/bulkload/dist_fdw.cpp	2024-11-19 20:04:07.841621300 +0800
+***************
+*** 225,233 ****
+--- 225,235 ----
+  extern void GetDistImportOptions(Oid relOid, DistImportPlanState *planstate, ForeignOptions *fOptions = NULL);
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  static void assignOBSTaskToDataNode(List *urllist, List **totalTask, List *dnNames, DistImportPlanState *planstate,
+                                      int64 *fileNum = NULL);
+  #endif
++ #endif
+  static void assignTaskToDataNodeInSharedMode(List *urllist, List **totalTask, List *dnNames);
+  static void assignTaskToDataNodeInNormalMode(List *urllist, List **totalTask, List *dnNames, int dop);
+  
+***************
+*** 236,241 ****
+--- 238,244 ----
+  List *getOBSFileList(List *urllist, bool encrypt, const char *access_key, const char *secret_access_key,
+                       bool isAnalyze);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  /*
+   * In OBS parallel data loading case, we may have # of datanodes not
+   * equal to # of objects, as one object can only be assign to one
+***************
+*** 244,249 ****
+--- 247,253 ----
+   */
+  static void assignOBSFileToDataNode(List *urllist, List **totalTask, List *dnNames);
+  #endif
++ #endif
+  
+  /*
+   * Foreign-data wrapper handler function: return a struct with pointers
+***************
+*** 432,437 ****
+--- 436,442 ----
+  }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  /**
+   * @Description: Scheduler file for dist obs foreign table.
+   * @in foreignTableId, the given foreign table Oid.
+***************
+*** 483,488 ****
+--- 488,494 ----
+      return totalTask;
+  }
+  #endif
++ #endif
+  
+  /**
+   * @Description: Build the related scanState information.
+***************
+*** 1064,1069 ****
+--- 1070,1076 ----
+  }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  /*
+   * @Description: get all matched files in obs for each url
+   * @IN urllist: obs url list
+***************
+*** 1194,1199 ****
+--- 1201,1207 ----
+      pfree(obs_file_list);
+  }
+  #endif
++ #endif
+  
+  /*
+   * @Description: assign task to each data node in shared mode
+***************
+*** 1312,1323 ****
+--- 1320,1333 ----
+      const char *first_url = strVal(lfirst(list_head(urllist)));
+      if (is_obs_protocol(first_url)) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+          assignOBSTaskToDataNode(urllist, &totalTask, dnNames, planstate, fileNum);
+          list_free(dnNames);
+          return totalTask;
+  #else
+          FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+      }
+  
+      if (IS_SHARED_MODE(mode)) {
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/bulkload/foreignroutine.cpp opengauss_server_600_edit/src/gausskernel/storage/bulkload/foreignroutine.cpp
+*** opengauss_server_600/src/gausskernel/storage/bulkload/foreignroutine.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/bulkload/foreignroutine.cpp	2024-11-19 20:04:07.841621300 +0800
+***************
+*** 1570,1577 ****
+--- 1570,1579 ----
+      (void)ExecClearTuple(slot);
+      MemoryContextReset(node->scanMcxt);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      SetObsMemoryContext(((CopyState)importState)->copycontext);
+  #endif
++ #endif
+      ReportIllegalCharExceptionThreshold();
+  
+      PG_TRY();
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/bulkload/parser.cpp opengauss_server_600_edit/src/gausskernel/storage/bulkload/parser.cpp
+*** opengauss_server_600/src/gausskernel/storage/bulkload/parser.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/bulkload/parser.cpp	2024-11-19 20:04:07.841621300 +0800
+***************
+*** 99,108 ****
+--- 99,110 ----
+  #define parser_securec_check_ss(rc) securec_check_ss(rc, "\0", "\0")
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  static size_t SourceRead_OBS(Source* self, void* buffer, size_t len);
+  static bool SourceNext_OBS(Source* self);
+  #endif
+  #endif
++ #endif
+  
+  static Source* CreateSource(const FileList* files, SourceType sourcetype);
+  static void DestroyParser(Parser* self);
+***************
+*** 467,477 ****
+--- 469,481 ----
+  #else
+          if (m_sourcetype == SOURCE_TYPE_OBS) {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              SourceRead = SourceRead_OBS;
+              SourceNext = SourceNext_OBS;
+  #else
+              FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
++ #endif
+          } else {
+              SourceRead = SourceRead_File;
+              SourceNext = SourceNext_File;
+***************
+*** 1303,1314 ****
+--- 1307,1320 ----
+              }
+  #else
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+              /* for OBS, append  the overload data  in overload buffer */
+              SaveOverloadBuf(m_overload_buf, buf, buf_len, isComplete);
+  #else
+              FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  #endif
+  #endif
++ #endif
+              /*
+               * Here the curent overload buffer is already done so the actual buf_len can be returned.
+               */
+***************
+*** 1471,1476 ****
+--- 1477,1483 ----
+  
+  #ifdef OBS_SERVER
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  static size_t SourceRead_OBS(Source* self, void* buffer, size_t len)
+  {
+      size_t nread = 0;
+***************
+*** 1692,1694 ****
+--- 1699,1702 ----
+  }
+  #endif
+  #endif
++ #endif
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/bulkload/vecforeignroutine.cpp opengauss_server_600_edit/src/gausskernel/storage/bulkload/vecforeignroutine.cpp
+*** opengauss_server_600/src/gausskernel/storage/bulkload/vecforeignroutine.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/bulkload/vecforeignroutine.cpp	2024-11-19 20:04:07.841621300 +0800
+***************
+*** 125,132 ****
+--- 125,134 ----
+      MemoryContextReset(scanMcxt);
+      oldMemoryContext = MemoryContextSwitchTo(scanMcxt);
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      SetObsMemoryContext(((CopyState)importState)->copycontext);
+  #endif
++ #endif
+      for (batch->m_rows = 0; batch->m_rows < BatchMaxSize; batch->m_rows++) {
+  retry:
+          PG_TRY();
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/replication/archive_walreceiver.cpp opengauss_server_600_edit/src/gausskernel/storage/replication/archive_walreceiver.cpp
+*** opengauss_server_600/src/gausskernel/storage/replication/archive_walreceiver.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/replication/archive_walreceiver.cpp	2024-11-19 20:04:07.913621300 +0800
+***************
+*** 37,42 ****
+--- 37,43 ----
+  #include "pgxc/pgxc.h"
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  #define CUR_OBS_FILE_VERSION 1
+  #define TIMEOUT_FOR_ARCHIVE_RECEIVER 600
+  
+***************
+*** 1870,1872 ****
+--- 1871,1874 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+  }
+  #endif
++ #endif
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/replication/slot.cpp opengauss_server_600_edit/src/gausskernel/storage/replication/slot.cpp
+*** opengauss_server_600/src/gausskernel/storage/replication/slot.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/replication/slot.cpp	2024-11-19 20:04:07.929621300 +0800
+***************
+*** 2598,2603 ****
+--- 2598,2604 ----
+  }
+  
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+  void get_hadr_cn_info(char* keyCn, bool* isExitKey, char* deleteCn, bool* isExitDelete, 
+      ArchiveSlotConfig *archive_conf)
+  {
+***************
+*** 2625,2630 ****
+--- 2626,2632 ----
+      }
+  }
+  #endif
++ #endif
+  
+  void GetReplslotPath(char *path)
+  {
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/gausskernel/storage/replication/slotfuncs.cpp opengauss_server_600_edit/src/gausskernel/storage/replication/slotfuncs.cpp
+*** opengauss_server_600/src/gausskernel/storage/replication/slotfuncs.cpp	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/gausskernel/storage/replication/slotfuncs.cpp	2024-11-19 20:04:07.929621300 +0800
+***************
+*** 268,273 ****
+--- 268,274 ----
+  Datum pg_create_physical_replication_slot_extern(PG_FUNCTION_ARGS)
+  {
+  #ifndef ENABLE_LITE_MODE
++ #ifdef ENABLE_OBS
+      Name name = PG_GETARG_NAME(0);
+      bool isDummyStandby = PG_GETARG_BOOL(1);
+      XLogRecPtr currFlushPtr = InvalidXLogRecPtr;
+***************
+*** 357,362 ****
+--- 358,364 ----
+      FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
+      PG_RETURN_DATUM(0);
+  #endif
++ #endif
+  }
+  
+  void create_logical_replication_slot(const Name name, Name plugin, bool isDummyStandby, Oid databaseId,
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/include/access/obs/obs_am.h opengauss_server_600_edit/src/include/access/obs/obs_am.h
+*** opengauss_server_600/src/include/access/obs/obs_am.h	2024-11-19 20:01:27.717621300 +0800
+--- opengauss_server_600_edit/src/include/access/obs/obs_am.h	2024-11-19 20:04:07.945621300 +0800
+***************
+*** 30,36 ****
+  #include "nodes/pg_list.h"
+  #include "storage/buf/buffile.h"
+  #include "replication/slot.h"
+! #ifndef ENABLE_LITE_MODE
+  #include "eSDKOBS.h"
+  #endif
+  
+--- 30,36 ----
+  #include "nodes/pg_list.h"
+  #include "storage/buf/buffile.h"
+  #include "replication/slot.h"
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+  #include "eSDKOBS.h"
+  #endif
+  
+***************
+*** 132,138 ****
+      bool in_computing;
+      /* size_t	m_offset;	=>get_cond.start_byte */
+      /* obs_bucket_context m_bucketCtx; =>m_option.bucket_options */
+! #ifndef ENABLE_LITE_MODE
+      obs_options m_option;
+      obs_object_info m_object_info;
+  
+--- 132,138 ----
+      bool in_computing;
+      /* size_t	m_offset;	=>get_cond.start_byte */
+      /* obs_bucket_context m_bucketCtx; =>m_option.bucket_options */
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+      obs_options m_option;
+      obs_object_info m_object_info;
+  
+***************
+*** 152,158 ****
+  typedef struct list_service_data {
+      int headerPrinted;
+      int allDetails;
+! #ifndef ENABLE_LITE_MODE
+      obs_status ret_status;
+  #endif
+  } list_service_data;
+--- 152,158 ----
+  typedef struct list_service_data {
+      int headerPrinted;
+      int allDetails;
+! #if !defined(ENABLE_LITE_MODE) && defined(ENABLE_OBS)
+      obs_status ret_status;
+  #endif
+  } list_service_data;
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/test/regress/obstools/obstool.c opengauss_server_600_edit/src/test/regress/obstools/obstool.c
+*** opengauss_server_600/src/test/regress/obstools/obstool.c	2024-11-19 20:01:27.721621300 +0800
+--- opengauss_server_600_edit/src/test/regress/obstools/obstool.c	2024-11-19 20:04:11.089621300 +0800
+***************
+*** 15,21 ****
+--- 15,23 ----
+  #include "getopt.h"
+  #endif
+  
++ #ifdef ENABLE_OBS
+  #include "eSDKOBS.h"
++ #endif
+  #include "securec.h"
+  
+  /* Some Windows stuff */
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' opengauss_server_600/src/test/ut/CMakeLists.txt opengauss_server_600_edit/src/test/ut/CMakeLists.txt
+*** opengauss_server_600/src/test/ut/CMakeLists.txt	2024-11-19 20:01:27.721621300 +0800
+--- opengauss_server_600_edit/src/test/ut/CMakeLists.txt	2024-11-19 20:04:11.561621300 +0800
+***************
+*** 11,17 ****
+  ${LIBOBS_LIB_PATH} ${LZ4_LIB_PATH})
+  
+  # -l
+! set(UNIT_TEST_BASE_LIB_LIST pthread gtest_main gtest mockcpp cjson dcf xgboost zstd nghttp2 iconv eSDKOBS eSDKLogAPI log4cpp lz4 db)
+  
+  add_subdirectory(demo)
+  add_subdirectory(db4ai)
+--- 11,21 ----
+  ${LIBOBS_LIB_PATH} ${LZ4_LIB_PATH})
+  
+  # -l
+! if("${ENABLE_OBS}" STREQUAL "ON")
+!     set(UNIT_TEST_BASE_LIB_LIST pthread gtest_main gtest mockcpp cjson dcf xgboost zstd nghttp2 iconv eSDKOBS eSDKLogAPI log4cpp lz4 db)
+! else()
+!     set(UNIT_TEST_BASE_LIB_LIST pthread gtest_main gtest mockcpp cjson dcf xgboost zstd lz4 db)
+! endif()
+  
+  add_subdirectory(demo)
+  add_subdirectory(db4ai)

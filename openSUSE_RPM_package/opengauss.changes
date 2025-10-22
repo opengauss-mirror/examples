@@ -1,0 +1,25 @@
+-------------------------------------------------------------------
+Sat Sep 20 08:23:53 UTC 2025 - Jale Shaw <enjoy-success@qq.com>
+
+- Use %cmake %cmake_build and %cmake_install 
+
+-------------------------------------------------------------------
+Mon Sep 18 2025 jaleshaw <enjoy-success@qq.com>
+
+- Modified according to the review comments:
+  * Standardized the spec, removed the Group tag, and listed requires in single lines.
+  * Removed uncommon compiler options.
+  * Removed zlib.
+
+-------------------------------------------------------------------
+Mon Sep 15 2025 jaleshaw <enjoy-success@qq.com>
+
+- Resolve issues encountered during gaussdb execution on s390x platform
+
+-------------------------------------------------------------------
+Wed Sep 10 2025 jaleshaw <enjoy-success@qq.com>
+
+- Package openGauss 6.0.0 for openSUSE
+  * https://opengauss.org/zh/news/2024-09-30
+  * https://github.com/opengauss-mirror/openGauss-server/tree/6.0.0
+

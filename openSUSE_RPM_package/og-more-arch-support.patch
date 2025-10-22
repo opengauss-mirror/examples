@@ -1,0 +1,234 @@
+diff --git a/src/common/port/CMakeLists.txt b/src/common/port/CMakeLists.txt
+index b9a6a28..e511eb0 100755
+--- a/src/common/port/CMakeLists.txt
++++ b/src/common/port/CMakeLists.txt
+@@ -90,10 +90,31 @@ if("${BUILD_TUPLE}" STREQUAL "aarch64")
+     set(TGT_crc32_arm_parallel_SRC ${CMAKE_CURRENT_SOURCE_DIR}/crc32_arm_parallel.S)
+ endif()
+ 
++if("${BUILD_TUPLE}" STREQUAL "armv7l")
++    list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sb8.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
++    set(TGT_crc32_arm_parallel_SRC ${CMAKE_CURRENT_SOURCE_DIR}/crc32_arm_parallel.S)
++endif()
++
+ if("${BUILD_TUPLE}" STREQUAL "loongarch64")
+     list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
+ endif()
+ 
++if("${BUILD_TUPLE}" STREQUAL "riscv64")
++    list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "ppc64le")
++    list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "s390x")
++    list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "i586")
++    list(REMOVE_ITEM TGT_port_SRC ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pg_crc32c_sse42.cpp)
++endif()
++
+ SET(TGT_pgport_INC 
+     ${PROJECT_SRC_DIR}/common/backend
+     ${PROJECT_SRC_DIR}/common/port
+@@ -163,10 +184,31 @@ if("${BUILD_TUPLE}" STREQUAL "aarch64")
+     set(TGT_crc32_arm_parallel_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/crc32_arm_parallel.S)
+ endif()
+ 
++if("${BUILD_TUPLE}" STREQUAL "armv7l")
++    list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sb8.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
++    set(TGT_crc32_arm_parallel_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/crc32_arm_parallel.S)
++endif()
++
+ if("${BUILD_TUPLE}" STREQUAL "loongarch64")
+     list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
+ endif()
+ 
++if("${BUILD_TUPLE}" STREQUAL "riscv64")
++    list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "ppc64le")
++    list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "s390x")
++    list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
++endif()
++
++if("${BUILD_TUPLE}" STREQUAL "i586")
++    list(REMOVE_ITEM TGT_pgport_srv_SRC ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_choose.cpp ${CMAKE_CURRENT_SOURCE_DIR}/port_srv/pg_crc32c_sse42.cpp)
++endif()
++
+ SET(TGT_pgport_srv_INC 
+     ${PROJECT_SRC_DIR}/common/backend
+     ${PROJECT_SRC_DIR}/common/port
+
+diff --git a/src/include/storage/lock/s_lock.h b/src/include/storage/lock/s_lock.h
+index 715d84a..bf7b041 100644
+--- a/src/include/storage/lock/s_lock.h
++++ b/src/include/storage/lock/s_lock.h
+@@ -283,7 +283,7 @@ static __inline__ int tas(volatile slock_t* lock)
+  * the int-width variant of the builtin works on more chips than other widths.
+  */
+ 
+-#if defined(__aarch64__) || defined(__aarch64)
++#if defined(__aarch64__) || defined(__aarch64) || defined(__riscv)
+ 
+ #ifdef ENABLE_THREAD_CHECK
+ extern "C" {
+diff --git a/src/gausskernel/storage/buffer/bufmgr.cpp b/src/gausskernel/storage/buffer/bufmgr.cpp
+index c6a4c2c2..3b71a381 100644
+--- a/src/gausskernel/storage/buffer/bufmgr.cpp
++++ b/src/gausskernel/storage/buffer/bufmgr.cpp
+@@ -1962,7 +1962,13 @@ Buffer ReadBuffer_common_for_localbuf(RelFileNode rnode, char relpersistence, Fo
+ 
+         Assert(buf_state & BM_VALID);
+         buf_state &= ~BM_VALID;
+-        pg_atomic_write_u32(((volatile uint32 *)&bufHdr->state) + 1, buf_state >> 32);
++        pg_atomic_write_u32(
++#ifndef WORDS_BIGENDIAN
++            ((volatile uint32 *)&bufHdr->state) + 1,
++#else
++            ((volatile uint32 *)&bufHdr->state),
++#endif
++        buf_state >> 32);
+     }
+ 
+     /*
+@@ -1986,7 +1992,13 @@ Buffer ReadBuffer_common_for_localbuf(RelFileNode rnode, char relpersistence, Fo
+ 
+     uint64 buf_state = pg_atomic_read_u64(&bufHdr->state);
+     buf_state |= BM_VALID;
+-    pg_atomic_write_u32(((volatile uint32 *)&bufHdr->state) + 1, buf_state >> 32);
++        pg_atomic_write_u32(
++#ifndef WORDS_BIGENDIAN
++            ((volatile uint32 *)&bufHdr->state) + 1,
++#else
++            ((volatile uint32 *)&bufHdr->state),
++#endif
++        buf_state >> 32);
+ 
+     return BufferDescriptorGetBuffer(bufHdr);
+ }
+@@ -2703,7 +2715,13 @@ found_branch:
+ 
+             Assert(buf_state & BM_VALID);
+             buf_state &= ~BM_VALID;
+-            pg_atomic_write_u32(((volatile uint32 *)&bufHdr->state) + 1, buf_state >> 32);
++        pg_atomic_write_u32(
++#ifndef WORDS_BIGENDIAN
++            ((volatile uint32 *)&bufHdr->state) + 1,
++#else
++            ((volatile uint32 *)&bufHdr->state),
++#endif
++        buf_state >> 32);
+         } else {
+             /*
+              * Loop to handle the very small possibility that someone re-sets
+@@ -2856,7 +2874,13 @@ found_branch:
+         uint64 buf_state = pg_atomic_read_u64(&bufHdr->state);
+ 
+         buf_state |= BM_VALID;
+-        pg_atomic_write_u32(((volatile uint32 *)&bufHdr->state) + 1, buf_state >> 32);
++        pg_atomic_write_u32(
++#ifndef WORDS_BIGENDIAN
++            ((volatile uint32 *)&bufHdr->state) + 1,
++#else
++            ((volatile uint32 *)&bufHdr->state),
++#endif
++        buf_state >> 32);
+     } else {
+         bufHdr->extra->lsn_on_disk = PageGetLSN(bufBlock);
+ #ifdef USE_ASSERT_CHECKING
+diff --git a/src/gausskernel/storage/lmgr/lwlock.cpp b/src/gausskernel/storage/lmgr/lwlock.cpp
+index d84b4334..7b547c4d 100644
+--- a/src/gausskernel/storage/lmgr/lwlock.cpp
++++ b/src/gausskernel/storage/lmgr/lwlock.cpp
+@@ -893,7 +893,13 @@ static bool LWLockAttemptLock(LWLock *lock, LWLockMode mode)
+             if ((desired_state & (LW_VAL_EXCLUSIVE)) != 0) {
+                 return true;
+             }
+-        } while (!pg_atomic_compare_exchange_u8((((volatile uint8*)&lock->state) + maskId), ((uint8*)&old_state) + maskId, (desired_state >> (8 * maskId))));
++        } while (!pg_atomic_compare_exchange_u8(
++#ifndef WORDS_BIGENDIAN
++            (((volatile uint8*)&lock->state) + maskId), ((uint8*)&old_state) + maskId,
++#else
++            (((volatile uint8*)&lock->state) + sizeof(lock->state) - maskId - 1), ((uint8*)&old_state) + sizeof(lock->state) - maskId - 1,
++#endif
++        (desired_state >> (8 * maskId))));
+     } else if (mode == LW_EXCLUSIVE) {
+         old_state = pg_atomic_read_u64(&lock->state);
+         do {
+diff --git a/src/include/port/pg_bswap.h b/src/include/port/pg_bswap.h
+index e82cb6be..51107e71 100644
+--- a/src/include/port/pg_bswap.h
++++ b/src/include/port/pg_bswap.h
+@@ -24,6 +24,11 @@
+ #ifndef PG_BSWAP_H
+ #define PG_BSWAP_H
+ 
++#ifdef __s390x__
++#define HAVE__BUILTIN_BSWAP32
++#define HAVE__BUILTIN_BSWAP64
++#endif // __s390x__
++
+ #ifdef HAVE__BUILTIN_BSWAP32
+ #define BSWAP32(x) __builtin_bswap32(x)
+ #else
+diff --git a/src/include/port/pg_crc32c.h b/src/include/port/pg_crc32c.h
+index 1801e35e..a1519813 100644
+--- a/src/include/port/pg_crc32c.h
++++ b/src/include/port/pg_crc32c.h
+@@ -91,7 +91,7 @@ extern pg_crc32c (*pg_comp_crc32c)(pg_crc32c crc, const void* data, size_t len);
+  */
+ #define COMP_CRC32C(crc, data, len) ((crc) = pg_comp_crc32c_sb8((crc), (data), (len)))
+ #ifdef WORDS_BIGENDIAN
+-#define FIN_CRC32C(crc) ((crc) = pg_bswap32(crc) ^ 0xFFFFFFFF)
++#define FIN_CRC32C(crc) ((crc) = BSWAP32(crc) ^ 0xFFFFFFFF)
+ #else
+ #define FIN_CRC32C(crc) ((crc) ^= 0xFFFFFFFF)
+ #endif
+diff --git a/src/include/postgres.h b/src/include/postgres.h
+index 15d4ade6..04cb1198 100644
+--- a/src/include/postgres.h
++++ b/src/include/postgres.h
+@@ -343,6 +343,7 @@ typedef enum {
+ #define VARSIZE_4B(PTR) (((varattrib_4b*)(PTR))->va_4byte.va_header & 0x3FFFFFFF)
+ #define VARSIZE_1B(PTR) (((varattrib_1b*)(PTR))->va_header & 0x7F)
+ #define VARSIZE_1B_E(PTR) (((varattrib_1b_e*)(PTR))->va_len_1be)
++#define VARTAG_1B_E(PTR) (((varattrib_1b_e*) (PTR))->va_tag)
+ 
+ #define SET_VARSIZE_4B(PTR, len) (((varattrib_4b*)(PTR))->va_4byte.va_header = (len)&0x3FFFFFFF)
+ #define SET_VARSIZE_4B_C(PTR, len) (((varattrib_4b*)(PTR))->va_4byte.va_header = ((len)&0x3FFFFFFF) | 0x40000000)
+diff --git a/src/include/storage/buf/buf_internals.h b/src/include/storage/buf/buf_internals.h
+index 10063fa2..95e26e0c 100644
+--- a/src/include/storage/buf/buf_internals.h
++++ b/src/include/storage/buf/buf_internals.h
+@@ -282,6 +282,7 @@ extern "C" {
+ #define TsAnnotateHappensBefore(addr)
+ #endif
+ 
++#ifndef WORDS_BIGENDIAN
+ #define UnlockBufHdr(desc, s)                                    \
+     do {                                                         \
+         /* ENABLE_THREAD_CHECK only, release semantic */         \
+@@ -289,6 +290,15 @@ extern "C" {
+         pg_write_barrier();                                      \
+         pg_atomic_write_u32((((volatile uint32 *)&(desc)->state) + 1), ( ( (s) & (~BM_LOCKED) ) >> 32) ); \
+     } while (0)
++#else
++#define UnlockBufHdr(desc, s)                                    \
++    do {                                                         \
++        /* ENABLE_THREAD_CHECK only, release semantic */         \
++        TsAnnotateHappensBefore(&desc->state);                   \
++        pg_write_barrier();                                      \
++        pg_atomic_write_u32((((volatile uint32 *)&(desc)->state)), ( ( (s) & (~BM_LOCKED) ) >> 32) ); \
++    } while (0)
++#endif
+ 
+ #define FIX_SEG_BUFFER_TAG(node, tag, rel_node, block_num) \
+     do {                                              \

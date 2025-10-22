@@ -1,0 +1,227 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5aab533a..bedf55aa 100755
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37,6 +37,13 @@ if("${ENABLE_PRIVATEGAUSS}" STREQUAL "ON")
+     MESSAGE(FATAL_ERROR " The option ENABLE_PRIVATEGAUSS is not supported thus should be turned off.")
+ endif()
+ 
++if("${ENABLE_LITE_MODE}" STREQUAL "")
++    set(ENABLE_LITE_MODE "OFF")
++endif()
++if("${ENABLE_MOT}" STREQUAL "")
++    set(ENABLE_MOT "OFF")
++endif()
++
+ #FIXME: make it an argument
+ set(openGauss ".")
+ set(ENV{openGauss} ".")
+@@ -107,7 +114,7 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/pg_plugin DESTINATION lib/postgresql)
+ install(DIRECTORY ${CMAKE_BINARY_DIR}/libsimsearch DESTINATION lib)
+ 
+ if(EXISTS ${CMAKE_SOURCE_DIR}/contrib/dolphin)
+-    install(CODE "execute_process(COMMAND bash cmake.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/contrib/dolphin)")
++    execute_process(COMMAND bash cmake.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/contrib/dolphin)
+     install(FILES ${CMAKE_SOURCE_DIR}/contrib/dolphin/dolphin.control
+         DESTINATION share/postgresql/extension/
+     )
+@@ -153,7 +160,4 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/contrib/dolphin)
+     install(FILES ${CMAKE_SOURCE_DIR}/contrib/dolphin/openGauss_expr_dolphin.ir
+         DESTINATION share/postgresql/extension/
+     )
+-    install(FILES ${CMAKE_SOURCE_DIR}/contrib/dolphin/tmp_build/lib/dolphin.so
+-        DESTINATION lib/postgresql
+-    )
+ endif()
+\ No newline at end of file
+diff --git a/cmake/src/build_options.cmake b/cmake/src/build_options.cmake
+index f079789b..57fbc28e 100755
+--- a/cmake/src/build_options.cmake
++++ b/cmake/src/build_options.cmake
+@@ -367,11 +367,11 @@ endif()
+ SET(EC_CONFIG_IN_FILE ecpg_config.h.in)
+ 
+ build_mppdb_config_paths_h(PG_CONFIG_PATH_H)
+-configure_file(${openGauss}/cmake/src/config-in/${CONFIG_IN_FILE} ${CMAKE_BINARY_DIR}/pg_config.h @ONLY)
+-configure_file(${openGauss}/cmake/src/config-in/${EC_CONFIG_IN_FILE} ${CMAKE_BINARY_DIR}/ecpg_config.h @ONLY)
++configure_file(${CMAKE_SOURCE_DIR}/${openGauss}/cmake/src/config-in/${CONFIG_IN_FILE} ${CMAKE_BINARY_DIR}/pg_config.h @ONLY)
++configure_file(${CMAKE_SOURCE_DIR}/${openGauss}/cmake/src/config-in/${EC_CONFIG_IN_FILE} ${CMAKE_BINARY_DIR}/ecpg_config.h @ONLY)
+ #set host_cpu for pgxs.mk
+ set(HOST_CPU ${BUILD_TUPLE})
+-configure_file(${openGauss}/src/makefiles/pgxs.mk ${CMAKE_BINARY_DIR}/${openGauss}/src/makefiles/pgxs.mk @ONLY)
++configure_file(${CMAKE_SOURCE_DIR}/${openGauss}/src/makefiles/pgxs.mk ${CMAKE_BINARY_DIR}/${openGauss}/src/makefiles/pgxs.mk @ONLY)
+ SET(PROJECT_INCLUDE_DIR ${PROJECT_INCLUDE_DIR} ${CMAKE_BINARY_DIR})
+ 
+ # 排斥项
+diff --git a/contrib/CMakeLists.txt b/contrib/CMakeLists.txt
+index 7777f062..8b827394 100644
+--- a/contrib/CMakeLists.txt
++++ b/contrib/CMakeLists.txt
+@@ -30,6 +30,13 @@ set(CMAKE_MODULE_PATH
+     ${CMAKE_CURRENT_SOURCE_DIR}/gms_profiler
+ )
+ 
++if(NOT "${ENABLE_LITE_MODE}" STREQUAL "ON")
++    INCLUDE_DIRECTORIES(${LIBODBC_INCLUDE_PATH})
++    INCLUDE_DIRECTORIES(${LIBODBC_LIB_PATH})
++       list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dblink)
++    add_subdirectory(dblink)
++endif()
++
+ add_subdirectory(hstore)
+ add_subdirectory(test_decoding)
+ add_subdirectory(mppdb_decoding)
+@@ -58,3 +65,6 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/datavec)
+     add_subdirectory(datavec)
+ endif()
+ add_subdirectory(gms_profiler)
++if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dolphin)
++    add_subdirectory(dolphin)
++endif()
+diff --git a/contrib/dblink/CMakeLists.txt b/contrib/dblink/CMakeLists.txt
+new file mode 100644
+index 00000000..c1fe4237
+--- /dev/null
++++ b/contrib/dblink/CMakeLists.txt
+@@ -0,0 +1,23 @@
++#This is the main CMAKE for build all gms_stats.
++# gms_stats
++AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} TGT_dblink_SRC)
++set(TGT_dblink_INC 
++    ${PROJECT_OPENGS_DIR}/contrib/dblink
++    ${PROJECT_OPENGS_DIR}/contrib
++)
++
++set(dblink_DEF_OPTIONS ${MACRO_OPTIONS})
++set(dblink_COMPILE_OPTIONS ${OPTIMIZE_OPTIONS} ${OS_OPTIONS} ${PROTECT_OPTIONS} ${WARNING_OPTIONS} ${LIB_SECURE_OPTIONS} ${CHECK_OPTIONS})
++set(dblink_LINK_OPTIONS ${LIB_LINK_OPTIONS})
++add_shared_libtarget(dblink TGT_dblink_SRC TGT_dblink_INC "${dblink_DEF_OPTIONS}" "${dblink_COMPILE_OPTIONS}" "${dblink_LINK_OPTIONS}")
++target_link_libraries(dblink PUBLIC -lodbc)
++target_link_directories(dblink PUBLIC ${ODBC_HOME}/lib)
++set_target_properties(dblink PROPERTIES PREFIX "")
++
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dblink.control
++    DESTINATION share/postgresql/extension/
++) 
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dblink--1.0.sql
++    DESTINATION share/postgresql/extension/
++)
++install(TARGETS dblink DESTINATION lib/postgresql)
+\ No newline at end of file
+diff --git a/contrib/dolphin/CMakeLists.txt b/contrib/dolphin/CMakeLists.txt
+index 4a606c78..b9a87a76 100755
+--- a/contrib/dolphin/CMakeLists.txt
++++ b/contrib/dolphin/CMakeLists.txt
+@@ -38,11 +38,11 @@ if("${ENABLE_PRIVATEGAUSS}" STREQUAL "ON")
+ endif()
+ 
+ #FIXME: make it an argument
+-set(openGauss "../..")
+-set(ENV{openGauss} "../..")
++set(openGauss ".")
++set(ENV{openGauss} ".")
+ 
+ #------------------------------------------------------------------------------------
+-set(PROJECT_TRUNK_DIR ${CMAKE_SOURCE_DIR}/../..)
++set(PROJECT_TRUNK_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+ set(PROJECT_OPENGS_DIR ${PROJECT_TRUNK_DIR} CACHE INTERNAL "")
+ 
+ # PROJECT_TRUNK_DIR: ./
+@@ -75,7 +75,7 @@ endif()
+ 
+ message(WARNING "dolphin cmake begin")
+ 
+-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/../../cmake/src)
++set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake/src)
+ 
+ include(build_function)
+ include(set_thirdparty_path)
+diff --git a/contrib/dolphin/cmake.sh b/contrib/dolphin/cmake.sh
+index 217b0844..8364f6bd 100644
+--- a/contrib/dolphin/cmake.sh
++++ b/contrib/dolphin/cmake.sh
+@@ -1,6 +1,4 @@
+ #!/bin/bash
+-CMAKE_OPT="-DENABLE_MULTIPLE_NODES=OFF -DENABLE_PRIVATEGAUSS=OFF -DENABLE_THREAD_SAFETY=ON -DENABLE_LITE_MODE=ON"
+-cpus_num=$(grep -w processor /proc/cpuinfo|wc -l)
+ rm -f dolphin--4.0.sql
+ touch dolphin--4.0.sql
+ for i in `ls sql_script`; do cat sql_script/$i >> dolphin--4.0.sql; done
+@@ -30,10 +28,3 @@ rm -f dolphin--4.0.1--4.0.sql dolphin--4.0--4.0.1.sql
+ cp dolphin--2.0--2.0.1.sql dolphin--4.0--4.0.1.sql
+ cp dolphin--2.0.1--2.0.sql dolphin--4.0.1--4.0.sql
+ cp llvmir/openGauss_expr_dolphin_${BUILD_TUPLE}.ir openGauss_expr_dolphin.ir
+-DOLPHIN_CMAKE_BUILD_DIR=`pwd`/tmp_build
+-[ -d "${DOLPHIN_CMAKE_BUILD_DIR}" ] && rm -rf ${DOLPHIN_CMAKE_BUILD_DIR}
+-mkdir -p ${DOLPHIN_CMAKE_BUILD_DIR}
+-cd ${DOLPHIN_CMAKE_BUILD_DIR}
+-cmake .. ${CMAKE_OPT}
+-make VERBOSE=1 -sj ${cpus_num}
+-make install -sj ${cpus_num}
+diff --git a/contrib/dolphin/plugin_optimizer/commands/copy.cpp b/contrib/dolphin/plugin_optimizer/commands/copy.cpp
+index f48b1f9c..840be4f3 100644
+--- a/contrib/dolphin/plugin_optimizer/commands/copy.cpp
++++ b/contrib/dolphin/plugin_optimizer/commands/copy.cpp
+@@ -7089,12 +7089,14 @@ retry:
+         if (cstate->mode == MODE_NORMAL) {
+             if (cstate->filename && is_obs_protocol(cstate->filename)) {
+ #ifndef ENABLE_LITE_MODE
++#ifdef ENABLE_OBS
+                 if (getNextOBS(cstate)) {
+                     cstate->eol_type = EOL_UNKNOWN;
+                     goto retry;
+                 }
+ #else
+                 FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
++#endif
+ #endif
+             } else {
+                 if (getNextGDS<true>(cstate)) {
+@@ -10060,6 +10062,7 @@ void bulkloadFuncFactory(CopyState cstate)
+         case MODE_NORMAL: /* for GDS oriented dist import */
+             if (is_obs_protocol(cstate->filename)) {
+ #ifndef ENABLE_LITE_MODE
++#ifdef ENABLE_OBS
+                 /* Attache working house routines for OBS oriented dist import */
+                 func.initBulkLoad = initOBSModeState;
+                 func.endBulkLoad = endOBSModeBulkLoad;
+@@ -10068,6 +10071,7 @@ void bulkloadFuncFactory(CopyState cstate)
+                 getNextCopyFunc = getNextOBS;
+ #else
+                 FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
++#endif
+ #endif
+             } else {
+                 /* Attache working house routines for GDS oriented dist import */
+@@ -10135,6 +10139,7 @@ CopyState beginExport(
+ 
+             if (is_obs_protocol(filename)) {
+ #ifndef ENABLE_LITE_MODE
++#ifdef ENABLE_OBS
+                 /* Fetch OBS write only table related attribtues */
+                 getOBSOptions(&cstate->obs_copy_options, options);
+ 
+@@ -10153,6 +10158,7 @@ CopyState beginExport(
+                 initOBSModeState(cstate, object_path, tasklist);
+ #else
+                 FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
++#endif
+ #endif
+             } else {
+                 initNormalModeState<false>(cstate, filename, tasklist);
+@@ -10317,6 +10323,7 @@ void endExport(CopyState cstate)
+         }
+     } else if (cstate->copy_dest == COPY_OBS) {
+ #ifndef ENABLE_LITE_MODE
++#ifdef ENABLE_OBS
+         if (IS_PGXC_DATANODE) {
+             if (cstate->outBuffer->len > 0)
+                 RemoteExportFlushData(cstate);
+@@ -10326,6 +10333,7 @@ void endExport(CopyState cstate)
+         }
+ #else
+         FEATURE_ON_LITE_MODE_NOT_SUPPORTED();
++#endif
+ #endif
+     } else
+         exportDeinitOutBuffer(cstate);

@@ -1,0 +1,26 @@
+diff --git a/src/election/elc_msg_proc.c b/src/election/elc_msg_proc.c
+index 9aa9552..7c3df3d 100644
+--- a/src/election/elc_msg_proc.c
++++ b/src/election/elc_msg_proc.c
+@@ -179,7 +179,7 @@ bool32 elc_need_demote_follow(uint32 stream_id, timespec_t now, uint32 elc_timeo
+     uint32 voter_num = 0;
+     dcf_node_role_t node_list[CM_MAX_NODE_COUNT];
+     uint32 node_count;
+-    uint32 local_node_id = md_get_cur_node(stream_id);
++    uint32 local_node_id = md_get_cur_node();
+     dcf_role_t default_role;
+     if (elc_stream_get_work_mode(stream_id) != WM_NORMAL) {
+         return CM_FALSE;
+diff --git a/src/common/cm_concurrency/cm_thread.c b/src/common/cm_concurrency/cm_thread.c
+index 723b1de..92e0895 100644
+--- a/src/common/cm_concurrency/cm_thread.c
++++ b/src/common/cm_concurrency/cm_thread.c
+@@ -296,7 +296,7 @@ uint32 cm_get_current_thread_id(void)
+ #define __SYS_GET_SPID 186
+ #elif (defined __aarch64__)
+ #define __SYS_GET_SPID 178
+-#elif (defined __loongarch__)
++#else
+ #include<sys/syscall.h>
+ #define __SYS_GET_SPID SYS_gettid
+ #endif

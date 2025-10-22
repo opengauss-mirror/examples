@@ -1,0 +1,4011 @@
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/gss-sample/Makefile.in krb5_edit/src/appl/gss-sample/Makefile.in
+*** krb5/src/appl/gss-sample/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/gss-sample/Makefile.in	2022-08-26 16:03:34.940000000 +0800
+***************
+*** 26,35 ****
+  ##WIN32##all-windows: $(OUTPRE)gss-server.exe $(OUTPRE)gss-client.exe
+  
+  gss-server: gss-server.o gss-misc.o $(GSS_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o gss-server gss-server.o gss-misc.o $(GSS_LIBS) $(KRB5_BASE_LIBS)
+  
+  gss-client: gss-client.o gss-misc.o $(GSS_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o gss-client gss-client.o gss-misc.o $(GSS_LIBS) $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(GSSSERVER): $(OUTPRE)gss-server.obj $(OUTPRE)gss-misc.obj $(GLIB) $(KLIB) $(SERVERRES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+--- 26,35 ----
+  ##WIN32##all-windows: $(OUTPRE)gss-server.exe $(OUTPRE)gss-client.exe
+  
+  gss-server: gss-server.o gss-misc.o $(GSS_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o gss-server gss-server.o gss-misc.o $(GSS_LIBS) $(KRB5_BASE_LIBS)
+  
+  gss-client: gss-client.o gss-misc.o $(GSS_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o gss-client gss-client.o gss-misc.o $(GSS_LIBS) $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(GSSSERVER): $(OUTPRE)gss-server.obj $(OUTPRE)gss-misc.obj $(GLIB) $(KLIB) $(SERVERRES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/sample/sclient/Makefile.in krb5_edit/src/appl/sample/sclient/Makefile.in
+*** krb5/src/appl/sample/sclient/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/sample/sclient/Makefile.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 4,10 ****
+  all: sclient
+  
+  sclient: sclient.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o sclient sclient.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) sclient.o sclient
+--- 4,10 ----
+  all: sclient
+  
+  sclient: sclient.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o sclient sclient.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) sclient.o sclient
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/sample/sserver/Makefile.in krb5_edit/src/appl/sample/sserver/Makefile.in
+*** krb5/src/appl/sample/sserver/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/sample/sserver/Makefile.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 4,10 ****
+  all: sserver
+  
+  sserver: sserver.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o sserver sserver.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) sserver.o sserver
+--- 4,10 ----
+  all: sserver
+  
+  sserver: sserver.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o sserver sserver.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) sserver.o sserver
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/simple/client/Makefile.in krb5_edit/src/appl/simple/client/Makefile.in
+*** krb5/src/appl/simple/client/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/simple/client/Makefile.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 6,12 ****
+  LOCALINCLUDES= -I$(srcdir)/..
+  
+  sim_client: sim_client.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o sim_client sim_client.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) sim_client $(DESTDIR)$(CLIENT_BINDIR)/sim_client
+--- 6,12 ----
+  LOCALINCLUDES= -I$(srcdir)/..
+  
+  sim_client: sim_client.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o sim_client sim_client.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) sim_client $(DESTDIR)$(CLIENT_BINDIR)/sim_client
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/simple/server/Makefile.in krb5_edit/src/appl/simple/server/Makefile.in
+*** krb5/src/appl/simple/server/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/simple/server/Makefile.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 6,12 ****
+  all: sim_server
+  
+  sim_server: sim_server.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o sim_server sim_server.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) sim_server $(DESTDIR)$(SERVER_BINDIR)/sim_server
+--- 6,12 ----
+  all: sim_server
+  
+  sim_server: sim_server.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o sim_server sim_server.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) sim_server $(DESTDIR)$(SERVER_BINDIR)/sim_server
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/appl/user_user/Makefile.in krb5_edit/src/appl/user_user/Makefile.in
+*** krb5/src/appl/user_user/Makefile.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/appl/user_user/Makefile.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 9,18 ****
+  	$(RUNPYTEST) $(srcdir)/t_user2user.py $(PYTESTFLAGS)
+  
+  uuclient: client.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o uuclient client.o $(KRB5_BASE_LIBS)
+  
+  uuserver: server.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o uuserver server.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) uuclient $(DESTDIR)$(CLIENT_BINDIR)/uuclient
+--- 9,18 ----
+  	$(RUNPYTEST) $(srcdir)/t_user2user.py $(PYTESTFLAGS)
+  
+  uuclient: client.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o uuclient client.o $(KRB5_BASE_LIBS)
+  
+  uuserver: server.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o uuserver server.o $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) uuclient $(DESTDIR)$(CLIENT_BINDIR)/uuclient
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/build-tools/krb5-config.in krb5_edit/src/build-tools/krb5-config.in
+*** krb5/src/build-tools/krb5-config.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/build-tools/krb5-config.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 241,257 ****
+      fi
+  
+      if test $library = 'gssrpc'; then
+! 	lib_flags="$lib_flags -lgssrpc"
+  	library=gssapi
+      fi
+  
+      if test $library = 'gssapi'; then
+! 	lib_flags="$lib_flags -lgssapi_krb5"
+  	library=krb5
+      fi
+  
+      if test $library = 'krb5'; then
+! 	lib_flags="$lib_flags -lkrb5 -lk5crypto -lcom_err"
+      fi
+  
+      # If we ever support a flag to generate output suitable for static
+--- 241,257 ----
+      fi
+  
+      if test $library = 'gssrpc'; then
+! 	lib_flags="$lib_flags -lgssrpc_gauss"
+  	library=gssapi
+      fi
+  
+      if test $library = 'gssapi'; then
+! 	lib_flags="$lib_flags -lgssapi_krb5_gauss"
+  	library=krb5
+      fi
+  
+      if test $library = 'krb5'; then
+! 	lib_flags="$lib_flags -lkrb5_gauss -lk5crypto_gauss -lcom_err_gauss"
+      fi
+  
+      # If we ever support a flag to generate output suitable for static
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/build-tools/krb5.pc.in krb5_edit/src/build-tools/krb5.pc.in
+*** krb5/src/build-tools/krb5.pc.in	2022-08-26 16:04:07.044000000 +0800
+--- krb5_edit/src/build-tools/krb5.pc.in	2022-08-26 16:03:34.944000000 +0800
+***************
+*** 8,14 ****
+  defktname=@DEFKTNAME@
+  defcktname=@DEFCKTNAME@
+  
+! Name: krb5
+  Description: An implementation of Kerberos network authentication
+  Version: @KRB5_VERSION@
+  Requires: mit-krb5
+--- 8,14 ----
+  defktname=@DEFKTNAME@
+  defcktname=@DEFCKTNAME@
+  
+! Name: krb5_gauss
+  Description: An implementation of Kerberos network authentication
+  Version: @KRB5_VERSION@
+  Requires: mit-krb5
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/ccapi/lib/Makefile.in krb5_edit/src/ccapi/lib/Makefile.in
+*** krb5/src/ccapi/lib/Makefile.in	2022-08-26 16:04:07.048000000 +0800
+--- krb5_edit/src/ccapi/lib/Makefile.in	2022-08-26 16:03:34.948000000 +0800
+***************
+*** 4,10 ****
+  LOCALINCLUDES=-I$(srcdir)/../common -I.
+  
+  SHLIB_EXPDEPS= $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS=-lcom_err $(SUPPORT_LIB)
+  RELDIR=../ccapi/lib
+  
+  LIBBASE=krb5-ccapi
+--- 4,10 ----
+  LOCALINCLUDES=-I$(srcdir)/../common -I.
+  
+  SHLIB_EXPDEPS= $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS=-lcom_err_gauss $(SUPPORT_LIB)
+  RELDIR=../ccapi/lib
+  
+  LIBBASE=krb5-ccapi
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kcpytkt/Makefile.in krb5_edit/src/clients/kcpytkt/Makefile.in
+*** krb5/src/clients/kcpytkt/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kcpytkt/Makefile.in	2022-08-26 16:03:34.956000000 +0800
+***************
+*** 16,22 ****
+  all-mac:
+  
+  kcpytkt: kcpytkt.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kcpytkt.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KCPYTKT): $(OUTPRE)kcpytkt.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+--- 16,22 ----
+  all-mac:
+  
+  kcpytkt: kcpytkt.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kcpytkt.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KCPYTKT): $(OUTPRE)kcpytkt.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kdeltkt/Makefile.in krb5_edit/src/clients/kdeltkt/Makefile.in
+*** krb5/src/clients/kdeltkt/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kdeltkt/Makefile.in	2022-08-26 16:03:34.956000000 +0800
+***************
+*** 16,22 ****
+  all-mac:
+  
+  kdeltkt: kdeltkt.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kdeltkt.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KDELTKT): $(OUTPRE)kdeltkt.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+--- 16,22 ----
+  all-mac:
+  
+  kdeltkt: kdeltkt.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kdeltkt.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KDELTKT): $(OUTPRE)kdeltkt.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kdestroy/Makefile.in krb5_edit/src/clients/kdestroy/Makefile.in
+*** krb5/src/clients/kdestroy/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kdestroy/Makefile.in	2022-08-26 16:03:34.956000000 +0800
+***************
+*** 19,25 ****
+  ##WIN32##all-windows: $(KDESTROY)
+  
+  kdestroy: kdestroy.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kdestroy.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KDESTROY): $(OUTPRE)kdestroy.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $**
+--- 19,25 ----
+  ##WIN32##all-windows: $(KDESTROY)
+  
+  kdestroy: kdestroy.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kdestroy.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KDESTROY): $(OUTPRE)kdestroy.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $**
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kinit/Makefile.in krb5_edit/src/clients/kinit/Makefile.in
+*** krb5/src/clients/kinit/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kinit/Makefile.in	2022-08-26 16:03:34.956000000 +0800
+***************
+*** 18,24 ****
+  ##WIN32##all-windows: $(KINIT)
+  
+  kinit: kinit.o kinit_kdb.o $(KRB5_BASE_DEPLIBS) $(KADMSRV_DEPLIBS)
+! 	$(CC_LINK) -o $@ kinit.o kinit_kdb.o $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KINIT): $(OUTPRE)kinit.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** advapi32.lib
+--- 18,24 ----
+  ##WIN32##all-windows: $(KINIT)
+  
+  kinit: kinit.o kinit_kdb.o $(KRB5_BASE_DEPLIBS) $(KADMSRV_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kinit.o kinit_kdb.o $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KINIT): $(OUTPRE)kinit.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** advapi32.lib
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/klist/Makefile.in krb5_edit/src/clients/klist/Makefile.in
+*** krb5/src/clients/klist/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/klist/Makefile.in	2022-08-26 16:03:34.960000000 +0800
+***************
+*** 19,25 ****
+  ##WIN32##all-windows: $(KLIST)
+  
+  klist: klist.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ klist.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KLIST): $(OUTPRE)klist.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+--- 19,25 ----
+  ##WIN32##all-windows: $(KLIST)
+  
+  klist: klist.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ klist.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KLIST): $(OUTPRE)klist.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kpasswd/Makefile.in krb5_edit/src/clients/kpasswd/Makefile.in
+*** krb5/src/clients/kpasswd/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kpasswd/Makefile.in	2022-08-26 16:03:34.960000000 +0800
+***************
+*** 4,10 ****
+  SRCS=kpasswd.c
+  
+  kpasswd: kpasswd.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o kpasswd kpasswd.o $(KRB5_BASE_LIBS)
+  
+  kpasswd.o:	$(srcdir)/kpasswd.c
+  
+--- 4,10 ----
+  SRCS=kpasswd.c
+  
+  kpasswd: kpasswd.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o kpasswd kpasswd.o $(KRB5_BASE_LIBS)
+  
+  kpasswd.o:	$(srcdir)/kpasswd.c
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/ksu/Makefile.in krb5_edit/src/clients/ksu/Makefile.in
+*** krb5/src/clients/ksu/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/ksu/Makefile.in	2022-08-26 16:03:34.960000000 +0800
+***************
+*** 23,29 ****
+  all: ksu
+  
+  ksu: $(OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(OBJS) $(KRB5_BASE_LIBS) $(KSU_LIBS)
+  
+  clean:
+  	$(RM) ksu
+--- 23,29 ----
+  all: ksu
+  
+  ksu: $(OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(OBJS) $(KRB5_BASE_LIBS) $(KSU_LIBS)
+  
+  clean:
+  	$(RM) ksu
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kswitch/Makefile.in krb5_edit/src/clients/kswitch/Makefile.in
+*** krb5/src/clients/kswitch/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kswitch/Makefile.in	2022-08-26 16:03:34.960000000 +0800
+***************
+*** 17,23 ****
+  ##WIN32##all-windows: $(KSWITCH)
+  
+  kswitch: kswitch.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kswitch.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KSWITCH): $(OUTPRE)kswitch.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $**
+--- 17,23 ----
+  ##WIN32##all-windows: $(KSWITCH)
+  
+  kswitch: kswitch.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kswitch.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KSWITCH): $(OUTPRE)kswitch.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) -out:$@ $**
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/clients/kvno/Makefile.in krb5_edit/src/clients/kvno/Makefile.in
+*** krb5/src/clients/kvno/Makefile.in	2022-08-26 16:04:07.060000000 +0800
+--- krb5_edit/src/clients/kvno/Makefile.in	2022-08-26 16:03:34.960000000 +0800
+***************
+*** 20,26 ****
+  ##WIN32##all-windows: $(KVNO)
+  
+  kvno: kvno.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kvno.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KVNO): $(OUTPRE)kvno.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+--- 20,26 ----
+  ##WIN32##all-windows: $(KVNO)
+  
+  kvno: kvno.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kvno.o $(KRB5_BASE_LIBS)
+  
+  ##WIN32##$(KVNO): $(OUTPRE)kvno.obj $(SLIB) $(KLIB) $(CLIB) $(EXERES)
+  ##WIN32##	link $(EXE_LINKOPTS) /out:$@ $**
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/config/pre.in krb5_edit/src/config/pre.in
+*** krb5/src/config/pre.in	2022-08-26 16:04:07.064000000 +0800
+--- krb5_edit/src/config/pre.in	2022-08-26 16:03:34.964000000 +0800
+***************
+*** 284,290 ****
+  #
+  # invocation is like:
+  # prog: foo.o bar.o $(KRB5_BASE_DEPLIBS)
+! # 	$(CC_LINK) -o $@ foo.o bar.o $(KRB5_BASE_LIBS)
+  
+  CC_LINK=@CC_LINK@ $(ASAN_FLAGS)
+  CXX_LINK=@CXX_LINK@ $(ASAN_FLAGS)
+--- 284,290 ----
+  #
+  # invocation is like:
+  # prog: foo.o bar.o $(KRB5_BASE_DEPLIBS)
+! # 	$(CC_LINK) -pie -o $@ foo.o bar.o $(KRB5_BASE_LIBS)
+  
+  CC_LINK=@CC_LINK@ $(ASAN_FLAGS)
+  CXX_LINK=@CXX_LINK@ $(ASAN_FLAGS)
+***************
+*** 323,337 ****
+  KADMCLNT_DEPLIB	= $(TOPLIBD)/libkadm5clnt_mit$(DEPLIBEXT)
+  KADMSRV_DEPLIB	= $(TOPLIBD)/libkadm5srv_mit$(DEPLIBEXT)
+  KDB5_DEPLIB	= $(TOPLIBD)/libkdb5$(DEPLIBEXT)
+! GSSRPC_DEPLIB	= $(TOPLIBD)/libgssrpc$(DEPLIBEXT)
+! GSS_DEPLIB	= $(TOPLIBD)/libgssapi_krb5$(DEPLIBEXT)
+! KRB5_DEPLIB	= $(TOPLIBD)/libkrb5$(DEPLIBEXT)
+! CRYPTO_DEPLIB	= $(TOPLIBD)/libk5crypto$(DEPLIBEXT)
+  COM_ERR_DEPLIB	= $(COM_ERR_DEPLIB-@COM_ERR_VERSION@)
+  COM_ERR_DEPLIB-sys = # empty
+  COM_ERR_DEPLIB-intlsys = # empty
+! COM_ERR_DEPLIB-k5 = $(TOPLIBD)/libcom_err$(DEPLIBEXT)
+! SUPPORT_LIBNAME=krb5support
+  SUPPORT_DEPLIB	= $(TOPLIBD)/lib$(SUPPORT_LIBNAME)$(DEPLIBEXT)
+  
+  # These are forced to use ".a" as an extension because they're never
+--- 323,337 ----
+  KADMCLNT_DEPLIB	= $(TOPLIBD)/libkadm5clnt_mit$(DEPLIBEXT)
+  KADMSRV_DEPLIB	= $(TOPLIBD)/libkadm5srv_mit$(DEPLIBEXT)
+  KDB5_DEPLIB	= $(TOPLIBD)/libkdb5$(DEPLIBEXT)
+! GSSRPC_DEPLIB	= $(TOPLIBD)/libgssrpc_gauss$(DEPLIBEXT)
+! GSS_DEPLIB	= $(TOPLIBD)/libgssapi_krb5_gauss$(DEPLIBEXT)
+! KRB5_DEPLIB	= $(TOPLIBD)/libkrb5_gauss$(DEPLIBEXT)
+! CRYPTO_DEPLIB	= $(TOPLIBD)/libk5crypto_gauss$(DEPLIBEXT)
+  COM_ERR_DEPLIB	= $(COM_ERR_DEPLIB-@COM_ERR_VERSION@)
+  COM_ERR_DEPLIB-sys = # empty
+  COM_ERR_DEPLIB-intlsys = # empty
+! COM_ERR_DEPLIB-k5 = $(TOPLIBD)/libcom_err_gauss$(DEPLIBEXT)
+! SUPPORT_LIBNAME=krb5support_gauss
+  SUPPORT_DEPLIB	= $(TOPLIBD)/lib$(SUPPORT_LIBNAME)$(DEPLIBEXT)
+  
+  # These are forced to use ".a" as an extension because they're never
+***************
+*** 393,402 ****
+  LDAP_LIBS	= @LDAP_LIBS@
+  LMDB_LIBS	= @LMDB_LIBS@
+  
+! KRB5_LIB			= -lkrb5
+! K5CRYPTO_LIB			= -lk5crypto
+! COM_ERR_LIB			= -lcom_err
+! GSS_KRB5_LIB			= -lgssapi_krb5
+  SUPPORT_LIB			= -l$(SUPPORT_LIBNAME)
+  
+  # HESIOD_LIBS is -lhesiod...
+--- 393,402 ----
+  LDAP_LIBS	= @LDAP_LIBS@
+  LMDB_LIBS	= @LMDB_LIBS@
+  
+! KRB5_LIB			= -lkrb5_gauss
+! K5CRYPTO_LIB			= -lk5crypto_gauss
+! COM_ERR_LIB			= -lcom_err_gauss
+! GSS_KRB5_LIB			= -lgssapi_krb5_gauss
+  SUPPORT_LIB			= -l$(SUPPORT_LIBNAME)
+  
+  # HESIOD_LIBS is -lhesiod...
+***************
+*** 406,412 ****
+  KDB5_LIBS	= $(KDB5_LIB) $(GSSRPC_LIBS)
+  GSS_LIBS	= $(GSS_KRB5_LIB)
+  # needs fixing if ever used on macOS!
+! GSSRPC_LIBS	= -lgssrpc $(GSS_LIBS)
+  KADM_COMM_LIBS	= $(GSSRPC_LIBS)
+  # need fixing if ever used on macOS!
+  KADMSRV_LIBS	= -lkadm5srv_mit $(HESIOD_LIBS) $(KDB5_LIBS) $(KADM_COMM_LIBS)
+--- 406,412 ----
+  KDB5_LIBS	= $(KDB5_LIB) $(GSSRPC_LIBS)
+  GSS_LIBS	= $(GSS_KRB5_LIB)
+  # needs fixing if ever used on macOS!
+! GSSRPC_LIBS	= -lgssrpc_gauss $(GSS_LIBS)
+  KADM_COMM_LIBS	= $(GSSRPC_LIBS)
+  # need fixing if ever used on macOS!
+  KADMSRV_LIBS	= -lkadm5srv_mit $(HESIOD_LIBS) $(KDB5_LIBS) $(KADM_COMM_LIBS)
+***************
+*** 496,502 ****
+  #
+  .SUFFIXES: .cpp .c .o
+  .c.o:
+! 	$(CC) $(ALL_CFLAGS) -c $<
+  # Use .cpp because that's what autoconf uses in its test.
+  # If the compiler doesn't accept a .cpp suffix here, it wouldn't
+  # have accepted it when autoconf tested it.
+--- 496,502 ----
+  #
+  .SUFFIXES: .cpp .c .o
+  .c.o:
+! 	$(CC) $(ALL_CFLAGS) -fPIC -c $<
+  # Use .cpp because that's what autoconf uses in its test.
+  # If the compiler doesn't accept a .cpp suffix here, it wouldn't
+  # have accepted it when autoconf tested it.
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/include/k5-int.h krb5_edit/src/include/k5-int.h
+*** krb5/src/include/k5-int.h	2022-08-26 16:04:07.068000000 +0800
+--- krb5_edit/src/include/k5-int.h	2022-08-26 16:03:34.968000000 +0800
+***************
+*** 2407,2410 ****
+--- 2407,2413 ----
+  #define k5_prependmsg krb5_prepend_error_message
+  #define k5_wrapmsg krb5_wrap_error_message
+  
++ extern __thread char *G_DEFAULT_PROFILE_PATH;
++ extern __thread char *G_DEFAULT_CACHE_PATH;
++ 
+  #endif /* _KRB5_INT_H */
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/include/krb5/krb5.hin krb5_edit/src/include/krb5/krb5.hin
+*** krb5/src/include/krb5/krb5.hin	2022-08-26 16:04:07.076000000 +0800
+--- krb5_edit/src/include/krb5/krb5.hin	2022-08-26 16:03:34.972000000 +0800
+***************
+*** 2899,2904 ****
+--- 2899,2908 ----
+  #define KRB5_INIT_CONTEXT_SECURE 0x1 /**< Use secure context configuration */
+  #define KRB5_INIT_CONTEXT_KDC    0x2 /**< Use KDC configuration if available */
+  
++ extern void KRB5_CALLCONV krb5_set_profile_path(char *profile_path);
++ extern void KRB5_CALLCONV krb5_set_cache_path(char *cache_path);
++ extern void KRB5_CALLCONV krb5_clean_cache_profile_path();
++ 
+  /**
+   * Create a krb5 library context.
+   *
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kadmin/cli/Makefile.in krb5_edit/src/kadmin/cli/Makefile.in
+*** krb5/src/kadmin/cli/Makefile.in	2022-08-26 16:04:07.076000000 +0800
+--- krb5_edit/src/kadmin/cli/Makefile.in	2022-08-26 16:03:34.976000000 +0800
+***************
+*** 14,23 ****
+  all: $(PROG).local $(PROG)
+  
+  $(PROG).local: $(LOCAL_OBJS) $(SS_DEPLIB) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $(PROG).local $(LOCAL_OBJS) $(SS_LIB) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  $(PROG): $(KADMIN_OBJS) $(SS_DEPLIB) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $(PROG) $(KADMIN_OBJS) $(SS_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  kadmin_ct.o: kadmin_ct.c
+  
+--- 14,23 ----
+  all: $(PROG).local $(PROG)
+  
+  $(PROG).local: $(LOCAL_OBJS) $(SS_DEPLIB) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $(PROG).local $(LOCAL_OBJS) $(SS_LIB) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  $(PROG): $(KADMIN_OBJS) $(SS_DEPLIB) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $(PROG) $(KADMIN_OBJS) $(SS_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  kadmin_ct.o: kadmin_ct.c
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kadmin/dbutil/Makefile.in krb5_edit/src/kadmin/dbutil/Makefile.in
+*** krb5/src/kadmin/dbutil/Makefile.in	2022-08-26 16:04:07.076000000 +0800
+--- krb5_edit/src/kadmin/dbutil/Makefile.in	2022-08-26 16:03:34.976000000 +0800
+***************
+*** 19,25 ****
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(GETDATE)
+! 	$(CC_LINK) -o $(PROG) $(OBJS) $(GETDATE) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  import_err.c import_err.h: $(srcdir)/import_err.et
+  
+--- 19,25 ----
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(GETDATE)
+! 	$(CC_LINK) -pie -o $(PROG) $(OBJS) $(GETDATE) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  import_err.c import_err.h: $(srcdir)/import_err.et
+  
+***************
+*** 35,41 ****
+  T_TDUMPUTIL_OBJS = t_tdumputil.o tdumputil.o
+  
+  t_tdumputil: $(T_TDUMPUTIL_OBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o $@ $(T_TDUMPUTIL_OBJS) $(SUPPORT_LIB)
+  
+  depend: import_err.h
+  
+--- 35,41 ----
+  T_TDUMPUTIL_OBJS = t_tdumputil.o tdumputil.o
+  
+  t_tdumputil: $(T_TDUMPUTIL_OBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ $(T_TDUMPUTIL_OBJS) $(SUPPORT_LIB)
+  
+  depend: import_err.h
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kadmin/ktutil/Makefile.in krb5_edit/src/kadmin/ktutil/Makefile.in
+*** krb5/src/kadmin/ktutil/Makefile.in	2022-08-26 16:04:07.080000000 +0800
+--- krb5_edit/src/kadmin/ktutil/Makefile.in	2022-08-26 16:03:34.976000000 +0800
+***************
+*** 12,18 ****
+  all: ktutil
+  
+  ktutil: ktutil.o $(OBJS) $(SS_DEPLIB) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o ktutil $(OBJS) $(SS_LIB) $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) ktutil ${DESTDIR}$(CLIENT_BINDIR)/ktutil
+--- 12,18 ----
+  all: ktutil
+  
+  ktutil: ktutil.o $(OBJS) $(SS_DEPLIB) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o ktutil $(OBJS) $(SS_LIB) $(KRB5_BASE_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) ktutil ${DESTDIR}$(CLIENT_BINDIR)/ktutil
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kadmin/server/Makefile.in krb5_edit/src/kadmin/server/Makefile.in
+*** krb5/src/kadmin/server/Makefile.in	2022-08-26 16:04:07.080000000 +0800
+--- krb5_edit/src/kadmin/server/Makefile.in	2022-08-26 16:03:34.980000000 +0800
+***************
+*** 15,21 ****
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -o $(PROG) $(OBJS) $(APPUTILS_LIB) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS) $(VERTO_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) $(PROG) ${DESTDIR}$(SERVER_BINDIR)/$(PROG)
+--- 15,21 ----
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -pie -o $(PROG) $(OBJS) $(APPUTILS_LIB) $(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS) $(VERTO_LIBS)
+  
+  install:
+  	$(INSTALL_PROGRAM) $(PROG) ${DESTDIR}$(SERVER_BINDIR)/$(PROG)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kadmin/testing/util/Makefile.in krb5_edit/src/kadmin/testing/util/Makefile.in
+*** krb5/src/kadmin/testing/util/Makefile.in	2022-08-26 16:04:07.084000000 +0800
+--- krb5_edit/src/kadmin/testing/util/Makefile.in	2022-08-26 16:03:34.980000000 +0800
+***************
+*** 28,42 ****
+  all-tcl: $(CLNTPROG) $(SRVPROG)
+  
+  $(SRVPROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $(SRVPROG) $(OBJS) $(TCL_MAYBE_RPATH) \
+  		$(KADMSRV_LIBS) $(KRB5_PTHREAD_LIB) $(KRB5_BASE_LIBS) $(TCL_LIBS)
+  
+  $(CLNTPROG): $(OBJS) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $(CLNTPROG) $(OBJS) $(TCL_MAYBE_RPATH) \
+  		$(KRB5_PTHREAD_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS) $(TCL_LIBS)
+  
+  bsddb_dump: bsddb_dump.o
+! 	$(CC_LINK) -o bsddb_dump bsddb_dump.o $(KADMSRV_LIBS)
+  
+  clean:
+  	$(RM) $(CLNTPROG) $(SRVPROG)
+--- 28,42 ----
+  all-tcl: $(CLNTPROG) $(SRVPROG)
+  
+  $(SRVPROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $(SRVPROG) $(OBJS) $(TCL_MAYBE_RPATH) \
+  		$(KADMSRV_LIBS) $(KRB5_PTHREAD_LIB) $(KRB5_BASE_LIBS) $(TCL_LIBS)
+  
+  $(CLNTPROG): $(OBJS) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $(CLNTPROG) $(OBJS) $(TCL_MAYBE_RPATH) \
+  		$(KRB5_PTHREAD_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS) $(TCL_LIBS)
+  
+  bsddb_dump: bsddb_dump.o
+! 	$(CC_LINK) -pie -o bsddb_dump bsddb_dump.o $(KADMSRV_LIBS)
+  
+  clean:
+  	$(RM) $(CLNTPROG) $(SRVPROG)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kdc/do_tgs_req.c krb5_edit/src/kdc/do_tgs_req.c
+*** krb5/src/kdc/do_tgs_req.c	2022-08-26 16:04:07.084000000 +0800
+--- krb5_edit/src/kdc/do_tgs_req.c	2022-08-26 16:03:34.984000000 +0800
+***************
+*** 208,213 ****
+--- 208,218 ----
+          status = "FIND_FAST";
+          goto cleanup;
+      }
++     if (sprinc == NULL) {
++         status = "NULL_SERVER";
++         errcode = KRB5KDC_ERR_S_PRINCIPAL_UNKNOWN;
++         goto cleanup;
++     }
+  
+      errcode = get_local_tgt(kdc_context, &sprinc->realm, header_server,
+                              &local_tgt, &local_tgt_storage, &local_tgt_key);
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kdc/kdc_preauth_ec.c krb5_edit/src/kdc/kdc_preauth_ec.c
+*** krb5/src/kdc/kdc_preauth_ec.c	2022-08-26 16:04:07.088000000 +0800
+--- krb5_edit/src/kdc/kdc_preauth_ec.c	2022-08-26 16:03:34.984000000 +0800
+***************
+*** 87,93 ****
+      }
+  
+      /* Check for a configured FAST ec auth indicator. */
+!     realmstr = k5memdup0(realm.data, realm.length, &retval);
+      if (realmstr != NULL)
+          retval = profile_get_string(context->profile, KRB5_CONF_REALMS,
+                                      realmstr,
+--- 87,94 ----
+      }
+  
+      /* Check for a configured FAST ec auth indicator. */
+!     if (retval == 0)
+!         realmstr = k5memdup0(realm.data, realm.length, &retval);
+      if (realmstr != NULL)
+          retval = profile_get_string(context->profile, KRB5_CONF_REALMS,
+                                      realmstr,
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kdc/Makefile.in krb5_edit/src/kdc/Makefile.in
+*** krb5/src/kdc/Makefile.in	2022-08-26 16:04:07.084000000 +0800
+--- krb5_edit/src/kdc/Makefile.in	2022-08-26 16:03:34.980000000 +0800
+***************
+*** 64,73 ****
+  kdc5_err.o: kdc5_err.h
+  
+  krb5kdc: $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -o krb5kdc $(OBJS) $(APPUTILS_LIB) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS) $(VERTO_LIBS)
+  
+  rtest: $(RT_OBJS) $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o rtest $(RT_OBJS) $(KDB5_LIBS) $(KADM_COMM_LIBS) $(KRB5_BASE_LIBS)
+  
+  check-unix: rtest runenv.sh
+  	$(RUN_TEST) $(srcdir)/rtscript > test.out
+--- 64,73 ----
+  kdc5_err.o: kdc5_err.h
+  
+  krb5kdc: $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -pie -o krb5kdc $(OBJS) $(APPUTILS_LIB) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS) $(VERTO_LIBS)
+  
+  rtest: $(RT_OBJS) $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o rtest $(RT_OBJS) $(KDB5_LIBS) $(KADM_COMM_LIBS) $(KRB5_BASE_LIBS)
+  
+  check-unix: rtest runenv.sh
+  	$(RUN_TEST) $(srcdir)/rtscript > test.out
+***************
+*** 77,83 ****
+  T_REPLAY_OBJS=t_replay.o
+  
+  t_replay: $(T_REPLAY_OBJS) replay.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_REPLAY_OBJS) $(CMOCKA_LIBS) $(KRB5_BASE_LIBS)
+  
+  check-cmocka: t_replay
+  	$(RUN_TEST) ./t_replay > /dev/null
+--- 77,83 ----
+  T_REPLAY_OBJS=t_replay.o
+  
+  t_replay: $(T_REPLAY_OBJS) replay.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_REPLAY_OBJS) $(CMOCKA_LIBS) $(KRB5_BASE_LIBS)
+  
+  check-cmocka: t_replay
+  	$(RUN_TEST) ./t_replay > /dev/null
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/kprop/Makefile.in krb5_edit/src/kprop/Makefile.in
+*** krb5/src/kprop/Makefile.in	2022-08-26 16:04:07.088000000 +0800
+--- krb5_edit/src/kprop/Makefile.in	2022-08-26 16:03:34.988000000 +0800
+***************
+*** 16,28 ****
+  
+  
+  kprop: $(CLIENTOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o kprop $(CLIENTOBJS) $(KRB5_BASE_LIBS) @LIBUTIL@
+  
+  kpropd: $(SERVEROBJS) $(KDB5_DEPLIB) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB)
+! 	$(CC_LINK) -o kpropd $(SERVEROBJS) $(KDB5_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS) $(APPUTILS_LIB) @LIBUTIL@
+  
+  kproplog: $(LOGOBJS)
+! 	$(CC_LINK) -o kproplog $(LOGOBJS) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  install:
+  	for f in kprop kpropd kproplog; do \
+--- 16,28 ----
+  
+  
+  kprop: $(CLIENTOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o kprop $(CLIENTOBJS) $(KRB5_BASE_LIBS) @LIBUTIL@
+  
+  kpropd: $(SERVEROBJS) $(KDB5_DEPLIB) $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS) $(APPUTILS_DEPLIB)
+! 	$(CC_LINK) -pie -o kpropd $(SERVEROBJS) $(KDB5_LIB) $(KADMCLNT_LIBS) $(KRB5_BASE_LIBS) $(APPUTILS_LIB) @LIBUTIL@
+  
+  kproplog: $(LOGOBJS)
+! 	$(CC_LINK) -pie -o kproplog $(LOGOBJS) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  install:
+  	for f in kprop kpropd kproplog; do \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/builtin/aes/Makefile.in krb5_edit/src/lib/crypto/builtin/aes/Makefile.in
+*** krb5/src/lib/crypto/builtin/aes/Makefile.in	2022-08-26 16:04:07.092000000 +0800
+--- krb5_edit/src/lib/crypto/builtin/aes/Makefile.in	2022-08-26 16:03:34.988000000 +0800
+***************
+*** 45,51 ****
+  depend: $(SRCS)
+  
+  aes-gen: aes-gen.o $(GEN_OBJS)
+! 	$(CC_LINK) -o aes-gen aes-gen.o $(GEN_OBJS)
+  
+  run-aes-gen: aes-gen
+  	./aes-gen > kresults.out
+--- 45,51 ----
+  depend: $(SRCS)
+  
+  aes-gen: aes-gen.o $(GEN_OBJS)
+! 	$(CC_LINK) -pie -o aes-gen aes-gen.o $(GEN_OBJS)
+  
+  run-aes-gen: aes-gen
+  	./aes-gen > kresults.out
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/builtin/camellia/Makefile.in krb5_edit/src/lib/crypto/builtin/camellia/Makefile.in
+*** krb5/src/lib/crypto/builtin/camellia/Makefile.in	2022-08-26 16:04:07.092000000 +0800
+--- krb5_edit/src/lib/crypto/builtin/camellia/Makefile.in	2022-08-26 16:03:34.992000000 +0800
+***************
+*** 25,31 ****
+  depend: $(SRCS)
+  
+  camellia-gen: camellia-gen.o $(GEN_OBJS)
+! 	$(CC_LINK) -o camellia-gen camellia-gen.o $(GEN_OBJS)
+  
+  run-camellia-gen: camellia-gen
+  	./camellia-gen > kresults.out
+--- 25,31 ----
+  depend: $(SRCS)
+  
+  camellia-gen: camellia-gen.o $(GEN_OBJS)
+! 	$(CC_LINK) -pie -o camellia-gen camellia-gen.o $(GEN_OBJS)
+  
+  run-camellia-gen: camellia-gen
+  	./camellia-gen > kresults.out
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/builtin/des/Makefile.in krb5_edit/src/lib/crypto/builtin/des/Makefile.in
+*** krb5/src/lib/crypto/builtin/des/Makefile.in	2022-08-26 16:04:07.092000000 +0800
+--- krb5_edit/src/lib/crypto/builtin/des/Makefile.in	2022-08-26 16:03:34.992000000 +0800
+***************
+*** 50,60 ****
+  
+  verify$(EXEEXT): t_verify.$(OBJEXT) $(TOBJS) f_parity.$(OBJEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o $@ t_verify.$(OBJEXT) $(TOBJS) f_parity.$(OBJEXT) \
+  		-lcom_err $(SUPPORT_LIB)
+  
+  destest$(EXEEXT): destest.$(OBJEXT) $(TOBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o $@ destest.$(OBJEXT) $(TOBJS) $(SUPPORT_LIB)
+  
+  all-unix: all-libobjs
+  
+--- 50,60 ----
+  
+  verify$(EXEEXT): t_verify.$(OBJEXT) $(TOBJS) f_parity.$(OBJEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ t_verify.$(OBJEXT) $(TOBJS) f_parity.$(OBJEXT) \
+  		-lcom_err $(SUPPORT_LIB)
+  
+  destest$(EXEEXT): destest.$(OBJEXT) $(TOBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ destest.$(OBJEXT) $(TOBJS) $(SUPPORT_LIB)
+  
+  all-unix: all-libobjs
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/builtin/sha1/Makefile.in krb5_edit/src/lib/crypto/builtin/sha1/Makefile.in
+*** krb5/src/lib/crypto/builtin/sha1/Makefile.in	2022-08-26 16:04:07.096000000 +0800
+--- krb5_edit/src/lib/crypto/builtin/sha1/Makefile.in	2022-08-26 16:03:34.996000000 +0800
+***************
+*** 19,31 ****
+  
+  depend: $(SRCS)
+  t_shs: t_shs.o shs.o $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o t_shs t_shs.o shs.o $(SUPPORT_LIB)
+  
+  $(OUTPRE)t_shs.exe: $(OUTPRE)t_shs.obj $(OUTPRE)shs.obj
+  	link -out:$@ $**
+  
+  t_shs3: t_shs3.o shs.o $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o t_shs3 t_shs3.o shs.o $(SUPPORT_LIB)
+  
+  check-unix: t_shs t_shs3
+  	$(RUN_TEST) $(C)t_shs -x
+--- 19,31 ----
+  
+  depend: $(SRCS)
+  t_shs: t_shs.o shs.o $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o t_shs t_shs.o shs.o $(SUPPORT_LIB)
+  
+  $(OUTPRE)t_shs.exe: $(OUTPRE)t_shs.obj $(OUTPRE)shs.obj
+  	link -out:$@ $**
+  
+  t_shs3: t_shs3.o shs.o $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o t_shs3 t_shs3.o shs.o $(SUPPORT_LIB)
+  
+  check-unix: t_shs t_shs3
+  	$(RUN_TEST) $(C)t_shs -x
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/crypto_tests/Makefile.in krb5_edit/src/lib/crypto/crypto_tests/Makefile.in
+*** krb5/src/lib/crypto/crypto_tests/Makefile.in	2022-08-26 16:04:07.096000000 +0800
+--- krb5_edit/src/lib/crypto/crypto_tests/Makefile.in	2022-08-26 16:03:34.996000000 +0800
+***************
+*** 60,111 ****
+  #	$(RUN_TEST) ./t_pkcs5
+  
+  t_nfold$(EXEEXT): t_nfold.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_nfold.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_encrypt$(EXEEXT): t_encrypt.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_encrypt.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_decrypt$(EXEEXT): t_decrypt.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_decrypt.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_prf$(EXEEXT): t_prf.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_prf.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_prng$(EXEEXT): t_prng.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_prng.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cmac$(EXEEXT): t_cmac.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_cmac.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_hmac$(EXEEXT): t_hmac.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_hmac.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  #t_pkcs5$(EXEEXT): t_pkcs5.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! #	$(CC_LINK) -o $@ t_pkcs5.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  vectors$(EXEEXT): vectors.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ vectors.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cts$(EXEEXT): t_cts.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_cts.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_sha2$(EXEEXT): t_sha2.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_sha2.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_short$(EXEEXT): t_short.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_short.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_cksums: t_cksums.o $(CRYTPO_DEPLIB)
+! 	$(CC_LINK) -o t_cksums t_cksums.o -lkrb5 $(KRB5_BASE_LIBS)
+  
+  aes-test: aes-test.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o aes-test aes-test.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  camellia-test: camellia-test.$(OBJEXT) $(CRYPTO_DEPLIB)
+! 	$(CC_LINK) -o camellia-test camellia-test.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_mddriver4.o: $(srcdir)/t_mddriver.c
+  	$(CC) -DMD=4 $(ALL_CFLAGS) -o t_mddriver4.o -c $(srcdir)/t_mddriver.c
+--- 60,111 ----
+  #	$(RUN_TEST) ./t_pkcs5
+  
+  t_nfold$(EXEEXT): t_nfold.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_nfold.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_encrypt$(EXEEXT): t_encrypt.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_encrypt.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_decrypt$(EXEEXT): t_decrypt.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_decrypt.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_prf$(EXEEXT): t_prf.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_prf.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_prng$(EXEEXT): t_prng.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_prng.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cmac$(EXEEXT): t_cmac.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_cmac.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_hmac$(EXEEXT): t_hmac.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_hmac.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  #t_pkcs5$(EXEEXT): t_pkcs5.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! #	$(CC_LINK) -pie -o $@ t_pkcs5.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  vectors$(EXEEXT): vectors.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ vectors.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cts$(EXEEXT): t_cts.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_cts.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_sha2$(EXEEXT): t_sha2.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_sha2.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_short$(EXEEXT): t_short.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_short.$(OBJEXT) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_cksums: t_cksums.o $(CRYTPO_DEPLIB)
+! 	$(CC_LINK) -pie -o t_cksums t_cksums.o -lkrb5 $(KRB5_BASE_LIBS)
+  
+  aes-test: aes-test.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o aes-test aes-test.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  camellia-test: camellia-test.$(OBJEXT) $(CRYPTO_DEPLIB)
+! 	$(CC_LINK) -pie -o camellia-test camellia-test.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_mddriver4.o: $(srcdir)/t_mddriver.c
+  	$(CC) -DMD=4 $(ALL_CFLAGS) -o t_mddriver4.o -c $(srcdir)/t_mddriver.c
+***************
+*** 114,135 ****
+  	$(CC_LINK) -DMD4  -o t_mddriver4 t_mddriver4.o $(KRB5_BASE_LIBS)
+  
+  t_mddriver: t_mddriver.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_mddriver t_mddriver.o $(KRB5_BASE_LIBS)
+  
+  t_kperf: t_kperf.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_kperf t_kperf.o $(KRB5_BASE_LIBS)
+  
+  t_str2key$(EXEEXT): t_str2key.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_str2key.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_derive$(EXEEXT): t_derive.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_derive.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_fork$(EXEEXT): t_fork.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_fork.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cf2$(EXEEXT): t_cf2.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_cf2.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) t_nfold.o t_nfold t_encrypt t_encrypt.o \
+--- 114,135 ----
+  	$(CC_LINK) -DMD4  -o t_mddriver4 t_mddriver4.o $(KRB5_BASE_LIBS)
+  
+  t_mddriver: t_mddriver.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_mddriver t_mddriver.o $(KRB5_BASE_LIBS)
+  
+  t_kperf: t_kperf.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_kperf t_kperf.o $(KRB5_BASE_LIBS)
+  
+  t_str2key$(EXEEXT): t_str2key.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_str2key.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_derive$(EXEEXT): t_derive.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_derive.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_fork$(EXEEXT): t_fork.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_fork.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  t_cf2$(EXEEXT): t_cf2.$(OBJEXT) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_cf2.$(OBJEXT) $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) t_nfold.o t_nfold t_encrypt t_encrypt.o \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/krb/Makefile.in krb5_edit/src/lib/crypto/krb/Makefile.in
+*** krb5/src/lib/crypto/krb/Makefile.in	2022-08-26 16:04:07.104000000 +0800
+--- krb5_edit/src/lib/crypto/krb/Makefile.in	2022-08-26 16:03:35.004000000 +0800
+***************
+*** 199,205 ****
+  	fi
+  
+  t_fortuna: t_fortuna.o $(SUPPORT_DEPLIB) $(CRYPTO_DEPLIB)
+! 	$(CC_LINK) -o $@ t_fortuna.o $(K5CRYPTO_LIB) $(SUPPORT_LIB) $(LIBS)
+  
+  clean-unix:: clean-libobjs
+  	$(RM) t_fortuna.o t_fortuna t_fortuna.output
+--- 199,205 ----
+  	fi
+  
+  t_fortuna: t_fortuna.o $(SUPPORT_DEPLIB) $(CRYPTO_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ t_fortuna.o $(K5CRYPTO_LIB) $(SUPPORT_LIB) $(LIBS)
+  
+  clean-unix:: clean-libobjs
+  	$(RM) t_fortuna.o t_fortuna t_fortuna.output
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/libk5crypto_gauss.exports krb5_edit/src/lib/crypto/libk5crypto_gauss.exports
+*** krb5/src/lib/crypto/libk5crypto_gauss.exports	1970-01-01 08:00:00.000000000 +0800
+--- krb5_edit/src/lib/crypto/libk5crypto_gauss.exports	2022-08-26 16:03:35.008000000 +0800
+***************
+*** 0 ****
+--- 1,110 ----
++ krb5_c_make_random_key
++ krb5_c_encrypt_length
++ krb5_process_key
++ krb5_string_to_cksumtype
++ krb5_c_valid_enctype
++ krb5_c_valid_cksumtype
++ krb5_string_to_key
++ krb5_c_encrypt_iov
++ krb5_c_checksum_length
++ is_keyed_cksum
++ krb5_c_padding_length
++ is_coll_proof_cksum
++ krb5_init_random_key
++ krb5_c_string_to_key_with_params
++ krb5_c_random_make_octets
++ krb5_c_random_os_entropy
++ krb5_c_decrypt
++ krb5_c_crypto_length
++ krb5_c_block_size
++ krb5_cksumtype_to_string
++ krb5_c_keyed_checksum_types
++ krb5_c_is_keyed_cksum
++ krb5_c_crypto_length_iov
++ valid_cksumtype
++ krb5_c_random_seed
++ krb5_c_random_to_key
++ krb5_verify_checksum
++ krb5_c_free_state
++ krb5_c_verify_checksum
++ krb5_c_random_add_entropy
++ krb5_c_decrypt_iov
++ krb5_c_make_checksum
++ krb5_checksum_size
++ krb5_free_cksumtypes
++ krb5_finish_key
++ krb5_encrypt_size
++ krb5_c_keylengths
++ krb5_c_prf
++ krb5_encrypt
++ krb5_string_to_enctype
++ krb5_c_is_coll_proof_cksum
++ krb5_c_init_state
++ krb5_eblock_enctype
++ krb5_decrypt
++ krb5_c_encrypt
++ krb5_c_enctype_compare
++ krb5_c_verify_checksum_iov
++ valid_enctype
++ krb5_enctype_to_string
++ krb5_enctype_to_name
++ krb5_c_make_checksum_iov
++ krb5_calculate_checksum
++ krb5_c_string_to_key
++ krb5_use_enctype
++ krb5_random_key
++ krb5_finish_random_key
++ krb5_c_prf_length
++ krb5int_c_mandatory_cksumtype
++ krb5_c_fx_cf2_simple
++ krb5int_c_weak_enctype
++ krb5_encrypt_data
++ krb5int_c_copy_keyblock
++ krb5int_c_copy_keyblock_contents
++ krb5int_c_free_keyblock_contents
++ krb5int_c_free_keyblock
++ krb5int_c_init_keyblock
++ krb5int_hash_md4
++ krb5int_hash_md5
++ krb5int_hash_sha256
++ krb5int_hash_sha384
++ krb5int_enc_arcfour
++ krb5int_hmac
++ krb5_k_create_key
++ krb5_k_decrypt
++ krb5_k_decrypt_iov
++ krb5_k_encrypt
++ krb5_k_encrypt_iov
++ krb5_k_free_key
++ krb5_k_key_enctype
++ krb5_k_key_keyblock
++ krb5_k_make_checksum
++ krb5_k_make_checksum_iov
++ krb5_k_prf
++ krb5_k_reference_key
++ krb5_k_verify_checksum
++ krb5_k_verify_checksum_iov
++ krb5int_aes_encrypt
++ krb5int_aes_decrypt
++ krb5int_enc_des3
++ krb5int_arcfour_gsscrypt
++ krb5int_camellia_cbc_mac
++ krb5int_cmac_checksum
++ krb5int_enc_aes128
++ krb5int_enc_aes256
++ krb5int_enc_camellia128
++ krb5int_enc_camellia256
++ krb5int_derive_key
++ krb5int_derive_random
++ krb5int_aes_enc_blk
++ krb5int_aes_enc_key
++ k5_sha256
++ k5_sha256_final
++ k5_sha256_init
++ k5_sha256_update
++ krb5int_nfold
++ k5_allow_weak_pbkdf2iter
++ krb5_c_prfplus
++ krb5_c_derive_prfplus
++ k5_enctype_to_ssf
++ krb5int_c_deprecated_enctype
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/crypto/Makefile.in krb5_edit/src/lib/crypto/Makefile.in
+*** krb5/src/lib/crypto/Makefile.in	2022-08-26 16:04:07.092000000 +0800
+--- krb5_edit/src/lib/crypto/Makefile.in	2022-08-26 16:03:34.988000000 +0800
+***************
+*** 2,8 ****
+  BUILDTOP=$(REL)..$(S)..
+  SUBDIRS= krb $(CRYPTO_IMPL) crypto_tests
+  
+! LIBBASE=k5crypto
+  LIBMAJOR=3
+  LIBMINOR=1
+  LIBINITFUNC=cryptoint_initialize_library
+--- 2,8 ----
+  BUILDTOP=$(REL)..$(S)..
+  SUBDIRS= krb $(CRYPTO_IMPL) crypto_tests
+  
+! LIBBASE=k5crypto_gauss
+  LIBMAJOR=3
+  LIBMINOR=1
+  LIBINITFUNC=cryptoint_initialize_library
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/gssapi/generic/Makefile.in krb5_edit/src/lib/gssapi/generic/Makefile.in
+*** krb5/src/lib/gssapi/generic/Makefile.in	2022-08-26 16:04:07.112000000 +0800
+--- krb5_edit/src/lib/gssapi/generic/Makefile.in	2022-08-26 16:03:35.012000000 +0800
+***************
+*** 127,133 ****
+  		RIGHTPRINT=eltprt LEFTCMP=intcmp RIGHTCMP=eltcmp
+  maptest.o: maptest.c maptest.h
+  maptest: maptest.o
+! 	$(CC_LINK) -o maptest maptest.o
+  
+  ##DOS##LIBOBJS = $(OBJS)
+  
+--- 127,133 ----
+  		RIGHTPRINT=eltprt LEFTCMP=intcmp RIGHTCMP=eltcmp
+  maptest.o: maptest.c maptest.h
+  maptest: maptest.o
+! 	$(CC_LINK) -pie -o maptest maptest.o
+  
+  ##DOS##LIBOBJS = $(OBJS)
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/gssapi/libgssapi_krb5_gauss.exports krb5_edit/src/lib/gssapi/libgssapi_krb5_gauss.exports
+*** krb5/src/lib/gssapi/libgssapi_krb5_gauss.exports	1970-01-01 08:00:00.000000000 +0800
+--- krb5_edit/src/lib/gssapi/libgssapi_krb5_gauss.exports	2022-08-26 16:03:35.020000000 +0800
+***************
+*** 0 ****
+--- 1,168 ----
++ GSS_C_ATTR_LOCAL_LOGIN_USER
++ GSS_C_INQ_SSPI_SESSION_KEY
++ GSS_C_INQ_NEGOEX_KEY
++ GSS_C_INQ_NEGOEX_VERIFY_KEY
++ GSS_C_NT_ANONYMOUS
++ GSS_C_NT_COMPOSITE_EXPORT
++ GSS_C_NT_EXPORT_NAME
++ GSS_C_NT_HOSTBASED_SERVICE
++ GSS_C_NT_HOSTBASED_SERVICE_X
++ GSS_C_NT_MACHINE_UID_NAME
++ GSS_C_NT_STRING_UID_NAME
++ GSS_C_NT_USER_NAME
++ GSS_KRB5_NT_PRINCIPAL_NAME
++ GSS_KRB5_NT_ENTERPRISE_NAME
++ GSS_KRB5_CRED_NO_CI_FLAGS_X
++ GSS_KRB5_GET_CRED_IMPERSONATOR
++ GSS_C_MA_MECH_CONCRETE
++ GSS_C_MA_MECH_PSEUDO
++ GSS_C_MA_MECH_COMPOSITE
++ GSS_C_MA_MECH_NEGO
++ GSS_C_MA_MECH_GLUE
++ GSS_C_MA_NOT_MECH
++ GSS_C_MA_DEPRECATED
++ GSS_C_MA_NOT_DFLT_MECH
++ GSS_C_MA_ITOK_FRAMED
++ GSS_C_MA_AUTH_INIT
++ GSS_C_MA_AUTH_TARG
++ GSS_C_MA_AUTH_INIT_INIT
++ GSS_C_MA_AUTH_TARG_INIT
++ GSS_C_MA_AUTH_INIT_ANON
++ GSS_C_MA_AUTH_TARG_ANON
++ GSS_C_MA_DELEG_CRED
++ GSS_C_MA_INTEG_PROT
++ GSS_C_MA_CONF_PROT
++ GSS_C_MA_MIC
++ GSS_C_MA_WRAP
++ GSS_C_MA_PROT_READY
++ GSS_C_MA_REPLAY_DET
++ GSS_C_MA_OOS_DET
++ GSS_C_MA_CBINDINGS
++ GSS_C_MA_PFS
++ GSS_C_MA_COMPRESS
++ GSS_C_MA_CTX_TRANS
++ GSS_C_MA_NEGOEX_AND_SPNEGO
++ GSS_C_SEC_CONTEXT_SASL_SSF
++ gss_accept_sec_context
++ gss_acquire_cred
++ gss_acquire_cred_with_password
++ gss_acquire_cred_impersonate_name
++ gss_add_buffer_set_member
++ gss_add_cred
++ gss_add_cred_impersonate_name
++ gss_add_cred_with_password
++ gss_add_oid_set_member
++ gss_authorize_localname
++ gss_canonicalize_name
++ gss_compare_name
++ gss_complete_auth_token
++ gss_context_time
++ gss_create_empty_buffer_set
++ gss_create_empty_oid_set
++ gss_decapsulate_token
++ gss_delete_name_attribute
++ gss_delete_sec_context
++ gss_display_mech_attr
++ gss_display_name
++ gss_display_name_ext
++ gss_display_status
++ gss_duplicate_name
++ gss_encapsulate_token
++ gss_export_cred
++ gss_export_name
++ gss_export_name_composite
++ gss_export_sec_context
++ gss_get_mic
++ gss_get_mic_iov
++ gss_get_mic_iov_length
++ gss_get_name_attribute
++ gss_import_cred
++ gss_import_name
++ gss_import_sec_context
++ gss_indicate_mechs
++ gss_init_sec_context
++ gss_indicate_mechs_by_attrs
++ gss_inquire_attrs_for_mech
++ gss_inquire_context
++ gss_inquire_cred
++ gss_inquire_cred_by_mech
++ gss_inquire_cred_by_oid
++ gss_inquire_mech_for_saslname
++ gss_inquire_mechs_for_name
++ gss_inquire_names_for_mech
++ gss_inquire_saslname_for_mech
++ gss_inquire_sec_context_by_oid
++ gss_krb5_ccache_name
++ gss_krb5_copy_ccache
++ gss_krb5_export_lucid_sec_context
++ gss_krb5_free_lucid_sec_context
++ gss_krb5_get_tkt_flags
++ gss_krb5_import_cred
++ gss_krb5_set_allowable_enctypes
++ gss_krb5_set_cred_rcache
++ gss_krb5int_make_seal_token_v3
++ gss_krb5int_unseal_token_v3
++ gsskrb5_extract_authtime_from_sec_context
++ gsskrb5_extract_authz_data_from_sec_context
++ gss_localname
++ gss_map_name_to_any
++ gss_mech_iakerb
++ gss_mech_krb5
++ gss_mech_krb5_old
++ gss_mech_krb5_wrong
++ gss_mech_set_krb5
++ gss_mech_set_krb5_both
++ gss_mech_set_krb5_old
++ gss_nt_exported_name
++ gss_nt_krb5_name
++ gss_nt_krb5_principal
++ gss_nt_machine_uid_name
++ gss_nt_service_name
++ gss_nt_service_name_v2
++ gss_nt_string_uid_name
++ gss_nt_user_name
++ gss_oid_equal
++ gss_oid_to_str
++ gss_pname_to_uid
++ gss_pseudo_random
++ gss_process_context_token
++ gss_release_any_name_mapping
++ gss_release_buffer_set
++ gss_release_buffer
++ gss_release_cred
++ gss_release_iov_buffer
++ gss_release_name
++ gss_release_oid
++ gss_release_oid_set
++ gss_seal
++ gss_set_name_attribute
++ gss_set_neg_mechs
++ gss_set_sec_context_option
++ gss_sign
++ gss_store_cred
++ gss_str_to_oid
++ gss_test_oid_set_member
++ gss_unseal
++ gss_unwrap
++ gss_unwrap_aead
++ gss_unwrap_iov
++ gss_userok
++ gss_verify
++ gss_verify_mic
++ gss_verify_mic_iov
++ gss_wrap
++ gss_wrap_aead
++ gss_wrap_iov
++ gss_wrap_iov_length
++ gss_wrap_size_limit
++ gss_set_cred_option
++ gssspi_set_cred_option
++ gssspi_mech_invoke
++ krb5_gss_dbg_client_expcreds
++ krb5_gss_register_acceptor_identity
++ krb5_gss_use_kdc_context
++ gss_inquire_name
++ gss_acquire_cred_from
++ gss_add_cred_from
++ gss_store_cred_into
++ gssint_g_seqstate_init
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/gssapi/Makefile.in krb5_edit/src/lib/gssapi/Makefile.in
+*** krb5/src/lib/gssapi/Makefile.in	2022-08-26 16:04:07.112000000 +0800
+--- krb5_edit/src/lib/gssapi/Makefile.in	2022-08-26 16:03:35.012000000 +0800
+***************
+*** 18,24 ****
+  OBJS=
+  SRCS=
+  
+! LIBBASE=gssapi_krb5
+  LIBMAJOR=2
+  LIBMINOR=2
+  #LIBINITFUNC=gssint_lib_init
+--- 18,24 ----
+  OBJS=
+  SRCS=
+  
+! LIBBASE=gssapi_krb5_gauss
+  LIBMAJOR=2
+  LIBMINOR=2
+  #LIBINITFUNC=gssint_lib_init
+***************
+*** 27,33 ****
+  SUBDIROBJLISTS=generic/OBJS.ST mechglue/OBJS.ST krb5/OBJS.ST spnego/OBJS.ST
+  SHLIB_EXPDEPS=\
+  	$(KRB5_DEPLIB) $(CRYPTO_DEPLIB) $(SUPPORT_DEPLIB) $(COM_ERR_DEPLIB)
+! SHLIB_EXPLIBS=-lkrb5 -lk5crypto -lcom_err $(SUPPORT_LIB) $(DL_LIB) $(LIBS)
+  RELDIR=gssapi
+  
+  all-unix: all-liblinks @MAINT@ verify-calling-conventions-gssapi
+--- 27,33 ----
+  SUBDIROBJLISTS=generic/OBJS.ST mechglue/OBJS.ST krb5/OBJS.ST spnego/OBJS.ST
+  SHLIB_EXPDEPS=\
+  	$(KRB5_DEPLIB) $(CRYPTO_DEPLIB) $(SUPPORT_DEPLIB) $(COM_ERR_DEPLIB)
+! SHLIB_EXPLIBS=-lkrb5_gauss -lk5crypto_gauss -lcom_err_gauss $(SUPPORT_LIB) $(DL_LIB) $(LIBS)
+  RELDIR=gssapi
+  
+  all-unix: all-liblinks @MAINT@ verify-calling-conventions-gssapi
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/kadm5/clnt/Makefile.in krb5_edit/src/lib/kadm5/clnt/Makefile.in
+*** krb5/src/lib/kadm5/clnt/Makefile.in	2022-08-26 16:04:07.128000000 +0800
+--- krb5_edit/src/lib/kadm5/clnt/Makefile.in	2022-08-26 16:03:35.028000000 +0800
+***************
+*** 7,18 ****
+  LIBMINOR=0
+  STOBJLISTS=../OBJS.ST OBJS.ST
+  SHLIB_EXPDEPS=\
+! 	$(TOPLIBD)/libgssrpc$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssapi_krb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_LIBDEP)
+! SHLIB_EXPLIBS=-lgssrpc -lgssapi_krb5 -lkrb5 -lk5crypto $(SUPPORT_LIB) -lcom_err $(LIBS)
+  RELDIR=kadm5/clnt
+  
+  ##DOSBUILDTOP = ..\..\..
+--- 7,18 ----
+  LIBMINOR=0
+  STOBJLISTS=../OBJS.ST OBJS.ST
+  SHLIB_EXPDEPS=\
+! 	$(TOPLIBD)/libgssrpc_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssapi_krb5_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_LIBDEP)
+! SHLIB_EXPLIBS=-lgssrpc_gauss -lgssapi_krb5_gauss -lkrb5_gauss -lk5crypto_gauss $(SUPPORT_LIB) -lcom_err_gauss $(LIBS)
+  RELDIR=kadm5/clnt
+  
+  ##DOSBUILDTOP = ..\..\..
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/kadm5/srv/Makefile.in krb5_edit/src/lib/kadm5/srv/Makefile.in
+*** krb5/src/lib/kadm5/srv/Makefile.in	2022-08-26 16:04:07.132000000 +0800
+--- krb5_edit/src/lib/kadm5/srv/Makefile.in	2022-08-26 16:03:35.028000000 +0800
+***************
+*** 14,27 ****
+  STOBJLISTS=../OBJS.ST OBJS.ST
+  
+  SHLIB_EXPDEPS=\
+! 	$(TOPLIBD)/libgssrpc$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssapi_krb5$(SHLIBEXT) \
+  	$(TOPLIBD)/libkdb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_LIBDEP)
+! SHLIB_EXPLIBS =	-lgssrpc -lgssapi_krb5 -lkdb5 $(KDB5_DB_LIB) \
+! 		-lkrb5 -lk5crypto $(SUPPORT_LIB) -lcom_err @GEN_LIB@ $(LIBS)
+  RELDIR=kadm5/srv
+  
+  SRCS =	$(srcdir)/pwqual.c \
+--- 14,27 ----
+  STOBJLISTS=../OBJS.ST OBJS.ST
+  
+  SHLIB_EXPDEPS=\
+! 	$(TOPLIBD)/libgssrpc_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssapi_krb5_gauss$(SHLIBEXT) \
+  	$(TOPLIBD)/libkdb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_LIBDEP)
+! SHLIB_EXPLIBS =	-lgssrpc_gauss -lgssapi_krb5_gauss -lkdb5 $(KDB5_DB_LIB) \
+! 		-lkrb5_gauss -lk5crypto_gauss $(SUPPORT_LIB) -lcom_err_gauss @GEN_LIB@ $(LIBS)
+  RELDIR=kadm5/srv
+  
+  SRCS =	$(srcdir)/pwqual.c \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/kadm5/unit-test/Makefile.in krb5_edit/src/lib/kadm5/unit-test/Makefile.in
+*** krb5/src/lib/kadm5/unit-test/Makefile.in	2022-08-26 16:04:07.132000000 +0800
+--- krb5_edit/src/lib/kadm5/unit-test/Makefile.in	2022-08-26 16:03:35.032000000 +0800
+***************
+*** 10,35 ****
+  #
+  
+  init-test: init-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o init-test init-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  destroy-test: destroy-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o destroy-test destroy-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-handle-test: client-handle-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o client-handle-test client-handle-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-handle-test.o: handle-test.c
+  	$(CC) $(ALL_CFLAGS) -DCLIENT_TEST -o client-handle-test.o -c $(srcdir)/handle-test.c
+  
+  client-iter-test: iter-test.o $(KADMLCNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o client-iter-test iter-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-setkey-test: setkey-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o client-setkey-test setkey-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  #
+--- 10,35 ----
+  #
+  
+  init-test: init-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o init-test init-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  destroy-test: destroy-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o destroy-test destroy-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-handle-test: client-handle-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o client-handle-test client-handle-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-handle-test.o: handle-test.c
+  	$(CC) $(ALL_CFLAGS) -DCLIENT_TEST -o client-handle-test.o -c $(srcdir)/handle-test.c
+  
+  client-iter-test: iter-test.o $(KADMLCNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o client-iter-test iter-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  client-setkey-test: setkey-test.o $(KADMCLNT_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o client-setkey-test setkey-test.o \
+  		$(KADMCLNT_LIBS) $(KRB5_BASE_LIBS)
+  
+  #
+***************
+*** 37,59 ****
+  #
+  
+  randkey-test: randkey-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o randkey-test randkey-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-handle-test: handle-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o server-handle-test handle-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  lock-test: lock-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o lock-test lock-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-iter-test: iter-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o server-iter-test iter-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-setkey-test: setkey-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o server-setkey-test setkey-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  runenv.exp: Makefile
+--- 37,59 ----
+  #
+  
+  randkey-test: randkey-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o randkey-test randkey-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-handle-test: handle-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o server-handle-test handle-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  lock-test: lock-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o lock-test lock-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-iter-test: iter-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o server-iter-test iter-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  server-setkey-test: setkey-test.o $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o server-setkey-test setkey-test.o \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  runenv.exp: Makefile
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/kdb/Makefile.in krb5_edit/src/lib/kdb/Makefile.in
+*** krb5/src/lib/kdb/Makefile.in	2022-08-26 16:04:07.136000000 +0800
+--- krb5_edit/src/lib/kdb/Makefile.in	2022-08-26 16:03:35.032000000 +0800
+***************
+*** 13,22 ****
+  # Depends on libk5crypto and libkrb5
+  
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssrpc$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT)
+! SHLIB_EXPLIBS=-lgssrpc -lkrb5 -lk5crypto -lcom_err $(SUPPORT_LIB) $(DL_LIB) $(LIBS)
+  
+  adb_err.$(OBJEXT): adb_err.c
+  adb_err.c adb_err.h: $(srcdir)/adb_err.et
+--- 13,22 ----
+  # Depends on libk5crypto and libkrb5
+  
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libgssrpc_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT)
+! SHLIB_EXPLIBS=-lgssrpc_gauss -lkrb5_gauss -lk5crypto_gauss -lcom_err_gauss $(SUPPORT_LIB) $(DL_LIB) $(LIBS)
+  
+  adb_err.$(OBJEXT): adb_err.c
+  adb_err.c adb_err.h: $(srcdir)/adb_err.et
+***************
+*** 68,83 ****
+  depend: adb_err.h
+  
+  t_stringattr: t_stringattr.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_stringattr.o $(KDB5_LIBS) $(KADM_COMM_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_ulog: t_ulog.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_ulog.o $(KDB5_LIBS) $(KADM_COMM_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_sort_key_data: t_sort_key_data.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) \
+  		 $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_sort_key_data.o \
+  	$(KDB5_LIBS) $(KADM_COMM_LIBS) $(CMOCKA_LIBS) $(KRB5_BASE_LIBS)
+  @lib_frag@
+  @libobj_frag@
+--- 68,83 ----
+  depend: adb_err.h
+  
+  t_stringattr: t_stringattr.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_stringattr.o $(KDB5_LIBS) $(KADM_COMM_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_ulog: t_ulog.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_ulog.o $(KDB5_LIBS) $(KADM_COMM_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_sort_key_data: t_sort_key_data.o $(KDB5_DEPLIBS) $(KADM_COMM_DEPLIBS) \
+  		 $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_sort_key_data.o \
+  	$(KDB5_LIBS) $(KADM_COMM_LIBS) $(CMOCKA_LIBS) $(KRB5_BASE_LIBS)
+  @lib_frag@
+  @libobj_frag@
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krad/Makefile.in krb5_edit/src/lib/krad/Makefile.in
+*** krb5/src/lib/krad/Makefile.in	2022-08-26 16:04:07.140000000 +0800
+--- krb5_edit/src/lib/krad/Makefile.in	2022-08-26 16:03:35.036000000 +0800
+***************
+*** 44,70 ****
+  
+  T_ATTR_OBJS=attr.o t_attr.o
+  t_attr: $(T_ATTR_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -o $@ $(T_ATTR_OBJS) $(TESTLIBS)
+  
+  T_ATTRSET_OBJS=attr.o attrset.o t_attrset.o
+  t_attrset: $(T_ATTRSET_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -o $@ $(T_ATTRSET_OBJS) $(TESTLIBS)
+  
+  T_CODE_OBJS=code.o t_code.o
+  t_code: $(T_CODE_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -o $@ $(T_CODE_OBJS) $(TESTLIBS)
+  
+  T_PACKET_OBJS=attr.o attrset.o code.o packet.o t_packet.o
+  t_packet: $(T_PACKET_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -o $@ $(T_PACKET_OBJS) $(TESTLIBS)
+  
+  T_REMOTE_OBJS=attr.o attrset.o code.o packet.o remote.o t_remote.o
+  t_remote: $(T_REMOTE_OBJS) $(TESTDEPS) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -o $@ $(T_REMOTE_OBJS) $(TESTLIBS) $(VERTO_LIBS)
+  
+  T_CLIENT_OBJS=attr.o attrset.o code.o packet.o remote.o client.o t_client.o
+  t_client: $(T_CLIENT_OBJS) $(TESTDEPS) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -o $@ $(T_CLIENT_OBJS) $(TESTLIBS) $(VERTO_LIBS)
+  
+  clean-unix:: clean-libobjs
+  	$(RM) *.o t_attr t_attrset t_code t_packet t_remote t_client
+--- 44,70 ----
+  
+  T_ATTR_OBJS=attr.o t_attr.o
+  t_attr: $(T_ATTR_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -pie -o $@ $(T_ATTR_OBJS) $(TESTLIBS)
+  
+  T_ATTRSET_OBJS=attr.o attrset.o t_attrset.o
+  t_attrset: $(T_ATTRSET_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -pie -o $@ $(T_ATTRSET_OBJS) $(TESTLIBS)
+  
+  T_CODE_OBJS=code.o t_code.o
+  t_code: $(T_CODE_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -pie -o $@ $(T_CODE_OBJS) $(TESTLIBS)
+  
+  T_PACKET_OBJS=attr.o attrset.o code.o packet.o t_packet.o
+  t_packet: $(T_PACKET_OBJS) $(TESTDEPS)
+! 	$(CC_LINK) -pie -o $@ $(T_PACKET_OBJS) $(TESTLIBS)
+  
+  T_REMOTE_OBJS=attr.o attrset.o code.o packet.o remote.o t_remote.o
+  t_remote: $(T_REMOTE_OBJS) $(TESTDEPS) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ $(T_REMOTE_OBJS) $(TESTLIBS) $(VERTO_LIBS)
+  
+  T_CLIENT_OBJS=attr.o attrset.o code.o packet.o remote.o client.o t_client.o
+  t_client: $(T_CLIENT_OBJS) $(TESTDEPS) $(VERTO_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ $(T_CLIENT_OBJS) $(TESTLIBS) $(VERTO_LIBS)
+  
+  clean-unix:: clean-libobjs
+  	$(RM) *.o t_attr t_attrset t_code t_packet t_remote t_client
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/ccache/Makefile.in krb5_edit/src/lib/krb5/ccache/Makefile.in
+*** krb5/src/lib/krb5/ccache/Makefile.in	2022-08-26 16:04:07.140000000 +0800
+--- krb5_edit/src/lib/krb5/ccache/Makefile.in	2022-08-26 16:03:35.040000000 +0800
+***************
+*** 126,144 ****
+  T_CC_OBJS=t_cc.o
+  
+  t_cc: $(T_CC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_cc $(T_CC_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_CCCOL_OBJS = t_cccol.o
+  t_cccol: $(T_CCCOL_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_CCCOL_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_CCCURSOR_OBJS = t_cccursor.o
+  t_cccursor: $(T_CCCURSOR_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_CCCURSOR_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_MARSHAL_OBJS = t_marshal.o
+  t_marshal: $(T_MARSHAL_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_MARSHAL_OBJS) $(KRB5_BASE_LIBS)
+  
+  check-unix: t_cc t_marshal
+  	$(RUN_TEST) ./t_cc
+--- 126,144 ----
+  T_CC_OBJS=t_cc.o
+  
+  t_cc: $(T_CC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_cc $(T_CC_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_CCCOL_OBJS = t_cccol.o
+  t_cccol: $(T_CCCOL_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_CCCOL_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_CCCURSOR_OBJS = t_cccursor.o
+  t_cccursor: $(T_CCCURSOR_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_CCCURSOR_OBJS) $(KRB5_BASE_LIBS)
+  
+  T_MARSHAL_OBJS = t_marshal.o
+  t_marshal: $(T_MARSHAL_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_MARSHAL_OBJS) $(KRB5_BASE_LIBS)
+  
+  check-unix: t_cc t_marshal
+  	$(RUN_TEST) ./t_cc
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/keytab/Makefile.in krb5_edit/src/lib/krb5/keytab/Makefile.in
+*** krb5/src/lib/krb5/keytab/Makefile.in	2022-08-26 16:04:07.148000000 +0800
+--- krb5_edit/src/lib/krb5/keytab/Makefile.in	2022-08-26 16:03:35.044000000 +0800
+***************
+*** 55,61 ****
+  
+  T_KEYTAB_OBJS = t_keytab.o
+  t_keytab: $(T_KEYTAB_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_KEYTAB_OBJS) $(KRB5_BASE_LIBS)
+  
+  clean-unix::
+  	$(RM) t_keytab t_keytab.o
+--- 55,61 ----
+  
+  T_KEYTAB_OBJS = t_keytab.o
+  t_keytab: $(T_KEYTAB_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_KEYTAB_OBJS) $(KRB5_BASE_LIBS)
+  
+  clean-unix::
+  	$(RM) t_keytab t_keytab.o
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/krb/init_ctx.c krb5_edit/src/lib/krb5/krb/init_ctx.c
+*** krb5/src/lib/krb5/krb/init_ctx.c	2022-08-26 16:04:07.152000000 +0800
+--- krb5_edit/src/lib/krb5/krb/init_ctx.c	2022-08-26 16:03:35.052000000 +0800
+***************
+*** 56,61 ****
+--- 56,64 ----
+  #include "brand.c"
+  #include "../krb5_libinit.h"
+  
++ __thread char *G_DEFAULT_PROFILE_PATH = NULL;
++ __thread char *G_DEFAULT_CACHE_PATH = NULL;
++ 
+  static krb5_enctype default_enctype_list[] = {
+      ENCTYPE_AES256_CTS_HMAC_SHA1_96, ENCTYPE_AES128_CTS_HMAC_SHA1_96,
+      ENCTYPE_AES256_CTS_HMAC_SHA384_192, ENCTYPE_AES128_CTS_HMAC_SHA256_128,
+***************
+*** 120,125 ****
+--- 123,175 ----
+      return 0;
+  }
+  
++ void KRB5_CALLCONV 
++ krb5_set_profile_path(char *profile_path)
++ {
++     if (NULL != profile_path) {
++         if (profile_path[0] == '\0') {
++             if (NULL != G_DEFAULT_PROFILE_PATH) {
++                 free(G_DEFAULT_PROFILE_PATH);
++             }
++             G_DEFAULT_PROFILE_PATH = strdup(DEFAULT_PROFILE_PATH);
++         } else {
++             if (NULL == G_DEFAULT_PROFILE_PATH) {
++                 G_DEFAULT_PROFILE_PATH = strdup(profile_path);
++             } else if (strcasecmp(profile_path, G_DEFAULT_PROFILE_PATH)) {
++                 free(G_DEFAULT_PROFILE_PATH);
++                 G_DEFAULT_PROFILE_PATH = strdup(profile_path);
++             }
++         }
++     }
++ }
++ 
++ void KRB5_CALLCONV
++ krb5_set_cache_path(char *cache_path)
++ {
++     if (NULL != cache_path && cache_path[0] != '\0') {
++         if (NULL == G_DEFAULT_CACHE_PATH) {
++             G_DEFAULT_CACHE_PATH = strdup(cache_path);
++         } else if (strcasecmp(cache_path, G_DEFAULT_CACHE_PATH)) {
++             free(G_DEFAULT_CACHE_PATH);
++             G_DEFAULT_CACHE_PATH = strdup(cache_path);
++         }
++     }
++ }
++ 
++ void KRB5_CALLCONV
++ krb5_clean_cache_profile_path()
++ {
++     if (NULL != G_DEFAULT_CACHE_PATH) {
++         free(G_DEFAULT_CACHE_PATH);
++         G_DEFAULT_CACHE_PATH = NULL;
++     }
++ 
++     if (NULL != G_DEFAULT_PROFILE_PATH) {
++         free(G_DEFAULT_PROFILE_PATH);
++         G_DEFAULT_PROFILE_PATH = NULL;
++     }
++ }
++ 
+  krb5_error_code KRB5_CALLCONV
+  krb5_init_context(krb5_context *context)
+  {
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/krb/Makefile.in krb5_edit/src/lib/krb5/krb/Makefile.in
+*** krb5/src/lib/krb5/krb/Makefile.in	2022-08-26 16:04:07.148000000 +0800
+--- krb5_edit/src/lib/krb5/krb/Makefile.in	2022-08-26 16:03:35.044000000 +0800
+***************
+*** 410,475 ****
+  T_PARSE_HOST_STRING_OBJS= t_parse_host_string.o parse_host_string.o
+  
+  t_walk_rtree: $(T_WALK_RTREE_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_walk_rtree $(T_WALK_RTREE_OBJS) $(KRB5_BASE_LIBS)
+  t_ad_fx_armor: t_ad_fx_armor.o
+! 	$(CC_LINK) -o $@ t_ad_fx_armor.o $(KRB5_BASE_LIBS)
+  
+  t_authdata: t_authdata.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_authdata.o $(KRB5_BASE_LIBS)
+  
+  t_kerb: $(T_KERB_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_kerb $(T_KERB_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_ser: $(T_SER_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_ser $(T_SER_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_deltat : $(T_DELTAT_OBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o t_deltat $(T_DELTAT_OBJS) $(SUPPORT_LIB)
+  
+  T_EXPAND_OBJS=t_expand.o
+  t_expand.o : t_expand.c
+  t_expand : $(T_EXPAND_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_expand $(T_EXPAND_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_pac: $(T_PAC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_pac $(T_PAC_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_princ: $(T_PRINC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_princ $(T_PRINC_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_etypes: $(T_ETYPES_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_etypes $(T_ETYPES_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_parse_host_string: $(T_PARSE_HOST_STRING_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ $(T_PARSE_HOST_STRING_OBJS) $(CMOCKA_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_expire_warn: t_expire_warn.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_expire_warn.o $(KRB5_BASE_LIBS)
+  
+  t_vfy_increds: t_vfy_increds.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_vfy_increds.o $(KRB5_BASE_LIBS)
+  
+  t_in_ccache: t_in_ccache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_in_ccache.o $(KRB5_BASE_LIBS)
+  
+  t_cc_config: t_cc_config.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_cc_config.o $(KRB5_BASE_LIBS)
+  
+  t_copy_context: t_copy_context.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_copy_context.o $(KRB5_BASE_LIBS)
+  
+  t_response_items: t_response_items.o response_items.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_response_items.o response_items.o $(KRB5_BASE_LIBS)
+  
+  t_sname_match: t_sname_match.o sname_match.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_sname_match.o sname_match.o $(KRB5_BASE_LIBS)
+  
+  t_valid_times: t_valid_times.o valid_times.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_valid_times.o valid_times.o $(KRB5_BASE_LIBS)
+  
+  t_get_etype_info: t_get_etype_info.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_get_etype_info.o $(KRB5_BASE_LIBS)
+  
+  TEST_PROGS= t_walk_rtree t_kerb t_ser t_deltat t_expand t_authdata t_pac \
+  	t_in_ccache t_cc_config t_copy_context t_princ t_etypes t_vfy_increds \
+--- 410,475 ----
+  T_PARSE_HOST_STRING_OBJS= t_parse_host_string.o parse_host_string.o
+  
+  t_walk_rtree: $(T_WALK_RTREE_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_walk_rtree $(T_WALK_RTREE_OBJS) $(KRB5_BASE_LIBS)
+  t_ad_fx_armor: t_ad_fx_armor.o
+! 	$(CC_LINK) -pie -o $@ t_ad_fx_armor.o $(KRB5_BASE_LIBS)
+  
+  t_authdata: t_authdata.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_authdata.o $(KRB5_BASE_LIBS)
+  
+  t_kerb: $(T_KERB_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_kerb $(T_KERB_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_ser: $(T_SER_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_ser $(T_SER_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_deltat : $(T_DELTAT_OBJS) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o t_deltat $(T_DELTAT_OBJS) $(SUPPORT_LIB)
+  
+  T_EXPAND_OBJS=t_expand.o
+  t_expand.o : t_expand.c
+  t_expand : $(T_EXPAND_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_expand $(T_EXPAND_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_pac: $(T_PAC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_pac $(T_PAC_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_princ: $(T_PRINC_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_princ $(T_PRINC_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_etypes: $(T_ETYPES_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_etypes $(T_ETYPES_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_parse_host_string: $(T_PARSE_HOST_STRING_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ $(T_PARSE_HOST_STRING_OBJS) $(CMOCKA_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  t_expire_warn: t_expire_warn.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_expire_warn.o $(KRB5_BASE_LIBS)
+  
+  t_vfy_increds: t_vfy_increds.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_vfy_increds.o $(KRB5_BASE_LIBS)
+  
+  t_in_ccache: t_in_ccache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_in_ccache.o $(KRB5_BASE_LIBS)
+  
+  t_cc_config: t_cc_config.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_cc_config.o $(KRB5_BASE_LIBS)
+  
+  t_copy_context: t_copy_context.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_copy_context.o $(KRB5_BASE_LIBS)
+  
+  t_response_items: t_response_items.o response_items.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_response_items.o response_items.o $(KRB5_BASE_LIBS)
+  
+  t_sname_match: t_sname_match.o sname_match.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_sname_match.o sname_match.o $(KRB5_BASE_LIBS)
+  
+  t_valid_times: t_valid_times.o valid_times.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_valid_times.o valid_times.o $(KRB5_BASE_LIBS)
+  
+  t_get_etype_info: t_get_etype_info.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_get_etype_info.o $(KRB5_BASE_LIBS)
+  
+  TEST_PROGS= t_walk_rtree t_kerb t_ser t_deltat t_expand t_authdata t_pac \
+  	t_in_ccache t_cc_config t_copy_context t_princ t_etypes t_vfy_increds \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/libkrb5.exports krb5_edit/src/lib/krb5/libkrb5.exports
+*** krb5/src/lib/krb5/libkrb5.exports	2022-08-26 16:04:07.164000000 +0800
+--- krb5_edit/src/lib/krb5/libkrb5.exports	2022-08-26 16:03:35.060000000 +0800
+***************
+*** 650,652 ****
+--- 650,655 ----
+  profile_ser_internalize
+  profile_ser_size
+  profile_update_relation
++ krb5_set_cache_path
++ krb5_set_profile_path
++ krb5_clean_cache_profile_path
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/libkrb5_gauss.exports krb5_edit/src/lib/krb5/libkrb5_gauss.exports
+*** krb5/src/lib/krb5/libkrb5_gauss.exports	1970-01-01 08:00:00.000000000 +0800
+--- krb5_edit/src/lib/krb5/libkrb5_gauss.exports	2022-08-26 16:03:35.060000000 +0800
+***************
+*** 0 ****
+--- 1,655 ----
++ _krb5_conf_boolean
++ decode_krb5_ad_kdcissued
++ decode_krb5_ad_signedpath
++ decode_krb5_ap_rep
++ decode_krb5_ap_rep_enc_part
++ decode_krb5_ap_req
++ decode_krb5_as_rep
++ decode_krb5_as_req
++ decode_krb5_authdata
++ decode_krb5_authenticator
++ decode_krb5_cammac
++ decode_krb5_cred
++ decode_krb5_enc_cred_part
++ decode_krb5_enc_data
++ decode_krb5_enc_kdc_rep_part
++ decode_krb5_enc_priv_part
++ decode_krb5_enc_sam_response_enc_2
++ decode_krb5_enc_tkt_part
++ decode_krb5_encryption_key
++ decode_krb5_error
++ decode_krb5_etype_info
++ decode_krb5_etype_info2
++ decode_krb5_fast_req
++ decode_krb5_fast_response
++ decode_krb5_iakerb_finished
++ decode_krb5_iakerb_header
++ decode_krb5_kdc_req_body
++ decode_krb5_otp_tokeninfo
++ decode_krb5_kkdcp_message
++ decode_krb5_pa_enc_ts
++ decode_krb5_pa_for_user
++ decode_krb5_pa_fx_fast_reply
++ decode_krb5_pa_fx_fast_request
++ decode_krb5_pa_otp_challenge
++ decode_krb5_pa_otp_req
++ decode_krb5_pa_otp_enc_req
++ decode_krb5_pa_pac_options
++ decode_krb5_pa_pac_req
++ decode_krb5_pa_s4u_x509_user
++ decode_krb5_pa_spake
++ decode_krb5_padata_sequence
++ decode_krb5_priv
++ decode_krb5_safe
++ decode_krb5_sam_challenge_2
++ decode_krb5_sam_challenge_2_body
++ decode_krb5_sam_response_2
++ decode_krb5_secure_cookie
++ decode_krb5_setpw_req
++ decode_krb5_spake_factor
++ decode_krb5_tgs_rep
++ decode_krb5_tgs_req
++ decode_krb5_ticket
++ decode_krb5_typed_data
++ decode_utf8_strings
++ encode_krb5_ad_kdcissued
++ encode_krb5_ad_signedpath_data
++ encode_krb5_ad_signedpath
++ encode_krb5_ap_rep
++ encode_krb5_ap_rep_enc_part
++ encode_krb5_ap_req
++ encode_krb5_as_rep
++ encode_krb5_as_req
++ encode_krb5_authdata
++ encode_krb5_authenticator
++ encode_krb5_cammac
++ encode_krb5_checksum
++ encode_krb5_cred
++ encode_krb5_enc_cred_part
++ encode_krb5_enc_data
++ encode_krb5_enc_kdc_rep_part
++ encode_krb5_enc_priv_part
++ encode_krb5_enc_sam_response_enc_2
++ encode_krb5_enc_tkt_part
++ encode_krb5_encryption_key
++ encode_krb5_error
++ encode_krb5_etype_info
++ encode_krb5_etype_info2
++ encode_krb5_fast_response
++ encode_krb5_iakerb_finished
++ encode_krb5_iakerb_header
++ encode_krb5_kdc_req_body
++ encode_krb5_otp_tokeninfo
++ encode_krb5_kkdcp_message
++ encode_krb5_pa_enc_ts
++ encode_krb5_pa_for_user
++ encode_krb5_pa_fx_fast_reply
++ encode_krb5_pa_otp_challenge
++ encode_krb5_pa_otp_req
++ encode_krb5_pa_otp_enc_req
++ encode_krb5_pa_pac_options
++ encode_krb5_pa_s4u_x509_user
++ encode_krb5_pa_spake
++ encode_krb5_padata_sequence
++ encode_krb5_pkinit_supp_pub_info
++ encode_krb5_priv
++ encode_krb5_s4u_userid
++ encode_krb5_safe
++ encode_krb5_sam_challenge_2
++ encode_krb5_sam_challenge_2_body
++ encode_krb5_sam_response_2
++ encode_krb5_secure_cookie
++ encode_krb5_sp80056a_other_info
++ encode_krb5_spake_factor
++ encode_krb5_tgs_rep
++ encode_krb5_tgs_req
++ encode_krb5_ticket
++ encode_krb5_typed_data
++ encode_utf8_strings
++ et_asn1_error_table
++ et_k524_error_table
++ et_kdb5_error_table
++ et_krb5_error_table
++ et_kv5m_error_table
++ et_prof_error_table
++ initialize_asn1_error_table
++ initialize_k524_error_table
++ initialize_kdb5_error_table
++ initialize_krb5_error_table
++ initialize_k5e1_error_table
++ initialize_kv5m_error_table
++ initialize_prof_error_table
++ k5_add_empty_pa_data
++ k5_add_pa_data_element
++ k5_add_pa_data_from_data
++ k5_alloc_pa_data
++ k5_authind_decode
++ k5_build_conf_principals
++ k5_ccselect_free_context
++ k5_change_error_message_code
++ k5_etypes_contains
++ k5_expand_path_tokens
++ k5_expand_path_tokens_extra
++ k5_externalize_auth_context
++ k5_externalize_authdata
++ k5_externalize_authdata_context
++ k5_externalize_context
++ k5_externalize_keyblock
++ k5_externalize_principal
++ k5_free_algorithm_identifier
++ k5_free_cammac
++ k5_free_data_ptr_list
++ k5_free_otp_tokeninfo
++ k5_free_kkdcp_message
++ k5_free_pa_data_element
++ k5_free_pa_otp_challenge
++ k5_free_pa_otp_req
++ k5_free_secure_cookie
++ k5_free_pa_spake
++ k5_free_serverlist
++ k5_free_spake_factor
++ k5_hostrealm_free_context
++ k5_init_trace
++ k5_internalize_auth_context
++ k5_internalize_authdata
++ k5_internalize_authdata_context
++ k5_internalize_context
++ k5_internalize_keyblock
++ k5_internalize_principal
++ k5_is_string_numeric
++ k5_kt_get_principal
++ k5_localauth_free_context
++ k5_locate_kdc
++ k5_marshal_cred
++ k5_marshal_princ
++ k5_os_free_context
++ k5_os_init_context
++ k5_parse_host_string
++ k5_plugin_free_modules
++ k5_plugin_load
++ k5_plugin_load_all
++ k5_plugin_register
++ k5_plugin_register_dyn
++ k5_rc_close
++ k5_rc_get_name
++ k5_rc_resolve
++ k5_size_auth_context
++ k5_size_authdata
++ k5_size_authdata_context
++ k5_size_context
++ k5_size_keyblock
++ k5_size_principal
++ k5_unmarshal_cred
++ k5_unmarshal_princ
++ k5_unwrap_cammac_svc
++ k5_zapfree_pa_data
++ krb524_convert_creds_kdc
++ krb524_init_ets
++ krb5_425_conv_principal
++ krb5_524_conv_principal
++ krb5_524_convert_creds
++ krb5_address_compare
++ krb5_address_order
++ krb5_address_search
++ krb5_allow_weak_crypto
++ krb5_aname_to_localname
++ krb5_anonymous_principal
++ krb5_anonymous_realm
++ krb5_appdefault_boolean
++ krb5_appdefault_string
++ krb5_auth_con_free
++ krb5_auth_con_genaddrs
++ krb5_auth_con_get_checksum_func
++ krb5_auth_con_get_authdata_context
++ krb5_auth_con_getaddrs
++ krb5_auth_con_getauthenticator
++ krb5_auth_con_getflags
++ krb5_auth_con_getivector
++ krb5_auth_con_getkey
++ krb5_auth_con_getkey_k
++ krb5_auth_con_getlocalseqnumber
++ krb5_auth_con_getlocalsubkey
++ krb5_auth_con_getpermetypes
++ krb5_auth_con_getrcache
++ krb5_auth_con_getrecvsubkey
++ krb5_auth_con_getrecvsubkey_k
++ krb5_auth_con_getremoteseqnumber
++ krb5_auth_con_getremotesubkey
++ krb5_auth_con_getsendsubkey
++ krb5_auth_con_getsendsubkey_k
++ krb5_auth_con_init
++ krb5_auth_con_initivector
++ krb5_auth_con_set_authdata_context
++ krb5_auth_con_set_checksum_func
++ krb5_auth_con_set_req_cksumtype
++ krb5_auth_con_set_safe_cksumtype
++ krb5_auth_con_setaddrs
++ krb5_auth_con_setflags
++ krb5_auth_con_setivector
++ krb5_auth_con_setpermetypes
++ krb5_auth_con_setports
++ krb5_auth_con_setrcache
++ krb5_auth_con_setrecvsubkey
++ krb5_auth_con_setrecvsubkey_k
++ krb5_auth_con_setsendsubkey
++ krb5_auth_con_setsendsubkey_k
++ krb5_auth_con_setuseruserkey
++ krb5_authdata_context_copy
++ krb5_authdata_context_free
++ krb5_authdata_context_init
++ krb5_authdata_delete_attribute
++ krb5_authdata_get_attribute_types
++ krb5_authdata_get_attribute
++ krb5_authdata_set_attribute
++ krb5_authdata_export_attributes
++ krb5_authdata_export_authdata
++ krb5_authdata_export_internal
++ krb5_authdata_free_internal
++ krb5_authdata_import_attributes
++ krb5_build_principal
++ krb5_build_principal_alloc_va
++ krb5_build_principal_ext
++ krb5_build_principal_va
++ krb5_cc_cache_match
++ krb5_cc_close
++ krb5_cc_copy_creds
++ krb5_cc_default
++ krb5_cc_default_name
++ krb5_cc_destroy
++ krb5_cc_dfl_ops
++ krb5_cc_dup
++ krb5_cc_end_seq_get
++ krb5_cc_file_ops
++ krb5_cc_gen_new
++ krb5_cc_get_config
++ krb5_cc_get_full_name
++ krb5_cc_get_name
++ krb5_cc_get_principal
++ krb5_cc_get_type
++ krb5_cc_move
++ krb5_cc_initialize
++ krb5_cc_new_unique
++ krb5_cc_next_cred
++ krb5_cc_register
++ krb5_cc_remove_cred
++ krb5_cc_resolve
++ krb5_cc_retrieve_cred
++ krb5_cc_select
++ krb5_cc_set_config
++ krb5_cc_set_default_name
++ krb5_cc_set_flags
++ krb5_cc_start_seq_get
++ krb5_cc_store_cred
++ krb5_cc_support_switch
++ krb5_cc_switch
++ krb5_cccol_cursor_free
++ krb5_cccol_cursor_new
++ krb5_cccol_cursor_next
++ krb5_cccol_have_content
++ krb5_change_cache
++ krb5_change_password
++ krb5_check_clockskew
++ krb5_check_transited_list
++ krb5_chpw_message
++ krb5_chpw_result_code_string
++ krb5_clear_error_message
++ krb5_copy_addr
++ krb5_copy_addresses
++ krb5_copy_authdata
++ krb5_copy_authenticator
++ krb5_copy_checksum
++ krb5_copy_context
++ krb5_copy_creds
++ krb5_copy_data
++ krb5_copy_error_message
++ krb5_copy_keyblock
++ krb5_copy_keyblock_contents
++ krb5_copy_principal
++ krb5_copy_ticket
++ krb5_crypto_us_timeofday
++ krb5_decode_authdata_container
++ krb5_decode_ticket
++ krb5_decrypt_tkt_part
++ krb5_deltat_to_string
++ krb5_encode_authdata_container
++ krb5_encode_kdc_rep
++ krb5_encrypt_helper
++ krb5_encrypt_tkt_part
++ krb5_expand_hostname
++ krb5_fcc_ops
++ krb5_find_authdata
++ krb5_free_ad_kdcissued
++ krb5_free_ad_signedpath
++ krb5_free_address
++ krb5_free_addresses
++ krb5_free_ap_rep
++ krb5_free_ap_rep_enc_part
++ krb5_free_ap_req
++ krb5_free_authdata
++ krb5_free_authenticator
++ krb5_free_authenticator_contents
++ krb5_free_checksum
++ krb5_free_checksum_contents
++ krb5_free_config_files
++ krb5_free_context
++ krb5_free_cred
++ krb5_free_cred_contents
++ krb5_free_cred_enc_part
++ krb5_free_creds
++ krb5_free_data
++ krb5_free_data_contents
++ krb5_free_default_realm
++ krb5_free_enc_data
++ krb5_free_enc_kdc_rep_part
++ krb5_free_enc_sam_response_enc_2
++ krb5_free_enc_sam_response_enc_2_contents
++ krb5_free_enc_tkt_part
++ krb5_free_enctypes
++ krb5_free_error
++ krb5_free_error_message
++ krb5_free_etype_info
++ krb5_free_fast_armored_req
++ krb5_free_fast_req
++ krb5_free_fast_response
++ krb5_free_host_realm
++ krb5_free_iakerb_finished
++ krb5_free_iakerb_header
++ krb5_free_kdc_rep
++ krb5_free_kdc_req
++ krb5_free_keyblock
++ krb5_free_keyblock_contents
++ krb5_free_keytab_entry_contents
++ krb5_free_last_req
++ krb5_free_octet_data
++ krb5_free_pa_data
++ krb5_free_pa_enc_ts
++ krb5_free_pa_for_user
++ krb5_free_pa_pac_req
++ krb5_free_pa_s4u_x509_user
++ krb5_free_principal
++ krb5_free_priv
++ krb5_free_priv_enc_part
++ krb5_free_realm_tree
++ krb5_free_safe
++ krb5_free_sam_challenge_2
++ krb5_free_sam_challenge_2_body
++ krb5_free_sam_challenge_2_body_contents
++ krb5_free_sam_challenge_2_contents
++ krb5_free_sam_response_2
++ krb5_free_sam_response_2_contents
++ krb5_free_string
++ krb5_free_tgt_creds
++ krb5_free_ticket
++ krb5_free_tickets
++ krb5_free_tkt_authent
++ krb5_free_unparsed_name
++ krb5_fwd_tgt_creds
++ krb5_gen_portaddr
++ krb5_gen_replay_name
++ krb5_generate_seq_number
++ krb5_generate_subkey
++ krb5_get_cred_via_tkt
++ krb5_get_credentials
++ krb5_get_credentials_for_proxy
++ krb5_get_credentials_for_user
++ krb5_get_credentials_renew
++ krb5_get_credentials_validate
++ krb5_get_default_config_files
++ krb5_get_default_in_tkt_ktypes
++ krb5_get_default_realm
++ krb5_get_error_message
++ krb5_get_etype_info
++ krb5_get_fallback_host_realm
++ krb5_get_host_realm
++ krb5_get_in_tkt_with_keytab
++ krb5_get_in_tkt_with_password
++ krb5_get_in_tkt_with_skey
++ krb5_get_init_creds_keytab
++ krb5_get_init_creds_opt_alloc
++ krb5_get_init_creds_opt_free
++ krb5_get_init_creds_opt_free_pa
++ krb5_get_init_creds_opt_get_fast_flags
++ krb5_get_init_creds_opt_get_pa
++ krb5_get_init_creds_opt_init
++ krb5_get_init_creds_opt_set_address_list
++ krb5_get_init_creds_opt_set_anonymous
++ krb5_get_init_creds_opt_set_canonicalize
++ krb5_get_init_creds_opt_set_change_password_prompt
++ krb5_get_init_creds_opt_set_etype_list
++ krb5_get_init_creds_opt_set_expire_callback
++ krb5_get_init_creds_opt_set_fast_ccache
++ krb5_get_init_creds_opt_set_fast_ccache_name
++ krb5_get_init_creds_opt_set_fast_flags
++ krb5_get_init_creds_opt_set_forwardable
++ krb5_get_init_creds_opt_set_in_ccache
++ krb5_get_init_creds_opt_set_out_ccache
++ krb5_get_init_creds_opt_set_pa
++ krb5_get_init_creds_opt_set_pac_request
++ krb5_get_init_creds_opt_set_preauth_list
++ krb5_get_init_creds_opt_set_proxiable
++ krb5_get_init_creds_opt_set_renew_life
++ krb5_get_init_creds_opt_set_responder
++ krb5_get_init_creds_opt_set_salt
++ krb5_get_init_creds_opt_set_tkt_life
++ krb5_get_init_creds_password
++ krb5_get_notification_message
++ krb5_get_permitted_enctypes
++ krb5_get_profile
++ krb5_get_prompt_types
++ krb5_get_realm_domain
++ krb5_get_renewed_creds
++ krb5_get_server_rcache
++ krb5_get_tgs_ktypes
++ krb5_get_time_offsets
++ krb5_get_validated_creds
++ krb5_init_context
++ krb5_init_context_profile
++ krb5_init_creds_free
++ krb5_init_creds_get
++ krb5_init_creds_get_creds
++ krb5_init_creds_get_error
++ krb5_init_creds_get_times
++ krb5_init_creds_init
++ krb5_init_creds_set_keytab
++ krb5_init_creds_set_password
++ krb5_init_creds_set_service
++ krb5_init_creds_step
++ krb5_init_keyblock
++ krb5_init_secure_context
++ krb5_is_config_principal
++ krb5_is_permitted_enctype
++ krb5_is_referral_realm
++ krb5_is_thread_safe
++ krb5_kdc_rep_decrypt_proc
++ krb5_kt_add_entry
++ krb5_kt_client_default
++ krb5_kt_close
++ krb5_kt_default
++ krb5_kt_default_name
++ krb5_kt_dfl_ops
++ krb5_kt_dup
++ krb5_kt_end_seq_get
++ krb5_kt_free_entry
++ krb5_kt_get_entry
++ krb5_kt_get_name
++ krb5_kt_get_type
++ krb5_kt_have_content
++ krb5_kt_next_entry
++ krb5_kt_read_service_key
++ krb5_kt_register
++ krb5_kt_remove_entry
++ krb5_kt_resolve
++ krb5_kt_start_seq_get
++ krb5_ktf_ops
++ krb5_ktf_writable_ops
++ krb5_kuserok
++ krb5_lock_file
++ krb5_make_authdata_kdc_issued
++ krb5_make_full_ipaddr
++ krb5_make_fulladdr
++ krb5_mcc_ops
++ krb5_merge_authdata
++ krb5_mk_1cred
++ krb5_mk_error
++ krb5_mk_ncred
++ krb5_mk_priv
++ krb5_mk_rep
++ krb5_mk_rep_dce
++ krb5_mk_req
++ krb5_mk_req_extended
++ krb5_mk_safe
++ krb5_net_read
++ krb5_net_write
++ krb5_os_localaddr
++ krb5_overridekeyname
++ krb5_pac_add_buffer
++ krb5_pac_free
++ krb5_pac_get_buffer
++ krb5_pac_get_types
++ krb5_pac_init
++ krb5_pac_parse
++ krb5_pac_sign
++ krb5_pac_sign_ext
++ krb5_pac_verify
++ krb5_pac_verify_ext
++ krb5_pac_get_client_info
++ krb5_parse_name
++ krb5_parse_name_flags
++ krb5_prepend_error_message
++ krb5_principal2salt
++ krb5_principal2salt_norealm
++ krb5_principal_compare
++ krb5_principal_compare_any_realm
++ krb5_principal_compare_flags
++ krb5_prompter_posix
++ krb5_rc_default
++ krb5_rc_destroy
++ krb5_rc_get_lifespan
++ krb5_rc_initialize
++ krb5_rd_cred
++ krb5_rd_error
++ krb5_rd_priv
++ krb5_rd_rep
++ krb5_rd_rep_dce
++ krb5_rd_req
++ krb5_rd_req_decoded
++ krb5_rd_req_decoded_anyflag
++ krb5_rd_safe
++ krb5_read_message
++ krb5_read_password
++ krb5_realm_compare
++ krb5_recvauth
++ krb5_recvauth_version
++ krb5_responder_get_challenge
++ krb5_responder_list_questions
++ krb5_responder_set_answer
++ krb5_responder_otp_get_challenge
++ krb5_responder_otp_set_answer
++ krb5_responder_otp_challenge_free
++ krb5_responder_pkinit_get_challenge
++ krb5_responder_pkinit_set_answer
++ krb5_responder_pkinit_challenge_free
++ krb5_salttype_to_string
++ krb5_sendauth
++ krb5_sendto_kdc
++ krb5_ser_pack_bytes
++ krb5_ser_pack_int32
++ krb5_ser_pack_int64
++ krb5_ser_unpack_bytes
++ krb5_ser_unpack_int32
++ krb5_ser_unpack_int64
++ krb5_server_decrypt_ticket_keytab
++ krb5_set_config_files
++ krb5_set_debugging_time
++ krb5_set_default_in_tkt_ktypes
++ krb5_set_default_realm
++ krb5_set_default_tgs_enctypes
++ krb5_set_default_tgs_ktypes
++ krb5_set_error_message
++ krb5_set_password
++ krb5_set_password_using_ccache
++ krb5_set_principal_realm
++ krb5_set_real_time
++ krb5_set_kdc_send_hook
++ krb5_set_kdc_recv_hook
++ krb5_set_time_offsets
++ krb5_set_trace_callback
++ krb5_set_trace_filename
++ krb5_sname_match
++ krb5_sname_to_principal
++ krb5_string_to_deltat
++ krb5_string_to_salttype
++ krb5_string_to_timestamp
++ krb5int_tgtname
++ krb5_tkt_creds_free
++ krb5_tkt_creds_get
++ krb5_tkt_creds_get_creds
++ krb5_tkt_creds_get_times
++ krb5_tkt_creds_init
++ krb5_tkt_creds_step
++ krb5_timeofday
++ krb5_timestamp_to_sfstring
++ krb5_timestamp_to_string
++ krb5_unlock_file
++ krb5_unpack_full_ipaddr
++ krb5_unparse_name
++ krb5_unparse_name_ext
++ krb5_unparse_name_flags
++ krb5_unparse_name_flags_ext
++ krb5_us_timeofday
++ krb5_use_natural_time
++ krb5_verify_authdata_kdc_issued
++ krb5_verify_init_creds
++ krb5_verify_init_creds_opt_init
++ krb5_verify_init_creds_opt_set_ap_req_nofail
++ krb5_vprepend_error_message
++ krb5_vset_error_message
++ krb5_vwrap_error_message
++ krb5_walk_realm_tree
++ krb5_wrap_error_message
++ krb5_write_message
++ krb5int_accessor
++ krb5int_cc_default
++ krb5int_cleanup_library
++ krb5int_copy_data_contents
++ krb5int_copy_data_contents_add0
++ krb5int_find_pa_data
++ krb5int_foreach_localaddr
++ krb5int_free_data_list
++ krb5int_get_authdata_containee_types
++ krb5int_init_context_kdc
++ krb5int_initialize_library
++ krb5int_parse_enctype_list
++ krb5int_random_string
++ krb5int_trace
++ profile_abandon
++ profile_add_relation
++ profile_clear_relation
++ profile_flush
++ profile_flush_to_buffer
++ profile_flush_to_file
++ profile_free_buffer
++ profile_free_list
++ profile_get_boolean
++ profile_get_integer
++ profile_get_relation_names
++ profile_get_string
++ profile_get_subsection_names
++ profile_get_values
++ profile_init
++ profile_init_flags
++ profile_init_path
++ profile_init_vtable
++ profile_iterator
++ profile_iterator_create
++ profile_iterator_free
++ profile_release
++ profile_release_string
++ profile_rename_section
++ profile_ser_externalize
++ profile_ser_internalize
++ profile_ser_size
++ profile_update_relation
++ krb5_set_cache_path
++ krb5_set_profile_path
++ krb5_clean_cache_profile_path
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/Makefile.in krb5_edit/src/lib/krb5/Makefile.in
+*** krb5/src/lib/krb5/Makefile.in	2022-08-26 16:04:07.140000000 +0800
+--- krb5_edit/src/lib/krb5/Makefile.in	2022-08-26 16:03:35.036000000 +0800
+***************
+*** 17,23 ****
+  
+  STLIBOBJS=krb5_libinit.o
+  
+! LIBBASE=krb5
+  LIBMAJOR=3
+  LIBMINOR=3
+  LIBINITFUNC=profile_library_initializer krb5int_lib_init
+--- 17,23 ----
+  
+  STLIBOBJS=krb5_libinit.o
+  
+! LIBBASE=krb5_gauss
+  LIBMAJOR=3
+  LIBMINOR=3
+  LIBINITFUNC=profile_library_initializer krb5int_lib_init
+***************
+*** 54,62 ****
+  
+  RELDIR=krb5
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS=-lk5crypto -lcom_err $(SUPPORT_LIB) @GEN_LIB@ $(LIBS)
+  
+  all-unix: all-liblinks
+  
+--- 54,62 ----
+  
+  RELDIR=krb5
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS=-lk5crypto_gauss -lcom_err_gauss $(SUPPORT_LIB) @GEN_LIB@ $(LIBS)
+  
+  all-unix: all-liblinks
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/os/ccdefname.c krb5_edit/src/lib/krb5/os/ccdefname.c
+*** krb5/src/lib/krb5/os/ccdefname.c	2022-08-26 16:04:07.164000000 +0800
+--- krb5_edit/src/lib/krb5/os/ccdefname.c	2022-08-26 16:03:35.060000000 +0800
+***************
+*** 299,309 ****
+      if (os_ctx->default_ccname != NULL)
+          return os_ctx->default_ccname;
+  
+!     /* Try the environment variable first. */
+!     envstr = secure_getenv(KRB5_ENV_CCNAME);
+!     if (envstr != NULL) {
+!         os_ctx->default_ccname = strdup(envstr);
+          return os_ctx->default_ccname;
+      }
+  
+      if (profile_get_string(context->profile, KRB5_CONF_LIBDEFAULTS,
+--- 299,314 ----
+      if (os_ctx->default_ccname != NULL)
+          return os_ctx->default_ccname;
+  
+!     /* Try the setable variable first. */
+!     if (NULL != G_DEFAULT_CACHE_PATH) {
+!         os_ctx->default_ccname = strdup(G_DEFAULT_CACHE_PATH);
+          return os_ctx->default_ccname;
++     } else {
++         envstr = getenv(KRB5_ENV_CCNAME);
++         if (envstr != NULL) {
++             os_ctx->default_ccname = strdup(envstr);
++             return os_ctx->default_ccname;
++         }
+      }
+  
+      if (profile_get_string(context->profile, KRB5_CONF_LIBDEFAULTS,
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/os/init_os_ctx.c krb5_edit/src/lib/krb5/os/init_os_ctx.c
+*** krb5/src/lib/krb5/os/init_os_ctx.c	2022-08-26 16:04:07.164000000 +0800
+--- krb5_edit/src/lib/krb5/os/init_os_ctx.c	2022-08-26 16:03:35.064000000 +0800
+***************
+*** 298,305 ****
+      if (secure) {
+          filepath = DEFAULT_SECURE_PROFILE_PATH;
+      } else {
+!         filepath = secure_getenv("KRB5_CONFIG");
+!         if (!filepath) filepath = DEFAULT_PROFILE_PATH;
+      }
+  
+      /* count the distinct filename components */
+--- 298,309 ----
+      if (secure) {
+          filepath = DEFAULT_SECURE_PROFILE_PATH;
+      } else {
+!         if (NULL != G_DEFAULT_PROFILE_PATH) {
+!             filepath = G_DEFAULT_PROFILE_PATH;
+!         } else {
+!             filepath = getenv("KRB5_CONFIG");
+!             if (!filepath) filepath = DEFAULT_PROFILE_PATH;
+!         }
+      }
+  
+      /* count the distinct filename components */
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/os/Makefile.in krb5_edit/src/lib/krb5/os/Makefile.in
+*** krb5/src/lib/krb5/os/Makefile.in	2022-08-26 16:04:07.164000000 +0800
+--- krb5_edit/src/lib/krb5/os/Makefile.in	2022-08-26 16:03:35.060000000 +0800
+***************
+*** 171,177 ****
+  T_TRACE_OBJS = t_trace.o
+  
+  t_std_conf: $(T_STD_CONF_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_std_conf $(T_STD_CONF_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_localaddr: localaddr.c
+  	$(CC_LINK) $(ALL_CFLAGS) -DTEST -o t_localaddr $(srcdir)/localaddr.c $(KRB5_BASE_LIBS) $(LIBS)
+--- 171,177 ----
+  T_TRACE_OBJS = t_trace.o
+  
+  t_std_conf: $(T_STD_CONF_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_std_conf $(T_STD_CONF_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_localaddr: localaddr.c
+  	$(CC_LINK) $(ALL_CFLAGS) -DTEST -o t_localaddr $(srcdir)/localaddr.c $(KRB5_BASE_LIBS) $(LIBS)
+***************
+*** 185,194 ****
+  	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+  
+  t_trace: $(T_TRACE_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_trace $(T_TRACE_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_expand_path: t_expand_path.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_expand_path.o $(KRB5_BASE_LIBS)
+  
+  LCLINT=lclint
+  LCLINTOPTS= -warnposix \
+--- 185,194 ----
+  	link $(EXE_LINKOPTS) -out:$@ $** ws2_32.lib
+  
+  t_trace: $(T_TRACE_OBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_trace $(T_TRACE_OBJS) $(KRB5_BASE_LIBS)
+  
+  t_expand_path: t_expand_path.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_expand_path.o $(KRB5_BASE_LIBS)
+  
+  LCLINT=lclint
+  LCLINTOPTS= -warnposix \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/krb5/rcache/Makefile.in krb5_edit/src/lib/krb5/rcache/Makefile.in
+*** krb5/src/lib/krb5/rcache/Makefile.in	2022-08-26 16:04:07.168000000 +0800
+--- krb5_edit/src/lib/krb5/rcache/Makefile.in	2022-08-26 16:03:35.064000000 +0800
+***************
+*** 34,43 ****
+  clean-unix:: clean-libobjs
+  
+  t_memrcache: t_memrcache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_memrcache.o $(KRB5_BASE_LIBS)
+  
+  t_rcfile2: t_rcfile2.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ t_rcfile2.o $(KRB5_BASE_LIBS)
+  
+  check-unix: t_memrcache t_rcfile2
+  	$(RUN_TEST) ./t_memrcache
+--- 34,43 ----
+  clean-unix:: clean-libobjs
+  
+  t_memrcache: t_memrcache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_memrcache.o $(KRB5_BASE_LIBS)
+  
+  t_rcfile2: t_rcfile2.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ t_rcfile2.o $(KRB5_BASE_LIBS)
+  
+  check-unix: t_memrcache t_rcfile2
+  	$(RUN_TEST) ./t_memrcache
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/Makefile.in krb5_edit/src/lib/Makefile.in
+*** krb5/src/lib/Makefile.in	2022-08-26 16:04:07.088000000 +0800
+--- krb5_edit/src/lib/Makefile.in	2022-08-26 16:03:34.988000000 +0800
+***************
+*** 5,13 ****
+  
+  all-unix:
+  
+! CLEANLIBS = libkrb5.a libkdb5.a libcrypto.a libgssapi_krb5.a libkadm.a \
+! 	libcom_err.a libpty.a ibss.a libgssapi.a libapputils.a libkrb5.so \
+! 	libcrypto.so
+  
+  clean-unix::
+  
+--- 5,13 ----
+  
+  all-unix:
+  
+! CLEANLIBS = libkrb5_gauss.a libkdb5.a libcrypto_gauss.a libgssapi_krb5_gauss.a libkadm.a \
+! 	libcom_err_gauss.a libpty.a ibss.a libgssapi_gauss.a libapputils.a libkrb5_gauss.so \
+! 	libcrypto_gauss.so
+  
+  clean-unix::
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/rpc/libgssrpc_gauss.exports krb5_edit/src/lib/rpc/libgssrpc_gauss.exports
+*** krb5/src/lib/rpc/libgssrpc_gauss.exports	1970-01-01 08:00:00.000000000 +0800
+--- krb5_edit/src/lib/rpc/libgssrpc_gauss.exports	2022-08-26 16:03:35.076000000 +0800
+***************
+*** 0 ****
+--- 1,144 ----
++ gssrpc_auth_debug_gss
++ gssrpc_auth_debug_gssapi
++ gssrpc_auth_gssapi_create
++ gssrpc_auth_gssapi_create_default
++ gssrpc_auth_gssapi_display_status
++ gssrpc_auth_gssapi_seal_seq
++ gssrpc_auth_gssapi_unseal_seq
++ gssrpc_auth_gssapi_unwrap_data
++ gssrpc_auth_gssapi_wrap_data
++ gssrpc_authgss_create
++ gssrpc_authgss_create_default
++ gssrpc_authgss_get_private_data
++ gssrpc_authgss_service
++ gssrpc_authnone_create
++ gssrpc_authunix_create
++ gssrpc_authunix_create_default
++ gssrpc_bindresvport
++ gssrpc_bindresvport_sa
++ gssrpc_callrpc
++ gssrpc_clnt_broadcast
++ gssrpc_clnt_create
++ gssrpc_clnt_pcreateerror
++ gssrpc_clnt_perrno
++ gssrpc_clnt_perror
++ gssrpc_clnt_spcreateerror
++ gssrpc_clnt_sperrno
++ gssrpc_clnt_sperror
++ gssrpc_clntraw_create
++ gssrpc_clnttcp_create
++ gssrpc_clntudp_bufcreate
++ gssrpc_clntudp_create
++ gssrpc_get_myaddress
++ gssrpc_getrpcport
++ gssrpc_log_debug
++ gssrpc_log_hexdump
++ gssrpc_log_status
++ gssrpc_misc_debug_gss
++ gssrpc_misc_debug_gssapi
++ gssrpc_pmap_getmaps
++ gssrpc_pmap_getport
++ gssrpc_pmap_rmtcall
++ gssrpc_pmap_set
++ gssrpc_pmap_unset
++ gssrpc_registerrpc
++ gssrpc_rpc_createrr
++ gssrpc_svc_auth_gss_ops
++ gssrpc_svc_auth_gssapi_ops
++ gssrpc_svc_auth_none
++ gssrpc_svc_auth_none_ops
++ gssrpc_svc_debug_gss
++ gssrpc_svc_debug_gssapi
++ gssrpc_svc_fdset
++ gssrpc_svc_fdset_init
++ gssrpc_svc_getreq
++ gssrpc_svc_getreqset
++ gssrpc_svc_maxfd
++ gssrpc_svc_register
++ gssrpc_svc_run
++ gssrpc_svc_sendreply
++ gssrpc_svc_unregister
++ gssrpc_svcauth_gss_get_principal
++ gssrpc_svcauth_gss_set_log_badauth_func
++ gssrpc_svcauth_gss_set_log_badauth2_func
++ gssrpc_svcauth_gss_set_log_badverf_func
++ gssrpc_svcauth_gss_set_log_miscerr_func
++ gssrpc_svcauth_gss_set_svc_name
++ gssrpc_svcauth_gssapi_set_log_badauth_func
++ gssrpc_svcauth_gssapi_set_log_badauth2_func
++ gssrpc_svcauth_gssapi_set_log_badverf_func
++ gssrpc_svcauth_gssapi_set_log_miscerr_func
++ gssrpc_svcauth_gssapi_set_names
++ gssrpc_svcauth_gssapi_unset_names
++ gssrpc_svcerr_auth
++ gssrpc_svcerr_decode
++ gssrpc_svcerr_noproc
++ gssrpc_svcerr_noprog
++ gssrpc_svcerr_progvers
++ gssrpc_svcerr_systemerr
++ gssrpc_svcerr_weakauth
++ gssrpc_svcfd_create
++ gssrpc_svcraw_create
++ gssrpc_svctcp_create
++ gssrpc_svcudp_bufcreate
++ gssrpc_svcudp_create
++ gssrpc_svcudp_enablecache
++ gssrpc_xdr_accepted_reply
++ gssrpc_xdr_array
++ gssrpc_xdr_authgssapi_creds
++ gssrpc_xdr_authgssapi_init_arg
++ gssrpc_xdr_authgssapi_init_res
++ gssrpc_xdr_authunix_parms
++ gssrpc_xdr_bool
++ gssrpc_xdr_bytes
++ gssrpc_xdr_callhdr
++ gssrpc_xdr_callmsg
++ gssrpc_xdr_char
++ gssrpc_xdr_des_block
++ gssrpc_xdr_enum
++ gssrpc_xdr_free
++ gssrpc_xdr_gss_buf
++ gssrpc_xdr_int
++ gssrpc_xdr_int32
++ gssrpc_xdr_long
++ gssrpc_xdr_netobj
++ gssrpc_xdr_opaque
++ gssrpc_xdr_opaque_auth
++ gssrpc_xdr_pmap
++ gssrpc_xdr_pmaplist
++ gssrpc_xdr_pointer
++ gssrpc_xdr_reference
++ gssrpc_xdr_rejected_reply
++ gssrpc_xdr_replymsg
++ gssrpc_xdr_rmtcall_args
++ gssrpc_xdr_rmtcallres
++ gssrpc_xdr_rpc_gss_buf
++ gssrpc_xdr_rpc_gss_cred
++ gssrpc_xdr_rpc_gss_data
++ gssrpc_xdr_rpc_gss_init_args
++ gssrpc_xdr_rpc_gss_init_res
++ gssrpc_xdr_rpc_gss_unwrap_data
++ gssrpc_xdr_rpc_gss_wrap_data
++ gssrpc_xdr_short
++ gssrpc_xdr_sizeof
++ gssrpc_xdr_string
++ gssrpc_xdr_u_char
++ gssrpc_xdr_u_int
++ gssrpc_xdr_u_int32
++ gssrpc_xdr_u_long
++ gssrpc_xdr_u_short
++ gssrpc_xdr_union
++ gssrpc_xdr_vector
++ gssrpc_xdr_void
++ gssrpc_xdr_wrapstring
++ gssrpc_xdralloc_create
++ gssrpc_xdralloc_getdata
++ gssrpc_xdralloc_release
++ gssrpc_xdrmem_create
++ gssrpc_xdrrec_create
++ gssrpc_xdrrec_endofrecord
++ gssrpc_xdrrec_eof
++ gssrpc_xdrrec_skiprecord
++ gssrpc_xdrstdio_create
++ gssrpc_xprt_register
++ gssrpc_xprt_unregister
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/rpc/Makefile.in krb5_edit/src/lib/rpc/Makefile.in
+*** krb5/src/lib/rpc/Makefile.in	2022-08-26 16:04:07.176000000 +0800
+--- krb5_edit/src/lib/rpc/Makefile.in	2022-08-26 16:03:35.076000000 +0800
+***************
+*** 7,21 ****
+  ##DOSBUILDTOP = ..\..
+  ##DOSLIBNAME=libgssrpc.lib
+  
+! LIBBASE=gssrpc
+  LIBMAJOR=4
+  LIBMINOR=2
+  SHLIB_EXPDEPS= \
+! 	$(TOPLIBD)/libgssapi_krb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB)
+! SHLIB_EXPLIBS=-lgssapi_krb5 -lkrb5 -lk5crypto -lcom_err $(LIBS)
+  RELDIR=rpc
+  
+  SRCS = $(srcdir)/auth_none.c \
+--- 7,21 ----
+  ##DOSBUILDTOP = ..\..
+  ##DOSLIBNAME=libgssrpc.lib
+  
+! LIBBASE=gssrpc_gauss
+  LIBMAJOR=4
+  LIBMINOR=2
+  SHLIB_EXPDEPS= \
+! 	$(TOPLIBD)/libgssapi_krb5_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+  	$(COM_ERR_DEPLIB)
+! SHLIB_EXPLIBS=-lgssapi_krb5_gauss -lkrb5_gauss -lk5crypto_gauss -lcom_err_gauss $(LIBS)
+  RELDIR=rpc
+  
+  SRCS = $(srcdir)/auth_none.c \
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/lib/rpc/unit-test/Makefile.in krb5_edit/src/lib/rpc/unit-test/Makefile.in
+*** krb5/src/lib/rpc/unit-test/Makefile.in	2022-08-26 16:04:07.180000000 +0800
+--- krb5_edit/src/lib/rpc/unit-test/Makefile.in	2022-08-26 16:03:35.080000000 +0800
+***************
+*** 7,17 ****
+  all: client server
+  
+  client: client.o rpc_test_clnt.o $(GSSRPC_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o client client.o rpc_test_clnt.o \
+  		$(GSSRPC_LIBS) $(KRB5_BASE_LIBS)
+  
+  server: server.o rpc_test_svc.o $(GSSRPC_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o server server.o rpc_test_svc.o \
+  		$(GSSRPC_LIBS) $(KRB5_BASE_LIBS)
+  
+  client.o server.o: rpc_test.h
+--- 7,17 ----
+  all: client server
+  
+  client: client.o rpc_test_clnt.o $(GSSRPC_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o client client.o rpc_test_clnt.o \
+  		$(GSSRPC_LIBS) $(KRB5_BASE_LIBS)
+  
+  server: server.o rpc_test_svc.o $(GSSRPC_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o server server.o rpc_test_svc.o \
+  		$(GSSRPC_LIBS) $(KRB5_BASE_LIBS)
+  
+  client.o server.o: rpc_test.h
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/authdata/greet_client/Makefile.in krb5_edit/src/plugins/authdata/greet_client/Makefile.in
+*** krb5/src/plugins/authdata/greet_client/Makefile.in	2022-08-26 16:04:07.188000000 +0800
+--- krb5_edit/src/plugins/authdata/greet_client/Makefile.in	2022-08-26 16:03:35.084000000 +0800
+***************
+*** 4,12 ****
+  LIBBASE=greet_client
+  LIBMAJOR=0
+  LIBMINOR=0
+! SHLIB_EXPDEPS = $(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5 -lcom_err -lk5crypto $(SUPPORT_LIB) $(LIBS)
+  STLIBOBJS= greet.o
+  
+  SRCS=	greet.c
+--- 4,12 ----
+  LIBBASE=greet_client
+  LIBMAJOR=0
+  LIBMINOR=0
+! SHLIB_EXPDEPS = $(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5_gauss -lcom_err_gauss -lk5crypto_gauss $(SUPPORT_LIB) $(LIBS)
+  STLIBOBJS= greet.o
+  
+  SRCS=	greet.c
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/authdata/greet_server/Makefile.in krb5_edit/src/plugins/authdata/greet_server/Makefile.in
+*** krb5/src/plugins/authdata/greet_server/Makefile.in	2022-08-26 16:04:07.188000000 +0800
+--- krb5_edit/src/plugins/authdata/greet_server/Makefile.in	2022-08-26 16:03:35.084000000 +0800
+***************
+*** 4,12 ****
+  LIBBASE=greet_server
+  LIBMAJOR=1
+  LIBMINOR=0
+! SHLIB_EXPDEPS = $(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5 -lcom_err -lk5crypto $(SUPPORT_LIB) $(LIBS)
+  
+  STLIBOBJS= greet_auth.o
+  
+--- 4,12 ----
+  LIBBASE=greet_server
+  LIBMAJOR=1
+  LIBMINOR=0
+! SHLIB_EXPDEPS = $(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5_gauss -lcom_err_gauss -lk5crypto_gauss $(SUPPORT_LIB) $(LIBS)
+  
+  STLIBOBJS= greet_auth.o
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/kadm5_hook/test/Makefile.in krb5_edit/src/plugins/kadm5_hook/test/Makefile.in
+*** krb5/src/plugins/kadm5_hook/test/Makefile.in	2022-08-26 16:04:07.188000000 +0800
+--- krb5_edit/src/plugins/kadm5_hook/test/Makefile.in	2022-08-26 16:03:35.084000000 +0800
+***************
+*** 7,15 ****
+  RELDIR=../plugins/kadm5_hook/test
+  # Depends on libk5crypto and libkrb5
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5 -lcom_err -lk5crypto $(SUPPORT_LIB) $(LIBS)
+  
+  STLIBOBJS=main.o
+  
+--- 7,15 ----
+  RELDIR=../plugins/kadm5_hook/test
+  # Depends on libk5crypto and libkrb5
+  SHLIB_EXPDEPS = \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkrb5_gauss -lcom_err_gauss -lk5crypto_gauss $(SUPPORT_LIB) $(LIBS)
+  
+  STLIBOBJS=main.o
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/kdb/db2/libdb2/test/Makefile.in krb5_edit/src/plugins/kdb/db2/libdb2/test/Makefile.in
+*** krb5/src/plugins/kdb/db2/libdb2/test/Makefile.in	2022-08-26 16:04:07.200000000 +0800
+--- krb5_edit/src/plugins/kdb/db2/libdb2/test/Makefile.in	2022-08-26 16:03:35.096000000 +0800
+***************
+*** 15,21 ****
+  all:
+  
+  dbtest: dbtest.o $(DB_DEPLIB)
+! 	$(CC_LINK) -o $@ dbtest.o $(STRERROR_OBJ) $(DB_LIB)
+  
+  t.be.db: $(srcdir)/t.be.txt
+  t.le.db: $(srcdir)/t.le.txt
+--- 15,21 ----
+  all:
+  
+  dbtest: dbtest.o $(DB_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ dbtest.o $(STRERROR_OBJ) $(DB_LIB)
+  
+  t.be.db: $(srcdir)/t.be.txt
+  t.le.db: $(srcdir)/t.le.txt
+***************
+*** 29,35 ****
+  	$(CC) $(ALL_CFLAGS) -c $(srcdir)/btree.tests/main.c -o $@
+  
+  bttest: bttest.o $(DB_DEPLIB)
+! 	$(CC_LINK) -o $@ bttest.o $(STRERROR_OBJ) $(DB_LIB)
+  
+  clean-unix::
+  	$(RM) dbtest.o dbtest __dbtest
+--- 29,35 ----
+  	$(CC) $(ALL_CFLAGS) -c $(srcdir)/btree.tests/main.c -o $@
+  
+  bttest: bttest.o $(DB_DEPLIB)
+! 	$(CC_LINK) -pie -o $@ bttest.o $(STRERROR_OBJ) $(DB_LIB)
+  
+  clean-unix::
+  	$(RM) dbtest.o dbtest __dbtest
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/kdb/db2/Makefile.in krb5_edit/src/plugins/kdb/db2/Makefile.in
+*** krb5/src/plugins/kdb/db2/Makefile.in	2022-08-26 16:04:07.188000000 +0800
+--- krb5_edit/src/plugins/kdb/db2/Makefile.in	2022-08-26 16:03:35.084000000 +0800
+***************
+*** 29,37 ****
+  # Also on gssrpc, for xdr stuff.
+  SHLIB_EXPDEPS = \
+  	$(GSSRPC_DEPLIBS) \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT)
+! SHLIB_EXPLIBS= $(GSSRPC_LIBS) -lkrb5 -lcom_err -lk5crypto $(KDB5_DB_LIB) $(KADMSRV_LIBS) $(SUPPORT_LIB) $(LIBS) @DB_EXTRA_LIBS@
+  
+  DBDIR = libdb2
+  DBOBJLISTS = $(DBOBJLISTS-@DB_VERSION@)
+--- 29,37 ----
+  # Also on gssrpc, for xdr stuff.
+  SHLIB_EXPDEPS = \
+  	$(GSSRPC_DEPLIBS) \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT)
+! SHLIB_EXPLIBS= $(GSSRPC_LIBS) -lkrb5_gauss -lcom_err_gauss -lk5crypto_gauss $(KDB5_DB_LIB) $(KADMSRV_LIBS) $(SUPPORT_LIB) $(LIBS) @DB_EXTRA_LIBS@
+  
+  DBDIR = libdb2
+  DBOBJLISTS = $(DBOBJLISTS-@DB_VERSION@)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/kdb/ldap/ldap_util/Makefile.in krb5_edit/src/plugins/kdb/ldap/ldap_util/Makefile.in
+*** krb5/src/plugins/kdb/ldap/ldap_util/Makefile.in	2022-08-26 16:04:07.200000000 +0800
+--- krb5_edit/src/plugins/kdb/ldap/ldap_util/Makefile.in	2022-08-26 16:03:35.100000000 +0800
+***************
+*** 14,20 ****
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIB) $(GETDATE)
+! 	$(CC_LINK) -o $(PROG) $(OBJS) \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  getdate.c: $(GETDATE)
+--- 14,20 ----
+  all: $(PROG)
+  
+  $(PROG): $(OBJS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIB) $(GETDATE)
+! 	$(CC_LINK) -pie -o $(PROG) $(OBJS) \
+  		$(KADMSRV_LIBS) $(KDB_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  getdate.c: $(GETDATE)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/kdb/ldap/Makefile.in krb5_edit/src/plugins/kdb/ldap/Makefile.in
+*** krb5/src/plugins/kdb/ldap/Makefile.in	2022-08-26 16:04:07.200000000 +0800
+--- krb5_edit/src/plugins/kdb/ldap/Makefile.in	2022-08-26 16:03:35.100000000 +0800
+***************
+*** 16,25 ****
+  SHLIB_EXPDEPS = \
+  	$(TOPLIBD)/libkdb_ldap$(SHLIBEXT) \
+  	$(GSSRPC_DEPLIBS) \
+! 	$(TOPLIBD)/libk5crypto$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5$(SHLIBEXT) \
+  	$(TOPLIBD)/lib$(SUPPORT_LIBNAME)$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkdb_ldap $(GSSRPC_LIBS) -lkrb5 -lcom_err -lk5crypto -lkrb5support $(LIBS)
+  
+  SRCS= 	$(srcdir)/ldap_exp.c
+  
+--- 16,25 ----
+  SHLIB_EXPDEPS = \
+  	$(TOPLIBD)/libkdb_ldap$(SHLIBEXT) \
+  	$(GSSRPC_DEPLIBS) \
+! 	$(TOPLIBD)/libk5crypto_gauss$(SHLIBEXT) \
+! 	$(TOPLIBD)/libkrb5_gauss$(SHLIBEXT) \
+  	$(TOPLIBD)/lib$(SUPPORT_LIBNAME)$(SHLIBEXT)
+! SHLIB_EXPLIBS= -lkdb_ldap $(GSSRPC_LIBS) -lkrb5_gauss -lcom_err_gauss -lk5crypto_gauss -lkrb5support_gauss $(LIBS)
+  
+  SRCS= 	$(srcdir)/ldap_exp.c
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/preauth/pkinit/Makefile.in krb5_edit/src/plugins/preauth/pkinit/Makefile.in
+*** krb5/src/plugins/preauth/pkinit/Makefile.in	2022-08-26 16:04:07.208000000 +0800
+--- krb5_edit/src/plugins/preauth/pkinit/Makefile.in	2022-08-26 16:03:35.104000000 +0800
+***************
+*** 46,52 ****
+  	$(RUN_TEST) ./pkinit_kdf_test
+  
+  pkinit_kdf_test: pkinit_kdf_test.o $(STLIBOBJS) $(SHLIB_EXPDEPS)
+! 	$(CC_LINK) -o $@ pkinit_kdf_test.o $(STLIBOBJS) $(SHLIB_EXPLIBS)
+  
+  @libnover_frag@
+  @libobj_frag@
+--- 46,52 ----
+  	$(RUN_TEST) ./pkinit_kdf_test
+  
+  pkinit_kdf_test: pkinit_kdf_test.o $(STLIBOBJS) $(SHLIB_EXPDEPS)
+! 	$(CC_LINK) -pie -o $@ pkinit_kdf_test.o $(STLIBOBJS) $(SHLIB_EXPLIBS)
+  
+  @libnover_frag@
+  @libobj_frag@
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/plugins/preauth/spake/Makefile.in krb5_edit/src/plugins/preauth/spake/Makefile.in
+*** krb5/src/plugins/preauth/spake/Makefile.in	2022-08-26 16:04:07.212000000 +0800
+--- krb5_edit/src/plugins/preauth/spake/Makefile.in	2022-08-26 16:03:35.112000000 +0800
+***************
+*** 37,43 ****
+  	$(OUTPRE)spake_client.$(OBJEXT)
+  
+  t_vectors: t_vectors.o $(STLIBOBJS) $(SHLIB_EXPDEPS)
+! 	$(CC_LINK) -o $@ t_vectors.o $(STLIBOBJS) $(SHLIB_EXPLIBS)
+  
+  all-unix: all-liblinks
+  install-unix: install-libs
+--- 37,43 ----
+  	$(OUTPRE)spake_client.$(OBJEXT)
+  
+  t_vectors: t_vectors.o $(STLIBOBJS) $(SHLIB_EXPDEPS)
+! 	$(CC_LINK) -pie -o $@ t_vectors.o $(STLIBOBJS) $(SHLIB_EXPLIBS)
+  
+  all-unix: all-liblinks
+  install-unix: install-libs
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/asn.1/Makefile.in krb5_edit/src/tests/asn.1/Makefile.in
+*** krb5/src/tests/asn.1/Makefile.in	2022-08-26 16:04:07.220000000 +0800
+--- krb5_edit/src/tests/asn.1/Makefile.in	2022-08-26 16:03:35.116000000 +0800
+***************
+*** 16,32 ****
+  ENCOBJS = krb5_encode_test.o ktest.o ktest_equal.o utility.o trval.o
+  
+  krb5_encode_test: $(ENCOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o krb5_encode_test $(ENCOBJS) $(KRB5_BASE_LIBS)
+  
+  DECOBJS = krb5_decode_test.o ktest.o ktest_equal.o utility.o
+  
+  krb5_decode_test: $(DECOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o krb5_decode_test $(DECOBJS) $(KRB5_BASE_LIBS)
+  
+  LEAKOBJS = krb5_decode_leak.o ktest.o ktest_equal.o utility.o
+  
+  krb5_decode_leak: $(LEAKOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o krb5_decode_leak $(LEAKOBJS) $(KRB5_BASE_LIBS)
+  
+  t_trval: t_trval.o
+  	$(CC) -o t_trval $(ALL_CFLAGS) t_trval.o
+--- 16,32 ----
+  ENCOBJS = krb5_encode_test.o ktest.o ktest_equal.o utility.o trval.o
+  
+  krb5_encode_test: $(ENCOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o krb5_encode_test $(ENCOBJS) $(KRB5_BASE_LIBS)
+  
+  DECOBJS = krb5_decode_test.o ktest.o ktest_equal.o utility.o
+  
+  krb5_decode_test: $(DECOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o krb5_decode_test $(DECOBJS) $(KRB5_BASE_LIBS)
+  
+  LEAKOBJS = krb5_decode_leak.o ktest.o ktest_equal.o utility.o
+  
+  krb5_decode_leak: $(LEAKOBJS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o krb5_decode_leak $(LEAKOBJS) $(KRB5_BASE_LIBS)
+  
+  t_trval: t_trval.o
+  	$(CC) -o t_trval $(ALL_CFLAGS) t_trval.o
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/create/Makefile.in krb5_edit/src/tests/create/Makefile.in
+*** krb5/src/tests/create/Makefile.in	2022-08-26 16:04:07.224000000 +0800
+--- krb5_edit/src/tests/create/Makefile.in	2022-08-26 16:03:35.120000000 +0800
+***************
+*** 6,12 ****
+  all: kdb5_mkdums
+  
+  kdb5_mkdums: kdb5_mkdums.o $(KDB5_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o kdb5_mkdums kdb5_mkdums.o $(KDB5_DEP_LIBS) $(KDB5_LIBS) $(KRB5_BASE_LIBS)
+  
+  all: kdb5_mkdums
+  
+--- 6,12 ----
+  all: kdb5_mkdums
+  
+  kdb5_mkdums: kdb5_mkdums.o $(KDB5_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o kdb5_mkdums kdb5_mkdums.o $(KDB5_DEP_LIBS) $(KDB5_LIBS) $(KRB5_BASE_LIBS)
+  
+  all: kdb5_mkdums
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/dejagnu/Makefile.in krb5_edit/src/tests/dejagnu/Makefile.in
+*** krb5/src/tests/dejagnu/Makefile.in	2022-08-26 16:04:07.224000000 +0800
+--- krb5_edit/src/tests/dejagnu/Makefile.in	2022-08-26 16:03:35.120000000 +0800
+***************
+*** 23,29 ****
+  	$(RUNTEST) --tool krb VALGRIND="$(VALGRIND)" $(RUNTESTFLAGS)
+  
+  t_inetd: t_inetd.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_inetd t_inetd.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) t_inetd t_inetd.o site.exp runenv.vars runenv.vals
+--- 23,29 ----
+  	$(RUNTEST) --tool krb VALGRIND="$(VALGRIND)" $(RUNTESTFLAGS)
+  
+  t_inetd: t_inetd.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_inetd t_inetd.o $(KRB5_BASE_LIBS)
+  
+  clean:
+  	$(RM) t_inetd t_inetd.o site.exp runenv.vars runenv.vals
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/gssapi/Makefile.in krb5_edit/src/tests/gssapi/Makefile.in
+*** krb5/src/tests/gssapi/Makefile.in	2022-08-26 16:04:07.228000000 +0800
+--- krb5_edit/src/tests/gssapi/Makefile.in	2022-08-26 16:03:35.124000000 +0800
+***************
+*** 58,124 ****
+  	$(RUNPYTEST) $(srcdir)/t_negoex.py $(PYTESTFLAGS)
+  
+  ccinit: ccinit.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o ccinit ccinit.o $(KRB5_BASE_LIBS)
+  ccrefresh: ccrefresh.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o ccrefresh ccrefresh.o $(KRB5_BASE_LIBS)
+  reload: reload.o
+! 	$(CC_LINK) -o $@ reload.o $(DL_LIB)
+  t_accname: t_accname.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_accname.o $(COMMON_LIBS)
+  t_add_cred: t_add_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_add_cred.o $(COMMON_LIBS)
+  t_ccselect: t_ccselect.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_ccselect.o $(COMMON_LIBS)
+  t_ciflags: t_ciflags.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_ciflags.o $(COMMON_LIBS)
+  t_context: t_context.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_context.o $(COMMON_LIBS)
+  t_credstore: t_credstore.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_credstore.o $(COMMON_LIBS)
+  t_enctypes: t_enctypes.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_enctypes.o $(COMMON_LIBS)
+  t_err: t_err.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_err.o $(COMMON_LIBS)
+  t_export_cred: t_export_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_export_cred.o $(COMMON_LIBS)
+  t_export_name: t_export_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_export_name.o $(COMMON_LIBS)
+  t_gssexts: t_gssexts.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_gssexts.o $(COMMON_LIBS)
+  t_imp_cred: t_imp_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_imp_cred.o $(COMMON_LIBS)
+  t_imp_name: t_imp_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_imp_name.o $(COMMON_LIBS)
+  t_invalid: t_invalid.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_invalid.o $(COMMON_LIBS)
+  t_inq_cred: t_inq_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_inq_cred.o $(COMMON_LIBS)
+  t_inq_ctx: t_inq_ctx.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_inq_ctx.o $(COMMON_LIBS)
+  t_inq_mechs_name: t_inq_mechs_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_inq_mechs_name.o $(COMMON_LIBS)
+  t_iov: t_iov.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_iov.o $(COMMON_LIBS)
+  t_lifetime: t_lifetime.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_lifetime.o $(COMMON_LIBS)
+  t_namingexts: t_namingexts.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_namingexts.o $(COMMON_LIBS)
+  t_pcontok: t_pcontok.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_pcontok.o $(COMMON_LIBS)
+  t_oid: t_oid.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_oid.o $(COMMON_LIBS)
+  t_prf: t_prf.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_prf.o $(COMMON_LIBS)
+  t_s4u: t_s4u.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_s4u.o $(COMMON_LIBS)
+  t_s4u2proxy_krb5: t_s4u2proxy_krb5.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_s4u2proxy_krb5.o $(COMMON_LIBS)
+  t_saslname: t_saslname.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_saslname.o $(COMMON_LIBS)
+  t_spnego: t_spnego.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_spnego.o $(COMMON_LIBS)
+  t_srcattrs: t_srcattrs.o $(COMMON_DEPS)
+! 	$(CC_LINK) -o $@ t_srcattrs.o $(COMMON_LIBS)
+  
+  clean:
+  	$(RM) ccinit ccrefresh reload t_accname t_add_cred t_ccselect t_ciflags
+--- 58,124 ----
+  	$(RUNPYTEST) $(srcdir)/t_negoex.py $(PYTESTFLAGS)
+  
+  ccinit: ccinit.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o ccinit ccinit.o $(KRB5_BASE_LIBS)
+  ccrefresh: ccrefresh.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o ccrefresh ccrefresh.o $(KRB5_BASE_LIBS)
+  reload: reload.o
+! 	$(CC_LINK) -pie -o $@ reload.o $(DL_LIB)
+  t_accname: t_accname.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_accname.o $(COMMON_LIBS)
+  t_add_cred: t_add_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_add_cred.o $(COMMON_LIBS)
+  t_ccselect: t_ccselect.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_ccselect.o $(COMMON_LIBS)
+  t_ciflags: t_ciflags.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_ciflags.o $(COMMON_LIBS)
+  t_context: t_context.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_context.o $(COMMON_LIBS)
+  t_credstore: t_credstore.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_credstore.o $(COMMON_LIBS)
+  t_enctypes: t_enctypes.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_enctypes.o $(COMMON_LIBS)
+  t_err: t_err.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_err.o $(COMMON_LIBS)
+  t_export_cred: t_export_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_export_cred.o $(COMMON_LIBS)
+  t_export_name: t_export_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_export_name.o $(COMMON_LIBS)
+  t_gssexts: t_gssexts.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_gssexts.o $(COMMON_LIBS)
+  t_imp_cred: t_imp_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_imp_cred.o $(COMMON_LIBS)
+  t_imp_name: t_imp_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_imp_name.o $(COMMON_LIBS)
+  t_invalid: t_invalid.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_invalid.o $(COMMON_LIBS)
+  t_inq_cred: t_inq_cred.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_inq_cred.o $(COMMON_LIBS)
+  t_inq_ctx: t_inq_ctx.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_inq_ctx.o $(COMMON_LIBS)
+  t_inq_mechs_name: t_inq_mechs_name.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_inq_mechs_name.o $(COMMON_LIBS)
+  t_iov: t_iov.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_iov.o $(COMMON_LIBS)
+  t_lifetime: t_lifetime.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_lifetime.o $(COMMON_LIBS)
+  t_namingexts: t_namingexts.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_namingexts.o $(COMMON_LIBS)
+  t_pcontok: t_pcontok.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_pcontok.o $(COMMON_LIBS)
+  t_oid: t_oid.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_oid.o $(COMMON_LIBS)
+  t_prf: t_prf.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_prf.o $(COMMON_LIBS)
+  t_s4u: t_s4u.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_s4u.o $(COMMON_LIBS)
+  t_s4u2proxy_krb5: t_s4u2proxy_krb5.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_s4u2proxy_krb5.o $(COMMON_LIBS)
+  t_saslname: t_saslname.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_saslname.o $(COMMON_LIBS)
+  t_spnego: t_spnego.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_spnego.o $(COMMON_LIBS)
+  t_srcattrs: t_srcattrs.o $(COMMON_DEPS)
+! 	$(CC_LINK) -pie -o $@ t_srcattrs.o $(COMMON_LIBS)
+  
+  clean:
+  	$(RM) ccinit ccrefresh reload t_accname t_add_cred t_ccselect t_ciflags
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/hammer/Makefile.in krb5_edit/src/tests/hammer/Makefile.in
+*** krb5/src/tests/hammer/Makefile.in	2022-08-26 16:04:07.232000000 +0800
+--- krb5_edit/src/tests/hammer/Makefile.in	2022-08-26 16:03:35.128000000 +0800
+***************
+*** 6,12 ****
+  all: kdc5_hammer
+  
+  kdc5_hammer: kdc5_hammer.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o kdc5_hammer kdc5_hammer.o $(KRB5_BASE_LIBS)
+  
+  install:
+  
+--- 6,12 ----
+  all: kdc5_hammer
+  
+  kdc5_hammer: kdc5_hammer.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o kdc5_hammer kdc5_hammer.o $(KRB5_BASE_LIBS)
+  
+  install:
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/Makefile.in krb5_edit/src/tests/Makefile.in
+*** krb5/src/tests/Makefile.in	2022-08-26 16:04:07.220000000 +0800
+--- krb5_edit/src/tests/Makefile.in	2022-08-26 16:03:35.116000000 +0800
+***************
+*** 24,85 ****
+  KTEST_OPTS= $(KADMIN_OPTS) -p $(TEST_PREFIX) -n $(TEST_NUM) -D $(TEST_DEPTH)
+  
+  adata: adata.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ adata.o $(KRB5_BASE_LIBS)
+  
+  etinfo: etinfo.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ etinfo.o $(KRB5_BASE_LIBS)
+  
+  forward: forward.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ forward.o $(KRB5_BASE_LIBS)
+  
+  gcred: gcred.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ gcred.o $(KRB5_BASE_LIBS)
+  
+  hist: hist.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ hist.o $(KDB5_LIBS) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  hooks: hooks.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ hooks.o $(KRB5_BASE_LIBS)
+  
+  hrealm: hrealm.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ hrealm.o $(KRB5_BASE_LIBS)
+  
+  icinterleave: icinterleave.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ icinterleave.o $(KRB5_BASE_LIBS)
+  
+  icred: icred.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ icred.o $(KRB5_BASE_LIBS)
+  
+  kdbtest: kdbtest.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ kdbtest.o $(KDB5_LIBS) $(KADMSRV_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  localauth: localauth.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ localauth.o $(KRB5_BASE_LIBS)
+  
+  plugorder: plugorder.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ plugorder.o $(KRB5_BASE_LIBS)
+  
+  rdreq: rdreq.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ rdreq.o $(KRB5_BASE_LIBS)
+  
+  replay: replay.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ replay.o $(KRB5_BASE_LIBS)
+  
+  responder: responder.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ responder.o $(KRB5_BASE_LIBS)
+  
+  s2p: s2p.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ s2p.o $(KRB5_BASE_LIBS)
+  
+  s4u2self: s4u2self.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ s4u2self.o $(KRB5_BASE_LIBS)
+  
+  s4u2proxy: s4u2proxy.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ s4u2proxy.o $(KRB5_BASE_LIBS)
+  
+  unlockiter: unlockiter.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o $@ unlockiter.o $(KDB5_LIBS) $(KADMSRV_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  check-unix: kdb_check
+--- 24,85 ----
+  KTEST_OPTS= $(KADMIN_OPTS) -p $(TEST_PREFIX) -n $(TEST_NUM) -D $(TEST_DEPTH)
+  
+  adata: adata.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ adata.o $(KRB5_BASE_LIBS)
+  
+  etinfo: etinfo.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ etinfo.o $(KRB5_BASE_LIBS)
+  
+  forward: forward.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ forward.o $(KRB5_BASE_LIBS)
+  
+  gcred: gcred.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ gcred.o $(KRB5_BASE_LIBS)
+  
+  hist: hist.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ hist.o $(KDB5_LIBS) $(KADMSRV_LIBS) $(KRB5_BASE_LIBS)
+  
+  hooks: hooks.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ hooks.o $(KRB5_BASE_LIBS)
+  
+  hrealm: hrealm.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ hrealm.o $(KRB5_BASE_LIBS)
+  
+  icinterleave: icinterleave.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ icinterleave.o $(KRB5_BASE_LIBS)
+  
+  icred: icred.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ icred.o $(KRB5_BASE_LIBS)
+  
+  kdbtest: kdbtest.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ kdbtest.o $(KDB5_LIBS) $(KADMSRV_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  localauth: localauth.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ localauth.o $(KRB5_BASE_LIBS)
+  
+  plugorder: plugorder.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ plugorder.o $(KRB5_BASE_LIBS)
+  
+  rdreq: rdreq.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ rdreq.o $(KRB5_BASE_LIBS)
+  
+  replay: replay.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ replay.o $(KRB5_BASE_LIBS)
+  
+  responder: responder.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ responder.o $(KRB5_BASE_LIBS)
+  
+  s2p: s2p.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ s2p.o $(KRB5_BASE_LIBS)
+  
+  s4u2self: s4u2self.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ s4u2self.o $(KRB5_BASE_LIBS)
+  
+  s4u2proxy: s4u2proxy.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ s4u2proxy.o $(KRB5_BASE_LIBS)
+  
+  unlockiter: unlockiter.o $(KDB5_DEPLIBS) $(KADMSRV_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o $@ unlockiter.o $(KDB5_LIBS) $(KADMSRV_LIBS) \
+  		$(KRB5_BASE_LIBS)
+  
+  check-unix: kdb_check
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/resolve/Makefile.in krb5_edit/src/tests/resolve/Makefile.in
+*** krb5/src/tests/resolve/Makefile.in	2022-08-26 16:04:07.232000000 +0800
+--- krb5_edit/src/tests/resolve/Makefile.in	2022-08-26 16:03:35.132000000 +0800
+***************
+*** 8,20 ****
+  all: resolve addrinfo-test fake-addrinfo-test
+  
+  resolve: resolve.o
+! 	$(CC_LINK) -o $@ resolve.o $(SUPPORT_LIB) $(LIBS)
+  
+  addrinfo-test: addrinfo-test.o
+! 	$(CC_LINK) -o $@ addrinfo-test.o $(SUPPORT_LIB) $(LIBS)
+  
+  fake-addrinfo-test: fake-addrinfo-test.o
+! 	$(CC_LINK) -o $@ fake-addrinfo-test.o $(SUPPORT_LIB) $(LIBS)
+  
+  check: resolve addrinfo-test fake-addrinfo-test
+  	$(RUN_TEST) ./resolve
+--- 8,20 ----
+  all: resolve addrinfo-test fake-addrinfo-test
+  
+  resolve: resolve.o
+! 	$(CC_LINK) -pie -o $@ resolve.o $(SUPPORT_LIB) $(LIBS)
+  
+  addrinfo-test: addrinfo-test.o
+! 	$(CC_LINK) -pie -o $@ addrinfo-test.o $(SUPPORT_LIB) $(LIBS)
+  
+  fake-addrinfo-test: fake-addrinfo-test.o
+! 	$(CC_LINK) -pie -o $@ fake-addrinfo-test.o $(SUPPORT_LIB) $(LIBS)
+  
+  check: resolve addrinfo-test fake-addrinfo-test
+  	$(RUN_TEST) ./resolve
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/shlib/Makefile.in krb5_edit/src/tests/shlib/Makefile.in
+*** krb5/src/tests/shlib/Makefile.in	2022-08-26 16:04:07.232000000 +0800
+--- krb5_edit/src/tests/shlib/Makefile.in	2022-08-26 16:03:35.132000000 +0800
+***************
+*** 12,18 ****
+  	$(RUN_TEST) ./t_loader
+  
+  t_loader: t_loader.o
+! 	$(CC_LINK) -o t_loader t_loader.o $(DL_LIB)
+  
+  check-unix:
+  
+--- 12,18 ----
+  	$(RUN_TEST) ./t_loader
+  
+  t_loader: t_loader.o
+! 	$(CC_LINK) -pie -o t_loader t_loader.o $(DL_LIB)
+  
+  check-unix:
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/threads/Makefile.in krb5_edit/src/tests/threads/Makefile.in
+*** krb5/src/tests/threads/Makefile.in	2022-08-26 16:04:07.240000000 +0800
+--- krb5_edit/src/tests/threads/Makefile.in	2022-08-26 16:03:35.136000000 +0800
+***************
+*** 18,27 ****
+  	$(RUN_TEST) ./t_rcache
+  
+  t_rcache: t_rcache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o t_rcache t_rcache.o $(KRB5_BASE_LIBS) $(THREAD_LINKOPTS)
+  
+  prof1: prof1.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o prof1 prof1.o $(KRB5_BASE_LIBS) $(THREAD_LINKOPTS)
+  
+  prof1.o: prof1.c
+  
+--- 18,27 ----
+  	$(RUN_TEST) ./t_rcache
+  
+  t_rcache: t_rcache.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o t_rcache t_rcache.o $(KRB5_BASE_LIBS) $(THREAD_LINKOPTS)
+  
+  prof1: prof1.o $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o prof1 prof1.o $(KRB5_BASE_LIBS) $(THREAD_LINKOPTS)
+  
+  prof1.o: prof1.c
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/tests/verify/Makefile.in krb5_edit/src/tests/verify/Makefile.in
+*** krb5/src/tests/verify/Makefile.in	2022-08-26 16:04:07.240000000 +0800
+--- krb5_edit/src/tests/verify/Makefile.in	2022-08-26 16:03:35.136000000 +0800
+***************
+*** 7,13 ****
+  all: kdb5_verify
+  
+  kdb5_verify: kdb5_verify.o $(KDB5_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -o kdb5_verify kdb5_verify.o $(KDB5_LIBS) $(KDB5_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  install:
+  
+--- 7,13 ----
+  all: kdb5_verify
+  
+  kdb5_verify: kdb5_verify.o $(KDB5_DEPLIBS) $(KRB5_BASE_DEPLIBS)
+! 	$(CC_LINK) -pie -o kdb5_verify kdb5_verify.o $(KDB5_LIBS) $(KDB5_DEP_LIB) $(KRB5_BASE_LIBS)
+  
+  install:
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/util/et/libcom_err_gauss.exports krb5_edit/src/util/et/libcom_err_gauss.exports
+*** krb5/src/util/et/libcom_err_gauss.exports	1970-01-01 08:00:00.000000000 +0800
+--- krb5_edit/src/util/et/libcom_err_gauss.exports	2022-08-26 16:03:35.140000000 +0800
+***************
+*** 0 ****
+--- 1,9 ----
++ add_error_table
++ com_err
++ com_err_va
++ error_message
++ error_table_name
++ error_table_name_r
++ remove_error_table
++ reset_com_err_hook
++ set_com_err_hook
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/util/et/Makefile.in krb5_edit/src/util/et/Makefile.in
+*** krb5/src/util/et/Makefile.in	2022-08-26 16:04:07.240000000 +0800
+--- krb5_edit/src/util/et/Makefile.in	2022-08-26 16:03:35.136000000 +0800
+***************
+*** 13,19 ****
+  ##DOS##OBJFILE=$(OUTPRE)comerr.lst
+  
+  STLIBOBJS=error_message.o et_name.o com_err.o
+! LIBBASE=com_err
+  LIBMAJOR=3
+  LIBMINOR=0
+  LIBINITFUNC=com_err_initialize
+--- 13,19 ----
+  ##DOS##OBJFILE=$(OUTPRE)comerr.lst
+  
+  STLIBOBJS=error_message.o et_name.o com_err.o
+! LIBBASE=com_err_gauss
+  LIBMAJOR=3
+  LIBMINOR=0
+  LIBINITFUNC=com_err_initialize
+***************
+*** 78,86 ****
+  #	$(CC) -o t_com_err t_com_err.o et1.o et2.o $(LIBOBJS)
+  
+  test_et: test_et.o test1.o test2.o $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o test_et test_et.o test1.o test2.o -lcom_err $(SUPPORT_LIB)
+  t_com_err: t_com_err.o et1.o et2.o $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o t_com_err t_com_err.o et1.o et2.o -lcom_err $(SUPPORT_LIB)
+  
+  $(OUTPRE)test_et.exe: $(OUTPRE)test_et.$(OBJEXT) $(OUTPRE)test1.$(OBJEXT) \
+  	$(OUTPRE)test2.$(OBJEXT) $(CLIB)
+--- 78,86 ----
+  #	$(CC) -o t_com_err t_com_err.o et1.o et2.o $(LIBOBJS)
+  
+  test_et: test_et.o test1.o test2.o $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o test_et test_et.o test1.o test2.o -lcom_err_gauss $(SUPPORT_LIB)
+  t_com_err: t_com_err.o et1.o et2.o $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o t_com_err t_com_err.o et1.o et2.o -lcom_err_gauss $(SUPPORT_LIB)
+  
+  $(OUTPRE)test_et.exe: $(OUTPRE)test_et.$(OBJEXT) $(OUTPRE)test1.$(OBJEXT) \
+  	$(OUTPRE)test2.$(OBJEXT) $(CLIB)
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/util/profile/Makefile.in krb5_edit/src/util/profile/Makefile.in
+*** krb5/src/util/profile/Makefile.in	2022-08-26 16:04:07.244000000 +0800
+--- krb5_edit/src/util/profile/Makefile.in	2022-08-26 16:03:35.140000000 +0800
+***************
+*** 41,53 ****
+  	$(srcdir)/profile_tcl.c
+  
+  DEPLIBS = $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! MLIBS = -lcom_err $(SUPPORT_LIB) $(LIBS)
+  
+  LIBBASE=profile
+  LIBMAJOR=1
+  LIBMINOR=1
+  SHLIB_EXPDEPS = $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS = -lcom_err $(SUPPORT_LIB) $(LIBS)
+  
+  PROFILE_HDR=$(BUILDTOP)$(S)include$(S)profile.h
+  
+--- 41,53 ----
+  	$(srcdir)/profile_tcl.c
+  
+  DEPLIBS = $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! MLIBS = -lcom_err_gauss $(SUPPORT_LIB) $(LIBS)
+  
+  LIBBASE=profile
+  LIBMAJOR=1
+  LIBMINOR=1
+  SHLIB_EXPDEPS = $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! SHLIB_EXPLIBS = -lcom_err_gauss $(SUPPORT_LIB) $(LIBS)
+  
+  PROFILE_HDR=$(BUILDTOP)$(S)include$(S)profile.h
+  
+***************
+*** 77,93 ****
+  	if exist profile.h copy profile.h $(BUILDTOP)\include\profile.h
+  
+  test_parse: test_parse.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -o test_parse test_parse.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_profile: test_profile.$(OBJEXT) argv_parse.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -o test_profile test_profile.$(OBJEXT) \
+  		argv_parse.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_vtable: test_vtable.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -o test_vtable test_vtable.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_load: test_load.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -o test_load test_load.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  modtest.conf:
+  	echo "module `pwd`/testmod/proftest$(DYNOBJEXT):teststring" > $@
+--- 77,93 ----
+  	if exist profile.h copy profile.h $(BUILDTOP)\include\profile.h
+  
+  test_parse: test_parse.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -pie -o test_parse test_parse.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_profile: test_profile.$(OBJEXT) argv_parse.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -pie -o test_profile test_profile.$(OBJEXT) \
+  		argv_parse.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_vtable: test_vtable.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -pie -o test_vtable test_vtable.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  test_load: test_load.$(OBJEXT) $(OBJS) $(DEPLIBS)
+! 	$(CC_LINK) -pie -o test_load test_load.$(OBJEXT) $(OBJS) $(MLIBS)
+  
+  modtest.conf:
+  	echo "module `pwd`/testmod/proftest$(DYNOBJEXT):teststring" > $@
+***************
+*** 122,128 ****
+  #	(cd $(srcdir) && swig -tcl8 -nosafe -o profile_tcl.c profile.swg)
+  profile_tcl.o: $(srcdir)/profile_tcl.c profile.h
+  profile_tcl: profile_tcl.o $(PROF_DEPLIB) $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -o profile_tcl profile_tcl.o \
+  		$(TCL_MAYBE_RPATH) \
+  		-L../et -L../.. -lprofile $(TCL_LIBS) $(MLIBS)
+  
+--- 122,128 ----
+  #	(cd $(srcdir) && swig -tcl8 -nosafe -o profile_tcl.c profile.swg)
+  profile_tcl.o: $(srcdir)/profile_tcl.c profile.h
+  profile_tcl: profile_tcl.o $(PROF_DEPLIB) $(COM_ERR_DEPLIB) $(SUPPORT_DEPLIB)
+! 	$(CC_LINK) -pie -o profile_tcl profile_tcl.o \
+  		$(TCL_MAYBE_RPATH) \
+  		-L../et -L../.. -lprofile $(TCL_LIBS) $(MLIBS)
+  
+diff -crN '--exclude=.git' '--exclude=.gitee' '--exclude=.vscode' krb5/src/util/support/Makefile.in krb5_edit/src/util/support/Makefile.in
+*** krb5/src/util/support/Makefile.in	2022-08-26 16:04:07.248000000 +0800
+--- krb5_edit/src/util/support/Makefile.in	2022-08-26 16:03:35.144000000 +0800
+***************
+*** 11,17 ****
+  
+  SED = sed
+  
+! LIBBASE=krb5support
+  LIBMAJOR=@SUPPORTLIB_MAJOR@
+  LIBMINOR=1
+  
+--- 11,17 ----
+  
+  SED = sed
+  
+! LIBBASE=krb5support_gauss
+  LIBMAJOR=@SUPPORTLIB_MAJOR@
+  LIBMINOR=1
+  
+***************
+*** 214,226 ****
+  T_K5BUF_OBJS= t_k5buf.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_k5buf: $(T_K5BUF_OBJS)
+! 	$(CC_LINK) -o t_k5buf $(T_K5BUF_OBJS)
+  
+  t_path: t_path.o path.o $(PRINTF_ST_OBJ)
+! 	$(CC_LINK) -o $@ t_path.o path.o $(PRINTF_ST_OBJ)
+  
+  t_path_win: t_path_win.o path_win.o $(PRINTF_ST_OBJ)
+! 	$(CC_LINK) -o $@ t_path_win.o path_win.o $(PRINTF_ST_OBJ)
+  
+  t_path_win.o: $(srcdir)/t_path.c
+  	$(CC) $(ALL_CFLAGS) -DWINDOWS_PATHS -c $(srcdir)/t_path.c -o $@
+--- 214,226 ----
+  T_K5BUF_OBJS= t_k5buf.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_k5buf: $(T_K5BUF_OBJS)
+! 	$(CC_LINK) -pie -o t_k5buf $(T_K5BUF_OBJS)
+  
+  t_path: t_path.o path.o $(PRINTF_ST_OBJ)
+! 	$(CC_LINK) -pie -o $@ t_path.o path.o $(PRINTF_ST_OBJ)
+  
+  t_path_win: t_path_win.o path_win.o $(PRINTF_ST_OBJ)
+! 	$(CC_LINK) -pie -o $@ t_path_win.o path_win.o $(PRINTF_ST_OBJ)
+  
+  t_path_win.o: $(srcdir)/t_path.c
+  	$(CC) $(ALL_CFLAGS) -DWINDOWS_PATHS -c $(srcdir)/t_path.c -o $@
+***************
+*** 229,257 ****
+  	$(CC) $(ALL_CFLAGS) -DWINDOWS_PATHS -c $(srcdir)/path.c -o $@
+  
+  t_base64: t_base64.o base64.o
+! 	$(CC_LINK) -o $@ t_base64.o base64.o
+  
+  T_JSON_OBJS= t_json.o json.o base64.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_json: $(T_JSON_OBJS)
+! 	$(CC_LINK) -o $@ $(T_JSON_OBJS)
+  
+  t_hex: t_hex.o hex.o
+! 	$(CC_LINK) -o $@ t_hex.o hex.o
+  
+  t_hashtab: t_hashtab.o
+! 	$(CC_LINK) -o $@ t_hashtab.o
+  
+  t_unal: t_unal.o
+! 	$(CC_LINK) -o t_unal t_unal.o
+  
+  t_utf8: t_utf8.o utf8.o
+! 	$(CC_LINK) -o t_utf8 t_utf8.o utf8.o
+  
+  T_UTF16_OBJS= t_utf16.o utf8_conv.o utf8.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_utf16: $(T_UTF16_OBJS)
+! 	$(CC_LINK) -o $@ $(T_UTF16_OBJS)
+  
+  TEST_PROGS= t_k5buf t_path t_path_win t_base64 t_json t_hex t_hashtab t_unal \
+  	t_utf8 t_utf16
+--- 229,257 ----
+  	$(CC) $(ALL_CFLAGS) -DWINDOWS_PATHS -c $(srcdir)/path.c -o $@
+  
+  t_base64: t_base64.o base64.o
+! 	$(CC_LINK) -pie -o $@ t_base64.o base64.o
+  
+  T_JSON_OBJS= t_json.o json.o base64.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_json: $(T_JSON_OBJS)
+! 	$(CC_LINK) -pie -o $@ $(T_JSON_OBJS)
+  
+  t_hex: t_hex.o hex.o
+! 	$(CC_LINK) -pie -o $@ t_hex.o hex.o
+  
+  t_hashtab: t_hashtab.o
+! 	$(CC_LINK) -pie -o $@ t_hashtab.o
+  
+  t_unal: t_unal.o
+! 	$(CC_LINK) -pie -o t_unal t_unal.o
+  
+  t_utf8: t_utf8.o utf8.o
+! 	$(CC_LINK) -pie -o t_utf8 t_utf8.o utf8.o
+  
+  T_UTF16_OBJS= t_utf16.o utf8_conv.o utf8.o k5buf.o zap.o $(PRINTF_ST_OBJ)
+  
+  t_utf16: $(T_UTF16_OBJS)
+! 	$(CC_LINK) -pie -o $@ $(T_UTF16_OBJS)
+  
+  TEST_PROGS= t_k5buf t_path t_path_win t_base64 t_json t_hex t_hashtab t_unal \
+  	t_utf8 t_utf16

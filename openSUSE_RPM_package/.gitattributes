@@ -1,0 +1,2 @@
+openGauss-server-6.0.0.tar.gz filter=lfs diff=lfs merge=lfs -text
+aws-sdk-cpp-1.11.327.tar.xz filter=lfs diff=lfs merge=lfs -text
