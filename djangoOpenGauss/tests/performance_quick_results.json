@@ -1,0 +1,24 @@
+{
+  "generated_at": "2025-09-27T01:14:22.762443Z",
+  "dsn": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dbname": "django_opengauss_test",
+    "user": "gaussdb"
+  },
+  "results": {
+    "connect_ms": 7.5482368061784655,
+    "concurrent_100": 706.3983000116423,
+    "read_select_1": 0.5795789766125381,
+    "read_bulk": 0.35323809715919197,
+    "read_aggregate": 1.79025090765208,
+    "write_batch_insert": 113.61325799953192,
+    "update_batch": 56.71231498126872,
+    "delete_batch": 48.87319399858825,
+    "transaction_commit": 4.215772199677303,
+    "transaction_rollback": 2.3426935891620815,
+    "qps_10": 516.4963310991126,
+    "qps_50": 618.3588629069468,
+    "qps_100": 618.2743868784783
+  }
+}
