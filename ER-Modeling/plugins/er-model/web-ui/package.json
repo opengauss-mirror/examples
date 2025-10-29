@@ -36,8 +36,8 @@
     "vue3-ace-editor": "^2.2.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.17.0",
-    "@quasar/app-webpack": "^3.4.7",
+    "@babel/eslint-parser": "7.28.4",
+    "@quasar/app-webpack": "3.13.3",
     "dotenv": "^16.0.0",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^14.1.0",
@@ -46,8 +46,13 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^7.0.0",
     "push-dir": "^0.4.1",
-    "sass": "^1.69.7",
-    "sass-embedded": "^1.69.7"
+    "sass": "^1.63.6"
+  },
+  "overrides": {
+    "@babel/parser": "7.28.4",
+    "@babel/types": "7.28.4",
+    "@babel/helper-validator-identifier": "7.27.1",
+    "@babel/helper-string-parser": "7.27.1"
   },
   "browserslist": [
     "last 10 Chrome versions",

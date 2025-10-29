@@ -41,6 +41,9 @@ module.exports = configure(function (ctx) {
       publicPath: '/static-plugin/er-model/',
       vueRouterMode: "history",
       chainWebpack(/* chain */) {
+      },
+      sassLoaderOptions: {
+        implementation: require('sass')
       }
     },
     devServer: {

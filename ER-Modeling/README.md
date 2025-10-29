@@ -68,35 +68,42 @@ plugins/er-model
 
 ### 构建步骤
 
-1. 修改 `openGauss-datakit/visualtool-api` 目录下的 `application-dev.yml`，配置数据库连接、用户名与密码（需为远程用户）。  
-2. 在项目根目录创建文件夹：
+1. 修改 `openGauss-datakit/visualtool-api` 目录下的 `application-dev.yml`，配置数据库连接、用户名与密码（需为远程用户）。
+
+
+2. 在 `openGauss-datakit/config/application-temp.yml` 中配置`server:ssl:key-store-password`。需要与第七步 IDE 启动时环境变量的 `DATA_KIT_AES_KEY` 相同。（大于6位，包含数字大小写字母）
+
+
+3. 在项目根目录创建文件夹：
 
    ```bash
    mkdir visualtool-plugin
    ```
 
-   用于存放构建后的插件 jar 包。
+   用于存放构建后的插件 jar 包。（如果 ER-Modeling 项目没有位于根目录，则需要在根目录创建 `visualtool-plugin` 文件夹用于存放 jar 包。）
 
-3. 执行构建脚本：
+
+4. 执行构建脚本：
 
    ```bash
    sh idea-debug-plugins-api-build.sh
    ```
 
-4. 将 `base-ops` 与 `er-model` 模块中 `target` 目录下的 jar 包拷贝至 `visualtool-plugin` 文件夹。  
-5. 启动主应用类：
+5. 将 `base-ops` 与 `er-model` 模块中 `target` 目录下的 jar 包拷贝至 `visualtool-plugin` 文件夹。
+
+
+6. 点击根目录的`pom.xml`，选择将该项目添加为Maven项目。
+
+
+7. 启动主应用类：
 
    ```
    openGauss-datakit/visualtool-api/src/main/java/org/opengauss/admin/AdminApplication.java
    ```
 
+​	启动时配置环境变量`DATA_KIT_AES_KEY=YourKey@123`（示例，与第二步你设置的密码`key-store-password`相同）
+
 ### 启动与访问
-
-- 开发环境一般不启用 SSL，可直接使用 HTTP 访问：
-
-  ```
-  http://ip:9494/
-  ```
 
 - 默认账号密码：
 
@@ -106,6 +113,7 @@ plugins/er-model
   ```
 
   首次登录需修改密码。
+
 
 ---
 
