@@ -1,0 +1,45 @@
+install:
+  package:
+    upgrade:
+      old-history-version: 3.0.0;3.0.3;3.0.5;3.1.0;3.1.1;5.0.0;5.0.1;5.0.2;5.0.3;5.1.0;6.0.0-RC1
+      history-version: 6.0.0;7.0.0-RC1
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      test-while-idle: false
+      test-on-borrow: true
+      validation-query: "select 1"
+      validation-query-timeout: 30000
+  web:
+    resources:
+      static-locations: classpath:resources
+system:
+  defaultStoragePath: files/plugins/base_ops_default_path
+# log config
+logging:
+  level:
+    org.opengauss.admin.plugin: INFO
+  file:
+    name: logs/plugins_base_ops.log
+mybatis-plus:
+  # Search for the specified package alias
+  typeAliasesPackage: org.opengauss.admin.plugin.domain
+
+  mapperLocations: classpath*:mapper/**/*.xml
+  # Load the global configuration file
+  configuration:
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+installPackage:
+  urlPrefix: https://opengauss.obs.cn-south-1.myhuaweicloud.com
+
+olk:
+  # read log timeout, seconds
+  readLogTimeout: 30
+  # Loop count to find start flag in log file
+  startLoopCount: 4
+  # wait time before each loop, seconds
+  startLoopWaitTime: 5
+
