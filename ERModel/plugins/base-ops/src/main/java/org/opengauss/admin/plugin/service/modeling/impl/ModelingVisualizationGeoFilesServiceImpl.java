@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2022 Huawei Technologies Co.,Ltd.
+ *
+ * openGauss is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *
+ * http://license.coscl.org.cn/MulanPSL2
+ *
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FITFOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ * -------------------------------------------------------------------------
+ *
+ * ModelingVisualizationGeoFilesServiceImpl.java
+ *
+ * IDENTIFICATION
+ * base-ops/src/main/java/org/opengauss/admin/plugin/service/modeling/impl/ModelingVisualizationGeoFilesServiceImpl.java
+ *
+ * -------------------------------------------------------------------------
+ */
+
+package org.opengauss.admin.plugin.service.modeling.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.opengauss.admin.plugin.domain.entity.modeling.ModelingVisualizationGeoFilesEntity;
+import org.opengauss.admin.plugin.mapper.modeling.ModelingVisualizationGeoFilesMapper;
+import org.opengauss.admin.plugin.service.modeling.IModelingVisualizationGeoFilesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+* @author LZW
+* @description modeling_visualization_geo_files
+* @createDate 2022-11-07 10:42:27
+*/
+@Service
+public class ModelingVisualizationGeoFilesServiceImpl extends ServiceImpl<ModelingVisualizationGeoFilesMapper, ModelingVisualizationGeoFilesEntity>
+    implements IModelingVisualizationGeoFilesService {
+
+    @Autowired
+    private ModelingVisualizationGeoFilesMapper modelingVisualizationGeoFilesMapper;
+
+    @Override
+    public int add(ModelingVisualizationGeoFilesEntity geoFile) {
+        return modelingVisualizationGeoFilesMapper.insert(geoFile);
+    }
+
+    @Override
+    public List<ModelingVisualizationGeoFilesEntity> selectByDataFlowId(Long dataFlowId) {
+        List<ModelingVisualizationGeoFilesEntity> result = modelingVisualizationGeoFilesMapper
+                .selectList(
+                        new QueryWrapper<ModelingVisualizationGeoFilesEntity>().lambda().eq(ModelingVisualizationGeoFilesEntity::getDataFlowId, dataFlowId)
+                );
+
+        return result;
+    }
+}
+
+
+
+
