@@ -64,14 +64,17 @@ plugins/er-model
 
 ---
 
-## 二、开发环境运行
+## 二、开发环境运行（建议）
 
 ### 构建步骤
 
 1. 修改 `openGauss-datakit/visualtool-api` 目录下的 `application-dev.yml`，配置数据库连接、用户名与密码（需为远程用户）。
 
 
-2. 在 `openGauss-datakit/config/application-temp.yml` 中配置`server:ssl:key-store-password`。需要与第七步 IDE 启动时环境变量的 `DATA_KIT_AES_KEY` 相同。（大于6位，包含数字大小写字母）
+2. 按照`https://gitcode.com/opengauss/openGauss-workbench 安装步骤，将第五步生成 SSL 密钥的keystore.p12文件拷贝到`openGauss-datakit/config/application-temp.yml` 的`server:ssl:key-store`。保持生成keystore.p12文件的密码和接下来第三步和第七步的密码一致。
+
+
+3. 在 `openGauss-datakit/config/application-temp.yml` 中配置`server:ssl:key-store-password`。需要与第七步 IDE 启动时环境变量的 `DATA_KIT_AES_KEY` 相同。（大于6位，包含数字、大小写字母、特殊字符）
 
 
 3. 在项目根目录创建文件夹：
