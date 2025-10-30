@@ -1,0 +1,81 @@
+version: 7.0.0-RC3
+server:
+  proxy:
+    hostname: localhost
+    port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 800
+    min-spare-threads: 30
+  ssl:
+    enabled: false
+spring:
+  profiles:
+    active: dev
+  messages:
+    basename: i18n/messages
+  servlet:
+    multipart:
+      max-file-size:  20GB
+      max-request-size:  20GB
+  mvc:
+    async:
+      request-timeout: 60000
+  sql:
+    init:
+      mode: always
+  main:
+    allow-bean-definition-overriding: true
+
+mybatis-plus:
+  typeAliasesPackage: org.opengauss.admin.**.domain
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+pagehelper:
+  helperDialect: postgresql
+  supportMethodsArguments: true
+  params: count=countSql
+
+plugin:
+  mainPackage: org.opengauss.admin
+  runMode: prod
+  #  runMode: deployment
+  pluginPath:
+    - ~/visualtool-plugin
+
+#  pluginRestPathPrefix: /static-plugin
+agent:
+  localPath:  ./agent
+  agentName: datakit-agent-${version}-runner.jar
+disruptor:
+  bufferSize: 1024
+  backpressure:
+    threshold: 10
+    initDelay: 1
+    maxDelay: 100
+    factor: 2
+management:
+  server:
+    port: 9494
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: 'prometheus'
+      base-path: "/"
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+  metrics:
+    enable:
+      jvm: false
+      logback: false
+      files: false
+      tomcat: false
+      executor: false
+      disk: false
+      uptime: false
+      integration: false
