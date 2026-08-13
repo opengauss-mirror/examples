@@ -41,7 +41,7 @@ python scripts/run_demo.py
 - `NAME` = B 库下 schema（MySQL database）
 - `PASSWORD` = 环境变量 `OG_MYSQL_PASSWORD`（仓库不保存明文口令）
 
-并通过 `pymysql_bootstrap.py` 将 PyMySQL 注册为 MySQLdb。
+并通过 `pymysql_bootstrap.py` 将 PyMySQL 注册为 MySQLdb；若 `SELECT VERSION()` 仍是 openGauss banner，则按 dolphin 握手版本解析为 MySQL 8.0.28。
 
 ### Plugin 侧依赖
 
