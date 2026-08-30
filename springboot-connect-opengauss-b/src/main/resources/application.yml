@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    # DB_HOST/DB_PORT/DB_NAME/DB_USER/DB_PASSWORD 通过环境变量或 -D 覆盖
+    # 端口是 dolphin 协议端口（dolphin_server_port，默认 3308），不是 openGauss 原生端口 5432
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3308}/${DB_NAME:mysql_test_db}?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
+    username: ${DB_USER:mysql_test_db}
+    password: ${DB_PASSWORD:ChangeMe_123}
+    # 8.0.x 新旧坐标驱动类名相同
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # 冒烟阶段不配置，测试连接池行为时再按用例调整
+      maximum-pool-size: 10
