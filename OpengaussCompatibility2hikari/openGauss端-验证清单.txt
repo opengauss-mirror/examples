@@ -1,0 +1,173 @@
+==========================================================
+openGauss + dolphin MySQL 协议 配置详细清单
+==========================================================
+生成时间 : 2026-08-15
+环境     : openEuler 20.03 (WSL), 主机名 liyang, 用户 cyh
+openGauss: 7.0.0 build 93bfec54 (dolphin 功能等价于 7.0.0-RC3)
+数据目录 : /home/cyh/openGauss/node1
+安装目录 : /home/cyh/openGauss
+
+----------------------------------------------------------
+一、服务与监听端口
+----------------------------------------------------------
+[1] openGauss 服务状态: 运行中 (gaussdb)
+    启动命令: gs_ctl start -D /home/cyh/openGauss/node1 -Z single_node
+[2] PG 原生协议监听 : 127.0.0.1:5432
+[3] MySQL 协议监听 : 127.0.0.1:3306  (dolphin, 启用)
+[4] MySQL 握手信息 : 服务器版本 8.0.28-dolphin-server
+                     协议版本 10, 默认认证插件 caching_sha2_password
+
+----------------------------------------------------------
+二、postgresql.conf 关键配置
+----------------------------------------------------------
+配置文件: /home/cyh/openGauss/node1/postgresql.conf
+[1] listen_addresses = '127.0.0.1'         # 第68行
+[2] port = 5432                            # 默认值, 未修改
+[3] enable_dolphin_proto = on              # 第919行, 打开 MySQL 协议
+[4] dolphin_server_port = 3306             # 第920行, MySQL 协议端口
+[5] shared_preload_libraries = security_plugin
+[6] 备份文件: postgresql.conf.bak_dolphin  (修改前备份)
+
+----------------------------------------------------------
+三、pg_hba.conf 认证配置
+----------------------------------------------------------
+配置文件: /home/cyh/openGauss/node1/pg_hba.conf
+  local   all   all               127.0.0.1/32   trust
+  host    all   mysql_test_db     127.0.0.1/32   sha256   # 新增(第90行)
+  host    all   all               127.0.0.1/32   trust
+  host    all   all               ::1/128        trust
+说明:
+  - PG 5432 端口实际走 trust (127.0.0.1 规则在前)
+  - MySQL 3306 端口认证由 dolphin 自身处理, 不受 pg_hba 影响
+
+----------------------------------------------------------
+四、数据库清单
+----------------------------------------------------------
+  postgres     : compat=A, owner=cyh   (管理库)
+  bbb          : compat=B, owner=cyh   [基座库, 实际数据所在地]
+  ly_dbbtest   : compat=B, owner=cyh   (之前建的 B 兼容库)
+  proto_test_db: compat=B, owner=cyh   (原计划残留, 未使用, 可删)
+
+关键说明:
+  dolphin.default_database_name = bbb
+  (boot_val=bbb, 编译内置默认, context=sighup)
+  -> 所有 MySQL 协议连接固定落到 bbb 库;
+     客户端 URL 库名映射为 bbb 库内的 schema。
+
+----------------------------------------------------------
+五、数据对象 (dolphin 实际生效位置: bbb 库)
+----------------------------------------------------------
+[1] schema mysql_test_db   owner = mysql_test_db
+[2] 表结构 (bbb.mysql_test_db.user):
+      id   : integer, AUTO_INCREMENT, PRIMARY KEY (user_pkey)
+      name : varchar(50), NOT NULL, charset=utf8mb4
+      age  : integer
+[3] 表 owner = cyh (授权 mysql_test_db 全 DML arwdDxt)
+[4] 初始数据:
+      (1, 张三, 18)
+      (2, 李四, 19)
+      (3, 王五, 20)
+[5] 授权语句:
+      GRANT USAGE ON SCHEMA mysql_test_db TO mysql_test_db;
+      GRANT ALL ON ALL TABLES IN SCHEMA mysql_test_db TO mysql_test_db;
+      GRANT ALL ON ALL SEQUENCES IN SCHEMA mysql_test_db TO mysql_test_db;
+
+----------------------------------------------------------
+六、用户与认证
+----------------------------------------------------------
+[1] 角色: mysql_test_db
+      login=true, super=false, createrole=false, createdb=false
+[2] 密码: xxxxxx
+[3] 已执行 set_native_password('mysql_test_db','xxxxxx','')
+      生成 native 密码哈希
+[4] MySQL 协议认证实测: caching_sha2_password 直连通过
+
+----------------------------------------------------------
+七、dolphin 相关 GUC (会话级)
+----------------------------------------------------------
+  dolphin.b_compatibility_mode           = on
+  dolphin.cmpt_version                   = 5.7
+  dolphin.default_database_name          = bbb
+  dolphin.default_week_format            = 0
+  dolphin.div_precision_increment        = 4
+  dolphin.enable_procedure_executestmt   = off
+  dolphin.lc_time_names                  = en_US
+  dolphin.lower_case_table_names         = 0
+  dolphin.mysql_ca                       = cacert.pem
+  dolphin.mysql_server_cert              = server.crt
+  dolphin.mysql_server_key               = server.key
+  dolphin.nulls_minimal_policy           = on
+  dolphin.optimizer_switch               = default
+  dolphin.sql_mode                       = sql_mode_strict,sql_mode_full_group,no_zero_date,block_return_multi_results,error_for_division_by_zero,escape_quotes,disable_escape_bytea
+  dolphin.support_interval_to            = off
+  dolphin.treat_float_with_precision_as_float_type = off
+  dolphin.use_const_value_as_colname     = on
+  dolphin.bit_output                     = bin
+  dolphin.b_db_timestamp                 = 0
+
+----------------------------------------------------------
+八、Spring Boot 侧配置 (application.yml / 环境变量)
+----------------------------------------------------------
+[1] JDBC URL:
+      jdbc:mysql://127.0.0.1:3306/mysql_test_db
+      ?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+[2] 用户名: mysql_test_db
+[3] 密码  : xxxxxx
+[4] 驱动  : com.mysql.cj.jdbc.Driver (MySQL Connector/J 8.0.20)
+[5] HikariCP:
+      pool-name=HikariCP-openGauss-OSPP
+      maximum-pool-size=10
+      minimum-idle=2
+      connection-timeout=30000
+      idle-timeout=300000
+      max-lifetime=540000
+      keepalive-time=300000
+[6] 启动命令 (PowerShell):
+      $env:OSPP_VERIFY_ENABLED="true"
+      $env:OPENGAUSS_MYSQL_URL="jdbc:mysql://127.0.0.1:3306/mysql_test_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true"
+      $env:OPENGAUSS_MYSQL_USERNAME="mysql_test_db"
+      $env:OPENGAUSS_MYSQL_PASSWORD="xxxxxx"
+      mvn spring-boot:run
+
+----------------------------------------------------------
+九、验证结果 (Spring Boot 全自动验证, 退出码 0)
+----------------------------------------------------------
+  1.  HikariDataSource 自动装配通过 (HikariCP 5.1.0)
+  2.  JDBC 连接有效性 true, SELECT 1 = 1
+  3.  dolphin 插件安装数量 1, enable_dolphin_proto=on, port=3306
+  4.  DATABASE()=mysql_test_db, current_schema()=mysql_test_db (映射正确)
+  5.  历史临时数据清理 0 行
+  6.  user 表查询 3 行: 张三/李四/王五
+  7.  INSERT 成功 (影响 1 行)
+  8.  UPDATE 成功 (影响 1 行)
+  9.  Spring 事务提交成功
+ 10.  连接池借满 10 条, 第 11 条等待, 释放后恢复 (上限校验通过)
+ 11.  10 worker 真实并发 insert/select/update/select/delete/commit 全过
+ 12.  DELETE + 最终清理, 恢复为 3 条初始数据
+ 13.  结论: 全链路验证通过
+
+----------------------------------------------------------
+十、注意事项与待办
+----------------------------------------------------------
+[1] 不要删除 bbb 库 —— 它是 dolphin 基座库
+[2] 残留可清理:
+      DROP DATABASE proto_test_db;   # 原计划残留, 未使用
+[3] 可选调整:
+      ALTER TABLE mysql_test_db.user OWNER TO mysql_test_db;
+      # 若将来 Hibernate ddl-auto=create/drop 需重建表, 建议执行
+[4] WSL1 环境 127.0.0.1 直连可用 (bashrc 有 sync_file_range shim)
+[5] 若改基座库 (需重启):
+      gs_guc set -D /home/cyh/openGauss/node1 -c "dolphin.default_database_name='xxx'"
+      gs_ctl restart -D /home/cyh/openGauss/node1 -Z single_node
+[6] 常用操作命令:
+      source /home/cyh/openGauss/env.sh 2>/dev/null || true
+      export GAUSSHOME=/home/cyh/openGauss
+      export PATH=$GAUSSHOME/bin:$PATH
+      export LD_LIBRARY_PATH=$GAUSSHOME/lib:$LD_LIBRARY_PATH
+      gsql -d bbb -p 5432 -r                    # 连库
+      gs_ctl restart -D /home/cyh/openGauss/node1 -Z single_node
+      ss -ltnp | grep -E ':(5432|3306)'         # 查监听
+
+==========================================================
+清单结束
+==========================================================

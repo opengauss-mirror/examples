@@ -1,0 +1,22 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: spring-boot-ospp
+  datasource:
+    url: ${OPENGAUSS_MYSQL_URL:jdbc:mysql://127.0.0.1:3306/mysql_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true}
+    username: ${OPENGAUSS_MYSQL_USER:mysqluser}
+    password: ${OPENGAUSS_MYSQL_PASSWORD:xxxxxx}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: HikariCP-openGauss-OSPP
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 540000
+      keepalive-time: 300000
+
+ospp:
+  verify:
+    enabled: ${OSPP_VERIFY_ENABLED:true}
