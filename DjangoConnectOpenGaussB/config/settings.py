@@ -37,6 +37,8 @@ DATABASES = {
         "PORT": os.environ.get("OG_MYSQL_PORT", "3308"),
         "OPTIONS": {
             "charset": "utf8mb4",
+            # Align PyMySQL escaping with Dolphin string parsing (see Plugin NO_BACKSLASH_ESCAPES).
+            "sql_mode": "NO_BACKSLASH_ESCAPES",
         },
     }
 }
