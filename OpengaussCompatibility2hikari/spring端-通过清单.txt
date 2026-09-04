@@ -1,0 +1,120 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.6)
+
+2026-08-27 02:03:26.239  INFO 41420 --- [           main] c.linyu.ospp.SpringBootOsppApplication   : Starting SpringBootOsppApplication using Java 17.0.19 on cuicui_dada with PID 41420 (C:\Users\cuicu\Desktop\ascend ir\opengauss\repos\examples\OpengaussCompatibility2hikari\target\classes started by cuicu in C:\Users\cuicu\Desktop\ascend ir\opengauss\repos\examples\OpengaussCompatibility2hikari)
+2026-08-27 02:03:26.241  INFO 41420 --- [           main] c.linyu.ospp.SpringBootOsppApplication   : No active profile set, falling back to default profiles: default
+2026-08-27 02:03:26.752  INFO 41420 --- [           main] c.linyu.ospp.SpringBootOsppApplication   : Started SpringBootOsppApplication in 0.942 seconds (JVM running for 1.379)
+
+==================== 1. 验证 HikariCP 数据源自动装配 ====================
+测试目的：确认 Spring Boot 2.5.6 通过 spring-boot-starter-jdbc 自动创建 HikariDataSource，并读取到预期连接池参数。
+数据源实现类：com.zaxxer.hikari.HikariDataSource
+HikariCP 运行版本：5.1.0
+HikariCP 加载位置：file:/C:/Users/cuicu/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar
+连接池名称：HikariCP-openGauss-OSPP
+最大连接数 maximumPoolSize：10
+最小空闲连接数 minimumIdle：2
+获取连接超时时间 connectionTimeout(ms)：30000
+空闲连接保留时间 idleTimeout(ms)：300000
+连接最大生命周期 maxLifetime(ms)：540000
+连接保活时间 keepaliveTime(ms)：300000
+数据源装配校验通过：当前使用 HikariCP，连接池参数已生效。
+
+==================== 2. 验证数据库连接与基础 SQL ====================
+测试目的：确认 MySQL Connector/J 可以通过 dolphin MySQL 协议端口连接 openGauss，并执行基础查询。
+2026-08-27 02:03:26.757  INFO 41420 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariCP-openGauss-OSPP - Starting...
+2026-08-27 02:03:26.879  INFO 41420 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariCP-openGauss-OSPP - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c4fc2bf
+2026-08-27 02:03:26.881  INFO 41420 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariCP-openGauss-OSPP - Start completed.
+JDBC 连接有效性校验结果：true
+基础 SQL 执行结果：SELECT 1 = 1
+数据库版本信息：(openGauss 7.0.0 build 93bfec54) compiled at 2026-08-26 10:21:31 commit 1000 last mr 9389 release on x86_64-pc-linux-gnu, compiled by g++ (GCC) 10.3.0, 64-bit
+运行环境：Windows 11 + WSL2 openEuler 24.03 | 主机: cuicuidada | Java 17.0.19 | 运行日期: 2026-08-27
+服务器版本：(openGauss 7.0.0 build 93bfec54) compiled at 2026-08-26 10:21:31 commit 1000 last mr 9389
+数据库连接与基础 SQL 校验通过。
+
+==================== 3. 验证 dolphin 插件与 MySQL 协议配置 ====================
+测试目的：直接查询 openGauss 系统表，确认 dolphin 插件已经安装，并确认 dolphin MySQL 协议开关和监听端口配置存在。
+dolphin 插件安装数量：1
+enable_dolphin_proto 配置值：on
+dolphin_server_port 配置值：3306
+dolphin 插件与 MySQL 协议配置校验通过。
+
+==================== 4. 验证 dolphin 客户端库名与 schema 映射 ====================
+测试目的：确认 JDBC URL 中的 mysql_test_db 能映射到 openGauss B 兼容库中的 mysql_test_db schema，避免文档只写库名但实际落错 schema。
+JDBC URL 客户端库名 DATABASE()：mysql_test_db
+openGauss 当前 schema current_schema()：mysql_test_db
+dolphin 库名与 schema 映射校验通过。
+
+==================== 5. 清理历史验证数据 ====================
+测试目的：删除上一次验证遗留的临时数据，保证本次 CRUD、事务、并发验证结果可重复。
+历史临时数据清理结果：固定名称数据 0 行，并发名称数据 0 行。
+
+==================== 6. 验证初始业务表查询 ====================
+测试目的：确认文档准备步骤中的 user 表可以通过 MySQL 协议查询，并且至少包含张三、李四、王五三条基础数据。
+初始查询行数：3
+  用户记录：id=1，name=张三，age=18
+  用户记录：id=2，name=李四，age=19
+  用户记录：id=3，name=王五，age=20
+初始业务表校验通过：已查到张三、李四、王五三条基础数据。
+
+==================== 7. 验证 INSERT 插入能力 ====================
+测试目的：向 user 表插入一条临时数据，确认 MySQL 协议下的写入链路可用。
+INSERT 执行影响行数：1
+插入后行数：4
+  用户记录：id=1，name=张三，age=18
+  用户记录：id=2，name=李四，age=19
+  用户记录：id=3，name=王五，age=20
+  用户记录：id=17，name=zhaoliu，age=18
+插入后查询校验通过：基础数据仍然存在。
+
+==================== 8. 验证 UPDATE 更新能力 ====================
+测试目的：按 name 找到刚插入的数据并更新，确认 MySQL 协议下的更新链路可用。
+UPDATE 执行影响行数：1
+用户数据校验通过：name=zhaoliuliuliu，age=28。
+更新后行数：4
+  用户记录：id=1，name=张三，age=18
+  用户记录：id=2，name=李四，age=19
+  用户记录：id=3，name=王五，age=20
+  用户记录：id=17，name=zhaoliuliuliu，age=28
+更新后查询校验通过：基础数据仍然存在。
+
+==================== 9. 验证 Spring 事务提交 ====================
+测试目的：通过 TransactionTemplate 插入并提交一条数据，确认 Spring 事务管理器和 Hikari 连接协同正常。
+事务提交校验通过：spring-transaction 数据已提交并可查询。
+
+==================== 10. 验证连接数超出 Hikari 配置后的等待行为 ====================
+测试目的：先借满 maximumPoolSize 条连接，再申请第 maximumPoolSize + 1 条连接，确认 HikariCP 不会突破最大连接数，而是等待空闲连接。
+连接池借满后活跃连接数：10
+连接池借满后空闲连接数：0
+连接池借满后等待线程数：0
+已借出连接数：10，配置最大连接数：10
+第 11 条连接观察窗口：1000 ms，连接池 connectionTimeout=30000 ms
+申请第 11 条连接时等待线程数：1
+连接池上限等待校验通过：第 11 条连接没有突破最大连接数，而是在等待空闲连接。
+已释放 1 条占用连接，用于确认等待中的连接请求可以恢复执行。
+用户数据校验通过：name=pool-limit-user，age=33。
+连接池上限恢复校验通过：释放 1 条连接后，等待中的请求可以继续获取连接并执行 SQL。
+
+==================== 11. 验证并发真实数据库操作 ====================
+测试目的：启动 10 个 worker，每个 worker 持有自己的连接，并完成 insert/select/update/select/delete/commit，证明不是只拿到连接就算并发通过。
+并发真实数据库操作校验通过：10/10 个 worker 均完成 insert/select/update/select/delete/commit。
+
+==================== 12. 验证 DELETE 删除能力与最终清理 ====================
+测试目的：删除本次单线程 CRUD 临时数据，并清理事务、并发、连接数验证产生的临时数据。
+DELETE 执行影响行数：1
+历史临时数据清理结果：固定名称数据 2 行，并发名称数据 0 行。
+最终清理后行数：3
+  用户记录：id=1，name=张三，age=18
+  用户记录：id=2，name=李四，age=19
+  用户记录：id=3，name=王五，age=20
+最终清理后查询校验通过：基础数据仍然存在。
+
+==================== 13. 验证结论 ====================
+验证通过：Spring Boot 2.5.6 + HikariCP + MySQL Connector/J 可以通过 dolphin MySQL 协议访问 openGauss，并完成查询、增删改、事务、连接池上限和真实并发数据库操作验证。
+2026-08-27 02:03:28.408  INFO 41420 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP-openGauss-OSPP - Shutdown initiated...
+2026-08-27 02:03:28.415  INFO 41420 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP-openGauss-OSPP - Shutdown completed.

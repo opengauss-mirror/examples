@@ -1,0 +1,245 @@
+========================================
+  openGauss B 兼容模式 五类 SQL 操作验证
+  驱动：MySQL Connector/J 8.0.20
+  连接池：HikariCP
+  协议：dolphin MySQL 协议 (3306)
+  目标：openGauss 7.0.0-RC3 + dolphin 5.2
+========================================
+
+==================== 1. 确保目标数据库存在 ====================
+02:04:05.827 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6d06d69c
+02:04:05.836 [main] DEBUG com.zaxxer.hikari.HikariConfig - InitPool - configuration:
+02:04:05.843 [main] DEBUG com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+02:04:05.843 [main] DEBUG com.zaxxer.hikari.HikariConfig - autoCommit......................true
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - catalog.........................none
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionInitSql...............none
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionTestQuery.............none
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSource......................none
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceClassName.............none
+02:04:05.844 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................none
+02:04:05.845 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+02:04:05.846 [main] DEBUG com.zaxxer.hikari.HikariConfig - driverClassName................."com.mysql.cj.jdbc.Driver"
+02:04:05.846 [main] DEBUG com.zaxxer.hikari.HikariConfig - exceptionOverrideClassName......none
+02:04:05.846 [main] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+02:04:05.846 [main] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............none
+02:04:05.846 [main] DEBUG com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - initializationFailTimeout.......1
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - jdbcUrl.........................jdbc:mysql://172.18.15.52:3306/postgres?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - keepaliveTime...................0
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - maximumPoolSize.................10
+02:04:05.847 [main] DEBUG com.zaxxer.hikari.HikariConfig - metricRegistry..................none
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........none
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - minimumIdle.....................10
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - password........................<masked>
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - poolName........................"InitPool"
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - readOnly........................false
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - scheduledExecutor...............none
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - schema..........................none
+02:04:05.848 [main] DEBUG com.zaxxer.hikari.HikariConfig - threadFactory...................internal
+02:04:05.849 [main] DEBUG com.zaxxer.hikari.HikariConfig - transactionIsolation............default
+02:04:05.849 [main] DEBUG com.zaxxer.hikari.HikariConfig - username........................"mysqluser"
+02:04:05.849 [main] DEBUG com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+02:04:05.850 [main] INFO com.zaxxer.hikari.HikariDataSource - InitPool - Starting...
+02:04:06.034 [main] INFO com.zaxxer.hikari.pool.HikariPool - InitPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@7995092a
+02:04:06.036 [main] INFO com.zaxxer.hikari.HikariDataSource - InitPool - Start completed.
+数据库 mysql_db 已存在，跳过创建。
+02:04:06.064 [main] INFO com.zaxxer.hikari.HikariDataSource - InitPool - Shutdown initiated...
+02:04:06.064 [main] DEBUG com.zaxxer.hikari.pool.HikariPool - InitPool - Before shutdown stats (total=1, active=0, idle=1, waiting=0)
+02:04:06.064 [InitPool connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - InitPool - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7995092a: (connection evicted)
+02:04:06.070 [main] DEBUG com.zaxxer.hikari.pool.HikariPool - InitPool - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+02:04:06.070 [main] INFO com.zaxxer.hikari.HikariDataSource - InitPool - Shutdown completed.
+
+==================== 2. 连接池初始化 ====================
+02:04:06.070 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6d06d69c
+02:04:06.070 [main] DEBUG com.zaxxer.hikari.HikariConfig - SqlCategoryPool - configuration:
+02:04:06.071 [main] DEBUG com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+02:04:06.071 [main] DEBUG com.zaxxer.hikari.HikariConfig - autoCommit......................true
+02:04:06.071 [main] DEBUG com.zaxxer.hikari.HikariConfig - catalog.........................none
+02:04:06.071 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionInitSql...............none
+02:04:06.071 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionTestQuery.............none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSource......................none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceClassName.............none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - driverClassName................."com.mysql.cj.jdbc.Driver"
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - exceptionOverrideClassName......none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............none
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - initializationFailTimeout.......1
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - jdbcUrl.........................jdbc:mysql://172.18.15.52:3306/mysql_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - keepaliveTime...................0
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+02:04:06.072 [main] DEBUG com.zaxxer.hikari.HikariConfig - maximumPoolSize.................10
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - metricRegistry..................none
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........none
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - minimumIdle.....................2
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - password........................<masked>
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - poolName........................"SqlCategoryPool"
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - readOnly........................false
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - scheduledExecutor...............none
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - schema..........................none
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - threadFactory...................internal
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - transactionIsolation............default
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - username........................"mysqluser"
+02:04:06.074 [main] DEBUG com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+02:04:06.074 [main] INFO com.zaxxer.hikari.HikariDataSource - SqlCategoryPool - Starting...
+02:04:06.091 [main] INFO com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@48ae9b55
+02:04:06.091 [main] INFO com.zaxxer.hikari.HikariDataSource - SqlCategoryPool - Start completed.
+HikariCP 连接池初始化完成：poolName=SqlCategoryPool, maximumPoolSize=10
+
+==================== 3. DDL（Data Definition Language）验证 ====================
+测试目的：验证 CREATE / ALTER / DROP / TRUNCATE 四种 DDL 操作通过 dolphin MySQL 协议正常执行。
+[DDL-01] CREATE TABLE - 创建主测试表
+  PASS | CREATE TABLE sql_category_test 执行成功（含 SERIAL 主键、VARCHAR、INT、DECIMAL、TIMESTAMP 字段）
+[DDL-02] CREATE INDEX - 创建索引
+  PASS | CREATE INDEX idx_sql_category_test_name 执行成功
+[DDL-03] ALTER TABLE ADD COLUMN - 增加列
+  PASS | ALTER TABLE ... ADD COLUMN remark TEXT 执行成功
+[DDL-04] ALTER TABLE RENAME COLUMN - 重命名列
+  PASS | ALTER TABLE ... RENAME COLUMN remark TO description 执行成功
+[DDL-05] TRUNCATE TABLE - 清空表数据
+  PASS | TRUNCATE TABLE sql_category_test 执行成功，当前行数=0
+[DDL-06] DROP TABLE - 删除第二张测试表（先建再删）
+  PASS | DROP TABLE sql_category_test_2 执行成功
+[DDL-07] CREATE TABLE AS SELECT - 从查询结果创建表
+  PASS | CREATE TABLE sql_category_test_2 AS SELECT 执行成功，目标表行数=1
+=> DDL 全部 7 项操作验证通过（CREATE/INDEX/ALTER ADD/RENAME/TRUNCATE/DROP/CTAS）。
+
+==================== 4. DML（Data Manipulation Language）验证 ====================
+测试目的：验证 INSERT / UPDATE / DELETE 三种 DML 操作及批量写入通过 dolphin MySQL 协议正常执行。
+[DML-01] INSERT - 单行插入
+  PASS | INSERT 单行影响行数=1 (name=Alice, age=28, score=95.50)
+[DML-02] INSERT - 多行插入
+  PASS | INSERT 批量 3 行影响总行数=3
+[DML-03] UPDATE - 条件更新
+  PASS | UPDATE 影响行数=1 (Alice age:28->29, score:95.50->96.00)
+  确认 | 更新后 Alice age=29, score=96.0
+[DML-04] DELETE - 条件删除
+  PASS | DELETE 影响行数=3 (删除所有 BatchUser*)
+[DML-05] JDBC getGeneratedKeys - 获取自增主键（dolphin 兼容）
+  INFO | 驱动未返回 GENERATED_KEYS（不影响插入成功）
+=> DML 共 4 项操作验证通过（单行INSERT/批量INSERT/UPDATE/DELETE）；DML-05 getGeneratedKeys 为 INFO，不计入 PASS。
+
+==================== 5. DQL（Data Query Language）验证 ====================
+测试目的：验证 SELECT 及其子句（WHERE / ORDER BY / GROUP BY / 聚合函数 / LIMIT / JOIN）通过 dolphin MySQL 协议正常执行。
+[DQL-01] SELECT * - 全量查询
+  PASS | SELECT * 返回 6 行
+         2|ctas_src|25|88.5
+         3|Alice|29|96.0
+         7|Bob|35|87.25
+         8|Charlie|22|78.0
+         9|Diana|31|92.5
+         10|Eve|27|85.75
+[DQL-02] SELECT ... WHERE - 条件过滤
+02:04:06.195 [SqlCategoryPool housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Before cleanup stats (total=1, active=1, idle=0, waiting=0)
+02:04:06.195 [SqlCategoryPool housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - After cleanup  stats (total=1, active=1, idle=0, waiting=0)
+  PASS | WHERE age>=28 返回 3 行：Alice(age=29), Diana(age=31), Bob(age=35)
+[DQL-03] SELECT ... ORDER BY + LIMIT - 排序与分页
+  PASS | TOP 3 by score DESC：Alice(96.0) > Diana(92.5) > ctas_src(88.5)
+[DQL-04] 聚合函数 - COUNT / SUM / AVG / MIN / MAX
+  PASS | COUNT=6, SUM(age)=169, AVG(score)=88.0, MIN(age)=22, MAX(age)=35
+[DQL-05] GROUP BY + HAVING - 分组聚合与过滤
+02:04:06.212 [SqlCategoryPool connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@24e73d07
+  PASS | GROUP BY 分组数=2：young: cnt=1, avg_score=78.0; senior: cnt=5, avg_score=90.0
+[DQL-06] SELECT DISTINCT - 去重
+  PASS | DISTINCT name 返回 6 个唯一值：Alice, Bob, Charlie, ctas_src, Diana, Eve
+[DQL-07] 子查询 - SELECT 中嵌套子查询
+  PASS | 年龄高于平均值的记录：Alice(29), Diana(31), Bob(35)
+=> DQL 全部 7 项查询验证通过（基础SELECT/WHERE/ORDER+LIMIT/聚合/GROUP+HAVING/DISTINCT/子查询）。
+
+==================== 6. DCL（Data Control Language）验证 ====================
+测试目的：验证 GRANT / REVOKE 权限管理操作通过 dolphin MySQL 协议正常执行。
+  注意：DCL 操作需要当前用户具备相应权限（如超级用户或对象属主）。
+[DCL-01] GRANT - 授予表级 SELECT 权限
+  PASS | GRANT SELECT ON TABLE sql_category_test TO mysqluser 执行成功
+[DCL-02] GRANT - 授予多权限
+  PASS | GRANT INSERT,UPDATE,DELETE ON TABLE sql_category_test TO mysqluser 执行成功
+[DCL-03] REVOKE - 收回权限
+  PASS | REVOKE INSERT,UPDATE,DELETE ON TABLE sql_category_test FROM mysqluser 执行成功
+[DCL-04] 查询当前用户权限信息
+  PASS | 当前用户权限：SELECT(可转授), TRUNCATE(可转授), REFERENCES(可转授), TRIGGER(可转授)
+=> DCL 权限管理操作验证完成（GRANT/REVOKE/权限查询）：PASS 4 项。
+
+==================== 7. TCL（Transaction Control Language）验证 ====================
+测试目的：验证 COMMIT / ROLLBACK / SAVEPOINT 事务控制操作通过 dolphin MySQL 协议正常执行。
+[TCL-01] COMMIT - 显式提交事务
+02:04:06.243 [SqlCategoryPool connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@65da373c
+  PASS | COMMIT 后 tcl_commit_test 数据可见，行数=1
+[TCL-02] ROLLBACK - 回滚事务
+  PASS | ROLLBACK 后 tcl_rollback_test 数据不存在，行数=0
+[TCL-03] SAVEPOINT + ROLLBACK TO SAVEPOINT - 部分回滚
+02:04:06.257 [SqlCategoryPool connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - After adding stats (total=3, active=1, idle=2, waiting=0)
+  PASS | ROLLBACK TO SAVEPOINT 后：sp_keep 行数=1（保留），sp_discard 行数=0（回滚）
+[TCL-04] 事务隔离级别确认
+  INFO | 当前事务隔离级别：READ-COMMITTED
+=> TCL 共 3 项事务控制验证通过（COMMIT/ROLLBACK/SAVEPOINT+RB_TO_SP）；隔离级别查询为 INFO（仅查询，不计入 PASS）。
+
+==================== 8. 并发连接验证 ====================
+测试目的：启动多个线程同时从 HikariCP 连接池获取连接并执行 SQL，验证并发场景下连接不泄漏、SQL 正确执行。
+启动 10 个并发线程...
+02:04:06.277 [pool-1-thread-5] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@48ae9b55
+02:04:06.278 [pool-1-thread-4] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@65da373c
+02:04:06.278 [pool-1-thread-10] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@24e73d07
+02:04:06.284 [pool-1-thread-6] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@65da373c
+02:04:06.284 [pool-1-thread-3] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@48ae9b55
+02:04:06.284 [pool-1-thread-9] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@24e73d07
+02:04:06.287 [SqlCategoryPool connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@54f5f7c4
+02:04:06.290 [pool-1-thread-2] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@24e73d07
+02:04:06.290 [pool-1-thread-1] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@65da373c
+02:04:06.290 [pool-1-thread-7] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@48ae9b55
+02:04:06.294 [pool-1-thread-8] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@54f5f7c4
+  并发线程总数：10
+  通过：10 / 失败：0
+  线程池终止：正常
+  PASS | 10/10 个并发 worker 均完成 insert/select/update/delete/commit。
+=> 并发连接验证通过。
+
+==================== 9. 清理 DDL 残留表 ====================
+  已清理 sql_category_test
+  已清理 sql_category_test_2
+
+==================== 10. 最终结论 ====================
++--------+-----------------------------+--------------------------+
+| 分类   | 操作类型                    | 验证结果                 |
++--------+-----------------------------+--------------------------+
+| DDL    | CREATE / ALTER / DROP       | PASS (7项)               |
+|        | TRUNCATE / CTAS             |                          |
++--------+-----------------------------+--------------------------+
+| DML    | INSERT / UPDATE / DELETE    | PASS (4项)               |
+|        | 批量写入                    |                          |
+|        | getGeneratedKeys            | INFO (1项)               |
++--------+-----------------------------+--------------------------+
+| DQL    | SELECT / WHERE / ORDER BY   | PASS (7项)               |
+|        | 聚合 / GROUP BY / 子查询    |                          |
++--------+-----------------------------+--------------------------+
+| DCL    | GRANT / REVOKE / 权限查询   | PASS (4项)               |
++--------+-----------------------------+--------------------------+
+| TCL    | COMMIT / ROLLBACK           | PASS (3项)               |
+|        | SAVEPOINT+RB_TO_SP          |                          |
+|        | 隔离级别查询                | INFO (1项)               |
++--------+-----------------------------+--------------------------+
+| 并发   | 10 worker 同时持连接执行SQL | PASS                     |
++--------+-----------------------------+--------------------------+
+
+DDL/DML/DQL/DCL/TCL + 并发连接验证通过；DML-05 getGeneratedKeys 与 TCL-04 隔离级别查询为 INFO，不计入 PASS。
+HikariCP + MySQL Connector/J 经 dolphin MySQL 协议访问 openGauss B 兼容库功能完整可用。
+02:04:06.302 [main] INFO com.zaxxer.hikari.HikariDataSource - SqlCategoryPool - Shutdown initiated...
+02:04:06.302 [main] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - Before shutdown stats (total=4, active=0, idle=4, waiting=0)
+02:04:06.302 [SqlCategoryPool connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Closing connection com.mysql.cj.jdbc.ConnectionImpl@48ae9b55: (connection evicted)
+02:04:06.303 [SqlCategoryPool connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Closing connection com.mysql.cj.jdbc.ConnectionImpl@24e73d07: (connection evicted)
+02:04:06.303 [SqlCategoryPool connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Closing connection com.mysql.cj.jdbc.ConnectionImpl@65da373c: (connection evicted)
+02:04:06.303 [SqlCategoryPool connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - SqlCategoryPool - Closing connection com.mysql.cj.jdbc.ConnectionImpl@54f5f7c4: (connection evicted)
+02:04:06.304 [main] DEBUG com.zaxxer.hikari.pool.HikariPool - SqlCategoryPool - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+02:04:06.304 [main] INFO com.zaxxer.hikari.HikariDataSource - SqlCategoryPool - Shutdown completed.
+
+连接池已关闭。全部验证结束。
