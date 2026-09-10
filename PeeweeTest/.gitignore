@@ -1,0 +1,18 @@
+# 提交仓库时排除的文件
+
+# 真实连接配置（只提交 config.example.ini）
+config.ini
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# pytest 缓存
+.pytest_cache/
+
+# 编辑器/系统文件
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
