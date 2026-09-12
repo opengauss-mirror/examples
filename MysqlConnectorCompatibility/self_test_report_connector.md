@@ -143,16 +143,17 @@ actual_bytes = bytes.fromhex(rows[0][1])
 | 08 | fetchmany | PASS | 需在下一条语句前消耗完剩余结果 |
 | 09 | 中文 & Unicode | PASS | 中/日/韩/emoji 往返正确 |
 | 10 | 特殊字符 | PASS | 依赖连接层全局 `sql_mode="NO_BACKSLASH_ESCAPES"`（问题 4） |
-| 11 | NO_BACKSLASH_ESCAPES | PASS | 验证 `@@sql_mode` 已在连接时生效；新增裸连接（无 `sql_mode` 参数）验证 HandshakeV10 修复后首次查询直接通过 |
-| 12 | 二进制 BLOB | PASS | Part A：原生 `bytes` 绑定（仅含单引号 0x27）在 HandshakeV10 修复后可正常往返；含反斜杠 0x5C 仍会静默丢失（已知限制）；Part B：`UNHEX(%s)`/`HEX(data)` 覆盖 `0x00`~`0xFF` 全字节范围 |
+| 11 | NO_BACKSLASH_ESCAPES | XFAIL | 裸连接（未在 `connect()` 时传入 `sql_mode` 参数）场景下，转义行为不会随 HandshakeV10 的 `server_status` 动态适配：单引号 0x27 触发 `DatabaseError`（未闭合字符串字面量），反斜杠 0x5C 往返后数据不一致。`sql_mode` 必须在建立连接时显式传入，不能依赖服务端握手状态位自动生效 |
+| 12 | 二进制 BLOB（UNHEX 方案） | PASS | `UNHEX(%s)` 写入 / `HEX(data)` 读取，覆盖 `0x00`~`0xFF` 全字节范围 |
 | 13 | 大文本（1 MB） | PASS | 读回全部内容与原始字符串精确比对（不仅验证 `LENGTH()`） |
 | 14 | 日期时间类型 | PASS | 验证返回类型（date/timedelta/datetime）且逐字段核验实际值与写入值一致 |
 | 15 | DECIMAL | PASS | 精确返回 `decimal.Decimal` |
 | 16 | 多连接事务隔离 | PASS | 未提交不可见，提交后可见 |
 | 17 | 重连稳定性 ×10 | PASS | 连续 10 次独立连接全部成功 |
-| 18 | 错误类型映射 | PASS | 改为确定性断言：若无异常抛出则测试失败；异常类型与 MySQL 标准不一致时以打印说明，不掩盖实际行为 |
+| 18 | 错误类型映射 | XFAIL | table_not_found/dup_key 场景：若无异常抛出仍判定为测试失败；仅当捕获异常的 errno/消息内容确认属于已知错误映射差异（openGauss 将两者均映射为通用 `DatabaseError`，SQLSTATE 统一为 `HY000`）时才计入 XFAIL，连接异常、权限异常等非预期异常会直接重新抛出并判定为 FAIL |
+| 19 | 二进制 BLOB（原生 bytes） | XFAIL | 原生 `bytes` 绑定含单引号 0x27 可正常往返；含反斜杠 0x5C 的字节会被静默丢弃，边界字节（0x00/0xFF）及全字节范围绑定会触发 `DatabaseError`（未闭合字符串），均为已知限制，需改用测试 12 的 `UNHEX`/`HEX` 方案 |
 
-**总计：18 passed，0 failed**（各测试均使用确定性断言验证实际值，不存在"永远 PASS"的测试项）
+**总计：16 passed，0 failed，3 xfailed (expected) / 19 total**（各测试均使用确定性断言验证实际值；XFAIL 项均附带已确认的 errno/消息证据，不存在"泛化 except 吸收异常"的测试项）
 
 ---
 
@@ -217,13 +218,13 @@ conn = mysql.connector.connect(
 
 ## 六、测试代码
 
-见同目录 `test_connector_opengauss.py`，覆盖上述全部 18 个测试项，**18 passed，0 failed**。各测试均使用确定性断言验证实际值，不存在"永远 PASS"的测试项。
+见同目录 `test_connector_opengauss.py`，覆盖上述全部 19 个测试项，**16 passed，0 failed，3 xfailed (expected)**。各测试均使用确定性断言验证实际值，XFAIL 项均基于已确认的 errno/消息证据判定，非预期异常（连接异常、权限异常等）会直接判定为 FAIL，不存在"泛化 except 吸收异常"的测试项。
 
 ---
 
 ## 七、结论
 
-mysql-connector-python 8.0.33 在指定正确连接参数（`use_pure=True`、`collation='utf8mb4_general_ci'`、`auth_plugin='mysql_native_password'`、`sql_mode='NO_BACKSLASH_ESCAPES'`）后，可正常连接 openGauss 7.0.0-RC3 dolphin 插件的 B 兼容模式数据库，**18 项测试全部验证通过**（含实际值断言和异常必须抛出断言，无"永远 PASS"测试项）。HandshakeV10 `status_flags` 修复（Plugin PR #2522）已同步验证：裸连接无需 `sql_mode` 参数即可完成含特殊字符的参数化查询。
+mysql-connector-python 8.0.33 在指定正确连接参数（`use_pure=True`、`collation='utf8mb4_general_ci'`、`auth_plugin='mysql_native_password'`、`sql_mode='NO_BACKSLASH_ESCAPES'`）后，可正常连接 openGauss 7.0.0-RC3 dolphin 插件的 B 兼容模式数据库，**19 项测试中 16 项通过，3 项因 openGauss/dolphin 已知限制归类为 XFAIL**（详见「四、已知限制」）。需要特别注意：**裸连接（未在 `connect()` 时显式传入 `sql_mode` 参数）场景下，特殊字符转义行为不会随 HandshakeV10 的 `server_status` 动态适配**（测试 11 XFAIL），必须在建立连接时显式传入 `sql_mode='NO_BACKSLASH_ESCAPES'` 才能保证转义行为正确；HandshakeV10 `status_flags` 修复（Plugin PR #2522）解决的是服务端状态位同步问题，不代表客户端可以脱离显式 `sql_mode` 参数独立兼容。
 
 需要特别注意：
 1. `sql_mode` 必须在连接建立时设置，不能通过后续 `SET` 语句动态切换（问题 4）；
