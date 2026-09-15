@@ -277,7 +277,17 @@ def test_no_backslash_escapes():
             got = cur2.fetchone()[0]
             if got != test_val:
                 bare_xfail.append(f"{label}: data mismatch got {got!r}")
-        except Exception as e:
+        except ce.Error as e:
+            errno_got = getattr(e, "errno", "?")
+            msg = str(e)
+            # Known limitation: mysql-connector-python's backslash-based escaping
+            # produces syntax errors (errno 24708, message contains the word
+            # unterminated) once misread by openGauss, which never treats
+            # backslash as an escape character. Anything else (connection drops,
+            # auth/permission errors, protocol errors, etc.) must fail the test,
+            # not be swallowed into bare_xfail.
+            if errno_got != 24708 and "unterminated" not in msg.lower():
+                raise
             bare_xfail.append(f"{label}: {type(e).__name__}: {str(e)[:80]}")
             # Reset the aborted transaction so the NEXT sample in this loop
             # is tested from a clean transaction state, not tainted by this
@@ -378,7 +388,17 @@ def test_binary_blob_native():
                     xfail_reasons.append(
                         f"[{label}] data corrupted: expected {bdata!r}, got {got!r}"
                     )
-        except Exception as e:
+        except ce.Error as e:
+            errno_got = getattr(e, "errno", "?")
+            msg = str(e)
+            # Known limitation: same underlying defect as the bare-connection
+            # escaping case (errno 24708, message contains the word unterminated) —
+            # openGauss never treats backslash as an escape character, so the
+            # connector's _binary-prefix escaping produces syntax errors for
+            # certain byte values. Anything else must fail the test, not be
+            # swallowed into xfail_reasons.
+            if errno_got != 24708 and "unterminated" not in msg.lower():
+                raise
             xfail_reasons.append(f"[{label}] raised {type(e).__name__}: {e}")
         finally:
             # Always rollback first: openGauss (PostgreSQL engine) marks the
@@ -560,17 +580,51 @@ def test_error_mapping():
         if errno_got == 1146 and sqlstate_got == "42S02":
             print(f"      table_not_found: ProgrammingError/1146/42S02 ✓")
         else:
+            # Even though the exception type matches ProgrammingError, do not
+            # blindly accept an errno/sqlstate mismatch as a known mapping
+            # difference: verify the underlying error still clearly indicates
+            # the table genuinely does not exist (PostgreSQL-style SQLSTATE
+            # 42P01 undefined_table, or an explicit does-not-exist message).
+            # Permission errors, syntax errors, etc. that happen to also raise
+            # ProgrammingError must fail the test, not be swallowed here.
+            msg = str(e)
+            msg_lower = msg.lower()
+            is_known_table_not_found_mapping_diff = (
+                sqlstate_got == "42P01"
+                or "does not exist" in msg_lower
+                or "doesn't exist" in msg_lower
+                or "不存在" in msg
+            )
+            if not is_known_table_not_found_mapping_diff:
+                raise
             xfail_reasons.append(
                 f"table_not_found: ProgrammingError but errno={errno_got} "
-                f"sqlstate={sqlstate_got} (expected 1146/42S02)"
+                f"sqlstate={sqlstate_got} (expected 1146/42S02): {msg}"
             )
-    except Exception as e:
+    except ce.Error as e:
+        # Only treat this as a *known* error-mapping difference if the
+        # underlying error still clearly indicates the table genuinely does
+        # not exist (e.g. openGauss surfacing a PostgreSQL-style
+        # undefined_table instead of translating it to MySQL errno
+        # 1146/SQLSTATE 42S02). Connection drops, permission errors,
+        # protocol errors, etc. do NOT match this signature and must fail
+        # the test, not be swallowed into xfail_reasons.
         errno_got = getattr(e, "errno", "?")
         sqlstate_got = getattr(e, "sqlstate", "?")
-        xfail_reasons.append(
-            f"table_not_found: expected ProgrammingError/1146/42S02, "
-            f"got {type(e).__name__}(errno={errno_got}, sqlstate={sqlstate_got})"
+        msg = str(e)
+        msg_lower = msg.lower()
+        is_known_table_not_found_mapping_diff = (
+            "does not exist" in msg_lower
+            or "doesn't exist" in msg_lower
+            or "不存在" in msg
         )
+        if is_known_table_not_found_mapping_diff:
+            xfail_reasons.append(
+                f"table_not_found: expected ProgrammingError/1146/42S02, "
+                f"got {type(e).__name__}(errno={errno_got}, sqlstate={sqlstate_got}): {msg}"
+            )
+        else:
+            raise
     finally:
         conn.rollback()
 
@@ -600,13 +654,30 @@ def test_error_mapping():
                 f"dup_key: IntegrityError but errno={errno_got} "
                 f"sqlstate={sqlstate_got} (expected 1062/23000)"
             )
-    except Exception as e:
+    except ce.Error as e:
+        # Only treat this as a *known* error-mapping difference if the
+        # underlying error still clearly signals a duplicate-key / unique
+        # constraint violation (e.g. openGauss surfacing a PostgreSQL-style
+        # unique_violation instead of translating it to MySQL errno
+        # 1062/SQLSTATE 23000). Connection drops, permission errors,
+        # protocol errors, etc. do NOT match this signature and must fail
+        # the test, not be swallowed into xfail_reasons.
         errno_got = getattr(e, "errno", "?")
         sqlstate_got = getattr(e, "sqlstate", "?")
-        xfail_reasons.append(
-            f"dup_key: expected IntegrityError/1062/23000, "
-            f"got {type(e).__name__}(errno={errno_got}, sqlstate={sqlstate_got})"
+        msg = str(e)
+        msg_lower = msg.lower()
+        is_known_dup_mapping_diff = (
+            sqlstate_got == "23505"
+            or "duplicate key value violates unique constraint" in msg_lower
+            or "重复键值违反唯一约束" in msg
         )
+        if is_known_dup_mapping_diff:
+            xfail_reasons.append(
+                f"dup_key: expected IntegrityError/1062/23000, "
+                f"got {type(e).__name__}(errno={errno_got}, sqlstate={sqlstate_got}): {msg}"
+            )
+        else:
+            raise
     finally:
         conn.rollback()
         try:
