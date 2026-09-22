@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    # DB_HOST/DB_PORT/DB_NAME/DB_USER/DB_PASSWORD 通过环境变量或 -D 覆盖
+    # 端口是 dolphin 协议端口（dolphin_server_port，默认 3308），不是 openGauss 原生端口 5432
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3308}/${DB_NAME:mysql_test_db}?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
+    username: ${DB_USER:mysql_test_db}
+    password: ${DB_PASSWORD:ChangeMe_123}
+    # 8.0.x 新旧坐标驱动类名相同
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    job:
+      # 上下文启动时不自动跑批，测试里用 JobLauncher 手动启动（可控、可断言）
+      enabled: false
+    jdbc:
+      # 每次启动用 Spring Batch 自带 schema-mysql.sql 重建 BATCH_* 元数据表。
+      # 这份 DDL 由 MySQL JDBC -> dolphin 协议 -> B 库执行，本身是第一道兼容性测试。
+      initialize-schema: always
+      # 显式指定 MySQL 平台脚本；"不指定、靠 DatabaseType 自动识别产品名"留作专项用例
+      platform: mysql
