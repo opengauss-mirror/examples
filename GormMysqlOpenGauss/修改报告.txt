@@ -1,0 +1,120 @@
+GORM + MySQL Go 驱动连接 openGauss B 兼容模式
+PR：opengauss/examples#128
+报告日期：2026-11-28
+
+一、报告范围
+
+本报告汇总 examples PR #128 最新评审意见对应的代码修改、真实 openGauss 联调结果、集成测试结果和测试证据整理情况。报告不包含数据库密码、完整 DSN 或未脱敏的认证信息。
+
+二、评审意见处理情况
+
+1. DSN 校验
+
+将自定义字符串判断改为调用 go-sql-driver/mysql 的 driver.ParseDSN，并检查 cfg.Net == "tcp"。现在能够拒绝非法 DSN、Unix socket DSN 和非 TCP 网络配置。
+
+涉及文件：
+GormMysqlOpenGauss/internal/config/config.go
+
+2. DSN 参数追加
+
+修复 ensureParam 的部分参数名误判问题。现在只比较查询参数等号前的完整键名，可以保留用户显式设置的 parseTime=false、loc=UTC 等参数，不会把 time 错误识别为 parseTime。
+
+新增测试覆盖完整参数名匹配和非法 DSN 场景。
+
+涉及文件：
+GormMysqlOpenGauss/internal/config/config.go
+GormMysqlOpenGauss/internal/config/config_test.go
+
+3. 连接超时和重复 Ping
+
+将 30 秒 context 提前到配置读取和数据库打开之前创建，并在 gorm.Open 中设置 DisableAutomaticPing=true。数据库连通性由后续显式 HealthCheck 完成，避免自动 Ping 和 HealthCheck 重复执行。
+
+涉及文件：
+GormMysqlOpenGauss/cmd/gorm-opengauss/main.go
+GormMysqlOpenGauss/internal/db/opengauss.go
+
+4. schema.table 限定表名
+
+修复 ColumnTypes 和 GetIndexes 在传入 schema.table 时拆分后使用裸表名的问题。现在保留 qualifiedTable 用于样本查询，只将拆分后的 schema 和 table 用于 information_schema 元数据过滤，避免查询当前 schema 中的同名表。
+
+涉及文件：
+GormMysqlOpenGauss/internal/db/opengauss.go
+
+5. OPENGAUSS_DATABASE 使用说明
+
+README 补充说明：OPENGAUSS_DATABASE 和 DSN 中斜杠后的名称填写目标 schema，例如 gorm_test；物理 B 兼容库由 Dolphin 服务端配置选择。运行 migrate 前需要确认 schema 已创建，并授予连接用户 USAGE、CREATE 等权限。
+
+涉及文件：
+GormMysqlOpenGauss/README.md
+
+三、真实环境验证
+
+1. 客户端环境
+
+- Windows PowerShell
+- Go 客户端使用项目内 Go 工具链
+- openGauss 通过 Dolphin MySQL 协议端口提供连接
+- 连接参数中的敏感信息未写入本报告
+
+2. 真实集成测试
+
+使用真实 openGauss 数据库执行：
+
+go test -count=1 -tags=integration ./... -v
+
+测试结果：
+
+- TestOpenGaussCRUD：PASS
+- TestOpenGaussMigratorUsesCurrentDatabaseForTableChecks：PASS
+- TestOpenGaussMigratorGetTablesUsesCurrentDatabase：PASS
+- TestOpenGaussMigratorColumnTypesAvoidsMySQLSchemaLookup：PASS
+- TestOpenGaussMigratorGetIndexesUsesDolphinMetadata：PASS
+- TestUserRepositoryBuildsSQL：PASS
+- internal/db：PASS
+- internal/repository：PASS
+
+截图证据：
+
+docs/evidence/integration-test-pass.png
+
+截图中显示 TestOpenGaussCRUD、迁移器适配测试和仓储测试均通过，最终 Go 包返回 ok，且没有显示 cached，说明不是直接复用测试缓存的结果。
+
+3. 权限问题处理
+
+首次真实集成测试曾因 proto_test 用户缺少 gorm_test 相关权限而失败，错误为：
+
+current user does not have privilege to role gorm_test
+
+随后在 openGauss 目标 schema 上补充了连接用户的 USAGE、CREATE 等权限，并根据实际 HBA 客户端地址配置 pg_hba.conf。权限修复后再次执行集成测试通过。
+
+四、本地测试结果
+
+- go test ./...：通过
+- go vet ./...：通过
+- git diff --check：通过
+- sqlmock 覆盖 CurrentDatabase、HasTable、GetTables、ColumnTypes 和 GetIndexes
+
+五、影响范围
+
+- 仅修改 GORM 示例工程、测试代码和示例文档。
+- 未修改 Plugin 仓代码。
+- 未修改 openGauss-server 或服务端执行逻辑。
+- 不涉及系统表、日志持久化、执行态数据格式或在线扩容。
+- 不需要回合补丁版本。
+- 不涉及 DOLPHIN 宏，因为没有修改 Plugin dolphin 插件代码。
+
+六、证据文件
+
+- GormMysqlOpenGauss/docs/self_test_report.md
+- GormMysqlOpenGauss/docs/evidence/integration-test-pass.png
+- GormMysqlOpenGauss/docs/evidence/real_environment_smoke_test.md
+
+七、安全说明
+
+测试过程中曾在 PowerShell 历史中使用过包含认证信息的 DSN。该凭据不应继续使用，建议修改 proto_test 用户密码，并避免将密码、完整 DSN 写入命令历史、截图、测试报告或 PR 评论。后续建议使用分项环境变量，并在测试结束后清理 OPENGAUSS_PASSWORD。
+
+八、提交说明
+
+本报告为本地重新生成的辅助材料。若需要纳入 PR，应将本文件与 self_test_report.md 及脱敏截图一并提交，并在推送后重新触发：
+
+/retest
